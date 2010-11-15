@@ -1,6 +1,7 @@
 <?php
 class FlickrPress {
 	// constants	
+	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
 	const CACHE_TYPE = 'fs';
@@ -22,6 +23,10 @@ class FlickrPress {
 		return get_option(self::getKey('api_key'));
 	}
 
+        public static function getApiSecret() {
+                return get_option(self::getKey('api_secret'));
+        }
+
 	public static function getUserId() {
 		return get_option(self::getKey('user_id'));
 	}
@@ -30,18 +35,19 @@ class FlickrPress {
 		return plugins_url('wp-flickr-press');
 	}
 
-	private static function getKey($key) {
+	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}
 
 	private static function addEvents() {
 		// load action or filter
 		require_once(self::getDir().'/FpPostEvent.php');
-
 		add_action('media_buttons_context', array('FpPostEvent', 'addButtons'));
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
-
 		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScript'));
+
+		require_once(self::getDir().'/FpAdminSettingEvent.php');
+		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
 	}
 
 	public static function getPhotoUrl($photo, $size='') {
