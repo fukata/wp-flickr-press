@@ -4,12 +4,12 @@ require_once(dirname(__FILE__).'/FlickrPress.php');
 require_once(dirname(__FILE__).'/FpPager.php');
 require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
 
-$modes = array('recent','search','upload');
+$modes = array('search','upload');
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 	if (!in_array($_POST['mode'], $modes)) {
 		wp_die('Dows not exists mode.');
 	} else {
-		media_send_to_editor('hogehoge');
+		require_once(dirname(__FILE__).'/media-send-editor.php');
 	}
 }
 

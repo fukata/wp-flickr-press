@@ -21,7 +21,7 @@ class FpPager {
 			'format' => '',
 			'prev_text' => __('&laquo;'),
 			'next_text' => __('&raquo;'),
-			'total' => $this->total,
+			'total' => ceil($this->total / $this->perPage),
 			'current' => $this->page
 		));
 		$html = "<div class='tablenav-pages'>{$html}</div>";

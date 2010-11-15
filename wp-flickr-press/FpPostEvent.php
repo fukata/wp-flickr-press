@@ -12,7 +12,7 @@ class FpPostEvent {
 	}
 
 	public static function getUploadIframeSrc($uploadIframeSrc) {
-		return FlickrPress::getPluginUrl().'/'.$uploadIframeSrc.'&mode=recent';
+		return FlickrPress::getPluginUrl().'/'.$uploadIframeSrc.'&mode=search';
 	}
 
 	private static function _media_button($title, $icon, $type) {

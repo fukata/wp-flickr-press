@@ -3,7 +3,10 @@ class FlickrPress {
 	// constants	
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
+	const CACHE_TYPE = 'fs';
+	const CACHE_CONNECTION = '/tmp/';
 
+	private static $sizes = array('m','s','t','z','b');
 	private function __construct() {
 	}
 
@@ -39,6 +42,17 @@ class FlickrPress {
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
 
 		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScript'));
+	}
+
+	public static function getPhotoUrl($photo, $size='') {
+		$size = in_array($size, self::$sizes) ? "_{$size}" : '';
+		$img = "http://farm{$photo['farm']}.static.flickr.com/{$photo['server']}/{$photo['id']}_{$photo['secret']}{$size}.jpg";
+		return $img;
+	}
+
+	public static function getPhotoPageUrl($photo) {
+		$url = "http://www.flickr.com/photos/{$photo['owner']}/{$photo['id']}";
+		return $url;
 	}
 }
 ?>
