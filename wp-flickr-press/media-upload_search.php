@@ -6,7 +6,7 @@ $body_id = 'media-upload';
 wp_iframe('media_upload_search_form');
 
 function fp_add_style() {
-	echo "\n".'<link rel="stylesheet" href="'.FlickrPress::getPluginUrl().'/css/media-upload_search.css" media="all" type="text/css" />
+	echo "\n".'<link rel="stylesheet" href="'.FlickrPress::getPluginUrl().'/css/media-upload_search.css?'.time().'" media="all" type="text/css" />
 ';
 }
 
@@ -21,19 +21,72 @@ function media_upload_search_form() {
 		'None'=>'',
 		'New Window'=>'_blank',
 	);
+
 	$page = isset($_GET['page']) && intval($_GET['page'])>0 ? intval($_GET['page']) : 0;
+	
+	$filter = isset($_GET['filter']) ? $_GET['filter'] : array();
+	$checkedRecent = (!isset($filter['type']) || $filter['type']=='recent') ? " checked='checked'" : '';
+	$checkedAdvanced = (isset($filter['type']) && $filter['type']=='advanced') ? " checked='checked'" : '';	
+	$advancedFormClass = strlen($checkedAdvanced)==0 ? 'search-form-off' : '';
+	$checkedPhotosets = (isset($filter['type']) && $filter['type']=='photosets') ? " checked='checked'" : '';	
+	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
+	
 	$flickr = new phpFlickr(FlickrPress::getApiKey());
 	$flickr->enableCache(FlickrPress::CACHE_TYPE, FlickrPress::CACHE_CONNECTION);
-	$recent = $flickr->photos_search(array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20));
-	$pager = new FpPager($recent['total'], $recent['page'], $recent['perpage']);
-?>
-<script src='<?php echo FlickrPress::getPluginUrl().'/js/flickr_press.js' ?>' type='text/javascript'></script>
 
+	$photosets = $flickr->photosets_getList(FlickrPress::getUserId());
+
+	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
+	if (strlen($checkedRecent)>0) {
+	} else if (strlen($checkedAdvanced)>0) {
+		$params['tags'] = $filter['tags'];
+	} else if (strlen($checkedPhotosets)>0) {
+		$params['photoset_id'] = $filter['photoset'];
+	}
+	if (strlen($checkedPhotosets)>0) {
+		$photos = $flickr->photosets_getPhotos($params);
+		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos;
+	} else {
+		$photos = $flickr->photos_search($params);
+	}
+
+	$pager = new FpPager($photos['total'], $photos['page'], $photos['perpage']);
+?>
 <div id="media-upload-header">
 	<ul id='sidemenu'>
 	    <li id='tab-search'><a href='<?php echo FlickrPress::getPluginUrl() ?>/media-upload.php?post_id<?php echo $_GET['post_id'] ?>&type=image&tab=search' class='current'><?php echo __('Search') ?></a></li>
 	</ul>
 </div>
+
+<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get">
+        <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
+        <input type="hidden" name="type" value="<?php echo $_GET['type'] ?>" />
+        <input type="hidden" name="mode" value="<?php echo $_GET['mode'] ?>" />
+        <input type="hidden" name="TB_iframe" value="<?php echo $_GET['TB_iframe'] ?>" />
+
+	<div class="searchnav">
+		<p>
+			<input type="radio" name="filter[type]" value="recent" class="search-type" id="filter-type-recent" <?php echo $checkedRecent ?>/><label for="filter-type-recent"><?php echo __('Recent upload') ?></label>
+			<input type="radio" name="filter[type]" value="photosets" class="search-type" id="filter-type-photosets" <?php echo $checkedPhotosets ?>/><label for="filter-type-photosets"><?php echo __('Photosets') ?></label>
+			<input type="radio" name="filter[type]" value="advanced" class="search-type" id="filter-type-advanced" <?php echo $checkedAdvanced ?>/><label for="filter-type-advanced"><?php echo __('Advanced') ?></label>
+		</p>
+		<div id="advanced-search-form" class="<?php echo $advancedFormClass?>">
+			<p class="field-row"><span class="field-label"><?php echo __('Keyword:') ?></span><input type="text" name="filter[keyword]" value="<?php echo $filter['keyword'] ?>" size="50"/></p>
+			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50"/></p>
+		</div>
+		<div id="photosets-search-form" class="<?php echo $photosetsFormClass?>">
+			<p class="field-row"><span class="field-label"><?php echo __('Photosets:') ?></span>
+				<select name="filter[photoset]">
+					<?php foreach ($photosets['photoset'] as $photoset) { ?>
+						<option value="<?php echo $photoset['id'] ?>"><?php echo $photoset['title'] ?></option>
+					<?php } ?>
+				</select>
+			</p>
+		</div>
+
+		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/></p>
+	</div>
+</form>
 
 <div class="tablenav"><?php echo $pager->generate() ?></div>
 <br class="clear" />
@@ -43,7 +96,7 @@ function media_upload_search_form() {
         <input type="hidden" name="type" value="<?php echo $_GET['type'] ?>" />
         <input type="hidden" name="mode" value="<?php echo $_GET['mode'] ?>" />
         <input type="hidden" name="TB_iframe" value="<?php echo $_GET['TB_iframe'] ?>" />
-<?php foreach($recent['photo'] as $photo) { ?>
+<?php foreach($photos['photo'] as $photo) { ?>
 	<div id="media-item-<?php echo $photo['id'] ?>" class="media-item">
 		<img class="pinkynail toggle" src="<?php echo FlickrPress::getPhotoUrl($photo, 's') ?>"/>
 		<a class="toggle describe-toggle-on" href="#"><?php echo __('Show') ?></a>
@@ -119,6 +172,20 @@ function media_upload_search_form() {
 </form>
 <div class="tablenav"><?php echo $pager->generate() ?></div>
 <script type="text/javascript">
+jQuery('input.search-type').click(function() {
+	var type = jQuery(this).val();
+	if (type=='advanced') {
+		jQuery('div#advanced-search-form').slideDown();
+		jQuery('div#photosets-search-form').slideUp();
+	} else if (type=='photosets') {
+		jQuery('div#photosets-search-form').slideDown();
+		jQuery('div#advanced-search-form').slideUp();
+	} else {
+		jQuery('div#photosets-search-form').slideUp();
+		jQuery('div#advanced-search-form').slideUp();
+	}
+});
+
 jQuery('div.media-item').each(function() {
         jQuery('a.toggle', this).click(function(){
                  jQuery(this).siblings('.slidetoggle').slideToggle(350, function(){
