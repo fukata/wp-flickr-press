@@ -17,6 +17,10 @@ function media_upload_search_form() {
 		'Center'=>'center',
 		'Right'=>'right',
 	);
+	$targets = array(
+		'None'=>'',
+		'New Window'=>'_blank',
+	);
 	$page = isset($_GET['page']) && intval($_GET['page'])>0 ? intval($_GET['page']) : 0;
 	$flickr = new phpFlickr(FlickrPress::getApiKey());
 	$flickr->enableCache(FlickrPress::CACHE_TYPE, FlickrPress::CACHE_CONNECTION);
@@ -73,11 +77,21 @@ function media_upload_search_form() {
 						<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
 					</td>
 				</tr>
+                                <tr class="target">
+                                        <th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][target]"><span class="alignleft"><?php echo __('Link Target')?></span><br class="clear"></label></th>
+                                        <td class="field">
+                                                <?php foreach ($targets as $label => $target) { ?>
+							<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
+                                                        <input type="radio" name="attachments[<?php echo $photo['id'] ?>][target]" id="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label) ?></label>
+                                                <?php } ?>
+                                        </td>
+                                </tr>
 				<tr class="align">
 					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][align]"><span class="alignleft"><?php echo __('Alignment')?></span><br class="clear"></label></th>
 					<td class="field">
 						<?php foreach ($alignes as $label => $align) { ?>
-							<input type="radio" name="attachments[<?php echo $photo['id'] ?>][align]" id="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" value="<?php echo $align ?>"><label for="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" class="align image-align-<?php echo $align ?>-label"><?php echo __($label) ?></label>
+							<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
+							<input type="radio" name="attachments[<?php echo $photo['id'] ?>][align]" id="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label) ?></label>
 						<?php } ?>
 					</td>
 				</tr>
@@ -86,7 +100,8 @@ function media_upload_search_form() {
 					<td class="field">
 						<?php $sizes = $flickr->photos_getSizes($photo['id']);?>
 						<?php foreach($sizes as $size) { ?>
-							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $size['source'] ?>" type="radio" id="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"/><label for="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"><?php echo __($size['label']) ?></label><label for="image-size-thumbnail-<?php echo $photo['id'] ?>" class="help">(<?php echo $size['width'] ?>&nbsp;×&nbsp;<?php echo $size['height'] ?>)</label></div>
+							<?php $checked = FlickrPress::getDefaultSize()==$size['label'] ? " checked='checked'" : '' ?>
+							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $size['source'] ?>" type="radio" id="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"><?php echo __($size['label']) ?></label><label for="image-size-thumbnail-<?php echo $photo['id'] ?>" class="help">(<?php echo $size['width'] ?>&nbsp;×&nbsp;<?php echo $size['height'] ?>)</label></div>
 						<?php } ?>
 					</td>
 				</tr>

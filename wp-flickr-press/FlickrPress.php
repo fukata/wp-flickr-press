@@ -35,6 +35,18 @@ class FlickrPress {
 		return plugins_url('wp-flickr-press');
 	}
 
+	public static function getDefaultTarget() {
+		return get_option(self::getKey('default_target'), '');
+	}
+
+	public static function getDefaultAlign() {
+		return get_option(self::getKey('default_align'), 'none');
+	}
+
+	public static function getDefaultSize() {
+		return get_option(self::getKey('default_size'), 'Medium');
+	}
+
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}

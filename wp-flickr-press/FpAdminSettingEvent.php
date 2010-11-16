@@ -11,10 +11,32 @@ class FpAdminSettingEvent {
 			FlickrPress::getKey('api_key'),
 			FlickrPress::getKey('api_secret'),
 			FlickrPress::getKey('user_id'),
+			FlickrPress::getKey('default_target'),
+			FlickrPress::getKey('default_align'),
+			FlickrPress::getKey('default_size'),
 		));
 	}
 
 	public static function generateOptionForm() {
+	        $alignes = array(
+	                'None'=>'none',
+	                'Left'=>'left',
+	                'Center'=>'center',
+	                'Right'=>'right',
+	        );
+	        $targets = array(
+	                'None'=>'',
+	                'New Window'=>'_blank',
+        	);
+		$sizes = array(
+			'Square' => 'Square',
+			'Thumbnail' => 'Thumbnail',
+			'Small' => 'Small',
+			'Medium' => 'Medium',
+			'Medium 640' => 'Medium 640',
+			'Large' => 'Large',
+			'Original' => 'Original',
+		);
 ?>
 <div class="wrap">
         <h2><?php echo FlickrPress::NAME ?></h2>
@@ -42,6 +64,39 @@ class FpAdminSettingEvent {
                         </tr>
 
                 </table>
+
+		<h3><?php echo _e('Default Attachments') ?></h3>
+		<table class="form-table">
+			<tr valign="top">
+				<th scope="row"><p><?php echo _e('Link Target') ?></p></th>
+				<td>
+					<?php foreach($targets as $label => $target) { ?>
+						<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
+						<input type="radio" name="<?php echo FlickrPress::getKey('default_target') ?>" id="target" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="target"><?php echo $label ?></label>
+					<?php } ?>
+				</td>
+			</tr>
+                        <tr valign="top">
+                                <th scope="row"><p><?php echo _e('Alignment') ?></p></th>
+                                <td>
+                                        <?php foreach($alignes as $label => $align) { ?>
+						<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
+                                                <input type="radio" name="<?php echo FlickrPress::getKey('default_align') ?>" id="alignment" value="<?php echo $align ?>" <?php echo $checked ?>/><label for="alignment"><?php echo $label ?></label>
+                                        <?php } ?>
+                                </td>
+                        </tr>
+                        <tr valign="top">
+                                <th scope="row"><p><?php echo _e('Size') ?></p></th>
+                                <td>
+                                        <?php foreach($sizes as $label => $size) { ?>
+						<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
+                                                <p><input type="radio" name="<?php echo FlickrPress::getKey('default_size') ?>" id="size-<?php echo $size ?>" value="<?php echo $size ?>" <?php echo $checked ?>/><label for="size-<?php echo $size ?>"><?php echo $label ?></label></p>
+                                        <?php } ?>
+                                </td>
+                        </tr>
+	
+		</table>
+
                 <p class="submit">
                         <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
                 </p>

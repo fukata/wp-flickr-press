@@ -17,6 +17,8 @@ media_send_to_editor(fp_create_image_html($photo, $attachment));
 function fp_create_image_html($photo, $attachment) {
 
 	$link = esc_url($attachment['url']);
+	$target = isset($attachment['target']) ? esc_attr($attachment['target']) : '';
+	$target = strlen($target)>0 ? " target='{$target}'" : '';
 	$align = isset($attachment['align']) ? esc_attr($attachment['align']) : '';
 	$src = isset($attachment['image-size']) ? esc_attr($attachment['image-size']) : '';
 	$alt = isset($attachment['title']) ? esc_attr($attachment['title']) : '';
@@ -32,7 +34,7 @@ function fp_create_image_html($photo, $attachment) {
 	$html = '';
 	$html = "<img src='{$src}' alt='{$alt}'{$class} />";
 	if (strlen($link)>0) {
-		$html = "<a href='{$link}'>{$html}</a>";
+		$html = "<a href='{$link}'{$target}>{$html}</a>";
 	}
 	return $html;
 }
