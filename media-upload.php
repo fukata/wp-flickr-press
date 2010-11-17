@@ -1,5 +1,5 @@
 <?php 
-require_once(dirname(__FILE__).'/../../../wp-admin/admin.php');
+require_once(dirname(__FILE__).'/../../wp-admin/admin.php');
 require_once(dirname(__FILE__).'/FlickrPress.php');
 require_once(dirname(__FILE__).'/FpPager.php');
 require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
