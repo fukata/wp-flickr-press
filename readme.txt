@@ -1,4 +1,4 @@
-=== WPExifView ===
+=== wp-flickr-press ===
 Contributors: tatsuya
 Donate link: http://fukata.org/
 Tags: images,flickr
