@@ -4,8 +4,6 @@ class FlickrPress {
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
-	const CACHE_TYPE = 'fs';
-	const CACHE_CONNECTION = '/tmp/';
 
 	private static $sizes = array('m','s','t','z','b');
 	private function __construct() {
@@ -17,6 +15,14 @@ class FlickrPress {
 
 	public static function getDir() {
 		return dirname(__FILE__);
+	}
+
+	public static function getCacheType() {
+		return 'fs';
+	}
+
+	public static function getCacheConnection() {
+		return dirname(__FILE__).'/cache/';
 	}
 
 	public static function getApiKey() {

@@ -2,7 +2,7 @@
 
 if ( isset($_POST['send']) && isset($_POST['attachments']) ) {
 	$keys = array_keys($_POST['send']);
-	$send_id = (int) array_shift($keys);
+	$send_id = array_shift($keys);
 	$attachment = $_POST['attachments'][$send_id];
 } else {
 	wp_die('does not exists key.');

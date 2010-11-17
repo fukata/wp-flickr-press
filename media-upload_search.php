@@ -32,7 +32,7 @@ function media_upload_search_form() {
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	
 	$flickr = new phpFlickr(FlickrPress::getApiKey());
-	$flickr->enableCache(FlickrPress::CACHE_TYPE, FlickrPress::CACHE_CONNECTION);
+	$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
 
 	$photosets = $flickr->photosets_getList(FlickrPress::getUserId());
 
