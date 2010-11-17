@@ -32,6 +32,9 @@ http://github.com/fukata/wp-flickr-press/
 3. Setting config
 
 == Changelog ==
+= 0.0.4 =
+* 検索機能追加
+
 = 0.0.1 =
 * 初回リリース
 
