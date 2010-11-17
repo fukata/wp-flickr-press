@@ -9,7 +9,7 @@ if ( isset($_POST['send']) && isset($_POST['attachments']) ) {
 }
 
 $flickr = new phpFlickr(FlickrPress::getApiKey());
-$flickr->enableCache(FlickrPress::CACHE_TYPE, FlickrPress::CACHE_CONNECTION);
+$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
 $photo = $flickr->photos_getInfo($send_id);
 
 media_send_to_editor(fp_create_image_html($photo, $attachment));
