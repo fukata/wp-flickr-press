@@ -31,7 +31,7 @@ function media_upload_search_form() {
 	$checkedPhotosets = (isset($filter['type']) && $filter['type']=='photosets') ? " checked='checked'" : '';	
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	
-	$photosets = $flickr->photosets_getList(FlickrPress::getUserId());
+	$photosets = FlickrPress::getClient()->photosets_getList(FlickrPress::getUserId());
 	
 	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
 	if (strlen($checkedRecent)>0) {
@@ -41,10 +41,10 @@ function media_upload_search_form() {
 		$params['photoset_id'] = $filter['photoset'];
 	}
 	if (strlen($checkedPhotosets)>0) {
-		$photos = $flickr->photosets_getPhotos($params);
+		$photos = FlickrPress::getClient()->photosets_getPhotos($params);
 		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos;
 	} else {
-		$photos = $flickr->photos_search($params);
+		$photos = FlickrPress::getClient()->photos_search($params);
 	}
 
 	$pager = new FpPager($photos['total'], $photos['page'], $photos['perpage']);
@@ -148,7 +148,7 @@ function media_upload_search_form() {
 				<tr class="image-size">
 					<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size')?></span><br class="clear"></label></th>
 					<td class="field">
-						<?php $sizes = $flickr->photos_getSizes($photo['id']);?>
+						<?php $sizes = FlickrPress::getClient()->photos_getSizes($photo['id']);?>
 						<?php foreach($sizes as $size) { ?>
 							<?php $checked = FlickrPress::getDefaultSize()==$size['label'] ? " checked='checked'" : '' ?>
 							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $size['source'] ?>" type="radio" id="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"><?php echo __($size['label']) ?></label><label for="image-size-thumbnail-<?php echo $photo['id'] ?>" class="help">(<?php echo $size['width'] ?>&nbsp;×&nbsp;<?php echo $size['height'] ?>)</label></div>

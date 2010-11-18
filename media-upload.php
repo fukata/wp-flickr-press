@@ -3,10 +3,7 @@ require_once(dirname(__FILE__).'/../../../wp-admin/admin.php');
 require_once(dirname(__FILE__).'/FlickrPress.php');
 require_once(dirname(__FILE__).'/FpPager.php');
 require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
-
-$flickr = new phpFlickr(FlickrPress::getApiKey());
-$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
-
+require_once(dirname(__FILE__).'/check-setting.php');
 
 $modes = array('search','upload');
 if ($_SERVER['REQUEST_METHOD']=='POST') {

@@ -1,5 +1,4 @@
 <?php
-
 if ( isset($_POST['send']) && isset($_POST['attachments']) ) {
 	$keys = array_keys($_POST['send']);
 	$send_id = array_shift($keys);
@@ -8,7 +7,7 @@ if ( isset($_POST['send']) && isset($_POST['attachments']) ) {
 	wp_die('does not exists key.');
 }
 
-$photo = $flickr->photos_getInfo($send_id);
+$photo = FlickrPress::getClient()->photos_getInfo($send_id);
 
 media_send_to_editor(fp_create_image_html($photo, $attachment));
 

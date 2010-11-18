@@ -1,9 +1,13 @@
 <?php
+require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
+
 class FlickrPress {
 	// constants	
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
+
+	private static $flickr;
 
 	private static $sizes = array('m','s','t','z','b');
 	private function __construct() {
@@ -11,6 +15,13 @@ class FlickrPress {
 
 	public static function init() {
 		self::addEvents();
+
+		self::$flickr = new phpFlickr(FlickrPress::getApiKey());
+		self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
+	}
+
+	public static function getClient() {
+		return self::$flickr;
 	}
 
 	public static function getDir() {
