@@ -72,7 +72,7 @@ class FpAdminSettingEvent {
 				<td>
 					<?php foreach($targets as $label => $target) { ?>
 						<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
-						<input type="radio" name="<?php echo FlickrPress::getKey('default_target') ?>" id="target" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="target"><?php echo $label ?></label>
+						<input type="radio" name="<?php echo FlickrPress::getKey('default_target') ?>" id="target-<?php echo $target ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="target-<?php echo $target ?>"><?php echo $label ?></label>
 					<?php } ?>
 				</td>
 			</tr>
@@ -81,7 +81,7 @@ class FpAdminSettingEvent {
                                 <td>
                                         <?php foreach($alignes as $label => $align) { ?>
 						<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
-                                                <input type="radio" name="<?php echo FlickrPress::getKey('default_align') ?>" id="alignment" value="<?php echo $align ?>" <?php echo $checked ?>/><label for="alignment"><?php echo $label ?></label>
+                                                <input type="radio" name="<?php echo FlickrPress::getKey('default_align') ?>" id="alignment-<?php echo $align ?>" value="<?php echo $align ?>" <?php echo $checked ?>/><label for="alignment-<?php echo $align ?>"><?php echo $label ?></label>
                                         <?php } ?>
                                 </td>
                         </tr>
