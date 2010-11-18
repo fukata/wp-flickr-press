@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: 0.0.3
+Stable tag: 0.0.4
 
 Flickr画像を記事本文内に挿入する。
 

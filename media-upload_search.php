@@ -31,11 +31,8 @@ function media_upload_search_form() {
 	$checkedPhotosets = (isset($filter['type']) && $filter['type']=='photosets') ? " checked='checked'" : '';	
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	
-	$flickr = new phpFlickr(FlickrPress::getApiKey());
-	$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
-
 	$photosets = $flickr->photosets_getList(FlickrPress::getUserId());
-
+	
 	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
 	if (strlen($checkedRecent)>0) {
 	} else if (strlen($checkedAdvanced)>0) {
