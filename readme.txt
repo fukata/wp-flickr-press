@@ -15,6 +15,10 @@ Flickr画像を記事本文内に挿入する。
 最新のソースは、下記より取得できます。
 http://github.com/fukata/wp-flickr-press/
 
+PHP依存ライブラリ
+
+1. php-curl http://php.net/manual/ja/book.curl.php
+
 == Installation ==
 
 1. 解凍後、フォルダ「wp-flickr-press/」をディレクトリ「/wp-content/plugins/」にアップロードする。
