@@ -1,13 +1,14 @@
 <?php if(!class_exists('FlickrPress')) die('Not initialize FlickrPress.');
 
-add_action('admin_head', 'fp_add_style');
+add_action('admin_head', 'fp_add_scripts');
 
 $body_id = 'media-upload';
 wp_iframe('media_upload_search_form');
 
-function fp_add_style() {
-	echo "\n".'<link rel="stylesheet" href="'.FlickrPress::getPluginUrl().'/css/media-upload_search.css?'.time().'" media="all" type="text/css" />
-';
+function fp_add_scripts() {
+	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/media-upload_search.css?".time()."' media='all' type='text/css'/>";
+	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/jquery.tag.css?".time()."' media='all' type='text/css'/>";
+	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.tag.js?".time()."'></script>";
 }
 
 function media_upload_search_form() {
@@ -36,6 +37,8 @@ function media_upload_search_form() {
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	
 	$photosets = FlickrPress::getClient()->photosets_getList(FlickrPress::getUserId());
+	$tags = FlickrPress::getClient()->tags_getListUser(FlickrPress::getUserId());
+	$tags = $tags===false ? array() : $tags;
 	
 	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
 	if (strlen($checkedRecent)>0) {
@@ -53,6 +56,7 @@ function media_upload_search_form() {
 
 	$pager = new FpPager($photos['total'], $photos['page'], $photos['perpage']);
 ?>
+
 <div id="media-upload-header">
 	<ul id='sidemenu'>
 	    <li id='tab-search'><a href='<?php echo FlickrPress::getPluginUrl() ?>/media-upload.php?post_id<?php echo $_GET['post_id'] ?>&type=image&tab=search' class='current'><?php echo __('Search') ?></a></li>
@@ -74,7 +78,7 @@ function media_upload_search_form() {
 		</p>
 		<div id="advanced-search-form" class="<?php echo $advancedFormClass?>">
 			<p class="field-row"><span class="field-label"><?php echo __('Keyword:') ?></span><input type="text" name="filter[keyword]" value="<?php echo $filter['keyword'] ?>" size="50"/></p>
-			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50"/></p>
+			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50" id="filter-tags"/></p>
 		</div>
 		<div id="photosets-search-form" class="<?php echo $photosetsFormClass?>">
 			<p class="field-row"><span class="field-label"><?php echo __('Photosets:') ?></span>
@@ -87,7 +91,7 @@ function media_upload_search_form() {
 			</p>
 		</div>
 
-		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/> <a href="javascript:void();" class="button" id="clear-cache-btn">Clear Cache</a></p>
+		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/> <a href="javascript:void();" class="button" id="clear-cache-btn"><?php echo __('Search and clear cache') ?></a></p>
 	</div>
 </form>
 
@@ -232,6 +236,11 @@ jQuery(document).ready(function($){
 	$('#clear-cache-btn').click(function() {
 		$('#clear-cache').val('1');
 		$('#search-form').submit();
+	});
+
+	$('#filter-tags').tagSuggest({
+		separator: ',',
+		tags: <?php echo @json_encode($tags) ?>
 	});
 });
 </script>
