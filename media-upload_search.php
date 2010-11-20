@@ -25,6 +25,10 @@ function media_upload_search_form() {
 	$page = isset($_GET['page']) && intval($_GET['page'])>0 ? intval($_GET['page']) : 0;
 	
 	$filter = isset($_GET['filter']) ? $_GET['filter'] : array();
+	if (isset($_GET['clear_cache']) && $_GET['clear_cache']) {
+		FlickrPress::clearCache();
+	}
+
 	$checkedRecent = (!isset($filter['type']) || $filter['type']=='recent') ? " checked='checked'" : '';
 	$checkedAdvanced = (isset($filter['type']) && $filter['type']=='advanced') ? " checked='checked'" : '';	
 	$advancedFormClass = strlen($checkedAdvanced)==0 ? 'search-form-off' : '';
@@ -41,8 +45,8 @@ function media_upload_search_form() {
 		$params['photoset_id'] = $filter['photoset'];
 	}
 	if (strlen($checkedPhotosets)>0) {
-		$photos = FlickrPress::getClient()->photosets_getPhotos($params);
-		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos;
+		$photos = FlickrPress::getClient()->photosets_getPhotos($params['photoset_id'], NULL, NULL, $params['per_page'], $params['page']);
+		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos['photoset'];
 	} else {
 		$photos = FlickrPress::getClient()->photos_search($params);
 	}
@@ -55,11 +59,12 @@ function media_upload_search_form() {
 	</ul>
 </div>
 
-<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get">
+<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get" id="search-form">
         <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
         <input type="hidden" name="type" value="<?php echo $_GET['type'] ?>" />
         <input type="hidden" name="mode" value="<?php echo $_GET['mode'] ?>" />
         <input type="hidden" name="TB_iframe" value="<?php echo $_GET['TB_iframe'] ?>" />
+        <input type="hidden" name="clear_cache" value="0" id="clear-cache"/>
 
 	<div class="searchnav">
 		<p>
@@ -82,7 +87,7 @@ function media_upload_search_form() {
 			</p>
 		</div>
 
-		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/></p>
+		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/> <a href="javascript:void();" class="button" id="clear-cache-btn">Clear Cache</a></p>
 	</div>
 </form>
 
@@ -223,6 +228,11 @@ jQuery(document).ready(function($){
                         $(this).siblings('.urlfield').val( $(this).attr('title') );
                 }
         });
+
+	$('#clear-cache-btn').click(function() {
+		$('#clear-cache').val('1');
+		$('#search-form').submit();
+	});
 });
 </script>
 <?php 

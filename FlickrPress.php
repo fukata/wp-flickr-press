@@ -17,7 +17,27 @@ class FlickrPress {
 		self::addEvents();
 
 		self::$flickr = new phpFlickr(FlickrPress::getApiKey());
-		self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
+		if (self::isCacheEnabled()) {
+			self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
+		}
+	}
+
+	public static function clearCache() {
+		$cacheDir = self::getCacheConnection();
+		if (strlen($cacheDir)==0 || !is_writeable($cacheDir)) {
+			return;
+		}
+
+		$dir = dir($cacheDir);
+		while ( ($file=$dir->read()) !== false ) {
+			if (preg_match('/^.*\.cache$/', $file)) {
+				unlink("{$cacheDir}{$file}");
+			}
+		}
+	}
+
+	public static function isCacheEnabled() {
+		return true;
 	}
 
 	public static function getClient() {
