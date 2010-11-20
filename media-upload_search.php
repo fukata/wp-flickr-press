@@ -75,7 +75,8 @@ function media_upload_search_form() {
 			<p class="field-row"><span class="field-label"><?php echo __('Photosets:') ?></span>
 				<select name="filter[photoset]">
 					<?php foreach ($photosets['photoset'] as $photoset) { ?>
-						<option value="<?php echo $photoset['id'] ?>"><?php echo $photoset['title'] ?></option>
+						<?php $selected = $filter['photoset'] == $photoset['id'] ? " selected='selected'" : ""; ?>
+						<option value="<?php echo $photoset['id'] ?>"<?php echo $selected ?>><?php echo $photoset['title'] ?></option>
 					<?php } ?>
 				</select>
 			</p>
