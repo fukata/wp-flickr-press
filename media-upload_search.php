@@ -43,7 +43,14 @@ function media_upload_search_form() {
 	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
 	if (strlen($checkedRecent)>0) {
 	} else if (strlen($checkedAdvanced)>0) {
-		$params['tags'] = $filter['tags'];
+		$splited = split(',', $filter['tags']);
+		$joined = array();
+		foreach ($splited as $tag) {
+			if (strlen(trim($tag))>0) {
+				$joined[] = $tag;
+			}
+		}
+		$params['tags'] = join(',', $joined);
 	} else if (strlen($checkedPhotosets)>0) {
 		$params['photoset_id'] = $filter['photoset'];
 	}
@@ -78,7 +85,7 @@ function media_upload_search_form() {
 		</p>
 		<div id="advanced-search-form" class="<?php echo $advancedFormClass?>">
 			<p class="field-row"><span class="field-label"><?php echo __('Keyword:') ?></span><input type="text" name="filter[keyword]" value="<?php echo $filter['keyword'] ?>" size="50"/></p>
-			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50" id="filter-tags"/></p>
+			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50" id="filter-tags" autocomplete="off"/></p>
 		</div>
 		<div id="photosets-search-form" class="<?php echo $photosetsFormClass?>">
 			<p class="field-row"><span class="field-label"><?php echo __('Photosets:') ?></span>
@@ -91,7 +98,7 @@ function media_upload_search_form() {
 			</p>
 		</div>
 
-		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/> <a href="javascript:void();" class="button" id="clear-cache-btn"><?php echo __('Search and clear cache') ?></a></p>
+		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/> <a href="javascript:void(0);" class="button" id="clear-cache-btn"><?php echo __('Search and clear cache') ?></a></p>
 	</div>
 </form>
 
@@ -239,8 +246,9 @@ jQuery(document).ready(function($){
 	});
 
 	$('#filter-tags').tagSuggest({
-		separator: ',',
-		tags: <?php echo @json_encode($tags) ?>
+		'separator': ',',
+		'tagContainer' : 'div',
+		'tags': <?php echo @json_encode($tags) ?>
 	});
 });
 </script>
