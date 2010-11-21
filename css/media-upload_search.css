@@ -13,3 +13,8 @@ div#advanced_search_form {
 
 span.field-label {
 }
+
+.media-item .batch-send {
+	float: left;
+	margin-top: 10px;
+}

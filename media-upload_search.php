@@ -104,14 +104,17 @@ function media_upload_search_form() {
 
 <div class="tablenav"><?php echo $pager->generate() ?></div>
 <br class="clear" />
-<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="post" class="media-upload-form validate">
+<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="post" class="media-upload-form validate" id="media-form">
 <div id="media-items">
         <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
         <input type="hidden" name="type" value="<?php echo $_GET['type'] ?>" />
         <input type="hidden" name="mode" value="<?php echo $_GET['mode'] ?>" />
         <input type="hidden" name="TB_iframe" value="<?php echo $_GET['TB_iframe'] ?>" />
+	<input type="hidden" name="batch" value="0" id="batch" />
+
 <?php foreach($photos['photo'] as $photo) { ?>
 	<div id="media-item-<?php echo $photo['id'] ?>" class="media-item">
+		<input type="checkbox" name="batch_send[]" value="<?php echo $photo['id'] ?>" class="batch-send"/>
 		<img class="pinkynail toggle" src="<?php echo FlickrPress::getPhotoUrl($photo, 's') ?>"/>
 		<a class="toggle describe-toggle-on" href="#"><?php echo __('Show') ?></a>
 		<a class="toggle describe-toggle-off" href="#"><?php echo __('Hide') ?></a>
@@ -183,6 +186,7 @@ function media_upload_search_form() {
 	</div>
 <?php } ?>
 </div>
+<p><a href="javascript:void(0)" class="button" id="batch-insert-btn"><?php echo __('Batch Insert into Post'); ?></a></p>
 </form>
 <div class="tablenav"><?php echo $pager->generate() ?></div>
 <script type="text/javascript">
@@ -249,6 +253,11 @@ jQuery(document).ready(function($){
 		'separator': ',',
 		'tagContainer' : 'div',
 		'tags': <?php echo @json_encode($tags) ?>
+	});
+
+	$('#batch-insert-btn').click(function() {
+		$('#batch').val('1');
+		$('#media-form').submit();
 	});
 });
 </script>
