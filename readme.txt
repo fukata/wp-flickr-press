@@ -34,7 +34,8 @@ PHP依存ライブラリ
 1. Add flickr media 1
 2. Add flickr media 2
 3. Tag suggest
-4. Setting config
+4. Batch insert into post
+5. Setting config
 
 == Changelog ==
 = 0.1.0 =
