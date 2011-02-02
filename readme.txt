@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 
 Flickr画像を記事本文内に挿入する。
 
@@ -22,8 +22,9 @@ PHP依存ライブラリ
 == Installation ==
 
 1. 解凍後、フォルダ「wp-flickr-press/」をディレクトリ「/wp-content/plugins/」にアップロードする。
-2. 管理画面よりプラグイン「FlickrPress」をアクティベートを行う。
-3. 左サイドバーに表示されているFlickrPressの設定画面より、APIキー、ユーザIDについて設定する。
+2. 同ディレクトリ内のcacheディレクトリに対し、書き込み権限を付与する。 
+3. 管理画面よりプラグイン「FlickrPress」をアクティベートを行う。
+4. 左サイドバーに表示されているFlickrPressの設定画面より、APIキー、ユーザIDについて設定する。
 
 == Frequently Asked Questions ==
 
@@ -38,6 +39,10 @@ PHP依存ライブラリ
 5. Setting config
 
 == Changelog ==
+= 0.2.0 =
+* photosetで検索した際に詳細URL内のownerが抜けていたバグを修正
+* マルチサイトを適用した場合に、ページングが動作していなかったバグを修正
+
 = 0.1.0 =
 * 一括挿入機能を追加
 

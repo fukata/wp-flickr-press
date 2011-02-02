@@ -17,7 +17,7 @@ class FpPager {
 		}
 
 		$html = paginate_links(array(
-			'base' => add_query_arg('page', '%#%'),
+			'base' => add_query_arg('paged', '%#%'),
 			'format' => '',
 			'prev_text' => __('&laquo;'),
 			'next_text' => __('&raquo;'),

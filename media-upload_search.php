@@ -23,7 +23,7 @@ function media_upload_search_form() {
 		'New Window'=>'_blank',
 	);
 
-	$page = isset($_GET['page']) && intval($_GET['page'])>0 ? intval($_GET['page']) : 0;
+	$page = isset($_GET['paged']) && intval($_GET['paged'])>0 ? intval($_GET['paged']) : 0;
 	
 	$filter = isset($_GET['filter']) ? $_GET['filter'] : array();
 	if (isset($_GET['clear_cache']) && $_GET['clear_cache']) {
@@ -140,10 +140,10 @@ function media_upload_search_form() {
 				<tr class="url">
 					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][url]"><span class="alignleft"><?php echo __('Link URL')?></span><br class="clear"></label></th>
 					<td class="field">
-						<input type="text" class="text urlfield" name="attachments[<?php echo $photo['id'] ?>][url]" value="<?php echo FlickrPress::getPhotoPageUrl($photo) ?>"><br>
+						<input type="text" class="text urlfield" name="attachments[<?php echo $photo['id'] ?>][url]" value="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><br>
 						<button type="button" class="button urlnone" title=""><?php echo __('None') ?></button>
 						<button type="button" class="button urlfile" title="<?php echo FlickrPress::getPhotoUrl($photo) ?>"><?php echo __('File URL') ?></button>
-						<button type="button" class="button urlpage" title="<?php echo FlickrPress::getPhotoPageUrl($photo) ?>"><?php echo __('Page URL') ?></button>
+						<button type="button" class="button urlpage" title="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><?php echo __('Page URL') ?></button>
 						<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
 					</td>
 				</tr>

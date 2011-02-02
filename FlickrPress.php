@@ -105,8 +105,14 @@ class FlickrPress {
 		return $img;
 	}
 
-	public static function getPhotoPageUrl($photo) {
-		$url = "http://www.flickr.com/photos/{$photo['owner']}/{$photo['id']}";
+	public static function getPhotoPageUrl($photo, $photos) {
+		$id = $photo['id'];
+		$owner = isset($photo['owner']) ? $photo['owner'] : false;
+		if (!$owner && isset($photos['owner'])) {
+			$owner = $photos['owner'];
+		}
+
+		$url = "http://www.flickr.com/photos/$owner/$id";
 		return $url;
 	}
 }
