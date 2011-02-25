@@ -16,7 +16,7 @@ class FlickrPress {
 	public static function init() {
 		self::addEvents();
 
-		self::$flickr = new phpFlickr(FlickrPress::getApiKey());
+		self::$flickr = new phpFlickr(FlickrPress::getApiKey(), FlickrPress::getApiSecret());
 		if (self::isCacheEnabled()) {
 			self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
 		}
@@ -66,6 +66,14 @@ class FlickrPress {
 
 	public static function getUserId() {
 		return get_option(self::getKey('user_id'));
+	}
+
+	public static function getUsername() {
+		return get_option(self::getKey('username'));
+	}
+
+	public static function getOAuthToken() {
+		return get_option(self::getKey('oauth_token'));
 	}
 
 	public static function getPluginUrl() {
