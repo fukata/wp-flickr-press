@@ -55,6 +55,7 @@ function callback_oauth(token) {
 	jQuery('#fp-user-id-hid').val(token.user.nsid);
 	jQuery('#fp-username').html(token.user.username);
 	jQuery('#fp-username-hid').val(token.user.username);
+	jQuery('#fp-oauth-update').html("<?php _e('Last Update: ') ?>"+new Date());
 }
 
 // --></script>
@@ -86,7 +87,8 @@ function callback_oauth(token) {
 					<p>UserID: <span id="fp-user-id"><?php echo FlickrPress::getUserId() ?></span></p>
 					<p>Username: <span id="fp-username"><?php echo FlickrPress::getUsername() ?></span></p>
 					<p>Token: <span id="fp-oauth-token"><?php echo FlickrPress::getOAuthToken() ?></span></p>
-					<p><a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php _e('Update OAuth Token') ?></a><p>
+					<p><a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php _e('Update OAuth Token') ?></a></p>
+					<p id="fp-oauth-update"><p>
 				</td>
                         </tr>
 
