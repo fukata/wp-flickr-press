@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../wp-admin/admin.php');
 require_once(dirname(__FILE__).'/FlickrPress.php');
-require_once(dirname(__FILE__).'/check-setting.php');
+require_once(dirname(__FILE__).'/check-oauth.php');
 
 FlickrPress::getClient()->auth("delete");
 $token = FlickrPress::getClient()->auth_checkToken();
