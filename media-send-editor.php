@@ -14,9 +14,23 @@ if ( isset($_POST['send']) && isset($_POST['attachments']) ) {
 	wp_die('does not exists key.');
 }
 
-//$photo = FlickrPress::getClient()->photos_getInfo($send_id);
+fp_media_send_to_editor(fp_create_image_html($attachments));
 
-media_send_to_editor(fp_create_image_html($attachments));
+function fp_media_send_to_editor($html) {
+	$html = str_replace(array("\r\n","\r","\n"), '<br/>', $html);
+	$html = addslashes($html);
+?>
+<script type="text/javascript">
+/* <![CDATA[ */
+var win = window.dialogArguments || opener || parent || top;
+var html = '<?php echo $html; ?>';
+html = html.replace(/<br\/>/g,'\n');
+win.send_to_editor(html);
+/* ]]> */
+</script>
+<?php
+        exit;
+}
 
 function fp_create_image_html($attachments) {
 
@@ -38,10 +52,14 @@ function fp_create_image_html($attachments) {
 	                $class = " class='align$align'";
 	        }
 
-		$_html = "<img src='{$src}' alt='{$alt}'{$class} />";
+		$_img = "<img src=\"{$src}\" alt=\"{$alt}\"{$class}/>";
 		if (strlen($link)>0) {
-			$_html = "<a href='{$link}'{$target}>{$_html}</a>";
+			$_img = "<a href=\"{$link}\"{$target}>{$_img}</a>";
 		}
+
+		$_html = FlickrPress::getInsertTemplate();
+		$_html = str_replace('[img]', $_img, $_html);
+		$_html = str_replace('[title]', $alt, $_html);
 		$html .= $_html;
 	}
 

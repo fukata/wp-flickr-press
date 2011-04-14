@@ -92,6 +92,10 @@ class FlickrPress {
 		return get_option(self::getKey('default_size'), 'Medium');
 	}
 
+	public static function getInsertTemplate() {
+		return get_option(self::getKey('insert_template'), '[img]');
+	}
+
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}

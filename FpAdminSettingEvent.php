@@ -16,6 +16,7 @@ class FpAdminSettingEvent {
 			FlickrPress::getKey('default_target'),
 			FlickrPress::getKey('default_align'),
 			FlickrPress::getKey('default_size'),
+			FlickrPress::getKey('insert_template'),
 		));
 	}
 
@@ -55,7 +56,7 @@ function callback_oauth(token) {
 	jQuery('#fp-user-id-hid').val(token.user.nsid);
 	jQuery('#fp-username').html(token.user.username);
 	jQuery('#fp-username-hid').val(token.user.username);
-	jQuery('#fp-oauth-update').html("<?php _e('Last Update: ') ?>"+new Date());
+	jQuery('#fp-oauth-update').html("<?php _e('Last Update: ') ?>"+new Date()+"<br/><p style=\"color:#f00\"><strong>Not yet been update. Please Update.</strong><p>");
 }
 
 // --></script>
@@ -123,7 +124,23 @@ function callback_oauth(token) {
                                         <?php } ?>
                                 </td>
                         </tr>
-	
+		</table>
+		
+		<h3><?php echo _e('Advanced Options') ?></h3>
+		<table class="form-table">
+                        <tr valign="top">
+                                <th scope="row">
+					<p><?php echo _e('Insert Template') ?></p>
+					<h4><?php echo _e('Avalable Options') ?></h4>
+					<p>[img]: Image Tag</p>
+					<p>[title]: Image Title</p>
+				</th>
+                                <td>
+					<textarea name="<?php echo FlickrPress::getKey('insert_template') ?>" cols="70" rows="10"><?php echo FlickrPress::getInsertTemplate() ?></textarea>
+					<p>If you put a newline at the beginning or end, &lt;br/&gt; Please write tags.</p>
+					<p>However, &lt;br/&gt; if there is a line break before and after the tag, I been wrapped them too.</p>
+                                </td>
+                        </tr>
 		</table>
 
                 <p class="submit">
