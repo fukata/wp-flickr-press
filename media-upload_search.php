@@ -22,6 +22,14 @@ function media_upload_search_form() {
 		'None'=>'',
 		'New Window'=>'_blank',
 	);
+	$sorts = array(
+		'Posted ASC' => 'date-posted-asc',
+		'Posted DESC' => 'date-posted-desc',
+		'Taken ASC' => 'date-taken-asc',
+		'Taken DESC' => 'date-taken-desc',
+		'Interestingness ASC' => 'interestingness-asc',
+		'Interestingness DESC' => 'interestingness-desc',
+	);
 
 	$page = isset($_GET['paged']) && intval($_GET['paged'])>0 ? intval($_GET['paged']) : 0;
 	
@@ -31,17 +39,22 @@ function media_upload_search_form() {
 	}
 
 	$checkedRecent = (!isset($filter['type']) || $filter['type']=='recent') ? " checked='checked'" : '';
-	$checkedAdvanced = (isset($filter['type']) && $filter['type']=='advanced') ? " checked='checked'" : '';	
+	$checkedAdvanced = (isset($filter['type']) && $filter['type']=='advanced') ? " checked='checked'" : '';
 	$advancedFormClass = strlen($checkedAdvanced)==0 ? 'search-form-off' : '';
 	$checkedPhotosets = (isset($filter['type']) && $filter['type']=='photosets') ? " checked='checked'" : '';	
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
+	$sortFormClass = strlen($checkedPhotosets)==0 ? '' : 'search-form-off';
 	
 	$photosets = FlickrPress::getClient()->photosets_getList(FlickrPress::getUserId());
 	$tags = FlickrPress::getClient()->tags_getListUser(FlickrPress::getUserId());
 	$tags = $tags===false ? array() : $tags;
 	
+	$sort = strlen($filter['sort'])==0 ? 'date-posted-desc' : $filter['sort'];
+	if (!in_array($sort, $sorts)) $sort = 'date-posted-desc';
+
 	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
 	if (strlen($checkedRecent)>0) {
+		$params['sort'] = $sort;
 	} else if (strlen($checkedAdvanced)>0) {
 		$splited = split(',', $filter['tags']);
 		$joined = array();
@@ -51,6 +64,7 @@ function media_upload_search_form() {
 			}
 		}
 		$params['tags'] = join(',', $joined);
+		$params['sort'] = $sort;
 	} else if (strlen($checkedPhotosets)>0) {
 		$params['photoset_id'] = $filter['photoset'];
 	}
@@ -83,6 +97,16 @@ function media_upload_search_form() {
 			<input type="radio" name="filter[type]" value="photosets" class="search-type" id="filter-type-photosets" <?php echo $checkedPhotosets ?>/><label for="filter-type-photosets"><?php echo __('Photosets') ?></label>
 			<input type="radio" name="filter[type]" value="advanced" class="search-type" id="filter-type-advanced" <?php echo $checkedAdvanced ?>/><label for="filter-type-advanced"><?php echo __('Advanced') ?></label>
 		</p>
+		<div id="sort-search-form" class="<?php echo $sortFormClass ?>">
+			<p class="field-row">
+				<span class="field-label"><?php echo __('Sort:') ?></span>
+				<select name="filter[sort]">
+				<?php foreach ($sorts as $name => $val) { ?>
+					<option value="<?php echo $val ?>" <?php if ($val==$sort) {echo 'selected="selected"';} ?>><?php echo $name ?></option>
+				<?php } ?>
+				</select>
+			</p>
+		</div>
 		<div id="advanced-search-form" class="<?php echo $advancedFormClass?>">
 			<p class="field-row"><span class="field-label"><?php echo __('Keyword:') ?></span><input type="text" name="filter[keyword]" value="<?php echo $filter['keyword'] ?>" size="50"/></p>
 			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50" id="filter-tags" autocomplete="off"/></p>
@@ -194,10 +218,16 @@ jQuery('input.search-type').click(function() {
 	var type = jQuery(this).val();
 	if (type=='advanced') {
 		jQuery('div#advanced-search-form').slideDown();
+		jQuery('div#sort-search-form').slideDown();
 		jQuery('div#photosets-search-form').slideUp();
 	} else if (type=='photosets') {
 		jQuery('div#photosets-search-form').slideDown();
 		jQuery('div#advanced-search-form').slideUp();
+		jQuery('div#sort-search-form').slideUp();
+	} else if(type=='recent') {
+		jQuery('div#sort-search-form').slideDown();
+		jQuery('div#advanced-search-form').slideUp();
+		jQuery('div#photosets-search-form').slideUp();
 	} else {
 		jQuery('div#photosets-search-form').slideUp();
 		jQuery('div#advanced-search-form').slideUp();
