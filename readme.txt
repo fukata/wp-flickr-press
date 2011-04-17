@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: 0.4.0
+Stable tag: 0.5.0
 
 Flickr画像を記事本文内に挿入する。
 
@@ -39,6 +39,9 @@ PHP依存ライブラリ
 5. Setting config
 
 == Changelog ==
+= 0.5.0 =
+* デフォルトのソート項目を追加
+
 = 0.4.0 =
 * 検索項目にソートを追加
 
