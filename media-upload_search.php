@@ -139,6 +139,7 @@ function media_upload_search_form() {
 <?php foreach($photos['photo'] as $photo) { ?>
 	<div id="media-item-<?php echo $photo['id'] ?>" class="media-item">
 		<input type="checkbox" name="batch_send[]" value="<?php echo $photo['id'] ?>" class="batch-send"/>
+		<input type="text" name="attachments[<?php echo $photo['id'] ?>][order]" value="" maxlength="2" size="1" class="order" />
 		<img class="pinkynail toggle" src="<?php echo FlickrPress::getPhotoUrl($photo, 's') ?>"/>
 		<a class="toggle describe-toggle-on" href="#"><?php echo __('Show') ?></a>
 		<a class="toggle describe-toggle-off" href="#"><?php echo __('Hide') ?></a>

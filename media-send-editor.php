@@ -3,18 +3,39 @@ if ( isset($_POST['send']) && isset($_POST['attachments']) ) {
 	$keys = array_keys($_POST['send']);
 	$send_id = array_shift($keys);
 	$attachments = array($send_id => $_POST['attachments'][$send_id]);
+	$orders = array($send_id);
 } else if ( isset($_POST['batch']) && $_POST['batch'] && isset($_POST['batch_send']) && count($_POST['batch_send'])>0 && isset($_POST['attachments']) ) {
 	$attachments = array();
+	$valid_orders = array();
+	$invalid_orders = array();
 	foreach ($_POST['batch_send'] as $id) {
 		if (isset($_POST['attachments'][$id])) {
 			$attachments[$id] = $_POST['attachments'][$id];
+			$order = $attachments[$id]['order'];
+			if (preg_match('/^[0-9]{1,2}$/', $order)) {
+				$order = intval($order);
+				if (!isset($valid_orders[$order])) $valid_orders[$order] = array();
+				$valid_orders[$order][] = $id;
+			} else {
+				$invalid_orders[] = $id;
+			}
 		}
+	}
+	ksort($valid_orders);
+	$orders = array();
+	foreach ($valid_orders as $order => $ids) {
+		foreach ($ids as $id) {
+			$orders[] = $id;
+		}
+	}
+	foreach ($invalid_orders as $id) {
+		$orders[] = $id;
 	}
 } else {
 	wp_die('does not exists key.');
 }
 
-fp_media_send_to_editor(fp_create_image_html($attachments));
+fp_media_send_to_editor(fp_create_image_html($attachments, $orders));
 
 function fp_media_send_to_editor($html) {
 	$html = str_replace(array("\r\n","\r","\n"), '<br/>', $html);
@@ -32,10 +53,11 @@ win.send_to_editor(html);
         exit;
 }
 
-function fp_create_image_html($attachments) {
+function fp_create_image_html($attachments, $orders) {
 
 	$html = '';
-	foreach ($attachments as $id => $attachment) {
+	foreach ($orders as $id) {
+		$attachment = $attachments[$id];
 		$photo = FlickrPress::getClient()->photos_getInfo($id);
 
 	        $link = esc_url($attachment['url']);

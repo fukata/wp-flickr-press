@@ -18,3 +18,8 @@ span.field-label {
 	float: left;
 	margin-top: 10px;
 }
+
+.media-item .order {
+	float: left;
+	margin-top: 5px;
+}
