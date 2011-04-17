@@ -17,6 +17,7 @@ class FpAdminSettingEvent {
 			FlickrPress::getKey('default_align'),
 			FlickrPress::getKey('default_size'),
 			FlickrPress::getKey('insert_template'),
+			FlickrPress::getKey('default_sort'),
 		));
 	}
 
@@ -40,6 +41,14 @@ class FpAdminSettingEvent {
 			'Large' => 'Large',
 			'Original' => 'Original',
 		);
+	        $sorts = array(
+	                'Posted ASC' => 'date-posted-asc',
+	                'Posted DESC' => 'date-posted-desc',
+	                'Taken ASC' => 'date-taken-asc',
+	                'Taken DESC' => 'date-taken-desc',
+	                'Interestingness ASC' => 'interestingness-asc',
+	                'Interestingness DESC' => 'interestingness-desc',
+	        );
 ?>
 <script type="text/javascript"><!--
 (function($){
@@ -139,6 +148,18 @@ function callback_oauth(token) {
 					<textarea name="<?php echo FlickrPress::getKey('insert_template') ?>" cols="70" rows="10"><?php echo FlickrPress::getInsertTemplate() ?></textarea>
 					<p>If you put a newline at the beginning or end, &lt;br/&gt; Please write tags.</p>
 					<p>However, &lt;br/&gt; if there is a line break before and after the tag, I been wrapped them too.</p>
+                                </td>
+                        </tr>
+                        <tr valign="top">
+                                <th scope="row">
+					<p><?php echo _e('Default Sort') ?></p>
+				</th>
+                                <td>
+					<select name="<?php echo FlickrPress::getKey('default_sort') ?>">
+					<?php foreach ($sorts as $label => $sort) { ?>
+						<option value="<?php echo $sort ?>" <?php if ($sort==FlickrPress::getDefaultSort()) {echo "selected='selected'";} ?>><?php echo $label ?></option>
+					<?php } ?>
+					</select>
                                 </td>
                         </tr>
 		</table>

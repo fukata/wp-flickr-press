@@ -96,6 +96,10 @@ class FlickrPress {
 		return get_option(self::getKey('insert_template'), '[img]');
 	}
 
+	public static function getDefaultSort() {
+		return get_option(self::getKey('default_sort'), 'date-posted-desc');
+	}
+
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}

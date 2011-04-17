@@ -49,8 +49,8 @@ function media_upload_search_form() {
 	$tags = FlickrPress::getClient()->tags_getListUser(FlickrPress::getUserId());
 	$tags = $tags===false ? array() : $tags;
 	
-	$sort = strlen($filter['sort'])==0 ? 'date-posted-desc' : $filter['sort'];
-	if (!in_array($sort, $sorts)) $sort = 'date-posted-desc';
+	$sort = strlen($filter['sort'])==0 ? FlickrPress::getDefaultSort() : $filter['sort'];
+	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
 	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
 	if (strlen($checkedRecent)>0) {
