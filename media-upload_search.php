@@ -1,5 +1,8 @@
 <?php if(!class_exists('FlickrPress')) die('Not initialize FlickrPress.');
 
+wp_enqueue_style('thickbox');
+wp_enqueue_script('thickbox');
+
 add_action('admin_head', 'fp_add_scripts');
 
 $body_id = 'media-upload';
@@ -9,6 +12,7 @@ function fp_add_scripts() {
 	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/media-upload_search.css?".time()."' media='all' type='text/css'/>";
 	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/jquery.tag.css?".time()."' media='all' type='text/css'/>";
 	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.tag.js?".time()."'></script>";
+	echo "\n<script type='text/javascript'>tb_pathToImage = '../../../wp-includes/js/thickbox/loadingAnimation.gif'; tb_closeImage='../../../wp-includes/js/thickbox/tb-close.png';</script>";
 }
 
 function media_upload_search_form() {
@@ -196,7 +200,7 @@ function media_upload_search_form() {
 						<?php $sizes = FlickrPress::getClient()->photos_getSizes($photo['id']);?>
 						<?php foreach($sizes as $size) { ?>
 							<?php $checked = FlickrPress::getDefaultSize()==$size['label'] ? " checked='checked'" : '' ?>
-							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $size['source'] ?>" type="radio" id="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"><?php echo __($size['label']) ?></label><label for="image-size-thumbnail-<?php echo $photo['id'] ?>" class="help">(<?php echo $size['width'] ?>&nbsp;×&nbsp;<?php echo $size['height'] ?>)</label></div>
+							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $size['source'] ?>" type="radio" id="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"><?php echo __($size['label']) ?></label><label for="image-size-<?php echo $size['label'] ?>-<?php echo $photo['id'] ?>" class="help">(<?php echo $size['width'] ?>&nbsp;×&nbsp;<?php echo $size['height'] ?>)</label></div>
 						<?php } ?>
 					</td>
 				</tr>
@@ -214,6 +218,17 @@ function media_upload_search_form() {
 <p><a href="javascript:void(0)" class="button" id="batch-insert-btn"><?php echo __('Batch Insert into Post'); ?></a></p>
 </form>
 <div class="tablenav"><?php echo $pager->generate() ?></div>
+<div id="inline-settings-content-container">
+	<input type="hidden" name="inline_photo_id" id="inline-photo-id"/>
+	<div id="inline-settings-order">
+		<p><?php echo _e('Order:') ?><input type="text" name="order" maxlength="2" size="2" id="inline-order" /></p>
+	</div>
+	<div id="inline-settings-image-size">
+	</div>
+	<div class="save-buttons">
+		<input type="button" value="<?php echo __('Update') ?>" class="button" id="inline-update-button"/>
+	</div>
+</div>
 <script type="text/javascript">
 jQuery('input.search-type').click(function() {
 	var type = jQuery(this).val();
@@ -290,6 +305,66 @@ jQuery(document).ready(function($){
 		$('#batch').val('1');
 		$('#media-form').submit();
 	});
+
+<?php if (FlickrPress::getQuickSettings()=='1') { ?>
+	$('.batch-send').click(function(){
+		if (!$(this).attr('checked')) return;
+
+		var photo_id = $(this).val();
+		var title = $('div.filename > span.title', 'div#media-item-'+photo_id).text();
+		if (title.length>25) title = title.substring(0,25)+'...';
+
+		var t = 'Quick Settings: ' + title;
+		var a = '#TB_inline?width=350&inlineId=inline-settings-content-container';
+		var g = false;
+		tb_show(t,a,g);
+
+		var photo_id = $(this).val();
+		draw_settings_content(photo_id);
+	});
+
+	$('#inline-update-button').click(function(){
+		// image_size
+		var $content_image_size = $('#inline-settings-image-size');
+		var photo_id = $('#inline-photo-id').val();
+		var image_size_selector = 'input[name="attachments['+photo_id+'][image-size]"]';
+		var image_size = $(image_size_selector+':checked',$content_image_size).val();
+		$(image_size_selector, 'div#media-item-'+photo_id).val([image_size]);
+
+		// order 
+		var order = $('#inline-order').val();
+		$('input[name="attachments['+photo_id+'][order]"]').val(order);
+
+		tb_remove();
+	});
+	
+	function draw_settings_content(photo_id) {
+		$('#inline-photo-id').val(photo_id);
+
+		var $content_image_size = $('#inline-settings-image-size');
+		var $content_order = $('#inline-settings-order');
+		$content_image_size.empty();
+
+		// image_size
+		var image_size_content = $('div#media-item-'+photo_id+' > table.describe > tbody > tr.image-size > td.field').html();
+		image_size_content = '<p><?php _e('Size:') ?></p>'+image_size_content;
+		$content_image_size.append(image_size_content);
+		var image_size_selector = 'input[name="attachments['+photo_id+'][image-size]"]';
+		var image_size = $(image_size_selector+':checked', 'div#media-item-'+photo_id).val();
+		$(image_size_selector,$content_image_size).val([image_size]);
+		$('input[type=radio]', $content_image_size).each(function(){
+			var $self = $(this);
+			var id = $self.attr('id');
+			console.log("id=%s", id);
+			$('label[for="'+id+'"]').attr('for', 'inline-'+id);
+			$self.attr('id', 'inline-'+id);
+		});
+
+		// order
+		var order = $('input[name="attachments['+photo_id+'][order]"]').val();
+		$('#inline-order').val(order);
+	}
+<?php } ?>
 });
 </script>
 <?php 

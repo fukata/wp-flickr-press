@@ -18,6 +18,7 @@ class FpAdminSettingEvent {
 			FlickrPress::getKey('default_size'),
 			FlickrPress::getKey('insert_template'),
 			FlickrPress::getKey('default_sort'),
+			FlickrPress::getKey('quick_settings'),
 		));
 	}
 
@@ -160,6 +161,15 @@ function callback_oauth(token) {
 						<option value="<?php echo $sort ?>" <?php if ($sort==FlickrPress::getDefaultSort()) {echo "selected='selected'";} ?>><?php echo $label ?></option>
 					<?php } ?>
 					</select>
+                                </td>
+                        </tr>
+                        <tr valign="top">
+                                <th scope="row">
+					<p><?php echo _e('Quick Settings') ?></p>
+				</th>
+                                <td>
+					<p><?php echo _e('Enable:') ?><input type="checkbox" name="<?php echo flickrpress::getkey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
+					<p>When enabled, a dialog will appear when you click for a set of check boxes for multiple insertion.</p>
                                 </td>
                         </tr>
 		</table>

@@ -100,6 +100,10 @@ class FlickrPress {
 		return get_option(self::getKey('default_sort'), 'date-posted-desc');
 	}
 
+	public static function getQuickSettings() {
+		return get_option(self::getKey('quick_settings'), 0);
+	}
+
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}

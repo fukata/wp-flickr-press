@@ -23,3 +23,12 @@ span.field-label {
 	float: left;
 	margin-top: 5px;
 }
+
+#inline-settings-content-container {
+	display: none;
+}
+
+div.save-buttons {
+	margin-top: 20px;
+	text-align: center;
+}
