@@ -117,6 +117,7 @@ class FlickrPress {
 
 		require_once(self::getDir().'/FpAdminSettingEvent.php');
 		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
+		add_filter('whitelist_options', array('FpAdminSettingEvent', 'addWhitelistOptions'));
 	}
 
 	public static function getPhotoUrl($photo, $size='') {

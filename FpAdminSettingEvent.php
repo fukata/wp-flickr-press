@@ -5,21 +5,22 @@ class FpAdminSettingEvent {
 	public static function addMenu() {
 		$page = add_options_page(FlickrPress::NAME.' Option', FlickrPress::NAME, 8, __FILE__, array('FpAdminSettingEvent','generateOptionForm'));
 	}
-	
-	private function getPageOptions() {
-		return implode(',', array(
-			FlickrPress::getKey('api_key'),
-			FlickrPress::getKey('api_secret'),
-			FlickrPress::getKey('user_id'),
-			FlickrPress::getKey('username'),
-			FlickrPress::getKey('oauth_token'),
-			FlickrPress::getKey('default_target'),
-			FlickrPress::getKey('default_align'),
-			FlickrPress::getKey('default_size'),
-			FlickrPress::getKey('insert_template'),
-			FlickrPress::getKey('default_sort'),
-			FlickrPress::getKey('quick_settings'),
-		));
+
+	public static function addWhitelistOptions($whitelist_options) {
+		$whitelist_options['wpfp'] = array(
+            FlickrPress::getKey('api_key'),
+            FlickrPress::getKey('api_secret'),
+            FlickrPress::getKey('user_id'),
+            FlickrPress::getKey('username'),
+            FlickrPress::getKey('oauth_token'),
+            FlickrPress::getKey('default_target'),
+            FlickrPress::getKey('default_align'),
+            FlickrPress::getKey('default_size'),
+            FlickrPress::getKey('insert_template'),
+            FlickrPress::getKey('default_sort'),
+            FlickrPress::getKey('quick_settings'),
+		);
+		return $whitelist_options;
 	}
 
 	public static function generateOptionForm() {
@@ -73,9 +74,9 @@ function callback_oauth(token) {
 <div class="wrap">
         <h2><?php echo FlickrPress::NAME ?></h2>
         <form method="post" action="options.php">
-                <?php wp_nonce_field('update-options'); ?>
+                <?php wp_nonce_field('wpfp-options'); ?>
                 <input type="hidden" name="action" value="update" />
-                <input type="hidden" name="page_options" value="<?php echo self::getPageOptions() ?>" />
+                <input type="hidden" name="option_page" value="wpfp" />
                 <table class="form-table">
                         <tr valign="top">
                                 <th scope="row">
