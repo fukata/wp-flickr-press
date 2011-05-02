@@ -34,15 +34,6 @@ class FpAdminSettingEvent {
 	                'None'=>'',
 	                'New Window'=>'_blank',
         	);
-		$sizes = array(
-			'Square' => 'Square',
-			'Thumbnail' => 'Thumbnail',
-			'Small' => 'Small',
-			'Medium' => 'Medium',
-			'Medium 640' => 'Medium 640',
-			'Large' => 'Large',
-			'Original' => 'Original',
-		);
 	        $sorts = array(
 	                'Posted ASC' => 'date-posted-asc',
 	                'Posted DESC' => 'date-posted-desc',
@@ -129,10 +120,10 @@ function callback_oauth(token) {
                         <tr valign="top">
                                 <th scope="row"><p><?php echo _e('Size') ?></p></th>
                                 <td>
-                                        <?php foreach($sizes as $label => $size) { ?>
-						<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
-                                                <p><input type="radio" name="<?php echo FlickrPress::getKey('default_size') ?>" id="size-<?php echo $size ?>" value="<?php echo $size ?>" <?php echo $checked ?>/><label for="size-<?php echo $size ?>"><?php echo $label ?></label></p>
-                                        <?php } ?>
+									<?php foreach(FlickrPress::$SIZE_LABELS as $size => $label) { ?>
+										<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
+                                            <p><input type="radio" name="<?php echo FlickrPress::getKey('default_size') ?>" id="size-<?php echo $size ?>" value="<?php echo $size ?>" <?php echo $checked ?>/><label for="size-<?php echo $size ?>"><?php echo $label ?></label></p>
+									<?php } ?>
                                 </td>
                         </tr>
 		</table>

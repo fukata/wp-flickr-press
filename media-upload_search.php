@@ -56,7 +56,7 @@ function media_upload_search_form() {
 	$sort = strlen($filter['sort'])==0 ? FlickrPress::getDefaultSort() : $filter['sort'];
 	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
-	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc');
+	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc', 'extras' => 'url_sq,url_t,url_s,url_m,url_o');
 	if (strlen($checkedRecent)>0) {
 		$params['sort'] = $sort;
 	} else if (strlen($checkedAdvanced)>0) {
@@ -144,7 +144,7 @@ function media_upload_search_form() {
 	<div id="media-item-<?php echo $photo['id'] ?>" class="media-item">
 		<input type="checkbox" name="batch_send[]" value="<?php echo $photo['id'] ?>" class="batch-send"/>
 		<input type="text" name="attachments[<?php echo $photo['id'] ?>][order]" value="" maxlength="2" size="1" class="order" />
-		<img class="pinkynail toggle" src="<?php echo FlickrPress::getPhotoUrl($photo, 's') ?>"/>
+		<img class="pinkynail toggle" src="<?php echo FlickrPress::getPhotoUrl($photo, 'sq') ?>"/>
 		<a class="toggle describe-toggle-on" href="#"><?php echo __('Show') ?></a>
 		<a class="toggle describe-toggle-off" href="#"><?php echo __('Hide') ?></a>
 		<div class="filename new"><span class="title"><?php echo $photo['title'] ?></span></div>
@@ -197,10 +197,9 @@ function media_upload_search_form() {
 				<tr class="image-size">
 					<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size')?></span><br class="clear"></label></th>
 					<td class="field">
-						<?php $sizes = FlickrPress::getClient()->photos_getSizes($photo['id']);?>
-						<?php foreach($sizes as $size) { ?>
-							<?php $checked = FlickrPress::getDefaultSize()==$size['label'] ? " checked='checked'" : '' ?>
-							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $size['source'] ?>" type="radio" id="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size['label']?>-<?php echo $photo['id'] ?>"><?php echo __($size['label']) ?></label><label for="image-size-<?php echo $size['label'] ?>-<?php echo $photo['id'] ?>" class="help">(<?php echo $size['width'] ?>&nbsp;×&nbsp;<?php echo $size['height'] ?>)</label></div>
+						<?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
+							<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
+							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $photo[$url] ?>" type="radio" id="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size]) ?></label></div>
 						<?php } ?>
 					</td>
 				</tr>

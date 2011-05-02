@@ -9,7 +9,20 @@ class FlickrPress {
 
 	private static $flickr;
 
-	private static $sizes = array('m','s','t','z','b');
+	public static $SIZE_LABELS = array(
+		'sq' => 'Square',
+		't' => 'Thumbnail',
+		's' => 'Small',
+		'm' => 'Medium',
+		'o' => 'Original',
+	);
+	public static $SIZES = array(
+		'sq' => 'url_sq',
+		't' => 'url_t',
+		's' => 'url_s',
+		'm' => 'url_m',
+		'o' => 'url_o',
+	);
 	private function __construct() {
 	}
 
@@ -120,10 +133,8 @@ class FlickrPress {
 		add_filter('whitelist_options', array('FpAdminSettingEvent', 'addWhitelistOptions'));
 	}
 
-	public static function getPhotoUrl($photo, $size='') {
-		$size = in_array($size, self::$sizes) ? "_{$size}" : '';
-		$img = "http://farm{$photo['farm']}.static.flickr.com/{$photo['server']}/{$photo['id']}_{$photo['secret']}{$size}.jpg";
-		return $img;
+	public static function getPhotoUrl($photo, $size='m') {
+		return $photo[self::$SIZES[$size]];
 	}
 
 	public static function getPhotoPageUrl($photo, $photos) {
