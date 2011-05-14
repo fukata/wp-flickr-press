@@ -259,7 +259,70 @@ if ( !class_exists('phpFlickr') ) {
 			return $response;
 		}
 		
-		function request ($command, $args = array(), $nocache = false)
+		function get ($data, $type = null) {
+			if ( is_null($type) ) {
+				$url = $this->rest_endpoint;
+			}
+			
+			if ( !is_null($this->custom_post) ) {
+				return call_user_func($this->custom_post, $url, $data);
+			}
+			
+			if ( !preg_match("|http://(.*?)(/.*)|", $url, $matches) ) {
+				die('There was some problem figuring out your endpoint');
+			}
+			
+			if ( function_exists('curl_init') ) {
+				// Has curl. Use it!
+				$curl = curl_init($this->rest_endpoint . '?' . http_build_query($data));
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				$response = curl_exec($curl);
+				curl_close($curl);
+			} else {
+				// Use sockets.
+				foreach ( $data as $key => $value ) {
+					$data[$key] = $key . '=' . urlencode($value);
+				}
+				$data = implode('&', $data);
+			
+				$fp = @pfsockopen($matches[1], 80);
+				if (!$fp) {
+					die('Could not connect to the web service');
+				}
+				fputs ($fp,'GET ' . $matches[2] . " HTTP/1.1\n");
+				fputs ($fp,'Host: ' . $matches[1] . "\n");
+				fputs ($fp,"Connection: close\r\n\r\n");
+				$response = "";
+				while(!feof($fp)) {
+					$response .= fgets($fp, 1024);
+				}
+				fclose ($fp);
+				$chunked = false;
+				$http_status = trim(substr($response, 0, strpos($response, "\n")));
+				if ( $http_status != 'HTTP/1.1 200 OK' ) {
+					die('The web service endpoint returned a "' . $http_status . '" response');
+				}
+				if ( strpos($response, 'Transfer-Encoding: chunked') !== false ) {
+					$temp = trim(strstr($response, "\r\n\r\n"));
+					$response = '';
+					$length = trim(substr($temp, 0, strpos($temp, "\r")));
+					while ( trim($temp) != "0" && ($length = trim(substr($temp, 0, strpos($temp, "\r")))) != "0" ) {
+						$response .= trim(substr($temp, strlen($length)+2, hexdec($length)));
+						$temp = trim(substr($temp, strlen($length) + 2 + hexdec($length)));
+					}
+				} elseif ( strpos($response, 'HTTP/1.1 200 OK') !== false ) {
+					$response = trim(strstr($response, "\r\n\r\n"));
+				}
+			}
+			return $response;
+			
+		}
+		
+		function request_get ($command, $args = array(), $nocache = false) {
+			return $this->request($command, $args, $nocache, 'get');
+		}
+		
+		function request ($command, $args = array(), $nocache = false, $method = 'post')
 		{
 			//Sends a request to Flickr's REST endpoint via POST.
 			if (substr($command,0,7) != "flickr.") {
@@ -288,7 +351,7 @@ if ( !class_exists('phpFlickr') ) {
 					$api_sig = md5($this->secret . $auth_sig);
 					$args['api_sig'] = $api_sig;
 				}
-				$this->response = $this->post($args);
+				$this->response = $this->{strtolower($method)}($args);
 				$this->cache($args, $this->response);
 			}
 			
@@ -617,12 +680,20 @@ if ( !class_exists('phpFlickr') ) {
 
 		*******************************/
 
-		function call ($method, $arguments) {
+		function call ($method, $arguments, $http_method = 'post') {
 			foreach ( $arguments as $key => $value ) {
 				if ( is_null($value) ) unset($arguments[$key]);
 			}
-			$this->request($method, $arguments);
+			if (strtolower($http_method)=='get') {
+				$this->request_get($method, $arguments);
+			} else {
+				$this->request($method, $arguments);
+			}
 			return $this->parsed_response ? $this->parsed_response : false;
+		}
+		
+		function call_get ($method, $arguments) {
+			return $this->call($method, $arguments, 'get');
 		}
 
 		/*
@@ -1033,7 +1104,7 @@ if ( !class_exists('phpFlickr') ) {
 
 		function photos_getSizes ($photo_id) {
 			/* http://www.flickr.com/services/api/flickr.photos.getSizes.html */
-			$this->request("flickr.photos.getSizes", array("photo_id"=>$photo_id));
+			$this->request_get("flickr.photos.getSizes", array("photo_id"=>$photo_id));
 			return $this->parsed_response ? $this->parsed_response['sizes']['size'] : false;
 		}
 
@@ -1088,7 +1159,7 @@ if ( !class_exists('phpFlickr') ) {
 			 */
 
 			/* http://www.flickr.com/services/api/flickr.photos.search.html */
-			$this->request("flickr.photos.search", $args);
+			$this->request_get("flickr.photos.search", $args);
 			return $this->parsed_response ? $this->parsed_response['photos'] : false;
 		}
 
@@ -1330,7 +1401,7 @@ if ( !class_exists('phpFlickr') ) {
 
 		function photosets_getPhotos ($photoset_id, $extras = NULL, $privacy_filter = NULL, $per_page = NULL, $page = NULL, $media = NULL) {
 			/* http://www.flickr.com/services/api/flickr.photosets.getPhotos.html */
-			return $this->call('flickr.photosets.getPhotos', array('photoset_id' => $photoset_id, 'extras' => $extras, 'privacy_filter' => $privacy_filter, 'per_page' => $per_page, 'page' => $page, 'media' => $media));
+			return $this->call_get('flickr.photosets.getPhotos', array('photoset_id' => $photoset_id, 'extras' => $extras, 'privacy_filter' => $privacy_filter, 'per_page' => $per_page, 'page' => $page, 'media' => $media));
 		}
 
 		function photosets_orderSets ($photoset_ids) {
@@ -1610,7 +1681,7 @@ if ( !class_exists('phpFlickr') ) {
 
 		function tags_getListUser ($user_id = NULL) {
 			/* http://www.flickr.com/services/api/flickr.tags.getListUser.html */
-			$this->request("flickr.tags.getListUser", array("user_id" => $user_id));
+			$this->request_get("flickr.tags.getListUser", array("user_id" => $user_id));
 			return $this->parsed_response ? $this->parsed_response['who']['tags']['tag'] : false;
 		}
 
