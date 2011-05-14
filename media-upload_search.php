@@ -68,6 +68,7 @@ function media_upload_search_form() {
 			}
 		}
 		$params['tags'] = join(',', $joined);
+		$params['text'] = $filter['keyword'];
 		$params['sort'] = $sort;
 	} else if (strlen($checkedPhotosets)>0) {
 		$params['photoset_id'] = $filter['photoset'];
