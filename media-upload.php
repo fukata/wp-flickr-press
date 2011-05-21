@@ -5,7 +5,7 @@ require_once(dirname(__FILE__).'/FpPager.php');
 require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
 require_once(dirname(__FILE__).'/check-setting.php');
 
-$modes = array('search','upload');
+$modes = array('search','search_thumbnail','upload');
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 	if (!in_array($_POST['mode'], $modes)) {
 		wp_die('Dows not exists mode.');

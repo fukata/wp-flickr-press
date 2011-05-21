@@ -83,11 +83,7 @@ function media_upload_search_form() {
 	$pager = new FpPager($photos['total'], $photos['page'], $photos['perpage']);
 ?>
 
-<div id="media-upload-header">
-	<ul id='sidemenu'>
-	    <li id='tab-search'><a href='<?php echo FlickrPress::getPluginUrl() ?>/media-upload.php?post_id<?php echo $_GET['post_id'] ?>&type=image&tab=search' class='current'><?php echo __('Search') ?></a></li>
-	</ul>
-</div>
+<?php include_once dirname(__FILE__).'/inc.header_tab.php' ?>
 
 <form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get" id="search-form">
         <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
