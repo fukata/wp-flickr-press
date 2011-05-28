@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+
+div.search-form-off {
+	display: none;
+}
+
+#search-form {
+}
+
+#search-header {
+}
+
+#search-results {
+}
+
+#search-results div.thumbnail {
+	float: left;
+}
+
+#search-results div.thumbnail > div.title {
+	width: 75px;
+}
+
+#search-results div.thumbnail img.photo {
+	border: 1px solid #CCCCCC;
+	margin: 3px;
+	padding: 3px;
+}
+
+#search-results div.thumbnail:nth-child(5n+1) {
+	clear: both;
+}
