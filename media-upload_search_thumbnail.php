@@ -28,6 +28,8 @@ function media_upload_search_form() {
 		'Interestingness ASC' => 'interestingness-asc',
 		'Interestingness DESC' => 'interestingness-desc',
 	);
+	
+	$sort = FlickrPress::getDefaultSort();
 ?>
 
 <?php include_once dirname(__FILE__).'/inc.header_tab.php' ?>
@@ -76,7 +78,7 @@ function media_upload_search_form() {
 			</p>
 		</div>
 
-		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/></p>
+		<p><input type="button" value="<?php echo __('Search') ?>" class="button" id="search-btn"/></p>
 
 	</div>
 	
