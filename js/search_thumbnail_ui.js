@@ -98,14 +98,19 @@
 				var photo = photos.photo[i];
 				
 				var page_url = flickr.getPhotoPageUrl(photo, photos);
-				var $img = $("<a></a>").attr("href", page_url).append(
+				var title = photo.title;
+				if (title.length > 15) {
+					title = title.substring(0, 15) + '...';
+				}
+				var $img = $("<a></a>").attr("href", "#").append(
 						$("<img />").attr(
 								{
 									src : flickr.getPhotoUrl(photo,
 											OPTIONS.thumbnail_size),
 											title : photo["title"]
 								}).addClass("photo"));
-				var $div = $("<div></div>").addClass("thumbnail").append($img);
+				var $title = $("<div></div>").addClass("title").append( $("<a></a>").attr("href", "#").html(title) );
+				var $div = $("<div></div>").addClass("thumbnail").append($img).append($title);
 				$("#search-results").append($div);
 			}
 		}

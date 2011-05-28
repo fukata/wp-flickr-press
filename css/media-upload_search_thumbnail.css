@@ -15,16 +15,17 @@ div.search-form-off {
 
 #search-results div.thumbnail {
 	float: left;
+	width: 105px;
+	margin: 3px;
 }
 
-#search-results div.thumbnail > div.title {
-	width: 75px;
+#search-results div.thumbnail div.title {
+	font-size: 10px;
 }
 
 #search-results div.thumbnail img.photo {
 	border: 1px solid #CCCCCC;
-	margin: 3px;
-	padding: 3px;
+	padding: 3px 15px;
 }
 
 #search-results div.thumbnail:nth-child(5n+1) {
