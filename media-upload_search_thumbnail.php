@@ -82,7 +82,9 @@ function media_upload_search_form() {
 
 	</div>
 	
+	<div class="pager-container"></div>
 	<div id="search-results"></div>
+	
 </div>
 	
 </form>
