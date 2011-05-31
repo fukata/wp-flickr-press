@@ -225,9 +225,9 @@
 		$("div.pager > a.page, div.pager > a.prev, div.pager > a.next, div.pager > a.first, div.pager > a.end").live(
 				'click', function() {
 					var $self = $(this);
-					console.log($self.attr('page'));
+//					console.log($self.attr('page'));
 					if ($.isFunction(pager_search)) {
-						console.log("pager_search");
+//						console.log("pager_search");
 						pager_search($self.attr('page'));
 					}
 				});
@@ -244,7 +244,7 @@
 		// inline contents
 		// ===================================
 		function draw_inline_content(photo, photos) {
-			console.log("draw_inline_content");
+//			console.log("draw_inline_content");
 			$("#inline-title").val( photo.title );
 			$("#inline-url").val( flickr.getPhotoPageUrl(photo, photos) );
 			$("#inline-url-file").val( flickr.getPhotoUrl(photo) );
@@ -295,12 +295,12 @@
 			sort : OPTIONS.sort
 		};
 		pager_search = function(page) {
-			console.log("pager_search: %s", page);
+//			console.log("pager_search: %s", page);
 			options['page'] = page;
 			pre_search_photos();
 			flickr.photos_search(options, function(res) {
-				console.log("photos.search callback");
-				console.log(res);
+//				console.log("photos.search callback");
+//				console.log(res);
 				init_photos(res.photos);
 			});
 		};
@@ -310,8 +310,8 @@
 		// photosets
 		// ===================================
 		flickr.photosets_getList({}, function(res) {
-			console.log("photosets.getList callback");
-			console.log(res);
+//			console.log("photosets.getList callback");
+//			console.log(res);
 			var photosets = res.photosets;
 			var $filter_photosets = $("select[name='filter[photoset]']");
 			for ( var i = 0; i < photosets.photoset.length; i++) {
@@ -326,8 +326,8 @@
 		// tags
 		// ===================================
 		flickr.tags_getListUser({}, function(res) {
-			console.log("tags.getListUser callback");
-			console.log(res);
+//			console.log("tags.getListUser callback");
+//			console.log(res);
 			var tags = [];
 			for ( var i = 0; i < res.who.tags.tag.length; i++) {
 				tags.push(res.who.tags.tag[i]._content);

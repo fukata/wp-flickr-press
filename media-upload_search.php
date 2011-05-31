@@ -13,6 +13,8 @@ function fp_add_scripts() {
 	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/jquery.tag.css?".time()."' media='all' type='text/css'/>";
 	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.tag.js?".time()."'></script>";
 	echo "\n<script type='text/javascript'>tb_pathToImage = '../../../wp-includes/js/thickbox/loadingAnimation.gif'; tb_closeImage='../../../wp-includes/js/thickbox/tb-close.png';</script>";
+	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.flickr-client.js?".time()."'></script>";
+	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/search_list_ui.js?".time()."'></script>";
 }
 
 function media_upload_search_form() {
@@ -49,10 +51,6 @@ function media_upload_search_form() {
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	$sortFormClass = strlen($checkedPhotosets)==0 ? '' : 'search-form-off';
 	
-	$photosets = FlickrPress::getClient()->photosets_getList(FlickrPress::getUserId());
-	$tags = FlickrPress::getClient()->tags_getListUser(FlickrPress::getUserId());
-	$tags = $tags===false ? array() : $tags;
-	
 	$sort = strlen($filter['sort'])==0 ? FlickrPress::getDefaultSort() : $filter['sort'];
 	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
@@ -74,7 +72,7 @@ function media_upload_search_form() {
 		$params['photoset_id'] = $filter['photoset'];
 	}
 	if (strlen($checkedPhotosets)>0) {
-		$photos = FlickrPress::getClient()->photosets_getPhotos($params['photoset_id'], NULL, NULL, $params['per_page'], $params['page']);
+		$photos = FlickrPress::getClient()->photosets_getPhotos($params['photoset_id'], $params['extras'], NULL, $params['per_page'], $params['page']);
 		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos['photoset'];
 	} else {
 		$photos = FlickrPress::getClient()->photos_search($params);
@@ -84,6 +82,14 @@ function media_upload_search_form() {
 ?>
 
 <?php include_once dirname(__FILE__).'/inc.header_tab.php' ?>
+
+<div id="params" style="display: none;">
+	<input type="hidden" name="api_key" id="api_key" value="<?php echo FlickrPress::getApiKey() ?>" />
+	<input type="hidden" name="api_secret" id="api_secret" value="<?php echo FlickrPress::getApiSecret() ?>" />
+	<input type="hidden" name="user_id" id="user_id" value="<?php echo FlickrPress::getUserId() ?>" />
+	<input type="hidden" name="oauth_token" id="oauth_token" value="<?php echo FlickrPress::getOAuthToken() ?>" />
+	<input type="hidden" name="photoset_id" id="photoset_id" value="<?php echo @$filter['photoset'] ?>" />
+</div>
 
 <form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get" id="search-form">
         <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
@@ -114,12 +120,7 @@ function media_upload_search_form() {
 		</div>
 		<div id="photosets-search-form" class="<?php echo $photosetsFormClass?>">
 			<p class="field-row"><span class="field-label"><?php echo __('Photosets:') ?></span>
-				<select name="filter[photoset]">
-					<?php foreach ($photosets['photoset'] as $photoset) { ?>
-						<?php $selected = $filter['photoset'] == $photoset['id'] ? " selected='selected'" : ""; ?>
-						<option value="<?php echo $photoset['id'] ?>"<?php echo $selected ?>><?php echo $photoset['title'] ?></option>
-					<?php } ?>
-				</select>
+				<select name="filter[photoset]"></select>
 			</p>
 		</div>
 
@@ -291,11 +292,11 @@ jQuery(document).ready(function($){
 		$('#search-form').submit();
 	});
 
-	$('#filter-tags').tagSuggest({
-		'separator': ',',
-		'tagContainer' : 'div',
-		'tags': <?php echo @json_encode($tags) ?>
-	});
+//	$('#filter-tags').tagSuggest({
+//		'separator': ',',
+//		'tagContainer' : 'div',
+//		'tags': <?php //echo @json_encode($tags) ?>
+//	});
 
 	$('#batch-insert-btn').click(function() {
 		$('#batch').val('1');
