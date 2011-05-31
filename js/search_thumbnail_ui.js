@@ -271,8 +271,9 @@
 			if (link) {
 				html = '<a href="'+link+'" '+target+'>' + html + '</a>';
 			}
+			html += "\n";
 			
-			fp_media_send_to_editor(html);f
+			fp_media_send_to_editor(html);
 		});
 		function fp_media_send_to_editor(html) {
 			var win = window.dialogArguments || opener || parent || top;
