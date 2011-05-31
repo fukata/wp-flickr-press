@@ -113,19 +113,35 @@
 		// init photos
 		// ===================================
 		function init_photos(photos) {
-			$("#search-results").html("");
+			$("#search-results").empty();
+			
+			var ins_popup = function() {
+				var $self = $(this);
+				var idx = $self.attr('idx');
+				var photo = photos.photo[idx];
+				var title = photo.title;
+				var args = '#TB_inline?width=600&inlineId=inline-settings-content-container';
+				var img_group = false;
+				tb_show(title, args, img_group);
+				
+				draw_inline_content(photo, photos);
+			};
+			
 			for ( var i = 0; i < photos.photo.length; i++) {
 				var photo = photos.photo[i];
-
 				var page_url = flickr.getPhotoPageUrl(photo, photos);
 				var title = photo.title;
 				if (title.length > 15) {
 					title = title.substring(0, 15) + '...';
 				}
+				
 				var $img = $("<a></a>").addClass("ins-photo").attr({
 					href : "javascript:void(0)",
-					title : title
-				}).append(
+					title : title,
+					idx : i
+				})
+				$img.click(ins_popup);
+				$img.append(
 						$("<img />").attr(
 								{
 									src : flickr.getPhotoUrl(photo,
@@ -135,8 +151,9 @@
 				var $title = $("<div></div>").addClass("title").append(
 						$("<a></a>").addClass("ins-photo").attr({
 							href : "javascript:void(0)",
-							title : title
-						}).html(title));
+							title : title,
+							idx : i
+						}).click(ins_popup).html(title));
 				var $div = $("<div></div>").addClass("thumbnail").append($img)
 						.append($title);
 				$("#search-results").append($div);
@@ -221,13 +238,46 @@
 			}) );
 		}
 		
-		$(".ins-photo").live('click', function(){
-			var $self = $(this);
-			var title = $self.attr('title');
-			var args = '#TB_inline?width=600&inlineId=inline-settings-content-container';
-			var img_group = false;
-			tb_show(title, args, img_group);
+		// ===================================
+		// inline contents
+		// ===================================
+		function draw_inline_content(photo, photos) {
+			console.log("draw_inline_content");
+			$("#inline-title").val( photo.title );
+			$("#inline-url").val( flickr.getPhotoPageUrl(photo, photos) );
+			$("#inline-url-file").val( flickr.getPhotoUrl(photo) );
+			$("#inline-url-page").val( flickr.getPhotoPageUrl(photo, photos) );
+			$.each(['sq','t','s','m','o'], function(idx, size){
+				$("#inline-image-size-"+size).val( flickr.getPhotoUrl(photo, size) );
+			})
+		}
+		$(".urlnone, .urlfile, .urlpage").live("click", function(){
+			$("#inline-url").val( $(this).val() );
 		});
+		$("#inline-ins-btn").live("click", function(){
+			var link = $("#inline-url").val();
+			var target = $("input[name='inline-target']:checked").val();
+			target = target ? " target='"+target+"'" : '';
+			var align = $("input[name='inline-align']:checked").val();
+			var alt = $("#inline-title").val();
+			var src = $("input[name='inline-image-size']:checked").val();
+			var clazz = "";
+			
+			if (align) {
+				clazz = " class='align"+align+"'";
+			}
+			
+			var html = '<img src="'+src+'" alt="'+alt+'" '+clazz+'/>';
+			if (link) {
+				html = '<a href="'+link+'" '+target+'>' + html + '</a>';
+			}
+			
+			fp_media_send_to_editor(html);f
+		});
+		function fp_media_send_to_editor(html) {
+			var win = window.dialogArguments || opener || parent || top;
+			win.send_to_editor(html);
+		}
 		
 		// ===================================
 		// photo search

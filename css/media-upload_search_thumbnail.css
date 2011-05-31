@@ -1,5 +1,17 @@
 @CHARSET "UTF-8";
 
+tr.image-size div.image-size-item {
+	text-align: left !important;
+	width: 20%;
+}
+
+tr.align td.field {
+	text-align: left !important;
+}
+tr.align label.align {
+	padding-left: 25px;
+}
+
 div.search-form-off {
 	display: none;
 }

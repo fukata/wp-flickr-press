@@ -20,6 +20,16 @@ function fp_add_scripts() {
 }
 
 function media_upload_search_form() {
+	$alignes = array(
+		'None'=>'none',
+		'Left'=>'left',
+		'Center'=>'center',
+		'Right'=>'right',
+	);
+	$targets = array(
+		'None'=>'',
+		'New Window'=>'_blank',
+	);
 	$sorts = array(
 		'Posted ASC' => 'date-posted-asc',
 		'Posted DESC' => 'date-posted-desc',
@@ -89,10 +99,11 @@ function media_upload_search_form() {
 	
 <div id="inline-settings-content-container" style="display: none;">
 	<table class="describe">
+<?php /*
 		<thead class="media-item-info" id="media-head-<?php echo $photo['id'] ?>">
 			<tr valign="top">
 				<td class="A1B1"
-					<p id="inline-thumbnail"></p>
+					<p><a href="#"><img id="inline-thumbnail" class="thumbnail" src=""/></a></p>
 				</td>
 				<td>
 					<p><strong><?php echo __('ID:') ?><span id="inline-id">[ID]</span></strong></p>
@@ -100,6 +111,7 @@ function media_upload_search_form() {
 				</td>
 			</tr>
 		</thead>
+*/ ?>
 		<tbody>
 			<tr class="post_title">
 				<th valign="top" scope="row" class="label"><label for="inline-title"><span class="alignleft"><?php echo __('Title')?></span><span class="alignright"><br class="clear"></label></th>
@@ -108,19 +120,19 @@ function media_upload_search_form() {
 			<tr class="url">
 				<th valign="top" scope="row" class="label"><label for="inline-url"><span class="alignleft"><?php echo __('Link URL')?></span><br class="clear"></label></th>
 				<td class="field">
-					<input type="text" class="text urlfield" name="inline-url" value=""><br>
+					<input type="text" id="inline-url" class="text urlfield" name="inline-url" value=""><br>
 					<button type="button" class="button urlnone" title=""><?php echo __('None') ?></button>
-					<button type="button" class="button urlfile" title=""><?php echo __('File URL') ?></button>
-					<button type="button" class="button urlpage" title=""><?php echo __('Page URL') ?></button>
+					<button type="button" class="button urlfile" id="inline-url-file" title=""><?php echo __('File URL') ?></button>
+					<button type="button" class="button urlpage" id="inline-url-page" title=""><?php echo __('Page URL') ?></button>
 					<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
 				</td>
 			</tr>
 			<tr class="target">
-				<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][target]"><span class="alignleft"><?php echo __('Link Target')?></span><br class="clear"></label></th>
+				<th valign="top" scope="row" class="label"><label for="inline-target"><span class="alignleft"><?php echo __('Link Target')?></span><br class="clear"></label></th>
 				<td class="field">
 					<?php foreach ($targets as $label => $target) { ?>
 					<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
-						<input type="radio" name="inline-target" id="link-target-<?php echo $target ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label) ?></label>
+						<input type="radio" name="inline-target" id="inline-link-target-<?php echo $target ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="inline-link-target-<?php echo $target ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label) ?></label>
 					<?php } ?>
 				</td>
 			</tr>
@@ -129,7 +141,7 @@ function media_upload_search_form() {
 				<td class="field">
 					<?php foreach ($alignes as $label => $align) { ?>
 						<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
-						<input type="radio" name="inline-align" id="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="image-align-<?php echo $align ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label) ?></label>
+						<input type="radio" name="inline-align" id="inline-image-align-<?php echo $align ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="inline-image-align-<?php echo $align ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label) ?></label>
 					<?php } ?>
 				</td>
 			</tr>
@@ -138,14 +150,14 @@ function media_upload_search_form() {
 				<td class="field">
 					<?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
 						<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
-						<div class="image-size-item"><input name="inline-image-size" value="<?php echo $photo[$url] ?>" type="radio" id="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size]) ?></label></div>
+						<div class="image-size-item"><input name="inline-image-size" value="<?php echo $photo[$url] ?>" type="radio" id="inline-image-size-<?php echo $size ?>"<?php echo $checked?>/><label for="inline-image-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size]) ?></label></div>
 					<?php } ?>
 				</td>
 			</tr>
 			<tr class="submit">
 				<td></td>
 				<td class="savesend">
-					<input type="submit" class="button" name="send" value="<?php echo __('Insert into Post')?>">
+					<input type="submit" id="inline-ins-btn" class="button" name="send" value="<?php echo __('Insert into Post')?>">
 				</td>
 			</tr>
 		</tbody>
