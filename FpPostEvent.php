@@ -13,7 +13,7 @@ class FpPostEvent {
 	
 	public static function loadScripts() {
 		$html = '';
-		$html = '<script src="'.FlickrPress::getPluginUrl().'/js/media.js'.'" type="text/javascript"></script>'."\n";
+		$html = '<script src="'.FlickrPress::getPluginUrl().'/js/media_upload.js'.'" type="text/javascript"></script>'."\n";
 		echo $html;
 	}
 
