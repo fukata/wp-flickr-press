@@ -39,7 +39,7 @@
 
 		$('#search-btn').click(function() {
 			var type = $('input.search-type:checked').val();
-			console.log(type);
+//			console.log(type);
 			if (type == 'advanced') {
 				var options = {
 					per_page : OPTIONS.perpage,
@@ -60,13 +60,13 @@
 					}
 					options["tags"] = joined.join();
 				}
-				console.log(options);
+//				console.log(options);
 				pager_search = function(page) {
 					options['page'] = page;
 					pre_search_photos();
 					flickr.photos_search(options, function(res) {
-						console.log("photos.search callback");
-						console.log(res);
+//						console.log("photos.search callback");
+//						console.log(res);
 						init_photos(res.photos);
 					});
 				};
@@ -82,8 +82,8 @@
 					options['page'] = page;
 					pre_search_photos();
 					flickr.photosets_getPhotos(options, function(res) {
-						console.log("photosets_getPhotos callback");
-						console.log(res);
+//						console.log("photosets_getPhotos callback");
+//						console.log(res);
 						init_photos(res.photoset);
 					});
 				};
@@ -99,8 +99,8 @@
 					options['page'] = page;
 					pre_search_photos();
 					flickr.photos_search(options, function(res) {
-						console.log("photos.search callback");
-						console.log(res);
+//						console.log("photos.search callback");
+//						console.log(res);
 						init_photos(res.photos);
 					});
 				};
