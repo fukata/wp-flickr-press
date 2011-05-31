@@ -52,22 +52,37 @@ div.search-form-off {
 pager
 ========================================== */
 div.pager {
+	margin: 3px 0;
 }
 div.pager span.current {
 	font-weight: bold;
 	margin-right: 3px;
+	background-color: #21759b;
+	color: #ffffff;
+	padding: 3px 6px;
+	border: 1px solid #21759b;
 }
 div.pager a.first {
 	margin-right: 3px;
+	padding: 3px 6px;
+	border: 1px solid #21759b;
 }
 div.pager a.prev {
 	margin-right: 3px;
+	padding: 3px 6px;
+	border: 1px solid #21759b;
 }
 div.pager a.end {
 	margin-left: 3px;
+	padding: 3px 6px;
+	border: 1px solid #21759b;
 }
 div.pager a.next {
+	padding: 3px 6px;
+	border: 1px solid #21759b;
 }
 div.pager a.page {
 	margin-right: 3px;
+	padding: 3px 6px;
+	border: 1px solid #21759b;
 }
