@@ -19,28 +19,33 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('insert_template'),
             FlickrPress::getKey('default_sort'),
             FlickrPress::getKey('quick_settings'),
+            FlickrPress::getKey('default_search_type'),
 		);
 		return $whitelist_options;
 	}
 
 	public static function generateOptionForm() {
 	        $alignes = array(
-	                'None'=>'none',
-	                'Left'=>'left',
-	                'Center'=>'center',
-	                'Right'=>'right',
+                'None'=>'none',
+                'Left'=>'left',
+                'Center'=>'center',
+                'Right'=>'right',
 	        );
 	        $targets = array(
-	                'None'=>'',
-	                'New Window'=>'_blank',
+                'None'=>'',
+                'New Window'=>'_blank',
         	);
 	        $sorts = array(
-	                'Posted ASC' => 'date-posted-asc',
-	                'Posted DESC' => 'date-posted-desc',
-	                'Taken ASC' => 'date-taken-asc',
-	                'Taken DESC' => 'date-taken-desc',
-	                'Interestingness ASC' => 'interestingness-asc',
-	                'Interestingness DESC' => 'interestingness-desc',
+                'Posted ASC' => 'date-posted-asc',
+                'Posted DESC' => 'date-posted-desc',
+                'Taken ASC' => 'date-taken-asc',
+                'Taken DESC' => 'date-taken-desc',
+                'Interestingness ASC' => 'interestingness-asc',
+                'Interestingness DESC' => 'interestingness-desc',
+	        );
+	        $searchTypes = array(
+	        	'List' => 'list',
+	        	'Thumbnail' => 'thumbnail',
 	        );
 ?>
 <script type="text/javascript"><!--
@@ -155,21 +160,32 @@ function callback_oauth(token) {
 					</select>
                                 </td>
                         </tr>
-                        <tr valign="top">
-                                <th scope="row">
+			<tr valign="top">
+				<th scope="row">
 					<p><?php echo _e('Quick Settings') ?></p>
 				</th>
-                                <td>
+				<td>
 					<p><?php echo _e('Enable:') ?><input type="checkbox" name="<?php echo flickrpress::getkey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
 					<p>When enabled, a dialog will appear when you click for a set of check boxes for multiple insertion.</p>
-                                </td>
-                        </tr>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<p><?php echo _e('Search Type') ?></p>
+				</th>
+				<td>
+					<p>
+					<?php foreach ($searchTypes as $label => $val) { ?>
+						<input type="radio" name="<?php echo FlickrPress::getKey('default_search_type') ?>" id="search_type_<?php echo $val ?>" value="<?php echo $val ?>" <?php echo FlickrPress::getDefaulSearchType()==$val ? 'checked="checked"' : ''; ?>/><label for="search_type_<?php echo $val ?>"><?php echo _e($label) ?></label>
+					<?php } ?>
+					</p>
+				</td>
+			</tr>
 		</table>
-
-                <p class="submit">
-                        <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-                </p>
-        </form>
+		<p class="submit">
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+		</p>
+	</form>
 </div>
 
 <?php

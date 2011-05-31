@@ -105,6 +105,10 @@ class FlickrPress {
 		return get_option(self::getKey('default_size'), 'Medium');
 	}
 
+	public static function getDefaulSearchType() {
+		return get_option(self::getKey('default_search_type'), 'list');
+	}
+
 	public static function getInsertTemplate() {
 		return get_option(self::getKey('insert_template'), '[img]');
 	}
@@ -126,7 +130,7 @@ class FlickrPress {
 		require_once(self::getDir().'/FpPostEvent.php');
 		add_action('media_buttons_context', array('FpPostEvent', 'addButtons'));
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
-		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScript'));
+		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScripts'));
 
 		require_once(self::getDir().'/FpAdminSettingEvent.php');
 		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
