@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+#search-form {
+	padding: 0px 15px;
+}
+
 tr.image-size div.image-size-item {
 	text-align: left !important;
 	width: 20%;

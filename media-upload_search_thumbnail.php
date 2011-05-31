@@ -96,7 +96,11 @@ function media_upload_search_form() {
 	<div id="search-results"></div>
 	<br clear="all"/>
 	<div class="pager-container"></div>
+
+</div>
 	
+</form>
+
 <div id="inline-settings-content-container" style="display: none;">
 	<table class="describe">
 <?php /*
@@ -164,10 +168,6 @@ function media_upload_search_form() {
 		</tbody>
 	</table>
 </div>
-
-</div>
-	
-</form>
 
 <?php
 }
