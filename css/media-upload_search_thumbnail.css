@@ -43,3 +43,28 @@ div.search-form-off {
 #search-results div.thumbnail:nth-child(5n+1) {
 	clear: both;
 }
+
+/* ==========================================
+pager
+========================================== */
+div.pager {
+}
+div.pager span.current {
+	font-weight: bold;
+	margin-right: 3px;
+}
+div.pager a.first {
+	margin-right: 3px;
+}
+div.pager a.prev {
+	margin-right: 3px;
+}
+div.pager a.end {
+	margin-left: 3px;
+}
+div.pager a.next {
+	margin-left: 3px;
+}
+div.pager a.page {
+	margin-right: 3px;
+}
