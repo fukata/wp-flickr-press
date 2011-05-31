@@ -82,9 +82,76 @@ function media_upload_search_form() {
 
 	</div>
 	
-	<div class="pager-container"></div>
+	<div class="pager-container clearfix"></div>
 	<div id="search-results"></div>
+	<br clear="all"/>
+	<div class="pager-container"></div>
 	
+<div id="inline-settings-content-container" style="display: none;">
+	<table class="describe">
+		<thead class="media-item-info" id="media-head-<?php echo $photo['id'] ?>">
+			<tr valign="top">
+				<td class="A1B1"
+					<p id="inline-thumbnail"></p>
+				</td>
+				<td>
+					<p><strong><?php echo __('ID:') ?><span id="inline-id">[ID]</span></strong></p>
+					<p><strong><?php echo __('File name:') ?><span id="inline-filename">[FILENAME]</span></strong></p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="post_title">
+				<th valign="top" scope="row" class="label"><label for="inline-title"><span class="alignleft"><?php echo __('Title')?></span><span class="alignright"><br class="clear"></label></th>
+				<td class="field"><input type="text" class="text" id="inline-title" name="inline-title" value="" aria-required="true"></td>
+			</tr>
+			<tr class="url">
+				<th valign="top" scope="row" class="label"><label for="inline-url"><span class="alignleft"><?php echo __('Link URL')?></span><br class="clear"></label></th>
+				<td class="field">
+					<input type="text" class="text urlfield" name="inline-url" value=""><br>
+					<button type="button" class="button urlnone" title=""><?php echo __('None') ?></button>
+					<button type="button" class="button urlfile" title=""><?php echo __('File URL') ?></button>
+					<button type="button" class="button urlpage" title=""><?php echo __('Page URL') ?></button>
+					<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
+				</td>
+			</tr>
+			<tr class="target">
+				<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][target]"><span class="alignleft"><?php echo __('Link Target')?></span><br class="clear"></label></th>
+				<td class="field">
+					<?php foreach ($targets as $label => $target) { ?>
+					<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
+						<input type="radio" name="inline-target" id="link-target-<?php echo $target ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label) ?></label>
+					<?php } ?>
+				</td>
+			</tr>
+			<tr class="align">
+				<th valign="top" scope="row" class="label"><label for="inline-align"><span class="alignleft"><?php echo __('Alignment')?></span><br class="clear"></label></th>
+				<td class="field">
+					<?php foreach ($alignes as $label => $align) { ?>
+						<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
+						<input type="radio" name="inline-align" id="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="image-align-<?php echo $align ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label) ?></label>
+					<?php } ?>
+				</td>
+			</tr>
+			<tr class="image-size">
+				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size')?></span><br class="clear"></label></th>
+				<td class="field">
+					<?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
+						<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
+						<div class="image-size-item"><input name="inline-image-size" value="<?php echo $photo[$url] ?>" type="radio" id="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size]) ?></label></div>
+					<?php } ?>
+				</td>
+			</tr>
+			<tr class="submit">
+				<td></td>
+				<td class="savesend">
+					<input type="submit" class="button" name="send" value="<?php echo __('Insert into Post')?>">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
 </div>
 	
 </form>

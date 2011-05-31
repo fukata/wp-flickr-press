@@ -63,6 +63,7 @@
 				console.log(options);
 				pager_search = function(page) {
 					options['page'] = page;
+					pre_search_photos();
 					flickr.photos_search(options, function(res) {
 						console.log("photos.search callback");
 						console.log(res);
@@ -79,6 +80,7 @@
 
 				pager_search = function(page) {
 					options['page'] = page;
+					pre_search_photos();
 					flickr.photosets_getPhotos(options, function(res) {
 						console.log("photosets_getPhotos callback");
 						console.log(res);
@@ -95,6 +97,7 @@
 
 				pager_search = function(page) {
 					options['page'] = page;
+					pre_search_photos();
 					flickr.photos_search(options, function(res) {
 						console.log("photos.search callback");
 						console.log(res);
@@ -119,7 +122,10 @@
 				if (title.length > 15) {
 					title = title.substring(0, 15) + '...';
 				}
-				var $img = $("<a></a>").attr("href", "#").append(
+				var $img = $("<a></a>").addClass("ins-photo").attr({
+					href : "javascript:void(0)",
+					title : title
+				}).append(
 						$("<img />").attr(
 								{
 									src : flickr.getPhotoUrl(photo,
@@ -127,7 +133,10 @@
 									title : photo["title"]
 								}).addClass("photo"));
 				var $title = $("<div></div>").addClass("title").append(
-						$("<a></a>").attr("href", "#").html(title));
+						$("<a></a>").addClass("ins-photo").attr({
+							href : "javascript:void(0)",
+							title : title
+						}).html(title));
 				var $div = $("<div></div>").addClass("thumbnail").append($img)
 						.append($title);
 				$("#search-results").append($div);
@@ -165,16 +174,20 @@
 				}).text("<");
 				$pager.append($prev);
 			}
+			
 			for ( var i = start_link; i <= end_link; i++) {
-				var $link = $("<a></a>").addClass("page").attr({
-					href : "javascript:void(0)",
-					page : i
-				}).text(i);
 				if (i == page) {
-					$link.addClass("current");
+					var $link = $("<span></span>").addClass('current').text(i);
+					$pager.append($link);
+				} else {
+					var $link = $("<a></a>").addClass("page").attr({
+						href : "javascript:void(0)",
+						page : i
+					}).text(i);
+					$pager.append($link);
 				}
-				$pager.append($link);
 			}
+			
 			if (page < pages) {
 				var $next = $("<a></a>").addClass("next").attr({
 					href : "javascript:void(0)",
@@ -201,6 +214,21 @@
 					}
 				});
 
+		function pre_search_photos() {
+			$("#search-results").html("");
+			$("#search-results").append( $("<img/>").attr({
+				src: "images/loader.gif" 
+			}) );
+		}
+		
+		$(".ins-photo").live('click', function(){
+			var $self = $(this);
+			var title = $self.attr('title');
+			var args = '#TB_inline?width=600&inlineId=inline-settings-content-container';
+			var img_group = false;
+			tb_show(title, args, img_group);
+		});
+		
 		// ===================================
 		// photo search
 		// ===================================
@@ -212,6 +240,7 @@
 		pager_search = function(page) {
 			console.log("pager_search: %s", page);
 			options['page'] = page;
+			pre_search_photos();
 			flickr.photos_search(options, function(res) {
 				console.log("photos.search callback");
 				console.log(res);
