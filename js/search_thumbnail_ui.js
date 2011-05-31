@@ -254,7 +254,7 @@
 		$(".urlnone, .urlfile, .urlpage").live("click", function(){
 			$("#inline-url").val( $(this).val() );
 		});
-		$("#inline-ins-btn").live("click", function(){
+		$(".inline-ins-btn").live("click", function(){
 			var link = $("#inline-url").val();
 			var target = $("input[name='inline-target']:checked").val();
 			target = target ? " target='"+target+"'" : '';
@@ -262,6 +262,7 @@
 			var alt = $("#inline-title").val();
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
+			var close = $(this).attr('close') == '1';
 			
 			if (align) {
 				clazz = " class='align"+align+"'";
@@ -273,11 +274,14 @@
 			}
 			html += "\n";
 			
-			fp_media_send_to_editor(html);
+			fp_media_send_to_editor(html, close);
 		});
-		function fp_media_send_to_editor(html) {
+		function fp_media_send_to_editor(html, close) {
+			close = close || false;
 			var win = window.dialogArguments || opener || parent || top;
-			win.send_to_editor(html);
+			win.fp_send_to_editor(html, close);
+			
+			if (!close) $("#TB_closeWindowButton").trigger("click");
 		}
 		
 		// ===================================

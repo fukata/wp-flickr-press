@@ -157,7 +157,8 @@ function media_upload_search_form() {
 			<tr class="submit">
 				<td></td>
 				<td class="savesend">
-					<input type="submit" id="inline-ins-btn" class="button" name="send" value="<?php echo __('Insert into Post')?>">
+					<input type="button" class="inline-ins-btn" close="1" class="button" name="send" value="<?php echo __('Insert into Post and Close')?>">
+					<input type="button" class="inline-ins-btn" close="0" class="button" name="send" value="<?php echo __('Insert into Post and Continue')?>">
 				</td>
 			</tr>
 		</tbody>
