@@ -113,6 +113,7 @@
 		// init photos
 		// ===================================
 		function init_photos(photos) {
+			var title_max = 20;
 			$("#search-results").empty();
 			
 			var ins_popup = function() {
@@ -131,8 +132,8 @@
 				var photo = photos.photo[i];
 				var page_url = flickr.getPhotoPageUrl(photo, photos);
 				var title = photo.title;
-				if (title.length > 15) {
-					title = title.substring(0, 15) + '...';
+				if (title.length > title_max) {
+					title = title.substring(0, title_max) + '...';
 				}
 				
 				var $img = $("<a></a>").addClass("ins-photo").attr({
@@ -232,7 +233,8 @@
 				});
 
 		function pre_search_photos() {
-			$("#search-results").html("");
+			$("div.pager-container").empty();
+			$("#search-results").empty();
 			$("#search-results").append( $("<img/>").attr({
 				src: "images/loader.gif" 
 			}) );
