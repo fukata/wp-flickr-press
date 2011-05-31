@@ -310,10 +310,10 @@ jQuery(document).ready(function($){
 		var title = $('div.filename > span.title', 'div#media-item-'+photo_id).text();
 		if (title.length>25) title = title.substring(0,25)+'...';
 
-		var t = 'Quick Settings: ' + title;
-		var a = '#TB_inline?width=350&inlineId=inline-settings-content-container';
-		var g = false;
-		tb_show(t,a,g);
+		var title = 'Quick Settings: ' + title;
+		var args = '#TB_inline?width=350&inlineId=inline-settings-content-container';
+		var img_group = false;
+		tb_show(title, args, img_group);
 
 		var photo_id = $(this).val();
 		draw_settings_content(photo_id);
