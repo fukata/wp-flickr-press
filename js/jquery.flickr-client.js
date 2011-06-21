@@ -120,11 +120,11 @@
 	 * @return
 	 */
 	FlickrClient.prototype.generateSignature = function(params) {
-		console.log("getApiSig");
-		console.log(params);
+//		console.log("getApiSig");
+//		console.log(params);
 		var sig = "";
 		$.each(params, function(key, val){
-			console.log("%s=%s", key, val);
+//			console.log("%s=%s", key, val);
 			if (val == "") {
 				delete params[key];
 			} else {
@@ -133,10 +133,10 @@
 		});
 		
 		if (this.options.apiSecret) {
-			console.log("secret=%s", this.options.apiSecret);
-			console.log("sig=%s", sig);
+//			console.log("secret=%s", this.options.apiSecret);
+//			console.log("sig=%s", sig);
 			sig = $.md5(this.options.apiSecret + sig);
-			console.log("api_sig=%s", sig);
+//			console.log("api_sig=%s", sig);
 		}
 		
 		return sig;
