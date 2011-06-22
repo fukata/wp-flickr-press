@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-flickr-press\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-22 10:07+0900\n"
+"Last-Translator: tatsuya.fukata@gmail.com\n"
+"Language-Team: tatsuya.fukata@gmail.com\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: check-oauth.php:6 check-setting.php:6
+msgid ""
+"API KEY and API SECRET is required. Please setting API KEY and API SECRET."
+msgstr "APIキー、APIシークレットの設定が必要です。先に設定画面から設定を行ってください。"
+
+#: check-setting.php:11
+msgid "USER ID is required. Please setting USER ID."
+msgstr "ユーザIDの設定が必要です。先に設定画面から設定を行ってください。"
+
+#: FpAdminSettingEvent.php:66
+msgid "Last Update: "
+msgstr "最終更新日時: "
+
+#: FpAdminSettingEvent.php:79
+msgid "API KEY/Secret"
+msgstr "APIキー/シークレット"
+
+#: FpAdminSettingEvent.php:83
+msgid "API KEY:"
+msgstr "APIキー:"
+
+#: FpAdminSettingEvent.php:84
+msgid "Secret:"
+msgstr "シークレット:"
+
+#: FpAdminSettingEvent.php:89
+msgid "OAuth Token"
+msgstr "OAuthトークン"
+
+#: FpAdminSettingEvent.php:98
+msgid "Update OAuth Token"
+msgstr "OAuthトークンを更新"
+
+#: FpAdminSettingEvent.php:105
+msgid "Default Attachments"
+msgstr "デフォルト添付情報"
+
+#: FpAdminSettingEvent.php:108 media-upload_search.php:178
+#: media-upload_search_thumbnail.php:135
+msgid "Link Target"
+msgstr "リンクターゲット"
+
+#: FpAdminSettingEvent.php:117 media-upload_search.php:187
+#: media-upload_search_thumbnail.php:144
+msgid "Alignment"
+msgstr "位置"
+
+#: FpAdminSettingEvent.php:126 media-upload_search.php:196
+#: media-upload_search_thumbnail.php:153
+msgid "Size"
+msgstr "サイズ"
+
+#: FpAdminSettingEvent.php:136
+msgid "Advanced Options"
+msgstr "詳細オプション"
+
+#: FpAdminSettingEvent.php:140
+msgid "Insert Template"
+msgstr "一括挿入時テンプレート"
+
+#: FpAdminSettingEvent.php:141
+msgid "Avalable Options"
+msgstr "利用可能オプション"
+
+#: FpAdminSettingEvent.php:153
+msgid "Default Sort"
+msgstr "デフォルトソート"
+
+#: FpAdminSettingEvent.php:165
+msgid "Quick Settings"
+msgstr "簡易設定"
+
+#: FpAdminSettingEvent.php:168
+msgid "Enable:"
+msgstr "有効:"
+
+#: FpAdminSettingEvent.php:174
+msgid "Search Type"
+msgstr "検索種類"
+
+#: FpAdminSettingEvent.php:186
+msgid "Save Changes"
+msgstr "更新"
+
+#: FpPager.php:22
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: FpPager.php:23
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: FpPostEvent.php:9
+# already exists in ja.po
+msgid "Upload/Insert %s"
+msgstr ""
+
+#: FpPostEvent.php:10
+msgid "Add flickr media"
+msgstr "flickrメディアを追加"
+
+#: inc.header_tab.php:3
+msgid "Search(List)"
+msgstr "検索(リスト)"
+
+#: inc.header_tab.php:4
+msgid "Search(Thumbnail)"
+msgstr "検索(サムネイル)"
+
+#: media-upload_search.php:103 media-upload_search_thumbnail.php:62
+msgid "Recent upload"
+msgstr "直近のアップロード"
+
+#: media-upload_search.php:104 media-upload_search_thumbnail.php:63
+msgid "Photosets"
+msgstr "フォトセット"
+
+#: media-upload_search.php:105 media-upload_search_thumbnail.php:64
+msgid "Advanced"
+msgstr "詳細"
+
+#: media-upload_search.php:109 media-upload_search_thumbnail.php:68
+msgid "Sort:"
+msgstr "ソート:"
+
+#: media-upload_search.php:118 media-upload_search_thumbnail.php:77
+msgid "Keyword:"
+msgstr "キーワード:"
+
+#: media-upload_search.php:119 media-upload_search_thumbnail.php:78
+msgid "Tags:"
+msgstr "タグ:"
+
+#: media-upload_search.php:122 media-upload_search_thumbnail.php:81
+msgid "Photosets:"
+msgstr "フォトセット:"
+
+#: media-upload_search.php:127 media-upload_search_thumbnail.php:91
+msgid "Search"
+msgstr "検索"
+
+#: media-upload_search.php:127
+msgid "Search and clear cache"
+msgstr "キャッシュを削除して検索"
+
+#: media-upload_search.php:146
+msgid "Show"
+msgstr "詳細"
+
+#: media-upload_search.php:147
+msgid "Hide"
+msgstr "隠す"
+
+#: media-upload_search.php:157
+msgid "ID:"
+msgstr "ID:"
+
+#: media-upload_search.php:158
+msgid "File name:"
+msgstr "ファイル名:"
+
+#: media-upload_search.php:164 media-upload_search_thumbnail.php:121
+msgid "Title"
+msgstr "タイトル"
+
+#: media-upload_search.php:168 media-upload_search_thumbnail.php:125
+msgid "Link URL"
+msgstr "リンクURL"
+
+#: media-upload_search.php:171 media-upload_search_thumbnail.php:128
+msgid "None"
+msgstr "無し"
+
+msgid "New Window"
+msgstr "新しいウィンドウ"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Center"
+msgstr "中央"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Posted ASC"
+msgstr "投稿順(昇順)"
+
+msgid "Posted DESC"
+msgstr "投稿順(降順)"
+
+msgid "Taken ASC"
+msgstr "撮影順(昇順)"
+
+msgid "Taken DESC"
+msgstr "撮影順(降順)"
+
+msgid "Interestingness ASC"
+msgstr "Interestingness(昇順)"
+
+msgid "Interestingness DESC"
+msgstr "Interestingness(降順)"
+
+msgid "List"
+msgstr "リスト"
+
+msgid "Thumbnail"
+msgstr "サムネイル"
+
+#: media-upload_search.php:172 media-upload_search_thumbnail.php:129
+msgid "File URL"
+msgstr "ファイルURL"
+
+#: media-upload_search.php:173 media-upload_search_thumbnail.php:130
+msgid "Page URL"
+msgstr "ページURL"
+
+#: media-upload_search.php:174 media-upload_search_thumbnail.php:131
+# already exists in ja.po
+msgid "Enter a link URL or click above for presets."
+msgstr ""
+
+#: media-upload_search.php:207
+msgid "Insert into Post"
+msgstr "挿入"
+
+#: media-upload_search.php:215
+msgid "Batch Insert into Post"
+msgstr "一括挿入"
+
+#: media-upload_search.php:221
+msgid "Order:"
+msgstr "並び順:"
+
+#: media-upload_search.php:226
+#, fuzzy
+msgid "Update"
+msgstr "更新"
+
+#: media-upload_search.php:347
+msgid "Size:"
+msgstr "サイズ:"
+
+#: media-upload_search_thumbnail.php:164
+msgid "Insert into Post and Close"
+msgstr "挿入して閉じる"
+
+#: media-upload_search_thumbnail.php:165
+msgid "Insert into Post and Continue"
+msgstr "挿入して続ける"
+
+msgid "Square"
+msgstr "正方形"
+
+msgid "Small"
+msgstr "小"
+
+msgid "Medium"
+msgstr "中"
+
+msgid "Original"
+msgstr "オリジナル"

@@ -6,9 +6,10 @@ class FlickrPress {
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
+	const TEXT_DOMAIN = 'wp-flickr-press';
 
 	private static $flickr;
-
+	
 	public static $SIZE_LABELS = array(
 		'sq' => 'Square',
 		't' => 'Thumbnail',
@@ -27,6 +28,7 @@ class FlickrPress {
 	}
 
 	public static function init() {
+		self::loadLanguages();
 		self::addEvents();
 
 		self::$flickr = new phpFlickr(FlickrPress::getApiKey(), FlickrPress::getApiSecret());
@@ -150,6 +152,11 @@ class FlickrPress {
 
 		$url = "http://www.flickr.com/photos/$owner/$id";
 		return $url;
+	}
+	
+	public static function loadLanguages() {
+//		$languageDir = dirname(__FILE__) . '/language';
+		load_plugin_textdomain(self::TEXT_DOMAIN, false, 'wp-flickr-press/language');
 	}
 }
 ?>

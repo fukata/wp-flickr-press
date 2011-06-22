@@ -3,7 +3,7 @@ $errors = array();
 $apiKey = FlickrPress::getApiKey();
 $apiSecret = FlickrPress::getApiSecret();
 if (empty($apiKey) || empty($apiSecret)) {
-	$errors[] = __('API KEY and API SECRET is required. Please setting API KEY and API SECRET.');
+	$errors[] = __('API KEY and API SECRET is required. Please setting API KEY and API SECRET.', FlickrPress::TEXT_DOMAIN);
 }
 
 if (!empty($errors) && count($errors)>0) {

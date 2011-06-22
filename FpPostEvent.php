@@ -7,7 +7,7 @@ class FpPostEvent {
 
 	public static function addButtons() {
 		$context = __('Upload/Insert %s');
-		$context .= self::_media_button(__('Add flickr media'), FlickrPress::getPluginUrl().'/images/icon-flickr.gif', FlickrPress::MEDIA_BUTTON_TYPE);
+		$context .= self::_media_button(__('Add flickr media', FlickrPress::TEXT_DOMAIN), FlickrPress::getPluginUrl().'/images/icon-flickr.gif', FlickrPress::MEDIA_BUTTON_TYPE);
 		return $context;
 	}
 	

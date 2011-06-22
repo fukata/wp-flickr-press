@@ -100,31 +100,31 @@ function media_upload_search_form() {
 
 	<div class="searchnav">
 		<p>
-			<input type="radio" name="filter[type]" value="recent" class="search-type" id="filter-type-recent" <?php echo $checkedRecent ?>/><label for="filter-type-recent"><?php echo __('Recent upload') ?></label>
-			<input type="radio" name="filter[type]" value="photosets" class="search-type" id="filter-type-photosets" <?php echo $checkedPhotosets ?>/><label for="filter-type-photosets"><?php echo __('Photosets') ?></label>
-			<input type="radio" name="filter[type]" value="advanced" class="search-type" id="filter-type-advanced" <?php echo $checkedAdvanced ?>/><label for="filter-type-advanced"><?php echo __('Advanced') ?></label>
+			<input type="radio" name="filter[type]" value="recent" class="search-type" id="filter-type-recent" <?php echo $checkedRecent ?>/><label for="filter-type-recent"><?php echo __('Recent upload', FlickrPress::TEXT_DOMAIN) ?></label>
+			<input type="radio" name="filter[type]" value="photosets" class="search-type" id="filter-type-photosets" <?php echo $checkedPhotosets ?>/><label for="filter-type-photosets"><?php echo __('Photosets', FlickrPress::TEXT_DOMAIN) ?></label>
+			<input type="radio" name="filter[type]" value="advanced" class="search-type" id="filter-type-advanced" <?php echo $checkedAdvanced ?>/><label for="filter-type-advanced"><?php echo __('Advanced', FlickrPress::TEXT_DOMAIN) ?></label>
 		</p>
 		<div id="sort-search-form" class="<?php echo $sortFormClass ?>">
 			<p class="field-row">
-				<span class="field-label"><?php echo __('Sort:') ?></span>
+				<span class="field-label"><?php echo __('Sort:', FlickrPress::TEXT_DOMAIN) ?></span>
 				<select name="filter[sort]">
-				<?php foreach ($sorts as $name => $val) { ?>
-					<option value="<?php echo $val ?>" <?php if ($val==$sort) {echo 'selected="selected"';} ?>><?php echo $name ?></option>
+				<?php foreach ($sorts as $label => $val) { ?>
+					<option value="<?php echo $val ?>" <?php if ($val==$sort) {echo 'selected="selected"';} ?>><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
 				<?php } ?>
 				</select>
 			</p>
 		</div>
 		<div id="advanced-search-form" class="<?php echo $advancedFormClass?>">
-			<p class="field-row"><span class="field-label"><?php echo __('Keyword:') ?></span><input type="text" name="filter[keyword]" value="<?php echo $filter['keyword'] ?>" size="50"/></p>
-			<p class="field-row"><span class="field-label"><?php echo __('Tags:') ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50" id="filter-tags" autocomplete="off"/></p>
+			<p class="field-row"><span class="field-label"><?php echo __('Keyword:', FlickrPress::TEXT_DOMAIN) ?></span><input type="text" name="filter[keyword]" value="<?php echo $filter['keyword'] ?>" size="50"/></p>
+			<p class="field-row"><span class="field-label"><?php echo __('Tags:', FlickrPress::TEXT_DOMAIN) ?></span><input type="text" name="filter[tags]" value="<?php echo $filter['tags'] ?>" size="50" id="filter-tags" autocomplete="off"/></p>
 		</div>
 		<div id="photosets-search-form" class="<?php echo $photosetsFormClass?>">
-			<p class="field-row"><span class="field-label"><?php echo __('Photosets:') ?></span>
+			<p class="field-row"><span class="field-label"><?php echo __('Photosets:', FlickrPress::TEXT_DOMAIN) ?></span>
 				<select name="filter[photoset]"></select>
 			</p>
 		</div>
 
-		<p><input type="submit" value="<?php echo __('Search') ?>" class="button"/> <a href="javascript:void(0);" class="button" id="clear-cache-btn"><?php echo __('Search and clear cache') ?></a></p>
+		<p><input type="submit" value="<?php echo __('Search', FlickrPress::TEXT_DOMAIN) ?>" class="button"/> <a href="javascript:void(0);" class="button" id="clear-cache-btn"><?php echo __('Search and clear cache', FlickrPress::TEXT_DOMAIN) ?></a></p>
 	</div>
 </form>
 
@@ -143,8 +143,8 @@ function media_upload_search_form() {
 		<input type="checkbox" name="batch_send[]" value="<?php echo $photo['id'] ?>" class="batch-send"/>
 		<input type="text" name="attachments[<?php echo $photo['id'] ?>][order]" value="" maxlength="2" size="1" class="order" />
 		<img class="pinkynail toggle" src="<?php echo FlickrPress::getPhotoUrl($photo, 'sq') ?>"/>
-		<a class="toggle describe-toggle-on" href="#"><?php echo __('Show') ?></a>
-		<a class="toggle describe-toggle-off" href="#"><?php echo __('Hide') ?></a>
+		<a class="toggle describe-toggle-on" href="#"><?php echo __('Show', FlickrPress::TEXT_DOMAIN) ?></a>
+		<a class="toggle describe-toggle-off" href="#"><?php echo __('Hide', FlickrPress::TEXT_DOMAIN) ?></a>
 		<div class="filename new"><span class="title"><?php echo $photo['title'] ?></span></div>
 		<table class="slidetoggle describe startclosed">
 			<thead class="media-item-info" id="media-head-<?php echo $photo['id'] ?>">
@@ -154,57 +154,57 @@ function media_upload_search_form() {
 						<p><img src="<?php echo admin_url() ?>/images/wpspin_light.gif" class="imgedit-wait-spin" alt=""></p>
 					</td>
 					<td>
-						<p><strong><?php echo __('ID:') . $photo['id'] ?></strong></p>
-						<p><strong><?php echo __('File name:') . $photo['title'] ?></strong></p>
+						<p><strong><?php echo __('ID:', FlickrPress::TEXT_DOMAIN) . $photo['id'] ?></strong></p>
+						<p><strong><?php echo __('File name:', FlickrPress::TEXT_DOMAIN) . $photo['title'] ?></strong></p>
 					</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr class="post_title">
-					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][title]"><span class="alignleft"><?php echo __('Title')?></span><span class="alignright"><br class="clear"></label></th>
+					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][title]"><span class="alignleft"><?php echo __('Title', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>
 					<td class="field"><input type="text" class="text" id="attachments[<?php echo $photo['id'] ?>][title]" name="attachments[<?php echo $photo['id'] ?>][title]" value="<?php echo $photo['title'] ?>" aria-required="true"></td>
 				</tr>
 				<tr class="url">
-					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][url]"><span class="alignleft"><?php echo __('Link URL')?></span><br class="clear"></label></th>
+					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][url]"><span class="alignleft"><?php echo __('Link URL', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
 					<td class="field">
 						<input type="text" class="text urlfield" name="attachments[<?php echo $photo['id'] ?>][url]" value="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><br>
-						<button type="button" class="button urlnone" title=""><?php echo __('None') ?></button>
-						<button type="button" class="button urlfile" title="<?php echo FlickrPress::getPhotoUrl($photo) ?>"><?php echo __('File URL') ?></button>
-						<button type="button" class="button urlpage" title="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><?php echo __('Page URL') ?></button>
+						<button type="button" class="button urlnone" title=""><?php echo __('None', FlickrPress::TEXT_DOMAIN) ?></button>
+						<button type="button" class="button urlfile" title="<?php echo FlickrPress::getPhotoUrl($photo) ?>"><?php echo __('File URL', FlickrPress::TEXT_DOMAIN) ?></button>
+						<button type="button" class="button urlpage" title="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><?php echo __('Page URL', FlickrPress::TEXT_DOMAIN) ?></button>
 						<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
 					</td>
 				</tr>
                                 <tr class="target">
-                                        <th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][target]"><span class="alignleft"><?php echo __('Link Target')?></span><br class="clear"></label></th>
+                                        <th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][target]"><span class="alignleft"><?php echo __('Link Target', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
                                         <td class="field">
                                                 <?php foreach ($targets as $label => $target) { ?>
 							<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
-                                                        <input type="radio" name="attachments[<?php echo $photo['id'] ?>][target]" id="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label) ?></label>
+                                                        <input type="radio" name="attachments[<?php echo $photo['id'] ?>][target]" id="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="link-target-<?php echo $target ?>-<?php echo $photo['id'] ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
                                                 <?php } ?>
                                         </td>
                                 </tr>
 				<tr class="align">
-					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][align]"><span class="alignleft"><?php echo __('Alignment')?></span><br class="clear"></label></th>
+					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][align]"><span class="alignleft"><?php echo __('Alignment', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
 					<td class="field">
 						<?php foreach ($alignes as $label => $align) { ?>
 							<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
-							<input type="radio" name="attachments[<?php echo $photo['id'] ?>][align]" id="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label) ?></label>
+							<input type="radio" name="attachments[<?php echo $photo['id'] ?>][align]" id="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="image-align-<?php echo $align ?>-<?php echo $photo['id'] ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
 						<?php } ?>
 					</td>
 				</tr>
 				<tr class="image-size">
-					<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size')?></span><br class="clear"></label></th>
+					<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
 					<td class="field">
 						<?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
 							<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
-							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $photo[$url] ?>" type="radio" id="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size]) ?></label></div>
+							<div class="image-size-item"><input name="attachments[<?php echo $photo['id'] ?>][image-size]" value="<?php echo $photo[$url] ?>" type="radio" id="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"<?php echo $checked?>/><label for="image-size-<?php echo $size ?>-<?php echo $photo['id'] ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size], FlickrPress::TEXT_DOMAIN) ?></label></div>
 						<?php } ?>
 					</td>
 				</tr>
 				<tr class="submit">
 					<td></td>
 					<td class="savesend">
-						<input type="submit" class="button" name="send[<?php echo $photo['id'] ?>]" value="<?php echo __('Insert into Post')?>">
+						<input type="submit" class="button" name="send[<?php echo $photo['id'] ?>]" value="<?php echo __('Insert into Post', FlickrPress::TEXT_DOMAIN)?>">
 					</td>
 				</tr>
 			</tbody>
@@ -212,18 +212,18 @@ function media_upload_search_form() {
 	</div>
 <?php } ?>
 </div>
-<p><a href="javascript:void(0)" class="button" id="batch-insert-btn"><?php echo __('Batch Insert into Post'); ?></a></p>
+<p><a href="javascript:void(0)" class="button" id="batch-insert-btn"><?php echo __('Batch Insert into Post', FlickrPress::TEXT_DOMAIN); ?></a></p>
 </form>
 <div class="tablenav"><?php echo $pager->generate() ?></div>
 <div id="inline-settings-content-container">
 	<input type="hidden" name="inline_photo_id" id="inline-photo-id"/>
 	<div id="inline-settings-order">
-		<p><?php echo _e('Order:') ?><input type="text" name="order" maxlength="2" size="2" id="inline-order" /></p>
+		<p><?php echo __('Order:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="order" maxlength="2" size="2" id="inline-order" /></p>
 	</div>
 	<div id="inline-settings-image-size">
 	</div>
 	<div class="save-buttons">
-		<input type="button" value="<?php echo __('Update') ?>" class="button" id="inline-update-button"/>
+		<input type="button" value="<?php echo __('Update', FlickrPress::TEXT_DOMAIN) ?>" class="button" id="inline-update-button"/>
 	</div>
 </div>
 <script type="text/javascript">
@@ -344,7 +344,7 @@ jQuery(document).ready(function($){
 
 		// image_size
 		var image_size_content = $('div#media-item-'+photo_id+' > table.describe > tbody > tr.image-size > td.field').html();
-		image_size_content = '<p><?php _e('Size:') ?></p>'+image_size_content;
+		image_size_content = '<p><?php __('Size:', FlickrPress::TEXT_DOMAIN) ?></p>'+image_size_content;
 		$content_image_size.append(image_size_content);
 		var image_size_selector = 'input[name="attachments['+photo_id+'][image-size]"]';
 		var image_size = $(image_size_selector+':checked', 'div#media-item-'+photo_id).val();

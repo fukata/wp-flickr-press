@@ -63,7 +63,7 @@ function callback_oauth(token) {
 	jQuery('#fp-user-id-hid').val(token.user.nsid);
 	jQuery('#fp-username').html(token.user.username);
 	jQuery('#fp-username-hid').val(token.user.username);
-	jQuery('#fp-oauth-update').html("<?php _e('Last Update: ') ?>"+new Date()+"<br/><p style=\"color:#f00\"><strong>Not yet been update. Please Update.</strong><p>");
+	jQuery('#fp-oauth-update').html("<?php __('Last Update: ', FlickrPress::TEXT_DOMAIN) ?>"+new Date()+"<br/><p style=\"color:#f00\"><strong>Not yet been update. Please Update.</strong><p>");
 }
 
 // --></script>
@@ -76,17 +76,17 @@ function callback_oauth(token) {
                 <table class="form-table">
                         <tr valign="top">
                                 <th scope="row">
-                                        <p><?php echo _e('API KEY/Secret') ?></p>
+                                        <p><?php echo __('API KEY/Secret', FlickrPress::TEXT_DOMAIN) ?></p>
 					<p><a href="http://www.flickr.com/services/api/misc.api_keys.html" target="_blank">Flickr Services</a></p>
                                 </th>
                                 <td>
-					<p><?php echo _e('API KEY:') ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_key') ?>" value="<?php echo FlickrPress::getApiKey() ?>" size="70" />
-					<p><?php echo _e('Secret:') ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_secret') ?>" value="<?php echo FlickrPress::getApiSecret() ?>" size="70" />
+					<p><?php echo __('API KEY:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_key') ?>" value="<?php echo FlickrPress::getApiKey() ?>" size="70" />
+					<p><?php echo __('Secret:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_secret') ?>" value="<?php echo FlickrPress::getApiSecret() ?>" size="70" />
 				</td>
                         </tr>
                         <tr valign="top">
                                 <th scope="row">
-                                        <p><?php echo _e('OAuth Token') ?></p>
+                                        <p><?php echo __('OAuth Token', FlickrPress::TEXT_DOMAIN) ?></p>
                                 </th>
                                 <td>
 					<input id="fp-oauth-token-hid" type="hidden" name="<?php echo FlickrPress::getKey('oauth_token') ?>" value="<?php echo FlickrPress::getOAuthToken() ?>" />
@@ -95,17 +95,17 @@ function callback_oauth(token) {
 					<p>UserID: <span id="fp-user-id"><?php echo FlickrPress::getUserId() ?></span></p>
 					<p>Username: <span id="fp-username"><?php echo FlickrPress::getUsername() ?></span></p>
 					<p>Token: <span id="fp-oauth-token"><?php echo FlickrPress::getOAuthToken() ?></span></p>
-					<p><a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php _e('Update OAuth Token') ?></a></p>
+					<p><a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php __('Update OAuth Token', FlickrPress::TEXT_DOMAIN) ?></a></p>
 					<p id="fp-oauth-update"><p>
 				</td>
                         </tr>
 
                 </table>
 
-		<h3><?php echo _e('Default Attachments') ?></h3>
+		<h3><?php echo __('Default Attachments', FlickrPress::TEXT_DOMAIN) ?></h3>
 		<table class="form-table">
 			<tr valign="top">
-				<th scope="row"><p><?php echo _e('Link Target') ?></p></th>
+				<th scope="row"><p><?php echo __('Link Target', FlickrPress::TEXT_DOMAIN) ?></p></th>
 				<td>
 					<?php foreach($targets as $label => $target) { ?>
 						<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
@@ -114,7 +114,7 @@ function callback_oauth(token) {
 				</td>
 			</tr>
                         <tr valign="top">
-                                <th scope="row"><p><?php echo _e('Alignment') ?></p></th>
+                                <th scope="row"><p><?php echo __('Alignment', FlickrPress::TEXT_DOMAIN) ?></p></th>
                                 <td>
                                         <?php foreach($alignes as $label => $align) { ?>
 						<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
@@ -123,7 +123,7 @@ function callback_oauth(token) {
                                 </td>
                         </tr>
                         <tr valign="top">
-                                <th scope="row"><p><?php echo _e('Size') ?></p></th>
+                                <th scope="row"><p><?php echo __('Size', FlickrPress::TEXT_DOMAIN) ?></p></th>
                                 <td>
 									<?php foreach(FlickrPress::$SIZE_LABELS as $size => $label) { ?>
 										<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
@@ -133,12 +133,12 @@ function callback_oauth(token) {
                         </tr>
 		</table>
 		
-		<h3><?php echo _e('Advanced Options') ?></h3>
+		<h3><?php echo __('Advanced Options', FlickrPress::TEXT_DOMAIN) ?></h3>
 		<table class="form-table">
                         <tr valign="top">
                                 <th scope="row">
-					<p><?php echo _e('Insert Template') ?></p>
-					<h4><?php echo _e('Avalable Options') ?></h4>
+					<p><?php echo __('Insert Template', FlickrPress::TEXT_DOMAIN) ?></p>
+					<h4><?php echo __('Avalable Options', FlickrPress::TEXT_DOMAIN) ?></h4>
 					<p>[img]: Image Tag</p>
 					<p>[title]: Image Title</p>
 				</th>
@@ -150,7 +150,7 @@ function callback_oauth(token) {
                         </tr>
                         <tr valign="top">
                                 <th scope="row">
-					<p><?php echo _e('Default Sort') ?></p>
+					<p><?php echo __('Default Sort', FlickrPress::TEXT_DOMAIN) ?></p>
 				</th>
                                 <td>
 					<select name="<?php echo FlickrPress::getKey('default_sort') ?>">
@@ -162,28 +162,28 @@ function callback_oauth(token) {
                         </tr>
 			<tr valign="top">
 				<th scope="row">
-					<p><?php echo _e('Quick Settings') ?></p>
+					<p><?php echo __('Quick Settings', FlickrPress::TEXT_DOMAIN) ?></p>
 				</th>
 				<td>
-					<p><?php echo _e('Enable:') ?><input type="checkbox" name="<?php echo flickrpress::getkey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
+					<p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo flickrpress::getkey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
 					<p>When enabled, a dialog will appear when you click for a set of check boxes for multiple insertion.</p>
 				</td>
 			</tr>
 			<tr valign="top">
 				<th scope="row">
-					<p><?php echo _e('Search Type') ?></p>
+					<p><?php echo __('Search Type', FlickrPress::TEXT_DOMAIN) ?></p>
 				</th>
 				<td>
 					<p>
 					<?php foreach ($searchTypes as $label => $val) { ?>
-						<input type="radio" name="<?php echo FlickrPress::getKey('default_search_type') ?>" id="search_type_<?php echo $val ?>" value="<?php echo $val ?>" <?php echo FlickrPress::getDefaulSearchType()==$val ? 'checked="checked"' : ''; ?>/><label for="search_type_<?php echo $val ?>"><?php echo _e($label) ?></label>
+						<input type="radio" name="<?php echo FlickrPress::getKey('default_search_type') ?>" id="search_type_<?php echo $val ?>" value="<?php echo $val ?>" <?php echo FlickrPress::getDefaulSearchType()==$val ? 'checked="checked"' : ''; ?>/><label for="search_type_<?php echo $val ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
 					<?php } ?>
 					</p>
 				</td>
 			</tr>
 		</table>
 		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			<input type="submit" class="button-primary" value="<?php __('Save Changes', FlickrPress::TEXT_DOMAIN) ?>" />
 		</p>
 	</form>
 </div>
