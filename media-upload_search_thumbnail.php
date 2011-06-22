@@ -103,19 +103,6 @@ function media_upload_search_form() {
 
 <div id="inline-settings-content-container" style="display: none;">
 	<table class="describe">
-<?php /*
-		<thead class="media-item-info" id="media-head-<?php echo $photo['id'] ?>">
-			<tr valign="top">
-				<td class="A1B1"
-					<p><a href="#"><img id="inline-thumbnail" class="thumbnail" src=""/></a></p>
-				</td>
-				<td>
-					<p><strong><?php echo __('ID:') ?><span id="inline-id">[ID]</span></strong></p>
-					<p><strong><?php echo __('File name:') ?><span id="inline-filename">[FILENAME]</span></strong></p>
-				</td>
-			</tr>
-		</thead>
-*/ ?>
 		<tbody>
 			<tr class="post_title">
 				<th valign="top" scope="row" class="label"><label for="inline-title"><span class="alignleft"><?php echo __('Title', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>

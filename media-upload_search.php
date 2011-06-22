@@ -248,55 +248,46 @@ jQuery('input.search-type').click(function() {
 });
 
 jQuery('div.media-item').each(function() {
-        jQuery('a.toggle', this).click(function(){
-                 jQuery(this).siblings('.slidetoggle').slideToggle(350, function(){
-                         var w = jQuery(window).height(), t = jQuery(this).offset().top, h = jQuery(this).height(), b;
-
-                         if ( w && t && h ) {
-                b = t + h;
- 
-                if ( b > w && (h + 48) < w )
-                    window.scrollBy(0, b - w + 13);
-                else if ( b > w )
-                    window.scrollTo(0, t - 36);
-           }
-               });
-               jQuery(this).siblings('.toggle').andSelf().toggle();
-               jQuery(this).siblings('a.toggle').focus();
-               return false;
-       });
+	jQuery('a.toggle', this).click(function(){
+		jQuery(this).siblings('.slidetoggle').slideToggle(350, function(){
+			var w = jQuery(window).height(), t = jQuery(this).offset().top, h = jQuery(this).height(), b;
+				if ( w && t && h ) {
+						b = t + h;
+						if ( b > w && (h + 48) < w )
+							window.scrollBy(0, b - w + 13);
+						else if ( b > w )
+							window.scrollTo(0, t - 36);
+					}
+				});
+			jQuery(this).siblings('.toggle').andSelf().toggle();
+			jQuery(this).siblings('a.toggle').focus();
+			return false;
+	});
 });
 
 // remember the last used image size, alignment and url
 jQuery(document).ready(function($){
-        $('input[type="radio"]', '#media-items').live('click', function(){
-                var tr = $(this).closest('tr');
+	$('input[type="radio"]', '#media-items').live('click', function(){
+		var tr = $(this).closest('tr');
+		if ( $(tr).hasClass('align') )
+			setUserSetting('align', $(this).val());
+		else if ( $(tr).hasClass('image-size') )
+			setUserSetting('imgsize', $(this).val());
+	});
 
-                if ( $(tr).hasClass('align') )
-                        setUserSetting('align', $(this).val());
-                else if ( $(tr).hasClass('image-size') )
-                        setUserSetting('imgsize', $(this).val());
-        });
-
-        $('button.button', '#media-items').live('click', function(){
-                var c = this.className || '';
-                c = c.match(/url([^ '"]+)/);
-                if ( c && c[1] ) {
-                        setUserSetting('urlbutton', c[1]);
-                        $(this).siblings('.urlfield').val( $(this).attr('title') );
-                }
-        });
+	$('button.button', '#media-items').live('click', function(){
+		var c = this.className || '';
+		c = c.match(/url([^ '"]+)/);
+		if ( c && c[1] ) {
+			setUserSetting('urlbutton', c[1]);
+			$(this).siblings('.urlfield').val( $(this).attr('title') );
+		}
+	});
 
 	$('#clear-cache-btn').click(function() {
 		$('#clear-cache').val('1');
 		$('#search-form').submit();
 	});
-
-//	$('#filter-tags').tagSuggest({
-//		'separator': ',',
-//		'tagContainer' : 'div',
-//		'tags': <?php //echo @json_encode($tags) ?>
-//	});
 
 	$('#batch-insert-btn').click(function() {
 		$('#batch').val('1');
@@ -352,7 +343,7 @@ jQuery(document).ready(function($){
 		$('input[type=radio]', $content_image_size).each(function(){
 			var $self = $(this);
 			var id = $self.attr('id');
-			console.log("id=%s", id);
+//			console.log("id=%s", id);
 			$('label[for="'+id+'"]').attr('for', 'inline-'+id);
 			$self.attr('id', 'inline-'+id);
 		});
