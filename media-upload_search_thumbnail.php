@@ -128,7 +128,7 @@ function media_upload_search_form() {
 					<button type="button" class="button urlnone" title=""><?php echo __('None', FlickrPress::TEXT_DOMAIN) ?></button>
 					<button type="button" class="button urlfile" id="inline-url-file" title=""><?php echo __('File URL', FlickrPress::TEXT_DOMAIN) ?></button>
 					<button type="button" class="button urlpage" id="inline-url-page" title=""><?php echo __('Page URL', FlickrPress::TEXT_DOMAIN) ?></button>
-					<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
+					<p class="help"><?php echo __('Enter a link URL or click above for presets.', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
 			<tr class="target">

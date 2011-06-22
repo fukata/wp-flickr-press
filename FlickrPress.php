@@ -155,8 +155,7 @@ class FlickrPress {
 	}
 	
 	public static function loadLanguages() {
-//		$languageDir = dirname(__FILE__) . '/language';
-		load_plugin_textdomain(self::TEXT_DOMAIN, false, 'wp-flickr-press/language');
+		load_plugin_textdomain(self::TEXT_DOMAIN, false, 'wp-flickr-press/languages');
 	}
 }
 ?>

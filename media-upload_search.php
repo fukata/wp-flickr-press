@@ -171,7 +171,7 @@ function media_upload_search_form() {
 						<button type="button" class="button urlnone" title=""><?php echo __('None', FlickrPress::TEXT_DOMAIN) ?></button>
 						<button type="button" class="button urlfile" title="<?php echo FlickrPress::getPhotoUrl($photo) ?>"><?php echo __('File URL', FlickrPress::TEXT_DOMAIN) ?></button>
 						<button type="button" class="button urlpage" title="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><?php echo __('Page URL', FlickrPress::TEXT_DOMAIN) ?></button>
-						<p class="help"><?php echo __('Enter a link URL or click above for presets.') ?></p>
+						<p class="help"><?php echo __('Enter a link URL or click above for presets.', FlickrPress::TEXT_DOMAIN) ?></p>
 					</td>
 				</tr>
                                 <tr class="target">
@@ -344,7 +344,7 @@ jQuery(document).ready(function($){
 
 		// image_size
 		var image_size_content = $('div#media-item-'+photo_id+' > table.describe > tbody > tr.image-size > td.field').html();
-		image_size_content = '<p><?php __('Size:', FlickrPress::TEXT_DOMAIN) ?></p>'+image_size_content;
+		image_size_content = '<p><?php echo __('Size:', FlickrPress::TEXT_DOMAIN) ?></p>'+image_size_content;
 		$content_image_size.append(image_size_content);
 		var image_size_selector = 'input[name="attachments['+photo_id+'][image-size]"]';
 		var image_size = $(image_size_selector+':checked', 'div#media-item-'+photo_id).val();

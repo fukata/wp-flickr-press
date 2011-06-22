@@ -12,8 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: check-oauth.php:6 check-setting.php:6
-msgid ""
-"API KEY and API SECRET is required. Please setting API KEY and API SECRET."
+msgid "API KEY and API SECRET is required. Please setting API KEY and API SECRET."
 msgstr "APIキー、APIシークレットの設定が必要です。先に設定画面から設定を行ってください。"
 
 #: check-setting.php:11
@@ -104,9 +103,8 @@ msgid "&raquo;"
 msgstr "&raquo;"
 
 #: FpPostEvent.php:9
-# already exists in ja.po
 msgid "Upload/Insert %s"
-msgstr ""
+msgstr "アップロード/挿入 %s"
 
 #: FpPostEvent.php:10
 msgid "Add flickr media"
@@ -229,9 +227,8 @@ msgid "Page URL"
 msgstr "ページURL"
 
 #: media-upload_search.php:174 media-upload_search_thumbnail.php:131
-# already exists in ja.po
 msgid "Enter a link URL or click above for presets."
-msgstr ""
+msgstr "リンク URL を入力するか、または上のいずれかをクリックしてください。"
 
 #: media-upload_search.php:207
 msgid "Insert into Post"
@@ -246,7 +243,6 @@ msgid "Order:"
 msgstr "並び順:"
 
 #: media-upload_search.php:226
-#, fuzzy
 msgid "Update"
 msgstr "更新"
 
@@ -266,10 +262,13 @@ msgid "Square"
 msgstr "正方形"
 
 msgid "Small"
-msgstr "小"
+msgstr "小サイズ"
 
 msgid "Medium"
-msgstr "中"
+msgstr "中サイズ"
 
 msgid "Original"
 msgstr "オリジナル"
+
+msgid "Not yet been update. Please Update."
+msgstr "まだ、更新が完了していません。更新を行ってください。"
