@@ -74,7 +74,7 @@
 			method: method,
 			format: "json",
 			api_key: this.options.apiKey,
-// auth_token: this.options.oauthToken,
+			auth_token: this.options.oauthToken,
 			user_id: this.options.userId
 		}, params);
 		
@@ -83,22 +83,30 @@
 		var async = params['async'] || true;
 		delete params['async'];
 		
+		var callbackName = 'flickr_callback_' + Math.floor( Math.random() * 100000000 );
+		window[callbackName] = function(res) {
+			if ( $.isFunction(callback) ) callback(res);
+			delete window[callbackName];
+		};
+		
+		params['jsoncallback'] = callbackName;
 		params = ksort(params);
-// params['api_sig'] = this.generateSignature(params);
-// console.log(params);
+		if (this.options.apiSecret) {
+			params['api_sig'] = this.generateSignature(params);
+		}
+		params['jsoncallback'] = '?';
 		
 		var ajaxOption = {
 			type: type,
-			url: url,
+			url: url + '?' + hash2query(params),
 			async: async,
-			cache: false,
-			data: params,
+			cache: true,
 			dataType: "jsonp",
 			jsonp: "jsoncallback",
+			jsonpCallback: callbackName,
 			error: function(request, textStatus, errorThrown) {
 			}
 		};
-		if ($.isFunction(callback)) ajaxOption.success = callback;
 		
 		return $.ajax(ajaxOption);
 	};
@@ -120,26 +128,18 @@
 	 * @return
 	 */
 	FlickrClient.prototype.generateSignature = function(params) {
-//		console.log("getApiSig");
-//		console.log(params);
 		var sig = "";
 		$.each(params, function(key, val){
 //			console.log("%s=%s", key, val);
 			if (val == "") {
 				delete params[key];
 			} else {
-				sig += key + val;
+				sig += String(key) + String(val);
 			}
 		});
 		
-		if (this.options.apiSecret) {
-//			console.log("secret=%s", this.options.apiSecret);
-//			console.log("sig=%s", sig);
-			sig = $.md5(this.options.apiSecret + sig);
-//			console.log("api_sig=%s", sig);
-		}
-		
-		return sig;
+		sig = this.options.apiSecret + sig;
+		return $.md5(sig);
 	};
 	
 	FlickrClient.prototype.photos_search = function(options, callback){

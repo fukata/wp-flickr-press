@@ -13,6 +13,7 @@ function fp_add_scripts() {
 	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/jquery.tag.css?".time()."' media='all' type='text/css'/>";
 	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.tag.js?".time()."'></script>";
 	echo "\n<script type='text/javascript'>tb_pathToImage = '../../../wp-includes/js/thickbox/loadingAnimation.gif'; tb_closeImage='../../../wp-includes/js/thickbox/tb-close.png';</script>";
+	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.md5.js?".time()."'></script>";
 	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.flickr-client.js?".time()."'></script>";
 	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/search_list_ui.js?".time()."'></script>";
 }
