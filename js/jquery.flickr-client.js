@@ -90,6 +90,8 @@
 		};
 		
 		params['jsoncallback'] = callbackName;
+		// for disable cache
+		params['_'] = $.now();
 		params = ksort(params);
 		if (this.options.apiSecret) {
 			params['api_sig'] = this.generateSignature(params);
