@@ -6,29 +6,28 @@ Requires at least: 3.0.1
 Tested up to: 3.1.3
 Stable tag: 1.3.0
 
-Flickr画像を記事本文内に挿入する。
+Flickr integration for wordpress plugin.
 
 == Description ==
 
-当プラグインは、投稿画面よりFlickrの画像を記事本文内に簡単に挿入するためのプラグインです。
+Flickr integration for wordpress plugin.
 
-最新のソースは、下記より取得できます。
-http://github.com/fukata/wp-flickr-press/
+Latest source: http://github.com/fukata/wp-flickr-press/
 
-PHP依存ライブラリ
+Dependencies
 
 1. php-curl http://php.net/manual/ja/book.curl.php
 
 == Installation ==
 
-1. 解凍後、フォルダ「wp-flickr-press/」をディレクトリ「/wp-content/plugins/」にアップロードする。
-2. 同ディレクトリ内のcacheディレクトリに対し、書き込み権限を付与する。 
-3. 管理画面よりプラグイン「FlickrPress」をアクティベートを行う。
-4. 左サイドバーに表示されているFlickrPressの設定画面より、APIキー、ユーザIDについて設定する。
+1. Download the plugin, unpack it and upload the 'wp-flickr-press' folder to your wp-content/plugins directory.
+2. To grant write access to wp-flickr-press/cache.
+3. Activate the plugin through the 'Plugins' menu in WordPress.
+4. Go to [Settings] -> [FlickrPress] to configure the options.
 
 == Frequently Asked Questions ==
 
-現在なし
+None
 
 == Screenshots ==
 
