@@ -41,6 +41,9 @@ None
 8. Setting config
 
 == Changelog ==
+== 1.3.1 =
+* Disabled cache jquery-flickr-client.
+
 == 1.3.0 =
 * Search(Thumbnail)時にOAuthトークンを利用したアクセスに対応
 
