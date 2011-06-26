@@ -21,7 +21,7 @@ Dependencies
 == Installation ==
 
 1. Download the plugin, unpack it and upload the 'wp-flickr-press' folder to your wp-content/plugins directory.
-2. To grant write access to wp-flickr-press/cache.
+2. To grant write access to wp-content/plugins/wp-flickr-press/cache.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 4. Go to [Settings] -> [FlickrPress] to configure the options.
 
