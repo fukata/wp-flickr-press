@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.1.3
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 
 Flickr integration for wordpress plugin.
 
