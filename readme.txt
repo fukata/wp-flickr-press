@@ -3,8 +3,8 @@ Contributors: tatsuya
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
-Tested up to: 3.1.3
-Stable tag: 1.3.1
+Tested up to: 3.2.0
+Stable tag: 1.3.2
 
 Flickr integration for wordpress plugin.
 
@@ -41,22 +41,25 @@ None
 8. Setting config
 
 == Changelog ==
-== 1.3.1 =
+= 1.3.2 =
+* Fixed bug media_upload.js doesn't load post.php.
+
+= 1.3.1 =
 * Disabled cache jquery-flickr-client.
 
-== 1.3.0 =
+= 1.3.0 =
 * Search(Thumbnail)時にOAuthトークンを利用したアクセスに対応
 
-== 1.2.2 =
+= 1.2.2 =
 * 不要なconsole.logを削除
 
-== 1.2.1 =
+= 1.2.1 =
 * メッセージが正常に表示されていなかったバグを修正
 
-== 1.2.0 =
+= 1.2.0 =
 * 国際化(日本語)対応
 
-== 1.1.1 =
+= 1.1.1 =
 * jqueryのflickrプラグイン内のconsole.logをコメントアウト
 
 = 1.1.0 =
