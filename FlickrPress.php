@@ -15,6 +15,7 @@ class FlickrPress {
 		't' => 'Thumbnail',
 		's' => 'Small',
 		'm' => 'Medium',
+		'l' => 'Large',
 		'o' => 'Original',
 	);
 	public static $SIZES = array(
@@ -22,6 +23,7 @@ class FlickrPress {
 		't' => 'url_t',
 		's' => 'url_s',
 		'm' => 'url_m',
+		'l' => 'url_l',
 		'o' => 'url_o',
 	);
 	private function __construct() {

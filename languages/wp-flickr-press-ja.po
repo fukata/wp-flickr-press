@@ -267,6 +267,9 @@ msgstr "小サイズ"
 msgid "Medium"
 msgstr "中サイズ"
 
+msgid "Large"
+msgstr "大サイズ"
+
 msgid "Original"
 msgstr "オリジナル"
 
