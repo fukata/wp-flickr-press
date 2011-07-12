@@ -23,7 +23,7 @@ Dependencies
 1. Download the plugin, unpack it and upload the 'wp-flickr-press' folder to your wp-content/plugins directory.
 2. To grant write access to wp-content/plugins/wp-flickr-press/cache. 
 3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. [Create Your Flickr App](http://www.flickr.com/services/apps/create/apply/ "Create Your Flickr App") and settings OAuth Callback URL. Default OAuth Callback URL is `http://[Your Blog Domain]/wp-content/plugins/wp-flickr-press/flickr_oauth_callback.php`
+4. [Create Your Flickr App](http://www.flickr.com/services/apps/create/apply/ "Create Your Flickr App") and settings OAuth Callback URL. Default OAuth Callback URL is `http://"Your Blog Domain"/wp-content/plugins/wp-flickr-press/flickr_oauth_callback.php`
 5. Go to [Settings] -> [FlickrPress] to configure the options.
 
 == Frequently Asked Questions ==
