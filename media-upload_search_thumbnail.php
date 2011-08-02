@@ -38,6 +38,7 @@ function media_upload_search_form() {
 		'Interestingness ASC' => 'interestingness-asc',
 		'Interestingness DESC' => 'interestingness-desc',
 	);
+	$extendLinkProperties = FlickrPress::getExtendLinkPropertiesArray();
 	
 	$sort = FlickrPress::getDefaultSort();
 ?>
@@ -102,6 +103,9 @@ function media_upload_search_form() {
 </form>
 
 <div id="inline-settings-content-container" style="display: none;">
+	<input type="hidden" name="default_link_rel" id="inline-default_link_rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" />
+	<input type="hidden" name="default_link_class" id="inline-default_link_class" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" />
+	
 	<table class="describe">
 		<tbody>
 			<tr class="post_title">
@@ -143,6 +147,22 @@ function media_upload_search_form() {
 						<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
 						<div class="image-size-item"><input name="inline-image-size" value="<?php echo $photo[$url] ?>" type="radio" id="inline-image-size-<?php echo $size ?>"<?php echo $checked?>/><label for="inline-image-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size], FlickrPress::TEXT_DOMAIN) ?></label></div>
 					<?php } ?>
+				</td>
+			</tr>
+			<tr class="link-property">
+				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+				<td class="field">
+					<p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
+					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-clazz" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
+					<p>
+						<select class="extend-link-properties">
+						<option value="" data-photoid=""></option>
+						<?php for ($i=0; $i<count($extendLinkProperties); $i++) { ?>
+						<option value="" data-rel="<?php echo urldecode($extendLinkProperties[$i]->rel) ?>" data-clazz="<?php echo urldecode($extendLinkProperties[$i]->clazz) ?>"><?php echo urldecode($extendLinkProperties[$i]->title) ?></option>
+						<?php } ?>
+						</select>
+						<a href="javascript:void(0)" class="button load-default-link-property" data-photoid="<?php echo $photo['id'] ?>"><?php echo __('Load Default', FlickrPress::TEXT_DOMAIN) ?></a>
+					</p>
 				</td>
 			</tr>
 			<tr class="submit">

@@ -316,7 +316,7 @@ jQuery(document).ready(function($){
 	});
 
 	$('select.extend-link-properties').change(function() {
-		console.log('extend-link-properties change');
+		//console.log('extend-link-properties change');
 		var $self = $(this.options[this.selectedIndex]);
 		var photo_id = $self.attr('data-photoid');
 		if (photo_id) {

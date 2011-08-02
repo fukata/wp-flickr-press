@@ -121,7 +121,7 @@
 				var idx = $self.attr('idx');
 				var photo = photos.photo[idx];
 				var title = photo.title;
-				var args = '#TB_inline?width=600&inlineId=inline-settings-content-container';
+				var args = '#TB_inline?width=600&height=500&inlineId=inline-settings-content-container';
 				var img_group = false;
 				tb_show(title, args, img_group);
 				
@@ -140,7 +140,8 @@
 					href : "javascript:void(0)",
 					title : title,
 					idx : i
-				})
+				});
+				
 				$img.click(ins_popup);
 				$img.append(
 						$("<img />").attr(
@@ -253,10 +254,10 @@
 				var url = flickr.getPhotoUrl(photo, size);
 				// when don't has large size photo.
 				if ('l' == size && !url) {
-					url = flickr.getPhotoUrl(photo, size);
+					url = flickr.getPhotoUrl(photo, 'o');
 				}
-				$("#inline-image-size-"+size).val( flickr.getPhotoUrl(photo, size) );
-			})
+				$("#inline-image-size-"+size).val( url );
+			});
 		}
 		$(".urlnone, .urlfile, .urlpage").live("click", function(){
 			$("#inline-url").val( $(this).val() );
@@ -270,14 +271,24 @@
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
 			var close = $(this).attr('close') == '1';
+			var aclazz = "";
+			var rel = "";
 			
 			if (align) {
 				clazz = " class='align"+align+"'";
 			}
 			
+			if ( $('input[name="inline-link-rel"]').val() ) {
+				rel = ' rel="' + $('input[name="inline-link-rel"]').val() + '"';
+			}
+			
+			if ( $('input[name="inline-link-clazz"]').val() ) {
+				aclazz = ' class="' + $('input[name="inline-link-clazz"]').val() + '"';
+			}
+			
 			var html = '<img src="'+src+'" alt="'+alt+'" '+clazz+'/>';
 			if (link) {
-				html = '<a href="'+link+'" '+target+'>' + html + '</a>';
+				html = '<a href="'+link+'"'+target+aclazz+rel+'>' + html + '</a>';
 			}
 			html += "\n";
 			
@@ -290,6 +301,19 @@
 			
 			if (!close) $("#TB_closeWindowButton").trigger("click");
 		}
+		$('select.extend-link-properties').change(function() {
+			var $self = $(this.options[this.selectedIndex]);
+			if ($self.attr('data-rel') || $self.attr('data-clazz')) {
+				$('input[name="inline-link-rel"]').val( $self.attr('data-rel') );
+				$('input[name="inline-link-clazz"]').val( $self.attr('data-clazz') );
+			}
+		});
+		
+		$('a.load-default-link-property').live("click", function() {
+			var $self = $(this);
+			$('input[name="inline-link-rel"]').val( $('#ineline-default_link_rel').val() );
+			$('input[name="inline-link-clazz"]').val( $('#ineline-default_link_class').val() );
+		});
 		
 		// ===================================
 		// photo search
