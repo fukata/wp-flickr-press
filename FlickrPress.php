@@ -77,9 +77,9 @@ class FlickrPress {
 		return get_option(self::getKey('api_key'));
 	}
 
-        public static function getApiSecret() {
-                return get_option(self::getKey('api_secret'));
-        }
+	public static function getApiSecret() {
+		return get_option(self::getKey('api_secret'));
+	}
 
 	public static function getUserId() {
 		return get_option(self::getKey('user_id'));
@@ -125,6 +125,23 @@ class FlickrPress {
 		return get_option(self::getKey('quick_settings'), 0);
 	}
 
+	public static function getDefaultLinkRel() {
+		return get_option(self::getKey('default_link_rel'), '');
+	}
+
+	public static function getDefaultLinkClass() {
+		return get_option(self::getKey('default_link_class'), '');
+	}
+
+	public static function getExtendLinkPropertiesJson() {
+		return get_option(self::getKey('extend_link_properties'), '[]');
+	}
+
+	public static function getExtendLinkPropertiesArray() {
+		$properties = json_decode( self::getLinkPropertiesJson() );
+		return is_array($properties) ? $properties : array();
+	}
+	
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}

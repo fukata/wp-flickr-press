@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-flickr-press\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-22 10:07+0900\n"
+"POT-Creation-Date: 2011-08-02 14:52+0900\n"
 "Last-Translator: tatsuya.fukata@gmail.com\n"
 "Language-Team: tatsuya.fukata@gmail.com\n"
 "Language: \n"
@@ -12,85 +12,149 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: check-oauth.php:6 check-setting.php:6
-msgid "API KEY and API SECRET is required. Please setting API KEY and API SECRET."
-msgstr "APIキー、APIシークレットの設定が必要です。先に設定画面から設定を行ってください。"
+msgid ""
+"API KEY and API SECRET is required. Please setting API KEY and API SECRET."
+msgstr ""
+"APIキー、APIシークレットの設定が必要です。先に設定画面から設定を行ってくださ"
+"い。"
 
 #: check-setting.php:11
 msgid "USER ID is required. Please setting USER ID."
 msgstr "ユーザIDの設定が必要です。先に設定画面から設定を行ってください。"
 
-#: FpAdminSettingEvent.php:66
+#: FpAdminSettingEvent.php:148
 msgid "Last Update: "
 msgstr "最終更新日時: "
 
-#: FpAdminSettingEvent.php:79
+#: FpAdminSettingEvent.php:148
+msgid "Not yet been update. Please Update."
+msgstr "まだ、更新が完了していません。更新を行ってください。"
+
+#: FpAdminSettingEvent.php:161
 msgid "API KEY/Secret"
 msgstr "APIキー/シークレット"
 
-#: FpAdminSettingEvent.php:83
+#: FpAdminSettingEvent.php:165
 msgid "API KEY:"
 msgstr "APIキー:"
 
-#: FpAdminSettingEvent.php:84
+#: FpAdminSettingEvent.php:166
 msgid "Secret:"
 msgstr "シークレット:"
 
-#: FpAdminSettingEvent.php:89
+#: FpAdminSettingEvent.php:171
 msgid "OAuth Token"
 msgstr "OAuthトークン"
 
-#: FpAdminSettingEvent.php:98
+#: FpAdminSettingEvent.php:180
 msgid "Update OAuth Token"
 msgstr "OAuthトークンを更新"
 
-#: FpAdminSettingEvent.php:105
+#: FpAdminSettingEvent.php:187
 msgid "Default Attachments"
 msgstr "デフォルト添付情報"
 
-#: FpAdminSettingEvent.php:108 media-upload_search.php:178
-#: media-upload_search_thumbnail.php:135
+#: FpAdminSettingEvent.php:190 media-upload_search.php:179
+#: media-upload_search_thumbnail.php:122
 msgid "Link Target"
 msgstr "リンクターゲット"
 
-#: FpAdminSettingEvent.php:117 media-upload_search.php:187
-#: media-upload_search_thumbnail.php:144
+#: FpAdminSettingEvent.php:199 media-upload_search.php:188
+#: media-upload_search_thumbnail.php:131
 msgid "Alignment"
 msgstr "位置"
 
-#: FpAdminSettingEvent.php:126 media-upload_search.php:196
-#: media-upload_search_thumbnail.php:153
+#: FpAdminSettingEvent.php:208 media-upload_search.php:197
+#: media-upload_search_thumbnail.php:140
 msgid "Size"
 msgstr "サイズ"
 
-#: FpAdminSettingEvent.php:136
+#: FpAdminSettingEvent.php:217
+msgid "Default Link Rel and Class Property"
+msgstr "リンクのrel属性とclass属性"
+
+#: FpAdminSettingEvent.php:219 FpAdminSettingEvent.php:230
+msgid "Rel:"
+msgstr "rel属性:"
+
+#: FpAdminSettingEvent.php:220 FpAdminSettingEvent.php:231
+msgid "Class:"
+msgstr "class属性:"
+
+#: FpAdminSettingEvent.php:224
+msgid "Extend Link Rel and Class Property"
+msgstr "リンクのrel属性とclass属性(拡張)"
+
+#: FpAdminSettingEvent.php:228 media-upload_search.php:158
+msgid "ID:"
+msgstr "ID:"
+
+#: FpAdminSettingEvent.php:229
+msgid "Title:"
+msgstr "タイトル:"
+
+#: FpAdminSettingEvent.php:233
+msgid "Save"
+msgstr "保存"
+
+#: FpAdminSettingEvent.php:234
+msgid "Remove"
+msgstr "削除"
+
+#: FpAdminSettingEvent.php:235
+msgid "Clear"
+msgstr "クリア"
+
+#: FpAdminSettingEvent.php:238
+msgid "Current Available Extend Link Rel and Class"
+msgstr "現在有効なrel属性とclass属性(拡張)"
+
+#: FpAdminSettingEvent.php:245
 msgid "Advanced Options"
 msgstr "詳細オプション"
 
-#: FpAdminSettingEvent.php:140
+#: FpAdminSettingEvent.php:249
 msgid "Insert Template"
 msgstr "一括挿入時テンプレート"
 
-#: FpAdminSettingEvent.php:141
+#: FpAdminSettingEvent.php:250
 msgid "Avalable Options"
 msgstr "利用可能オプション"
 
-#: FpAdminSettingEvent.php:153
+#: FpAdminSettingEvent.php:256
+msgid ""
+"If you put a newline at the beginning or end, &lt;br/&gt; Please write tags."
+msgstr "もし、先頭または末尾に改行を含めたい場合は、&lt;br/&gt;を使用してください。"
+
+#: FpAdminSettingEvent.php:257
+msgid ""
+"However, &lt;br/&gt; if there is a line break before and after the tag, I "
+"been wrapped them too."
+msgstr "タグの前後に改行を含めたい場合にも&lt;br/&gt;を使用してください。"
+
+#: FpAdminSettingEvent.php:262
 msgid "Default Sort"
 msgstr "デフォルトソート"
 
-#: FpAdminSettingEvent.php:165
+#: FpAdminSettingEvent.php:274
 msgid "Quick Settings"
 msgstr "簡易設定"
 
-#: FpAdminSettingEvent.php:168
+#: FpAdminSettingEvent.php:277
 msgid "Enable:"
 msgstr "有効:"
 
-#: FpAdminSettingEvent.php:174
+#: FpAdminSettingEvent.php:278
+msgid ""
+"When enabled, a dialog will appear when you click for a set of check boxes "
+"for multiple insertion."
+msgstr "有効にした場合、リスト検索時のチェックボックスをクリックした時に簡易設定ダイアログが表示されます。"
+
+#: FpAdminSettingEvent.php:283
 msgid "Search Type"
 msgstr "検索種類"
 
-#: FpAdminSettingEvent.php:186
+#: FpAdminSettingEvent.php:295
 msgid "Save Changes"
 msgstr "更新"
 
@@ -103,6 +167,7 @@ msgid "&raquo;"
 msgstr "&raquo;"
 
 #: FpPostEvent.php:9
+#, php-format
 msgid "Upload/Insert %s"
 msgstr "アップロード/挿入 %s"
 
@@ -118,72 +183,108 @@ msgstr "検索(リスト)"
 msgid "Search(Thumbnail)"
 msgstr "検索(サムネイル)"
 
-#: media-upload_search.php:103 media-upload_search_thumbnail.php:62
+#: media-upload_search.php:104 media-upload_search_thumbnail.php:62
 msgid "Recent upload"
 msgstr "直近のアップロード"
 
-#: media-upload_search.php:104 media-upload_search_thumbnail.php:63
+#: media-upload_search.php:105 media-upload_search_thumbnail.php:63
 msgid "Photosets"
 msgstr "フォトセット"
 
-#: media-upload_search.php:105 media-upload_search_thumbnail.php:64
+#: media-upload_search.php:106 media-upload_search_thumbnail.php:64
 msgid "Advanced"
 msgstr "詳細"
 
-#: media-upload_search.php:109 media-upload_search_thumbnail.php:68
+#: media-upload_search.php:110 media-upload_search_thumbnail.php:68
 msgid "Sort:"
 msgstr "ソート:"
 
-#: media-upload_search.php:118 media-upload_search_thumbnail.php:77
+#: media-upload_search.php:119 media-upload_search_thumbnail.php:77
 msgid "Keyword:"
 msgstr "キーワード:"
 
-#: media-upload_search.php:119 media-upload_search_thumbnail.php:78
+#: media-upload_search.php:120 media-upload_search_thumbnail.php:78
 msgid "Tags:"
 msgstr "タグ:"
 
-#: media-upload_search.php:122 media-upload_search_thumbnail.php:81
+#: media-upload_search.php:123 media-upload_search_thumbnail.php:81
 msgid "Photosets:"
 msgstr "フォトセット:"
 
-#: media-upload_search.php:127 media-upload_search_thumbnail.php:91
+#: media-upload_search.php:128 media-upload_search_thumbnail.php:91
 msgid "Search"
 msgstr "検索"
 
-#: media-upload_search.php:127
+#: media-upload_search.php:128
 msgid "Search and clear cache"
 msgstr "キャッシュを削除して検索"
 
-#: media-upload_search.php:146
+#: media-upload_search.php:147
 msgid "Show"
 msgstr "詳細"
 
-#: media-upload_search.php:147
+#: media-upload_search.php:148
 msgid "Hide"
 msgstr "隠す"
 
-#: media-upload_search.php:157
-msgid "ID:"
-msgstr "ID:"
-
-#: media-upload_search.php:158
+#: media-upload_search.php:159
 msgid "File name:"
 msgstr "ファイル名:"
 
-#: media-upload_search.php:164 media-upload_search_thumbnail.php:121
+#: media-upload_search.php:165 media-upload_search_thumbnail.php:108
 msgid "Title"
 msgstr "タイトル"
 
-#: media-upload_search.php:168 media-upload_search_thumbnail.php:125
+#: media-upload_search.php:169 media-upload_search_thumbnail.php:112
 msgid "Link URL"
 msgstr "リンクURL"
 
-#: media-upload_search.php:171 media-upload_search_thumbnail.php:128
+#: media-upload_search.php:172 media-upload_search_thumbnail.php:115
 msgid "None"
 msgstr "無し"
 
+#: media-upload_search.php:173 media-upload_search_thumbnail.php:116
+msgid "File URL"
+msgstr "ファイルURL"
+
+#: media-upload_search.php:174 media-upload_search_thumbnail.php:117
+msgid "Page URL"
+msgstr "ページURL"
+
+#: media-upload_search.php:175 media-upload_search_thumbnail.php:118
+msgid "Enter a link URL or click above for presets."
+msgstr "リンク URL を入力するか、または上のいずれかをクリックしてください。"
+
+#: media-upload_search.php:209
+msgid "Insert into Post"
+msgstr "挿入"
+
+#: media-upload_search.php:217
+msgid "Batch Insert into Post"
+msgstr "一括挿入"
+
+#: media-upload_search.php:223
+msgid "Order:"
+msgstr "並び順:"
+
+#: media-upload_search.php:228
+msgid "Update"
+msgstr "更新"
+
+#: media-upload_search.php:340
+msgid "Size:"
+msgstr "サイズ:"
+
+#: media-upload_search_thumbnail.php:151
+msgid "Insert into Post and Close"
+msgstr "挿入して閉じる"
+
+#: media-upload_search_thumbnail.php:152
+msgid "Insert into Post and Continue"
+msgstr "挿入して続ける"
+
 msgid "New Window"
-msgstr "新しいウィンドウ"
+msgstr "新規ウィンドウ"
 
 msgid "Left"
 msgstr "左"
@@ -193,73 +294,6 @@ msgstr "中央"
 
 msgid "Right"
 msgstr "右"
-
-msgid "Posted ASC"
-msgstr "投稿順(昇順)"
-
-msgid "Posted DESC"
-msgstr "投稿順(降順)"
-
-msgid "Taken ASC"
-msgstr "撮影順(昇順)"
-
-msgid "Taken DESC"
-msgstr "撮影順(降順)"
-
-msgid "Interestingness ASC"
-msgstr "Interestingness(昇順)"
-
-msgid "Interestingness DESC"
-msgstr "Interestingness(降順)"
-
-msgid "List"
-msgstr "リスト"
-
-msgid "Thumbnail"
-msgstr "サムネイル"
-
-#: media-upload_search.php:172 media-upload_search_thumbnail.php:129
-msgid "File URL"
-msgstr "ファイルURL"
-
-#: media-upload_search.php:173 media-upload_search_thumbnail.php:130
-msgid "Page URL"
-msgstr "ページURL"
-
-#: media-upload_search.php:174 media-upload_search_thumbnail.php:131
-msgid "Enter a link URL or click above for presets."
-msgstr "リンク URL を入力するか、または上のいずれかをクリックしてください。"
-
-#: media-upload_search.php:207
-msgid "Insert into Post"
-msgstr "挿入"
-
-#: media-upload_search.php:215
-msgid "Batch Insert into Post"
-msgstr "一括挿入"
-
-#: media-upload_search.php:221
-msgid "Order:"
-msgstr "並び順:"
-
-#: media-upload_search.php:226
-msgid "Update"
-msgstr "更新"
-
-#: media-upload_search.php:347
-msgid "Size:"
-msgstr "サイズ:"
-
-#: media-upload_search_thumbnail.php:164
-msgid "Insert into Post and Close"
-msgstr "挿入して閉じる"
-
-#: media-upload_search_thumbnail.php:165
-msgid "Insert into Post and Continue"
-msgstr "挿入して続ける"
-
-msgid "Square"
-msgstr "正方形"
 
 msgid "Small"
 msgstr "小サイズ"
@@ -273,5 +307,8 @@ msgstr "大サイズ"
 msgid "Original"
 msgstr "オリジナル"
 
-msgid "Not yet been update. Please Update."
-msgstr "まだ、更新が完了していません。更新を行ってください。"
+msgid "Thumbnail"
+msgstr "サムネイル"
+
+msgid "Square"
+msgstr "正方形"
