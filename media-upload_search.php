@@ -37,6 +37,7 @@ function media_upload_search_form() {
 		'Interestingness ASC' => 'interestingness-asc',
 		'Interestingness DESC' => 'interestingness-desc',
 	);
+	$extendLinkProperties = FlickrPress::getExtendLinkPropertiesArray();
 
 	$page = isset($_GET['paged']) && intval($_GET['paged'])>0 ? intval($_GET['paged']) : 0;
 	
@@ -90,6 +91,8 @@ function media_upload_search_form() {
 	<input type="hidden" name="user_id" id="user_id" value="<?php echo FlickrPress::getUserId() ?>" />
 	<input type="hidden" name="oauth_token" id="oauth_token" value="<?php echo FlickrPress::getOAuthToken() ?>" />
 	<input type="hidden" name="photoset_id" id="photoset_id" value="<?php echo @$filter['photoset'] ?>" />
+	<input type="hidden" name="default_link_rel" id="default_link_rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" />
+	<input type="hidden" name="default_link_class" id="default_link_class" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" />
 </div>
 
 <form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get" id="search-form">
@@ -203,6 +206,22 @@ function media_upload_search_form() {
 						<?php } ?>
 					</td>
 				</tr>
+				<tr class="link-property">
+					<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+					<td class="field">
+						<p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="attachments[<?php echo $photo['id'] ?>][rel]" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
+						<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="attachments[<?php echo $photo['id'] ?>][clazz]" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
+						<p>
+							<select class="extend-link-properties">
+							<option value="" data-photoid=""></option>
+							<?php for ($i=0; $i<count($extendLinkProperties); $i++) { ?>
+							<option value="" data-photoid="<?php echo $photo['id'] ?>" data-rel="<?php echo urldecode($extendLinkProperties[$i]->rel) ?>" data-clazz="<?php echo urldecode($extendLinkProperties[$i]->clazz) ?>"><?php echo urldecode($extendLinkProperties[$i]->title) ?></option>
+							<?php } ?>
+							</select>
+							<a href="javascript:void(0)" class="button load-default-link-property" data-photoid="<?php echo $photo['id'] ?>"><?php echo __('Load Default', FlickrPress::TEXT_DOMAIN) ?></a>
+						</p>
+					</td>
+				</tr>
 				<tr class="submit">
 					<td></td>
 					<td class="savesend">
@@ -294,6 +313,25 @@ jQuery(document).ready(function($){
 	$('#batch-insert-btn').click(function() {
 		$('#batch').val('1');
 		$('#media-form').submit();
+	});
+
+	$('select.extend-link-properties').change(function() {
+		console.log('extend-link-properties change');
+		var $self = $(this.options[this.selectedIndex]);
+		var photo_id = $self.attr('data-photoid');
+		if (photo_id) {
+			$('input[name="attachments['+photo_id+'][rel]"]').val( $self.attr('data-rel') );
+			$('input[name="attachments['+photo_id+'][clazz]"]').val( $self.attr('data-clazz') );
+		}
+	});
+	
+	$('a.load-default-link-property').click(function() {
+		var $self = $(this);
+		var photo_id = $self.attr('data-photoid');
+		if (photo_id) {
+			$('input[name="attachments['+photo_id+'][rel]"]').val( $('#default_link_rel').val() );
+			$('input[name="attachments['+photo_id+'][clazz]"]').val( $('#default_link_class').val() );
+		}
 	});
 
 <?php if (FlickrPress::getQuickSettings()=='1') { ?>

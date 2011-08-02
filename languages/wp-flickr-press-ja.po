@@ -312,3 +312,9 @@ msgstr "サムネイル"
 
 msgid "Square"
 msgstr "正方形"
+
+msgid "Link Rel and Class Property"
+msgstr "リンクのrel属性とclass属性"
+
+msgid "Load Default"
+msgstr "デフォルト値の読込"

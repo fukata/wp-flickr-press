@@ -67,16 +67,25 @@ function fp_create_image_html($attachments, $orders) {
 	        $src = isset($attachment['image-size']) ? esc_attr($attachment['image-size']) : '';
 	        $alt = isset($attachment['title']) ? esc_attr($attachment['title']) : '';
 	        if (strlen($src)==0) {
-	                $src = FlickrPress::getPhotoUrl($photo);
+				$src = FlickrPress::getPhotoUrl($photo);
 	        }
-	        if ( isset($attachment['align']) ) {
-	                $align = esc_attr($attachment['align']);
-	                $class = " class='align$align'";
+	        if ( isset($attachment['align']) && strlen($attachment['align']) > 0 ) {
+				$align = esc_attr($attachment['align']);
+				$class = " class='align$align'";
+	        }
+	        
+	        if ( isset($attachment['clazz']) && strlen($attachment['clazz']) > 0 ) {
+				$clazz = esc_attr($attachment['clazz']);
+				$aclass = " class='$clazz'";
+	        }
+	        if ( isset($attachment['rel']) && strlen($attachment['rel']) > 0 ) {
+				$rel = esc_attr($attachment['rel']);
+				$rel = " rel='$rel'";
 	        }
 
 		$_img = "<img src=\"{$src}\" alt=\"{$alt}\"{$class}/>";
 		if (strlen($link)>0) {
-			$_img = "<a href=\"{$link}\"{$target}>{$_img}</a>";
+			$_img = "<a href=\"{$link}\"{$target}{$aclass}{$rel}>{$_img}</a>";
 		}
 
 		$_html = FlickrPress::getInsertTemplate();

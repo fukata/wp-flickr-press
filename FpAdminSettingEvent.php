@@ -64,7 +64,7 @@ class FpAdminSettingEvent {
 			var prop = {
 				"title": encodeURI($('#extend_link_property_title').val()),
 				"rel": encodeURI($('#extend_link_property_rel').val()),
-				"class": encodeURI($('#extend_link_property_class').val())
+				"clazz": encodeURI($('#extend_link_property_clazz').val())
 			};
 			if (isNaN(idx)) {
 				properties.push(prop);
@@ -75,7 +75,7 @@ class FpAdminSettingEvent {
 			
 			$('#extend_link_property_title').val('');
 			$('#extend_link_property_rel').val('');
-			$('#extend_link_property_class').val('');
+			$('#extend_link_property_clazz').val('');
 			$('#orig_extend_link_property_idx').val('');
 			refreshProperties();
 			return false;
@@ -91,7 +91,7 @@ class FpAdminSettingEvent {
 			$('#extend_link_property_idx').html('');
 			$('#extend_link_property_title').val('');
 			$('#extend_link_property_rel').val('');
-			$('#extend_link_property_class').val('');
+			$('#extend_link_property_clazz').val('');
 			$('#orig_extend_link_property_idx').val('');
 			$('#extend_link_properties_json').val(JSON.stringify(properties));
 			refreshProperties();
@@ -102,7 +102,7 @@ class FpAdminSettingEvent {
 			$('#extend_link_property_idx').html('');
 			$('#extend_link_property_title').val('');
 			$('#extend_link_property_rel').val('');
-			$('#extend_link_property_class').val('');
+			$('#extend_link_property_clazz').val('');
 			$('#orig_extend_link_property_idx').val('');
 
 			return false;
@@ -112,7 +112,7 @@ class FpAdminSettingEvent {
 			$('#extend_link_property_idx').html( $self.attr('data-idx') );
 			$('#extend_link_property_title').val( decodeURI($self.attr('data-title')) );
 			$('#extend_link_property_rel').val( decodeURI($self.attr('data-rel')) );
-			$('#extend_link_property_class').val( decodeURI($self.attr('data-class')) );
+			$('#extend_link_property_clazz').val( decodeURI($self.attr('data-clazz')) );
 			$('#orig_extend_link_property_idx').val( $self.attr('data-idx') );
 			console.log($self.attr('data-idx'));
 
@@ -124,12 +124,12 @@ class FpAdminSettingEvent {
 			for (var i=0; i<properties.length; i++) {
 				var prop = properties[i];
 				var $li = $(document.createElement('li'));
-				var $a = $('<a href="javascript:void(0)" class="link_property">[' + decodeURI(prop['title']) + '] Rel=' + decodeURI(prop['rel']) + ', Class=' + decodeURI(prop['class']) + '</a>');
+				var $a = $('<a href="javascript:void(0)" class="link_property">[' + decodeURI(prop['title']) + '] Rel=' + decodeURI(prop['rel']) + ', Class=' + decodeURI(prop['clazz']) + '</a>');
 				$a.attr({
 					'data-idx': i,
 					'data-title': prop['title'],
 					'data-rel': prop['rel'],
-					'data-class': prop['class']
+					'data-clazz': prop['clazz']
 				});
 				$li.html($a);
 				$current.append($li);
@@ -228,7 +228,7 @@ function callback_oauth(token) {
 					<p><?php echo __('ID:', FlickrPress::TEXT_DOMAIN) ?><span id="extend_link_property_idx"></span></p>
 					<p><?php echo __('Title:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="extend_link_property_title" value="" id="extend_link_property_title" /></p>
 					<p><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="extend_link_property_rel" value="" id="extend_link_property_rel" /></p>
-					<p><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="extend_link_property_class" value="" id="extend_link_property_class" /></p>
+					<p><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="extend_link_property_clazz" value="" id="extend_link_property_clazz" /></p>
 					<p>
 						<a href="javascript:void(0)" class="button" id="save_extend_link_property"><?php echo __('Save', FlickrPress::TEXT_DOMAIN) ?></a>
 						<a href="javascript:void(0)" class="button" id="remove_extend_link_property"><?php echo __('Remove', FlickrPress::TEXT_DOMAIN) ?></a>

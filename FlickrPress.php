@@ -138,7 +138,7 @@ class FlickrPress {
 	}
 
 	public static function getExtendLinkPropertiesArray() {
-		$properties = json_decode( self::getLinkPropertiesJson() );
+		$properties = json_decode( self::getExtendLinkPropertiesJson() );
 		return is_array($properties) ? $properties : array();
 	}
 	
