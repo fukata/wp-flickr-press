@@ -271,29 +271,32 @@
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
 			var close = $(this).attr('close') == '1';
-			var aclazz = "";
-			var rel = "";
 			
 			if (align) {
 				clazz = " class='align"+align+"'";
 			}
 			
-			if ( $('input[name="inline-link-rel"]').val() ) {
-				rel = ' rel="' + $('input[name="inline-link-rel"]').val() + '"';
+			var rel = _remove_invalid_link_chars( $('input[name="inline-link-rel"]').val() );
+			if ( rel ) {
+				rel = ' rel="' + rel + '"';
 			}
 			
-			if ( $('input[name="inline-link-clazz"]').val() ) {
-				aclazz = ' class="' + $('input[name="inline-link-clazz"]').val() + '"';
+			var aclazz = _remove_invalid_link_chars( $('input[name="inline-link-clazz"]').val() );
+			if ( aclazz ) {
+				aclazz = ' class="' + aclazz + '"';
 			}
 			
-			var html = '<img src="'+src+'" alt="'+alt+'" '+clazz+'/>';
+			var html = '<img src="' + src + '" alt="' + alt + '" ' + clazz + '/>';
 			if (link) {
-				html = '<a href="'+link+'"'+target+aclazz+rel+'>' + html + '</a>';
+				html = '<a href="' + link + '"' + target + aclazz + rel + '>' + html + '</a>';
 			}
 			html += "\n";
 			
 			fp_media_send_to_editor(html, close);
 		});
+		function _remove_invalid_link_chars(str) {
+			return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
+		}
 		function fp_media_send_to_editor(html, close) {
 			close = close || false;
 			var win = window.dialogArguments || opener || parent || top;

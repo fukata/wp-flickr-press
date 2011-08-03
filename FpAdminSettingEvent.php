@@ -62,9 +62,9 @@ class FpAdminSettingEvent {
 			var idx = parseInt($('#orig_extend_link_property_idx').val(), 10);
 			var properties = JSON.parse($('#extend_link_properties_json').val());
 			var prop = {
-				"title": encodeURI($('#extend_link_property_title').val()),
-				"rel": encodeURI($('#extend_link_property_rel').val()),
-				"clazz": encodeURI($('#extend_link_property_clazz').val())
+				"title": _remove_invalid_link_chars($('#extend_link_property_title').val()),
+				"rel": _remove_invalid_link_chars($('#extend_link_property_rel').val()),
+				"clazz": _remove_invalid_link_chars($('#extend_link_property_clazz').val())
 			};
 			if (isNaN(idx)) {
 				properties.push(prop);
@@ -110,21 +110,24 @@ class FpAdminSettingEvent {
 		$('#current_extend_link_properties > li > a.link_property').live('click', function(){
 			var $self = $(this);
 			$('#extend_link_property_idx').html( $self.attr('data-idx') );
-			$('#extend_link_property_title').val( decodeURI($self.attr('data-title')) );
-			$('#extend_link_property_rel').val( decodeURI($self.attr('data-rel')) );
-			$('#extend_link_property_clazz').val( decodeURI($self.attr('data-clazz')) );
+			$('#extend_link_property_title').val( $self.attr('data-title') );
+			$('#extend_link_property_rel').val( $self.attr('data-rel') );
+			$('#extend_link_property_clazz').val( $self.attr('data-clazz') );
 			$('#orig_extend_link_property_idx').val( $self.attr('data-idx') );
 			console.log($self.attr('data-idx'));
 
 			return false;
 		});
-		function refreshProperties() {
+		function _remove_invalid_link_chars(str) {
+			return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
+		}
+		function refresh_properties() {
 			var properties = JSON.parse($('#extend_link_properties_json').val());
 			var $current = $('#current_extend_link_properties').empty();
 			for (var i=0; i<properties.length; i++) {
 				var prop = properties[i];
 				var $li = $(document.createElement('li'));
-				var $a = $('<a href="javascript:void(0)" class="link_property">[' + decodeURI(prop['title']) + '] Rel=' + decodeURI(prop['rel']) + ', Class=' + decodeURI(prop['clazz']) + '</a>');
+				var $a = $('<a href="javascript:void(0)" class="link_property">[' + prop['title'] + '] Rel=' + prop['rel'] + ', Class=' + prop['clazz'] + '</a>');
 				$a.attr({
 					'data-idx': i,
 					'data-title': prop['title'],
@@ -135,7 +138,7 @@ class FpAdminSettingEvent {
 				$current.append($li);
 			}
 		}
-		refreshProperties();
+		refresh_properties();
 	});
 })(jQuery);
 function callback_oauth(token) {
@@ -218,6 +221,7 @@ function callback_oauth(token) {
 				<td>
 					<p><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="<?php echo FlickrPress::getKey('default_link_rel') ?>" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" /></p>
 					<p><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="<?php echo FlickrPress::getKey('default_link_class') ?>" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" /></p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -234,6 +238,7 @@ function callback_oauth(token) {
 						<a href="javascript:void(0)" class="button" id="remove_extend_link_property"><?php echo __('Remove', FlickrPress::TEXT_DOMAIN) ?></a>
 						<a href="javascript:void(0)" class="button" id="clear_extend_link_property"><?php echo __('Clear', FlickrPress::TEXT_DOMAIN) ?></a>
 					</p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore', FlickrPress::TEXT_DOMAIN) ?></p>
 					<p>
 						<?php echo __('Current Available Extend Link Rel and Class', FlickrPress::TEXT_DOMAIN) ?>
 						<ol id="current_extend_link_properties"></ol>

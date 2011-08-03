@@ -211,11 +211,12 @@ function media_upload_search_form() {
 					<td class="field">
 						<p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="attachments[<?php echo $photo['id'] ?>][rel]" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
 						<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="attachments[<?php echo $photo['id'] ?>][clazz]" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
+						<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore', FlickrPress::TEXT_DOMAIN) ?></p>
 						<p>
 							<select class="extend-link-properties">
 							<option value="" data-photoid=""></option>
 							<?php for ($i=0; $i<count($extendLinkProperties); $i++) { ?>
-							<option value="" data-photoid="<?php echo $photo['id'] ?>" data-rel="<?php echo urldecode($extendLinkProperties[$i]->rel) ?>" data-clazz="<?php echo urldecode($extendLinkProperties[$i]->clazz) ?>"><?php echo urldecode($extendLinkProperties[$i]->title) ?></option>
+							<option value="" data-photoid="<?php echo $photo['id'] ?>" data-rel="<?php echo $extendLinkProperties[$i]->rel ?>" data-clazz="<?php echo $extendLinkProperties[$i]->clazz ?>"><?php echo $extendLinkProperties[$i]->title ?></option>
 							<?php } ?>
 							</select>
 							<a href="javascript:void(0)" class="button load-default-link-property" data-photoid="<?php echo $photo['id'] ?>"><?php echo __('Load Default', FlickrPress::TEXT_DOMAIN) ?></a>

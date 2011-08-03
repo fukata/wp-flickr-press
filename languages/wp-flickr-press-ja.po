@@ -318,3 +318,6 @@ msgstr "リンクのrel属性とclass属性"
 
 msgid "Load Default"
 msgstr "デフォルト値の読込"
+
+msgid "Available Charactors: 0-9a-zA-Z [] Space UnderScore"
+msgstr "利用可能な文字列: 0-9a-zA-Z [] 半角空白 アンダースコア"
