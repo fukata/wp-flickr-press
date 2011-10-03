@@ -22,6 +22,7 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('default_search_type'),
             FlickrPress::getKey('default_link_rel'),
             FlickrPress::getKey('default_link_class'),
+            FlickrPress::getKey('default_file_url_size'),
             FlickrPress::getKey('extend_link_properties'),
 		);
 		return $whitelist_options;
@@ -189,6 +190,15 @@ function callback_oauth(token) {
 
 		<h3><?php echo __('Default Attachments', FlickrPress::TEXT_DOMAIN) ?></h3>
 		<table class="form-table">
+			<tr valign="top">
+				<th scope="row"><p><?php echo __('FileURL Size', FlickrPress::TEXT_DOMAIN) ?></p></th>
+				<td>
+					<?php foreach(FlickrPress::$SIZE_LABELS as $size => $label) { ?>
+					<?php $checked = FlickrPress::getDefaultFileURLSize()==$size ? " checked='checked'" : '' ?>
+					<p><input type="radio" name="<?php echo FlickrPress::getKey('default_file_url_size') ?>" id="file_url_size-<?php echo $size ?>" value="<?php echo $size ?>" <?php echo $checked ?>/><label for="file_url_size-<?php echo $size ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label></p>
+					<?php } ?>
+				</td>
+			</tr>
 			<tr valign="top">
 				<th scope="row"><p><?php echo __('Link Target', FlickrPress::TEXT_DOMAIN) ?></p></th>
 				<td>

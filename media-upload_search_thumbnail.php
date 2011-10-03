@@ -105,6 +105,7 @@ function media_upload_search_form() {
 <div id="inline-settings-content-container" style="display: none;">
 	<input type="hidden" name="default_link_rel" id="inline-default_link_rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" />
 	<input type="hidden" name="default_link_class" id="inline-default_link_class" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" />
+	<input type="hidden" name="default_file_url_size" id="inline-default_file_url_size" value="<?php echo FlickrPress::getDefaultFileURLSize() ?>" />
 	
 	<table class="describe">
 		<tbody>

@@ -133,6 +133,10 @@ class FlickrPress {
 		return get_option(self::getKey('default_link_class'), '');
 	}
 
+	public static function getDefaultFileURLSize() {
+		return get_option(self::getKey('default_file_url_size'), 'm');
+	}
+
 	public static function getExtendLinkPropertiesJson() {
 		return get_option(self::getKey('extend_link_properties'), '[]');
 	}

@@ -248,7 +248,7 @@
 //			console.log("draw_inline_content");
 			$("#inline-title").val( photo.title );
 			$("#inline-url").val( flickr.getPhotoPageUrl(photo, photos) );
-			$("#inline-url-file").val( flickr.getPhotoUrl(photo) );
+			$("#inline-url-file").val( flickr.getPhotoUrl(photo, $('#inline-default_file_url_size').val()) );
 			$("#inline-url-page").val( flickr.getPhotoPageUrl(photo, photos) );
 			$.each(['sq','t','s','m','l','o'], function(idx, size){
 				var url = flickr.getPhotoUrl(photo, size);
