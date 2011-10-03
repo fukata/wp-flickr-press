@@ -80,12 +80,7 @@ function media_upload_search_form() {
 		</div>
 		<div id="photosets-search-form" class="search-form-off">
 			<p class="field-row"><span class="field-label"><?php echo __('Photosets:', FlickrPress::TEXT_DOMAIN) ?></span>
-				<select name="filter[photoset]">
-					<?php foreach ($photosets['photoset'] as $photoset) { ?>
-						<?php $selected = $filter['photoset'] == $photoset['id'] ? " selected='selected'" : ""; ?>
-						<option value="<?php echo $photoset['id'] ?>"<?php echo $selected ?>><?php echo $photoset['title'] ?></option>
-					<?php } ?>
-				</select>
+				<select name="filter[photoset]"></select>
 			</p>
 		</div>
 
