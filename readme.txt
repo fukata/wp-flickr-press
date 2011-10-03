@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.2.1
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 
 Flickr integration for wordpress plugin.
 
@@ -42,6 +42,9 @@ None
 8. Setting config
 
 == Changelog ==
+= 1.5.1 =
+* Fixed bug undefined variable.
+
 = 1.5.0 =
 * Add Default FileURL Size.
 
