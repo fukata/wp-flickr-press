@@ -44,6 +44,7 @@ None
 == Changelog ==
 = 1.6.0 =
 * Add Default Link URL Type.
+* Add Photo Size Medium 640.
 
 = 1.5.1 =
 * Fixed bug undefined variable.
