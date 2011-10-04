@@ -171,7 +171,7 @@ function media_upload_search_form() {
 				<tr class="url">
 					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][url]"><span class="alignleft"><?php echo __('Link URL', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
 					<td class="field">
-						<input type="text" class="text urlfield" name="attachments[<?php echo $photo['id'] ?>][url]" value="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><br>
+						<input type="text" class="text urlfield" name="attachments[<?php echo $photo['id'] ?>][url]" value="<?php echo FlickrPress::getDefaultLinkValue($photo, $photos) ?>"><br>
 						<button type="button" class="button urlnone" title=""><?php echo __('None', FlickrPress::TEXT_DOMAIN) ?></button>
 						<button type="button" class="button urlfile" title="<?php echo FlickrPress::getPhotoUrl($photo, FlickrPress::getDefaultFileURLSize()) ?>"><?php echo __('File URL', FlickrPress::TEXT_DOMAIN) ?></button>
 						<button type="button" class="button urlpage" title="<?php echo FlickrPress::getPhotoPageUrl($photo, $photos) ?>"><?php echo __('Page URL', FlickrPress::TEXT_DOMAIN) ?></button>

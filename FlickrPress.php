@@ -26,6 +26,12 @@ class FlickrPress {
 		'l' => 'url_l',
 		'o' => 'url_o',
 	);
+	public static $LINK_TYPE_LABELS = array(
+		'none' => 'None',
+		'file' => 'File URL',
+		'page' => 'Page URL',
+	);
+
 	private function __construct() {
 	}
 
@@ -123,6 +129,24 @@ class FlickrPress {
 
 	public static function getQuickSettings() {
 		return get_option(self::getKey('quick_settings'), 0);
+	}
+
+	public static function getDefaultLink() {
+		return get_option(self::getKey('default_link'), 'page');
+	}
+
+	public static function getDefaultLinkValue($photo, $photos) {
+		$linkType = self::getDefaultLink();
+		$link = '';
+		switch ($linkType) {
+		case 'file':
+			$link = self::getPhotoUrl($photo, self::getDefaultFileURLSize());
+			break;
+		case 'page':
+			$link = self::getPhotoPageUrl($photo, $photos);
+			break;
+		}
+		return $link;
 	}
 
 	public static function getDefaultLinkRel() {

@@ -20,6 +20,7 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('default_sort'),
             FlickrPress::getKey('quick_settings'),
             FlickrPress::getKey('default_search_type'),
+            FlickrPress::getKey('default_link'),
             FlickrPress::getKey('default_link_rel'),
             FlickrPress::getKey('default_link_class'),
             FlickrPress::getKey('default_file_url_size'),
@@ -191,7 +192,16 @@ function callback_oauth(token) {
 		<h3><?php echo __('Default Attachments', FlickrPress::TEXT_DOMAIN) ?></h3>
 		<table class="form-table">
 			<tr valign="top">
-				<th scope="row"><p><?php echo __('FileURL Size', FlickrPress::TEXT_DOMAIN) ?></p></th>
+				<th scope="row"><p><?php echo __('Link URL Type', FlickrPress::TEXT_DOMAIN) ?></p></th>
+				<td>
+					<?php foreach(FlickrPress::$LINK_TYPE_LABELS as $type => $label) { ?>
+					<?php $checked = FlickrPress::getDefaultLink()==$type ? " checked='checked'" : '' ?>
+					<p><input type="radio" name="<?php echo FlickrPress::getKey('default_link') ?>" id="link-<?php echo $type?>" value="<?php echo $type ?>" <?php echo $checked ?>/><label for="link-<?php echo $type?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label></p>
+					<?php } ?>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><p><?php echo __('File URL Size', FlickrPress::TEXT_DOMAIN) ?></p></th>
 				<td>
 					<?php foreach(FlickrPress::$SIZE_LABELS as $size => $label) { ?>
 					<?php $checked = FlickrPress::getDefaultFileURLSize()==$size ? " checked='checked'" : '' ?>

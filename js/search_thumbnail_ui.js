@@ -247,7 +247,7 @@
 		function draw_inline_content(photo, photos) {
 //			console.log("draw_inline_content");
 			$("#inline-title").val( photo.title );
-			$("#inline-url").val( flickr.getPhotoPageUrl(photo, photos) );
+			$("#inline-url").val( getDefaultLinkValue(photo, photos) );
 			$("#inline-url-file").val( flickr.getPhotoUrl(photo, $('#inline-default_file_url_size').val()) );
 			$("#inline-url-page").val( flickr.getPhotoPageUrl(photo, photos) );
 			$.each(['sq','t','s','m','l','o'], function(idx, size){
@@ -258,6 +258,19 @@
 				}
 				$("#inline-image-size-"+size).val( url );
 			});
+		}
+		function getDefaultLinkValue(photo, photos) {
+			var linkType = $('#inline-default_link').val();
+			var link = '';
+			switch (linkType) {
+			case 'file':
+				link = flickr.getPhotoUrl(photo, $('#inline-default_file_url_size').val());
+				break;
+			case 'page':
+				link = flickr.getPhotoPageUrl(photo, photos);
+				break;
+			}
+			return link;
 		}
 		$(".urlnone, .urlfile, .urlpage").live("click", function(){
 			$("#inline-url").val( $(this).val() );
