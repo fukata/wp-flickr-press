@@ -1,16 +1,21 @@
 ;
 (function($) {
+
+	function hkeys(hash) {
+		var keys = [];
+		$.each(hash, function(key, val){
+			keys.push(key);
+		});
+		return keys;
+	}
+
 	/**
 	 * return HashMap by HashMap's key sorted. 
 	 * 
 	 * @return
 	 */
 	function ksort(params) {
-		var keys = [];
-		
-		$.each(params, function(key, val){
-			keys.push(key);
-		});
+		var keys = hkeys(params);
 		keys.sort();
 
 		sorted = {};
@@ -57,6 +62,16 @@
 		oauthToken: "",
 		restEndpoint: "http://api.flickr.com/services/rest/"
 	};
+	FlickrClient.prototype.SIZES = {
+		"sq": "url_sq",
+		"t": "url_t",
+		"s": "url_s",
+		"m": "url_m",
+		"z": "url_z",
+		"l": "url_l",
+		"o": "url_o"
+	}
+	FlickrClient.prototype.SIZES_ARRAY = hkeys(FlickrClient.prototype.SIZES); 
 	
 	/**
 	 * execute request.
@@ -161,7 +176,14 @@
 	
 	FlickrClient.prototype.getPhotoUrl = function(photo, size) {
 		size = size || "m";
-		return photo["url_"+size];
+
+		if ( size != 'o' && !photo[FlickrClient.prototype.SIZES[size]] ) {
+			var sizes = FlickrClient.prototype.SIZES_ARRAY;
+			var idx = sizes.indexOf(size);
+			return FlickrClient.prototype.getPhotoUrl(photo, sizes[idx + 1]);
+		} else {
+			return photo[FlickrClient.prototype.SIZES[size]];
+		}
 	};
 
 	FlickrClient.prototype.getPhotoPageUrl = function(photo, photos) {

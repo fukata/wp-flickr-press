@@ -15,6 +15,7 @@ class FlickrPress {
 		't' => 'Thumbnail',
 		's' => 'Small',
 		'm' => 'Medium',
+		'z' => 'Medium 640',
 		'l' => 'Large',
 		'o' => 'Original',
 	);
@@ -23,6 +24,7 @@ class FlickrPress {
 		't' => 'url_t',
 		's' => 'url_s',
 		'm' => 'url_m',
+		'z' => 'url_z',
 		'l' => 'url_l',
 		'o' => 'url_o',
 	);
@@ -188,7 +190,13 @@ class FlickrPress {
 	}
 
 	public static function getPhotoUrl($photo, $size='m') {
-		return $photo[self::$SIZES[$size]];
+		if ( $size != 'o' && empty( $photo[self::$SIZES[$size]] ) ) {
+			$keys = array_keys(self::$SIZES);
+			$idx = array_search($size, $keys);
+			return self::getPhotoUrl($photo, $keys[$idx + 1]);
+		} else {
+			return $photo[self::$SIZES[$size]];
+		}
 	}
 
 	public static function getPhotoPageUrl($photo, $photos) {
