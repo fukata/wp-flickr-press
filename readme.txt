@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.2.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 
 Flickr integration for wordpress plugin.
 
@@ -42,6 +42,9 @@ None
 8. Setting config
 
 == Changelog ==
+= 1.6.2 =
+* Change photo window height 550px thumbnail search.
+
 = 1.6.1 =
 * Don't Use PHP Session.
 
