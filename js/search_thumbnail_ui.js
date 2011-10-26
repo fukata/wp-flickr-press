@@ -121,7 +121,7 @@
 				var idx = $self.attr('idx');
 				var photo = photos.photo[idx];
 				var title = photo.title;
-				var args = '#TB_inline?width=600&height=500&inlineId=inline-settings-content-container';
+				var args = '#TB_inline?width=600&height=550&inlineId=inline-settings-content-container';
 				var img_group = false;
 				tb_show(title, args, img_group);
 				
@@ -224,14 +224,15 @@
 		}
 
 		$("div.pager > a.page, div.pager > a.prev, div.pager > a.next, div.pager > a.first, div.pager > a.end").live(
-				'click', function() {
-					var $self = $(this);
-//					console.log($self.attr('page'));
-					if ($.isFunction(pager_search)) {
-//						console.log("pager_search");
-						pager_search($self.attr('page'));
-					}
-				});
+			'click', function() {
+				var $self = $(this);
+//				console.log($self.attr('page'));
+				if ($.isFunction(pager_search)) {
+//					console.log("pager_search");
+					pager_search($self.attr('page'));
+				}
+			}
+		);
 
 		function pre_search_photos() {
 			$("div.pager-container").empty();
