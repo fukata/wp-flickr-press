@@ -40,6 +40,7 @@ None
 6. New UI Search
 7. New UI Insert Post
 8. Setting config
+9. FullScreen Writing
 
 == Changelog ==
 = 1.7.0 =
