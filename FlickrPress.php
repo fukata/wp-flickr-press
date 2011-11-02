@@ -180,6 +180,7 @@ class FlickrPress {
 		// load action or filter
 		require_once(self::getDir().'/FpPostEvent.php');
 		add_action('media_buttons_context', array('FpPostEvent', 'addButtons'));
+		add_filter('wp_fullscreen_buttons', array('FpPostEvent', 'addButtonsFullScreen'));
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
 		add_action('admin_head-post.php', array('FpPostEvent', 'loadScripts'));
 		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScripts'));

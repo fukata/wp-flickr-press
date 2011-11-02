@@ -11,9 +11,19 @@ class FpPostEvent {
 		return $context;
 	}
 	
+	public static function addButtonsFullScreen($buttons) {
+		$buttons['wpfp'] = array(
+			'title' => __('Insert/Flickr Media'),
+			'onclick' => "jQuery('#add_flickr_media').click();",
+			'both' => true,
+		);
+		return $buttons;
+	}
+
 	public static function loadScripts() {
 		$html = '';
-		$html = '<script src="'.FlickrPress::getPluginUrl().'/js/media_upload.js'.'" type="text/javascript"></script>'."\n";
+		$html .= '<script src="'.FlickrPress::getPluginUrl().'/js/media_upload.js'.'" type="text/javascript"></script>'."\n";
+		$html .= '<link rel="stylesheet" href="'.FlickrPress::getPluginUrl().'/css/admin_post.css" type="text/css" media="all" />';
 		echo $html;
 	}
 
