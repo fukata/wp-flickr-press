@@ -14,6 +14,14 @@ Flickr integration for wordpress plugin.
 
 Latest source: http://github.com/fukata/wp-flickr-press/
 
+Features
+
+1. Insert flickr media in post.
+2. Cache search results.
+3. Default settings at insert flickr media.
+4. Setting value a tag rel and class property.
+5. Support the php safe mode.
+
 Dependencies
 
 1. php-curl http://php.net/manual/ja/book.curl.php
