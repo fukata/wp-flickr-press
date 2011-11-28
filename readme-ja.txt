@@ -1,0 +1,155 @@
+=== wp-flickr-press ===
+Contributors: tatsuya
+Donate link: http://fukata.org/
+Tags: images,flickr
+Requires at least: 3.0.1
+Tested up to: 3.2.1
+Stable tag: 1.7.0
+
+WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
+
+== Description ==
+
+WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
+
+最新ソースコード: http://github.com/fukata/wp-flickr-press/
+
+機能一覧
+
+1. Flickrの写真を記事に挿入。
+2. 検索結果のキャッシュ。
+3. 挿入時のデフォルト設定。
+4. 挿入時のaタグのrel、class属性の指定(LightBox等に対応可)
+5. PHPセーフモードに対応。
+
+依存ライブラリ
+
+1. php-curl http://php.net/manual/ja/book.curl.php
+
+== Installation ==
+
+1. ダウンロード後、解凍し、 `wp-content/plugins` にアップロードします。
+2. `wp-content/plugins/wp-flickr-press/cache` に書込権限を付与します。 
+3. 管理画面からプラグインをアクティベートします。
+4. OAuth認証時に必要な[Flickrアプリを作成](http://www.flickr.com/services/apps/create/apply/ "Flickrアプリを作成")し、WordPressの管理画面からOAuth Callback URLの値を設定。通常は、`http://"ブログのドメイン"/wp-content/plugins/wp-flickr-press/flickr_oauth_callback.php` となります。
+5. 必要であれば、[設定] -> [FlickrPress] からプラグインのオプションの設定をしてください。
+
+== Frequently Asked Questions ==
+
+なし
+
+== Screenshots ==
+
+1. 写真の挿入1
+2. 写真の挿入2
+3. タグサジェスト
+4. 写真の複数挿入
+5. 簡易挿入
+6. サムネイル形式の検索
+7. サムネイル形式の検索から挿入
+8. オプションの設定
+9. フルスクリーンモード
+
+== Changelog ==
+= 1.7.0 =
+* フルスクリーンモード時にもFlickrメディアの挿入ボタンを追加。
+
+= 1.6.2 =
+* サムネイル形式の検索ウィンドウの高さを550pxに変更。
+
+= 1.6.1 =
+* PHPセッションを使用しないように修正。
+
+= 1.6.0 =
+* オプション設定の項目にデフォルトのURLリンクタイプを追加。
+* Medium 640のサイズを追加。
+
+= 1.5.1 =
+* 未定義変数を使用していたバグを修正。
+
+= 1.5.0 =
+* オプション設定の項目にデフォルトのファイルURLを追加。
+
+= 1.4.0 =
+* Largeサイズが存在しない場合にOriginalサイズを使用する部分のバグを修正。
+* rel、class属性のオプション値を追加。
+
+= 1.3.3 =
+* Largeサイズを追加。Largeサイズの画像が存在しない場合は、Originalサイズを使用する。
+
+= 1.3.2 =
+* media_upload.jsのバグを修正。
+
+= 1.3.1 =
+* jquery-flickr-clientを最新化。
+
+= 1.3.0 =
+* Search(Thumbnail)時にOAuthトークンを利用したアクセスに対応
+
+= 1.2.2 =
+* 不要なconsole.logを削除
+
+= 1.2.1 =
+* メッセージが正常に表示されていなかったバグを修正
+
+= 1.2.0 =
+* 国際化(日本語)対応
+
+= 1.1.1 =
+* jqueryのflickrプラグイン内のconsole.logをコメントアウト
+
+= 1.1.0 =
+* 旧UIの速度改善
+
+= 1.0.0 =
+* 新UIを実装
+
+= 0.9.0 =
+* POSTで呼び出していた部分をGETに変更
+
+= 0.8.0 =
+* 画像個別に取得していたサイズ情報を取得しないように修正
+
+= 0.7.1 =
+* 特権管理者以外でも更新できるように修正
+
+= 0.7.0 =
+* クイック設定を追加
+
+= 0.6.0 =
+* 挿入順序を追加
+
+= 0.5.0 =
+* デフォルトのソート項目を追加
+
+= 0.4.0 =
+* 検索項目にソートを追加
+
+= 0.3.0 =
+* ユーザIDの取得方法を直入力からOAuth連携に修正
+* 画像挿入時のテンプレートを追加
+
+= 0.2.0 =
+* photosetで検索した際に詳細URL内のownerが抜けていたバグを修正
+* マルチサイトを適用した場合に、ページングが動作していなかったバグを修正
+
+= 0.1.0 =
+* 一括挿入機能を追加
+
+= 0.0.7 =
+* タグサジェスト機能を追加
+
+= 0.0.6 =
+* Photosetsのプルダウンが選択状態が維持されないバグを修正
+* キャッシュクリア用のボタンを追加
+
+= 0.0.5 =
+* API KEY、API SECRET、USER IDを未設定チェックを追加
+
+= 0.0.4 =
+* 検索機能追加
+
+= 0.0.1 =
+* 初回リリース
+
+== Upgrade Notice ==
