@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.2.1
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 
 WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
 
@@ -51,6 +51,9 @@ WordPressの記事投稿画面でFlickrにアップロードした写真を手�
 9. フルスクリーンモード
 
 == Changelog ==
+= 1.7.1 =
+* キャッシュディレクトリの権限チェック処理を追加。
+
 = 1.7.0 =
 * フルスクリーンモード時にもFlickrメディアの挿入ボタンを追加。
 
