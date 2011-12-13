@@ -29,14 +29,18 @@ class FpPostEvent {
 
 	public static function getUploadIframeSrc($uploadIframeSrc) {
 		if (FlickrPress::getDefaulSearchType() == 'thumbnail') {
-			return FlickrPress::getPluginUrl().'/'.$uploadIframeSrc.'&mode=search_thumbnail';
+			return $uploadIframeSrc.'&mode=search_thumbnail';
 		} else {
-			return FlickrPress::getPluginUrl().'/'.$uploadIframeSrc.'&mode=search';
+			return $uploadIframeSrc.'&mode=search';
 		}
 	}
 
 	private static function _media_button($title, $icon, $type) {
 	        return "<a href='" . esc_url( get_upload_iframe_src($type) ) . "' id='add_$type' class='thickbox' title='$title'><img src='" . esc_url( $icon ) . "' alt='$title' /></a>";
+	}
+
+	public static function mediaUploadFlickrMedia() {
+		require_once dirname(__FILE__) . '/media-upload.php';	
 	}
 }
 
