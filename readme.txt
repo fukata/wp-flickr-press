@@ -3,8 +3,8 @@ Contributors: tatsuya
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
-Tested up to: 3.2.1
-Stable tag: 1.7.1
+Tested up to: 3.3
+Stable tag: 1.7.2
 
 Flickr integration for wordpress plugin.
 
@@ -51,6 +51,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.7.2 =
+* Fixed bug v3.3.
+
 = 1.7.1 =
 * Add check cache directory permission.
 
