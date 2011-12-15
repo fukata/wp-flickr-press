@@ -3,7 +3,7 @@ class FpAdminSettingEvent {
 	private function __construct() {}
 
 	public static function addMenu() {
-		$page = add_options_page(FlickrPress::NAME.' Option', FlickrPress::NAME, 8, __FILE__, array('FpAdminSettingEvent','generateOptionForm'));
+		$page = add_options_page(FlickrPress::NAME.' Option', FlickrPress::NAME, 'manage_options', __FILE__, array('FpAdminSettingEvent','generateOptionForm'));
 	}
 
 	public static function addWhitelistOptions($whitelist_options) {
