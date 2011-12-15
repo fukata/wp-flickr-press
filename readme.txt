@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 
 Flickr integration for wordpress plugin.
 
@@ -51,6 +51,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.7.3 =
+* flickr-gallery Fixed a bug when used with plug-ins.
+
 = 1.7.2 =
 * Fixed bug v3.3.
 
