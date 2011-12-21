@@ -275,7 +275,7 @@
 		$(".inline-ins-btn").live("click", function(){
 			var link = $("#inline-url").val();
 			var target = $("input[name='inline-target']:checked").val();
-			target = target ? " target='"+target+"'" : '';
+			target = target ? ' target="' + target + '"' : '';
 			var align = $("input[name='inline-align']:checked").val();
 			var alt = $("#inline-title").val();
 			var src = $("input[name='inline-image-size']:checked").val();
@@ -298,7 +298,8 @@
 			
 			var html = '<img src="' + src + '" alt="' + alt + '" ' + clazz + '/>';
 			if (link) {
-				html = '<a href="' + link + '"' + target + aclazz + rel + '>' + html + '</a>';
+				var title = ' title="' + alt + '"';
+				html = '<a href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
 			}
 			html += "\n";
 			

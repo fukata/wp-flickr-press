@@ -54,42 +54,42 @@ win.send_to_editor(html);
 }
 
 function fp_create_image_html($attachments, $orders) {
-
 	$html = '';
 	foreach ($orders as $id) {
 		$attachment = $attachments[$id];
 		$photo = FlickrPress::getClient()->photos_getInfo($id);
 
-	        $link = esc_url($attachment['url']);
-	        $target = isset($attachment['target']) ? esc_attr($attachment['target']) : '';
-	        $target = strlen($target)>0 ? " target='{$target}'" : '';
-	        $align = isset($attachment['align']) ? esc_attr($attachment['align']) : '';
-	        $src = isset($attachment['image-size']) ? esc_attr($attachment['image-size']) : '';
-	        $alt = isset($attachment['title']) ? esc_attr($attachment['title']) : '';
-	        if (strlen($src)==0) {
-				$src = FlickrPress::getPhotoUrl($photo);
-	        }
-	        if ( isset($attachment['align']) && strlen($attachment['align']) > 0 ) {
-				$align = esc_attr($attachment['align']);
-				$class = " class='align$align'";
-	        }
-	        
-	        if ( isset($attachment['clazz']) ) {
-				$clazz = _remove_invalid_link_charactors($attachment['clazz']);
-				if (strlen($clazz) > 0) {
-					$aclass = " class='$clazz'";
-				}
-	        }
-	        if ( isset($attachment['rel']) ) {
-				$rel = _remove_invalid_link_charactors($attachment['rel']);
-				if (strlen($rel) > 0) {
-					$rel = " rel='$rel'";
-				}
-	        }
+		$link = esc_url($attachment['url']);
+		$target = isset($attachment['target']) ? esc_attr($attachment['target']) : '';
+		$target = strlen($target)>0 ? " target='{$target}'" : '';
+		$align = isset($attachment['align']) ? esc_attr($attachment['align']) : '';
+		$src = isset($attachment['image-size']) ? esc_attr($attachment['image-size']) : '';
+		$alt = isset($attachment['title']) ? esc_attr($attachment['title']) : '';
+		if (strlen($src)==0) {
+			$src = FlickrPress::getPhotoUrl($photo);
+		}
+		if ( isset($attachment['align']) && strlen($attachment['align']) > 0 ) {
+			$align = esc_attr($attachment['align']);
+			$class = " class=\"align{$align}\"";
+		}
+		
+		if ( isset($attachment['clazz']) ) {
+			$clazz = _remove_invalid_link_charactors($attachment['clazz']);
+			if (strlen($clazz) > 0) {
+				$aclass = " class=\"{$clazz}\"";
+			}
+		}
+		if ( isset($attachment['rel']) ) {
+			$rel = _remove_invalid_link_charactors($attachment['rel']);
+			if (strlen($rel) > 0) {
+				$rel = " rel=\"$rel\"";
+			}
+		}
 
 		$_img = "<img src=\"{$src}\" alt=\"{$alt}\"{$class}/>";
 		if (strlen($link)>0) {
-			$_img = "<a href=\"{$link}\"{$target}{$aclass}{$rel}>{$_img}</a>";
+			$title = " title=\"{$alt}\"";
+			$_img = "<a href=\"{$link}\"{$target}{$aclass}{$rel}{$title}>{$_img}</a>";
 		}
 
 		$_html = FlickrPress::getInsertTemplate();

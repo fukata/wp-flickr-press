@@ -166,7 +166,7 @@ function media_upload_search_form() {
 			<tbody>
 				<tr class="post_title">
 					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][title]"><span class="alignleft"><?php echo __('Title', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>
-					<td class="field"><input type="text" class="text" id="attachments[<?php echo $photo['id'] ?>][title]" name="attachments[<?php echo $photo['id'] ?>][title]" value="<?php echo $photo['title'] ?>" aria-required="true"></td>
+					<td class="field"><input type="text" class="text" id="attachments[<?php echo $photo['id'] ?>][title]" name="attachments[<?php echo $photo['id'] ?>][title]" value="<?php echo esc_attr($photo['title']) ?>" aria-required="true"></td>
 				</tr>
 				<tr class="url">
 					<th valign="top" scope="row" class="label"><label for="attachments[<?php echo $photo['id'] ?>][url]"><span class="alignleft"><?php echo __('Link URL', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
