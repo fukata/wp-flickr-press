@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 
 Flickr integration for wordpress plugin.
 
@@ -51,6 +51,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.7.5 =
+* Add title property a tag at insert photo.
+
 = 1.7.4 =
 * Change settings menu capability.
 
