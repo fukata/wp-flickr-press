@@ -277,7 +277,7 @@
 			var target = $("input[name='inline-target']:checked").val();
 			target = target ? ' target="' + target + '"' : '';
 			var align = $("input[name='inline-align']:checked").val();
-			var alt = $("#inline-title").val();
+			var alt = esc_attr( $("#inline-title").val() );
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
 			var close = $(this).attr('close') == '1';
@@ -305,6 +305,16 @@
 			
 			fp_media_send_to_editor(html, close);
 		});
+		function esc_attr(str) {
+			if (!str || str == '') return '';
+			if (!/[&<>"]/.test(str)) return str;
+
+			return str.replace('&', '&amp;')
+					  .replace('<', '&lt;')
+					  .replace('>', '&gt;')
+					  .replace('"', '&quot;')
+					  ;
+		}
 		function _remove_invalid_link_chars(str) {
 			return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
 		}
