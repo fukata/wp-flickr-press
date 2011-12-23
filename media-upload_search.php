@@ -56,7 +56,15 @@ function media_upload_search_form() {
 	$sort = strlen($filter['sort'])==0 ? FlickrPress::getDefaultSort() : $filter['sort'];
 	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
-	$params = array('user_id'=>FlickrPress::getUserId(), 'page'=>$page, 'per_page'=>20, 'sort'=>'date-posted-desc', 'extras' => 'url_sq,url_t,url_s,url_m,url_z,url_l,url_o');
+	$params = array(
+		'api_key' => FlickrPress::getApiKey(),
+		'auth_token' => FlickrPress::getOAuthToken(),
+		'user_id' => FlickrPress::getUserId(), 
+		'page' => $page, 
+		'per_page' => 20, 
+		'sort' => 'date-posted-desc', 
+		'extras' => 'url_sq,url_t,url_s,url_m,url_z,url_l,url_o'
+	);
 	if (strlen($checkedRecent)>0) {
 		$params['sort'] = $sort;
 	} else if (strlen($checkedAdvanced)>0) {
