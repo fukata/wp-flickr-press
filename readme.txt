@@ -53,6 +53,7 @@ None
 == Changelog ==
 = 1.7.7 =
 * Fixed bug html entities escape photo title at insert thumbnail search type.
+* Fixed bug can not search private photo at list search type.
 
 = 1.7.6 =
 * Html entities escape photo title at insert thumbnail search type.
