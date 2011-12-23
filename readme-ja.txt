@@ -26,6 +26,12 @@ WordPressの記事投稿画面でFlickrにアップロードした写真を手�
 
 1. php-curl http://php.net/manual/ja/book.curl.php
 
+バグ発見時
+
+もし、不具合や要望がありましたら、下記に報告してもらえると助かります。
+
+https://github.com/fukata/wp-flickr-press/issues
+
 == Installation ==
 
 1. ダウンロード後、解凍し、 `wp-content/plugins` にアップロードします。

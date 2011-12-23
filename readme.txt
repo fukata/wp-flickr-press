@@ -26,6 +26,12 @@ Dependencies
 
 1. php-curl http://php.net/manual/ja/book.curl.php
 
+Issues
+
+If you want to report bugs and wishes to find a following.
+
+https://github.com/fukata/wp-flickr-press/issues
+
 == Installation ==
 
 1. Download the plugin, unpack it and upload the 'wp-flickr-press' folder to your wp-content/plugins directory.
