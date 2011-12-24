@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 1.7.7
+Stable tag: 1.7.8
 
 WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
 
@@ -57,6 +57,10 @@ https://github.com/fukata/wp-flickr-press/issues
 9. フルスクリーンモード
 
 == Changelog ==
+= 1.7.8 =
+* サムネイル形式の検索での挿入時のタグを整形。
+* Photosetsによる検索でもプライベートモードの写真を対象にするように修正。
+
 = 1.7.7 =
 * サムネイル検索での写真の挿入時に写真タイトルをHTMLエンティティエスケープ処理のバグを修正。
 * リスト形式検索時にプライベートモードの写真が検索出来ていなかったバグを修正。

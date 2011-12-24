@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 1.7.7
+Stable tag: 1.7.8
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,10 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.7.8 =
+* Formatting tags insert photo thumbnail search type.
+* Modified to also search to find pictures of otosets in private mode.
+
 = 1.7.7 =
 * Fixed bug html entities escape photo title at insert thumbnail search type.
 * Fixed bug can not search private photo at list search type.
