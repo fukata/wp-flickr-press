@@ -283,7 +283,7 @@
 			var close = $(this).attr('close') == '1';
 			
 			if (align) {
-				clazz = " class='align"+align+"'";
+				clazz = ' class="align'+align+'"';
 			}
 			
 			var rel = _remove_invalid_link_chars( $('input[name="inline-link-rel"]').val() );
@@ -296,7 +296,7 @@
 				aclazz = ' class="' + aclazz + '"';
 			}
 			
-			var html = '<img src="' + src + '" alt="' + alt + '" ' + clazz + '/>';
+			var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + '/>';
 			if (link) {
 				var title = ' title="' + alt + '"';
 				html = '<a href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';

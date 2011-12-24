@@ -42,6 +42,9 @@ class FlickrPress {
 		self::addEvents();
 
 		self::$flickr = new phpFlickr(FlickrPress::getApiKey(), FlickrPress::getApiSecret());
+		if (self::getOAuthToken()) {
+			self::$flickr->token = self::getOAuthToken();
+		}
 		if (self::isCacheEnabled()) {
 			self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
 		}
