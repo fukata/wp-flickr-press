@@ -57,8 +57,6 @@ function media_upload_search_form() {
 	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
 	$params = array(
-		'api_key' => FlickrPress::getApiKey(),
-		'auth_token' => FlickrPress::getOAuthToken(),
 		'user_id' => FlickrPress::getUserId(), 
 		'page' => $page, 
 		'per_page' => 20, 
