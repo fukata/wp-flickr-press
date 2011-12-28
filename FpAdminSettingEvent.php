@@ -79,7 +79,7 @@ class FpAdminSettingEvent {
 			$('#extend_link_property_rel').val('');
 			$('#extend_link_property_clazz').val('');
 			$('#orig_extend_link_property_idx').val('');
-			refreshProperties();
+			refresh_properties();
 			return false;
 		});
 		$('#remove_extend_link_property').bind('click', function(){
@@ -96,8 +96,7 @@ class FpAdminSettingEvent {
 			$('#extend_link_property_clazz').val('');
 			$('#orig_extend_link_property_idx').val('');
 			$('#extend_link_properties_json').val(JSON.stringify(properties));
-			refreshProperties();
-
+			refresh_properties();
 			return false;
 		});
 		$('#clear_extend_link_property').bind('click', function(){
