@@ -148,8 +148,8 @@ function media_upload_search_form() {
 				</td>
 			</tr>
 			<tr class="image-property">
-				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Image Class Property', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
+				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-image-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Image Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+				<td class="field" style="display:none;">
 					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-image-clazz" value="" type="text" /></p>
 					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
 					<p>
@@ -164,8 +164,8 @@ function media_upload_search_form() {
 			</tr>
 
 			<tr class="link-property">
-				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
+				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-link-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+				<td class="field" style="display:none;">
 					<p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
 					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-clazz" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
 					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
