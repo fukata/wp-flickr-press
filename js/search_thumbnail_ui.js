@@ -350,6 +350,12 @@
 			$('input[name="inline-link-rel"]').val( $('#ineline-default_link_rel').val() );
 			$('input[name="inline-link-clazz"]').val( $('#ineline-default_link_class').val() );
 		});
+
+		$('a.toggle-image-properties, a.toggle-link-properties').live("click", function() {
+			var $self = $(this);
+			$self.find('span.toggle').toggle();
+			$self.parents('tr').find('td.field').toggle();
+		});
 		
 		// ===================================
 		// photo search

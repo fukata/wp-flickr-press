@@ -42,5 +42,12 @@
 				'tags' : tags
 			});
 		});
+
+
+		$('a.toggle-image-properties, a.toggle-link-properties').live("click", function() {
+			var $self = $(this);
+			$self.find('span.toggle').toggle();
+			$self.parents('tr').find('td.field').toggle();
+		});
 	});
 })(jQuery);
