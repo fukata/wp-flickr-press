@@ -70,8 +70,14 @@ function fp_create_image_html($attachments, $orders) {
 		}
 		if ( isset($attachment['align']) && strlen($attachment['align']) > 0 ) {
 			$align = esc_attr($attachment['align']);
-			$class = " class=\"align{$align}\"";
+			$class = "align{$align}";
 		}
+		if ( isset($attachment['image-clazz']) ) {
+			$imageClazz = _remove_invalid_link_charactors($attachment['image-clazz']);
+			$class = strlen($class) > 0 ? "$class $imageClazz" : $imageClazz;
+		}
+	
+		$class = strlen($class) > 0 ? " class=\"$class\"" : "";
 		
 		if ( isset($attachment['clazz']) ) {
 			$clazz = _remove_invalid_link_charactors($attachment['clazz']);
@@ -102,6 +108,6 @@ function fp_create_image_html($attachments, $orders) {
 }
 
 function _remove_invalid_link_charactors($str) {
-	return preg_replace('/[^0-9a-zA-Z\[\]\s_]+/', '', $str);
+	return preg_replace('/[^0-9a-zA-Z\[\]\s_\-]+/', '', $str);
 }
 ?>
