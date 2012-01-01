@@ -277,14 +277,19 @@
 			var target = $("input[name='inline-target']:checked").val();
 			target = target ? ' target="' + target + '"' : '';
 			var align = $("input[name='inline-align']:checked").val();
+			var imageClazz = $("input[name='inline-image-clazz']").val();
 			var alt = esc_attr( $("#inline-title").val() );
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
 			var close = $(this).attr('close') == '1';
 			
 			if (align) {
-				clazz = ' class="align'+align+'"';
+				clazz = 'align' + align;
 			}
+			if (imageClazz) {
+				clazz = clazz ? clazz + ' ' + imageClazz : imageClazz;
+			}
+			clazz = clazz ? ' class="' + clazz + '"' : '';
 			
 			var rel = _remove_invalid_link_chars( $('input[name="inline-link-rel"]').val() );
 			if ( rel ) {
@@ -325,6 +330,13 @@
 			
 			if (!close) $("#TB_closeWindowButton").trigger("click");
 		}
+		$('select.extend-image-properties').change(function() {
+			var $self = $(this.options[this.selectedIndex]);
+			if ($self.attr('data-clazz')) {
+				$('input[name="inline-image-clazz"]').val( $self.attr('data-clazz') );
+			}
+		});
+
 		$('select.extend-link-properties').change(function() {
 			var $self = $(this.options[this.selectedIndex]);
 			if ($self.attr('data-rel') || $self.attr('data-clazz')) {
