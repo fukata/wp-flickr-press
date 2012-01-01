@@ -175,6 +175,15 @@ class FlickrPress {
 		return is_array($properties) ? $properties : array();
 	}
 	
+	public static function getExtendImagePropertiesJson() {
+		return get_option(self::getKey('extend_image_properties'), '[]');
+	}
+
+	public static function getExtendImagePropertiesArray() {
+		$properties = json_decode( self::getExtendImagePropertiesJson() );
+		return is_array($properties) ? $properties : array();
+	}
+
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}

@@ -25,6 +25,7 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('default_link_class'),
             FlickrPress::getKey('default_file_url_size'),
             FlickrPress::getKey('extend_link_properties'),
+            FlickrPress::getKey('extend_image_properties'),
 		);
 		return $whitelist_options;
 	}
@@ -60,6 +61,9 @@ class FpAdminSettingEvent {
 			window.open('<?php echo esc_url(FlickrPress::getPluginUrl().'/flickr_oauth.php') ?>', 'flikcr_oauth', 'width=800,height=600,menubar=no, toolbar=no, scrollbars=yes');
 		});
 
+		// ===============================================
+		// Extend Link Properties
+		// ===============================================
 		$('#save_extend_link_property').bind('click', function(){
 			var idx = parseInt($('#orig_extend_link_property_idx').val(), 10);
 			var properties = JSON.parse($('#extend_link_properties_json').val());
@@ -105,22 +109,19 @@ class FpAdminSettingEvent {
 			$('#extend_link_property_rel').val('');
 			$('#extend_link_property_clazz').val('');
 			$('#orig_extend_link_property_idx').val('');
-
 			return false;
 		});
-		$('#current_extend_link_properties > li > a.link_property').live('click', function(){
+		$('#current_extend_link_properties > li > a.property').live('click', function(){
 			var $self = $(this);
 			$('#extend_link_property_idx').html( $self.attr('data-idx') );
 			$('#extend_link_property_title').val( $self.attr('data-title') );
 			$('#extend_link_property_rel').val( $self.attr('data-rel') );
 			$('#extend_link_property_clazz').val( $self.attr('data-clazz') );
 			$('#orig_extend_link_property_idx').val( $self.attr('data-idx') );
-			console.log($self.attr('data-idx'));
-
 			return false;
 		});
 		function _remove_invalid_link_chars(str) {
-			return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
+			return str.replace(/[^0-9a-zA-Z\[\]\s_\-]+/g,'');
 		}
 		function refresh_properties() {
 			var properties = JSON.parse($('#extend_link_properties_json').val());
@@ -128,7 +129,7 @@ class FpAdminSettingEvent {
 			for (var i=0; i<properties.length; i++) {
 				var prop = properties[i];
 				var $li = $(document.createElement('li'));
-				var $a = $('<a href="javascript:void(0)" class="link_property">[' + prop['title'] + '] Rel=' + prop['rel'] + ', Class=' + prop['clazz'] + '</a>');
+				var $a = $('<a href="javascript:void(0)" class="property">[' + prop['title'] + '] Rel=' + prop['rel'] + ', Class=' + prop['clazz'] + '</a>');
 				$a.attr({
 					'data-idx': i,
 					'data-title': prop['title'],
@@ -139,7 +140,80 @@ class FpAdminSettingEvent {
 				$current.append($li);
 			}
 		}
+
+		// ===============================================
+		// Extend Image Properties
+		// ===============================================
+		$('#save_extend_image_property').bind('click', function(){
+			var idx = parseInt($('#orig_extend_image_property_idx').val(), 10);
+			var properties = JSON.parse($('#extend_image_properties_json').val());
+			var prop = {
+				"title": _remove_invalid_link_chars($('#extend_image_property_title').val()),
+				"clazz": _remove_invalid_link_chars($('#extend_image_property_clazz').val())
+			};
+			if (isNaN(idx)) {
+				properties.push(prop);
+			} else {
+				properties[idx] = prop;
+			}
+			$('#extend_image_properties_json').val(JSON.stringify(properties));
+			
+			$('#extend_image_property_title').val('');
+			$('#extend_image_property_clazz').val('');
+			$('#orig_extend_image_property_idx').val('');
+			refresh_image_properties();
+			return false;
+		});
+		$('#remove_extend_image_property').bind('click', function(){
+			var idx = parseInt($('#orig_extend_image_property_idx').val(), 10);
+			if (isNaN(idx)) {
+				return false;
+			}
+			
+			var properties = JSON.parse($('#extend_image_properties_json').val());
+			properties.splice(idx, 1);
+			$('#extend_image_property_idx').html('');
+			$('#extend_image_property_title').val('');
+			$('#extend_image_property_clazz').val('');
+			$('#orig_extend_image_property_idx').val('');
+			$('#extend_image_properties_json').val(JSON.stringify(properties));
+			refresh_image_properties();
+			return false;
+		});
+		$('#clear_extend_image_property').bind('click', function(){
+			$('#extend_image_property_idx').html('');
+			$('#extend_image_property_title').val('');
+			$('#extend_image_property_clazz').val('');
+			$('#orig_extend_image_property_idx').val('');
+			return false;
+		});
+		$('#current_extend_image_properties > li > a.property').live('click', function(){
+			var $self = $(this);
+			$('#extend_image_property_idx').html( $self.attr('data-idx') );
+			$('#extend_image_property_title').val( $self.attr('data-title') );
+			$('#extend_image_property_clazz').val( $self.attr('data-clazz') );
+			$('#orig_extend_image_property_idx').val( $self.attr('data-idx') );
+			return false;
+		});
+		function refresh_image_properties() {
+			var properties = JSON.parse($('#extend_image_properties_json').val());
+			var $current = $('#current_extend_image_properties').empty();
+			for (var i=0; i<properties.length; i++) {
+				var prop = properties[i];
+				var $li = $(document.createElement('li'));
+				var $a = $('<a href="javascript:void(0)" class="property">[' + prop['title'] + '] Class=' + prop['clazz'] + '</a>');
+				$a.attr({
+					'data-idx': i,
+					'data-title': prop['title'],
+					'data-clazz': prop['clazz']
+				});
+				$li.html($a);
+				$current.append($li);
+			}
+		}
+
 		refresh_properties();
+		refresh_image_properties();
 	});
 })(jQuery);
 function callback_oauth(token) {
@@ -159,6 +233,7 @@ function callback_oauth(token) {
                 <?php wp_nonce_field('wpfp-options'); ?>
                 <input type="hidden" name="action" value="update" />
                 <input type="hidden" name="option_page" value="wpfp" />
+				<h3><?php echo __('OAuth Information', FlickrPress::TEXT_DOMAIN) ?></h3>
                 <table class="form-table">
                         <tr valign="top">
                                 <th scope="row">
@@ -240,7 +315,7 @@ function callback_oauth(token) {
 				<td>
 					<p><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="<?php echo FlickrPress::getKey('default_link_rel') ?>" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" /></p>
 					<p><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="<?php echo FlickrPress::getKey('default_link_class') ?>" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" /></p>
-					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore', FlickrPress::TEXT_DOMAIN) ?></p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -257,11 +332,30 @@ function callback_oauth(token) {
 						<a href="javascript:void(0)" class="button" id="remove_extend_link_property"><?php echo __('Remove', FlickrPress::TEXT_DOMAIN) ?></a>
 						<a href="javascript:void(0)" class="button" id="clear_extend_link_property"><?php echo __('Clear', FlickrPress::TEXT_DOMAIN) ?></a>
 					</p>
-					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore', FlickrPress::TEXT_DOMAIN) ?></p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
 					<p>
 						<?php echo __('Current Available Extend Link Rel and Class', FlickrPress::TEXT_DOMAIN) ?>
 						<ol id="current_extend_link_properties"></ol>
 					</p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><p><?php echo __('Extend Image Class Property', FlickrPress::TEXT_DOMAIN) ?></p></th>
+				<td>
+					<textarea name="<?php echo FlickrPress::getKey('extend_image_properties')?>" id="extend_image_properties_json" style="display: none;" ><?php echo FlickrPress::getExtendImagePropertiesJson()?></textarea>
+					<input type="text" name="orig_extend_image_property_idx" value="" id="orig_extend_image_property_idx" style="display: none;" />
+					<p><?php echo __('ID:', FlickrPress::TEXT_DOMAIN) ?><span id="extend_image_property_idx"></span></p>
+					<p><?php echo __('Title:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="extend_image_property_title" value="" id="extend_image_property_title" /></p>
+					<p><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="extend_image_property_clazz" value="" id="extend_image_property_clazz" /></p>
+					<p>
+						<a href="javascript:void(0)" class="button" id="save_extend_image_property"><?php echo __('Save', FlickrPress::TEXT_DOMAIN) ?></a>
+						<a href="javascript:void(0)" class="button" id="remove_extend_image_property"><?php echo __('Remove', FlickrPress::TEXT_DOMAIN) ?></a>
+						<a href="javascript:void(0)" class="button" id="clear_extend_image_property"><?php echo __('Clear', FlickrPress::TEXT_DOMAIN) ?></a>
+					</p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
+					<p>
+						<?php echo __('Current Available Extend Image Class', FlickrPress::TEXT_DOMAIN) ?>
+						<ol id="current_extend_image_properties"></ol>
 				</td>
 			</tr>
 		</table>
