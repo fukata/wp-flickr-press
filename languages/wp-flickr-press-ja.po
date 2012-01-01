@@ -319,11 +319,14 @@ msgstr "リンクのrel属性とclass属性"
 msgid "Load Default"
 msgstr "デフォルト値の読込"
 
-msgid "Available Charactors: 0-9a-zA-Z [] Space UnderScore"
-msgstr "利用可能な文字列: 0-9a-zA-Z [] 半角空白 アンダースコア"
+msgid "Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen"
+msgstr "利用可能な文字列: 0-9a-zA-Z [] 半角空白 アンダースコア ハイフン"
 
 msgid "No write permission to the %s directory. Please grant the permission to write."
 msgstr "%s ディレクトリに書込権限が付与されていません。書込権限を付与してください。"
 
 msgid "Does not exists %s directory. Please create."
 msgstr "%s ディレクトリが存在しません。ディレクトリを作成してください。"
+
+msgid "OAuth Information"
+msgstr "OAuth情報"
