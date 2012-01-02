@@ -337,6 +337,6 @@ msgstr "OAuth情報"
 msgid "Enable UserID Alias"
 msgstr "ユーザIDエイリアスの有効"
 
-msgid "Photo URL contains \"UserID\" you the \"UserID Alias\" and replace."
+msgid "Photo URL contains \"UserID\" the \"UserID Alias\" and replace."
 msgstr "写真のURLに含まれる\"UserID\"を\"UserID Alias\"に置換します。"
 

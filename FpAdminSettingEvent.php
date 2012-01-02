@@ -267,7 +267,7 @@ function callback_oauth(token) {
 				</th>
 				<td>
 					<p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('enable_path_alias') ?>" value="1" <?php if (FlickrPress::enablePathAlias()) { echo "checked='checked'"; } ?> /></p>
-					<p><?php echo __("Photo URL contains \"UserID\" you the \"UserID Alias\" and replace.", FlickrPress::TEXT_DOMAIN) ?></p>
+					<p><?php echo __("Photo URL contains \"UserID\" the \"UserID Alias\" and replace.", FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
 		</table>
