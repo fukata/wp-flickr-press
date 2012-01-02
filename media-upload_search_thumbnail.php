@@ -51,6 +51,7 @@ function media_upload_search_form() {
 	<input type="hidden" name="api_secret" id="api_secret" value="<?php echo FlickrPress::getApiSecret() ?>" />
 	<input type="hidden" name="user_id" id="user_id" value="<?php echo FlickrPress::getUserId() ?>" />
 	<input type="hidden" name="oauth_token" id="oauth_token" value="<?php echo FlickrPress::getOAuthToken() ?>" />
+	<input type="hidden" name="enable_path_alias" id="enable_path_alias" value="<?php echo FlickrPress::enablePathAlias() ? '1' : '0' ?>" />
 </div>
 
 <div id="search-form">

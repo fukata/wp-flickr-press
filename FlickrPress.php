@@ -96,6 +96,10 @@ class FlickrPress {
 		return get_option(self::getKey('user_id'));
 	}
 
+	public static function enablePathAlias() {
+		return get_option(self::getKey('enable_path_alias')) == '1';
+	}
+
 	public static function getUsername() {
 		return get_option(self::getKey('username'));
 	}
@@ -215,9 +219,10 @@ class FlickrPress {
 
 	public static function getPhotoPageUrl($photo, $photos) {
 		$id = $photo['id'];
-		$owner = isset($photo['owner']) ? $photo['owner'] : false;
-		if (!$owner && isset($photos['owner'])) {
-			$owner = $photos['owner'];
+		$pathKey = self::enablePathAlias() ? 'pathalias' : 'owner';
+		$owner = isset($photo[$pathKey]) ? $photo[$pathKey] : false;
+		if (!$owner && isset($photos[$pathKey])) {
+			$owner = $photos[$pathKey];
 		}
 
 		$url = "http://www.flickr.com/photos/$owner/$id";

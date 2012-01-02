@@ -62,7 +62,7 @@ function media_upload_search_form() {
 		'page' => $page, 
 		'per_page' => 20, 
 		'sort' => 'date-posted-desc', 
-		'extras' => 'url_sq,url_t,url_s,url_m,url_z,url_l,url_o'
+		'extras' => 'path_alias,url_sq,url_t,url_s,url_m,url_z,url_l,url_o'
 	);
 	if (strlen($checkedRecent)>0) {
 		$params['sort'] = $sort;
@@ -86,7 +86,6 @@ function media_upload_search_form() {
 	} else {
 		$photos = FlickrPress::getClient()->photos_search($params);
 	}
-
 	$pager = new FpPager($photos['total'], $photos['page'], $photos['perpage']);
 ?>
 

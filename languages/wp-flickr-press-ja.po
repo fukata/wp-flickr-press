@@ -333,3 +333,10 @@ msgstr "%s ディレクトリが存在しません。ディレクトリを作成
 
 msgid "OAuth Information"
 msgstr "OAuth情報"
+
+msgid "Enable UserID Alias"
+msgstr "ユーザIDエイリアスの有効"
+
+msgid "Photo URL contains \"UserID\" you the \"UserID Alias\" and replace."
+msgstr "写真のURLに含まれる\"UserID\"を\"UserID Alias\"に置換します。"
+

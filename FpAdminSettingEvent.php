@@ -11,6 +11,7 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('api_key'),
             FlickrPress::getKey('api_secret'),
             FlickrPress::getKey('user_id'),
+            FlickrPress::getKey('enable_path_alias'),
             FlickrPress::getKey('username'),
             FlickrPress::getKey('oauth_token'),
             FlickrPress::getKey('default_target'),
@@ -228,28 +229,28 @@ function callback_oauth(token) {
 
 // --></script>
 <div class="wrap">
-        <h2><?php echo FlickrPress::NAME ?></h2>
-        <form method="post" action="options.php">
-                <?php wp_nonce_field('wpfp-options'); ?>
-                <input type="hidden" name="action" value="update" />
-                <input type="hidden" name="option_page" value="wpfp" />
-				<h3><?php echo __('OAuth Information', FlickrPress::TEXT_DOMAIN) ?></h3>
-                <table class="form-table">
-                        <tr valign="top">
-                                <th scope="row">
-                                        <p><?php echo __('API KEY/Secret', FlickrPress::TEXT_DOMAIN) ?></p>
+	<h2><?php echo FlickrPress::NAME ?></h2>
+	<form method="post" action="options.php">
+		<?php wp_nonce_field('wpfp-options'); ?>
+		<input type="hidden" name="action" value="update" />
+		<input type="hidden" name="option_page" value="wpfp" />
+		<h3><?php echo __('OAuth Information', FlickrPress::TEXT_DOMAIN) ?></h3>
+		<table class="form-table">
+			<tr valign="top">
+				<th scope="row">
+					<p><?php echo __('API KEY/Secret', FlickrPress::TEXT_DOMAIN) ?></p>
 					<p><a href="http://www.flickr.com/services/api/misc.api_keys.html" target="_blank">Flickr Services</a></p>
-                                </th>
-                                <td>
+				</th>
+				<td>
 					<p><?php echo __('API KEY:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_key') ?>" value="<?php echo FlickrPress::getApiKey() ?>" size="70" />
 					<p><?php echo __('Secret:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_secret') ?>" value="<?php echo FlickrPress::getApiSecret() ?>" size="70" />
 				</td>
-                        </tr>
-                        <tr valign="top">
-                                <th scope="row">
-                                        <p><?php echo __('OAuth Token', FlickrPress::TEXT_DOMAIN) ?></p>
-                                </th>
-                                <td>
+			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<p><?php echo __('OAuth Token', FlickrPress::TEXT_DOMAIN) ?></p>
+				</th>
+				<td>
 					<input id="fp-oauth-token-hid" type="hidden" name="<?php echo FlickrPress::getKey('oauth_token') ?>" value="<?php echo FlickrPress::getOAuthToken() ?>" />
 					<input id="fp-user-id-hid" type="hidden" name="<?php echo FlickrPress::getKey('user_id') ?>" value="<?php echo FlickrPress::getUserId() ?>" />
 					<input id="fp-username-hid" type="hidden" name="<?php echo FlickrPress::getKey('username') ?>" value="<?php echo FlickrPress::getUsername() ?>" />
@@ -259,9 +260,17 @@ function callback_oauth(token) {
 					<p><a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php echo __('Update OAuth Token', FlickrPress::TEXT_DOMAIN) ?></a></p>
 					<p id="fp-oauth-update"><p>
 				</td>
-                        </tr>
-
-                </table>
+			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<p><?php echo __('UserID Alias', FlickrPress::TEXT_DOMAIN) ?></p>
+				</th>
+				<td>
+					<p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('enable_path_alias') ?>" value="1" <?php if (FlickrPress::enablePathAlias()) { echo "checked='checked'"; } ?> /></p>
+					<p><?php echo __("Photo URL contains \"UserID\" you the \"UserID Alias\" and replace.", FlickrPress::TEXT_DOMAIN) ?></p>
+				</td>
+			</tr>
+		</table>
 
 		<h3><?php echo __('Default Attachments', FlickrPress::TEXT_DOMAIN) ?></h3>
 		<table class="form-table">
@@ -392,7 +401,7 @@ function callback_oauth(token) {
 					<p><?php echo __('Quick Settings', FlickrPress::TEXT_DOMAIN) ?></p>
 				</th>
 				<td>
-					<p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo flickrpress::getkey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
+					<p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
 					<p><?php echo __('When enabled, a dialog will appear when you click for a set of check boxes for multiple insertion.', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
