@@ -181,7 +181,13 @@
 		if ( size != 'o' && !photo[FlickrClient.prototype.SIZES[size]] ) {
 			var sizes = FlickrClient.prototype.SIZES_ARRAY;
 			var idx = sizes.indexOf(size);
-			return FlickrClient.prototype.getPhotoUrl(photo, sizes[idx + 1]);
+			for ( var i=idx+1; i<sizes.length; i++ ) {
+				var s = sizes[i];
+				if ( photo[FlickrClient.prototype.SIZES[s]] ) {
+					return FlickrClient.prototype.getPhotoUrl(photo, s);
+				}
+			}
+			return '';
 		} else {
 			return photo[FlickrClient.prototype.SIZES[size]];
 		}

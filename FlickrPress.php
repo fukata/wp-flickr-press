@@ -211,7 +211,13 @@ class FlickrPress {
 		if ( $size != 'o' && empty( $photo[self::$SIZES[$size]] ) ) {
 			$keys = array_keys(self::$SIZES);
 			$idx = array_search($size, $keys);
-			return self::getPhotoUrl($photo, $keys[$idx + 1]);
+			for ($i=$idx+1; $i<count($keys); $i++) {
+				$s = $keys[$i];
+				if(!empty($photo[self::$SIZES[$s]])) {
+					return self::getPhotoUrl($photo, $s);
+				}
+			}
+			return '';
 		} else {
 			return $photo[self::$SIZES[$size]];
 		}
