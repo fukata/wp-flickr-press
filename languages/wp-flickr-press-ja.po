@@ -316,6 +316,9 @@ msgstr "正方形"
 msgid "Link Rel and Class Property"
 msgstr "リンクのrel属性とclass属性"
 
+msgid "Image Class Property"
+msgstr "画像のclass属性"
+
 msgid "Load Default"
 msgstr "デフォルト値の読込"
 
