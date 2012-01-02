@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 1.7.8
+Stable tag: 1.8.0
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,11 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.8.0 =
+* Fixed bug Use larger than selected size when selected photo size doesn't exists.
+* Add image class property option.
+* Add photo path alias option.
+
 = 1.7.8 =
 * Formatting tags insert photo thumbnail search type.
 * Modified to also search to find pictures of otosets in private mode.
