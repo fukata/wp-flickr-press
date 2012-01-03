@@ -4,12 +4,13 @@
 			apiKey : jQuery("#api_key").val(),
 			apiSecret : jQuery("#api_secret").val(),
 			userId : jQuery("#user_id").val(),
-			oauthToken : jQuery("#oauth_token").val()
+			oauthToken : jQuery("#oauth_token").val(),
+			enablePathAlias: jQuery("#enable_path_alias").val() == '1'
 		});
 		var pager_search = null;
 		var OPTIONS = {
 			perpage : 20,
-			extras : "url_sq,url_t,url_s,url_m,url_z,url_l,url_o",
+			extras : "path_alias,url_sq,url_t,url_s,url_m,url_z,url_l,url_o",
 			sort : "date-posted-desc",
 			thumbnail_size : "sq"
 		};
@@ -144,20 +145,18 @@
 				
 				$img.click(ins_popup);
 				$img.append(
-						$("<img />").attr(
-								{
-									src : flickr.getPhotoUrl(photo,
-											OPTIONS.thumbnail_size),
-									title : photo["title"]
-								}).addClass("photo"));
+					$("<img />").attr({
+						src : flickr.getPhotoUrl(photo, OPTIONS.thumbnail_size),
+						title : photo["title"]
+					}).addClass("photo"));
 				var $title = $("<div></div>").addClass("title").append(
-						$("<a></a>").addClass("ins-photo").attr({
-							href : "javascript:void(0)",
-							title : title,
-							idx : i
-						}).click(ins_popup).html(title));
-				var $div = $("<div></div>").addClass("thumbnail").append($img)
-						.append($title);
+					$("<a></a>").addClass("ins-photo").attr({
+						href : "javascript:void(0)",
+						title : title,
+						idx : i
+					}).click(ins_popup).html(title)
+				);
+				var $div = $("<div></div>").addClass("thumbnail").append($img).append($title);
 				$("#search-results").append($div);
 			}
 			init_pager(photos);
@@ -275,16 +274,21 @@
 		$(".inline-ins-btn").live("click", function(){
 			var link = $("#inline-url").val();
 			var target = $("input[name='inline-target']:checked").val();
-			target = target ? " target='"+target+"'" : '';
+			target = target ? ' target="' + target + '"' : '';
 			var align = $("input[name='inline-align']:checked").val();
-			var alt = $("#inline-title").val();
+			var imageClazz = $("input[name='inline-image-clazz']").val();
+			var alt = esc_attr( $("#inline-title").val() );
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
 			var close = $(this).attr('close') == '1';
 			
 			if (align) {
-				clazz = " class='align"+align+"'";
+				clazz = 'align' + align;
 			}
+			if (imageClazz) {
+				clazz = clazz ? clazz + ' ' + imageClazz : imageClazz;
+			}
+			clazz = clazz ? ' class="' + clazz + '"' : '';
 			
 			var rel = _remove_invalid_link_chars( $('input[name="inline-link-rel"]').val() );
 			if ( rel ) {
@@ -296,14 +300,25 @@
 				aclazz = ' class="' + aclazz + '"';
 			}
 			
-			var html = '<img src="' + src + '" alt="' + alt + '" ' + clazz + '/>';
+			var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + '/>';
 			if (link) {
-				html = '<a href="' + link + '"' + target + aclazz + rel + '>' + html + '</a>';
+				var title = ' title="' + alt + '"';
+				html = '<a href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
 			}
 			html += "\n";
 			
 			fp_media_send_to_editor(html, close);
 		});
+		function esc_attr(str) {
+			if (!str || str == '') return '';
+			if (!/[&<>"]/.test(str)) return str;
+
+			return str.replace(/&/g, '&amp;')
+					  .replace(/</g, '&lt;')
+					  .replace(/>/g, '&gt;')
+					  .replace(/"/g, '&quot;')
+					  ;
+		}
 		function _remove_invalid_link_chars(str) {
 			return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
 		}
@@ -314,6 +329,13 @@
 			
 			if (!close) $("#TB_closeWindowButton").trigger("click");
 		}
+		$('select.extend-image-properties').change(function() {
+			var $self = $(this.options[this.selectedIndex]);
+			if ($self.attr('data-clazz')) {
+				$('input[name="inline-image-clazz"]').val( $self.attr('data-clazz') );
+			}
+		});
+
 		$('select.extend-link-properties').change(function() {
 			var $self = $(this.options[this.selectedIndex]);
 			if ($self.attr('data-rel') || $self.attr('data-clazz')) {
@@ -326,6 +348,12 @@
 			var $self = $(this);
 			$('input[name="inline-link-rel"]').val( $('#ineline-default_link_rel').val() );
 			$('input[name="inline-link-clazz"]').val( $('#ineline-default_link_class').val() );
+		});
+
+		$('a.toggle-image-properties, a.toggle-link-properties').live("click", function() {
+			var $self = $(this);
+			$self.find('span.toggle').toggle();
+			$self.parents('tr').find('td.field').toggle();
 		});
 		
 		// ===================================

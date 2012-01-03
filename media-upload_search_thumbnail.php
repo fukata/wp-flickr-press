@@ -39,6 +39,7 @@ function media_upload_search_form() {
 		'Interestingness DESC' => 'interestingness-desc',
 	);
 	$extendLinkProperties = FlickrPress::getExtendLinkPropertiesArray();
+	$extendImageProperties = FlickrPress::getExtendImagePropertiesArray();
 	
 	$sort = FlickrPress::getDefaultSort();
 ?>
@@ -50,6 +51,7 @@ function media_upload_search_form() {
 	<input type="hidden" name="api_secret" id="api_secret" value="<?php echo FlickrPress::getApiSecret() ?>" />
 	<input type="hidden" name="user_id" id="user_id" value="<?php echo FlickrPress::getUserId() ?>" />
 	<input type="hidden" name="oauth_token" id="oauth_token" value="<?php echo FlickrPress::getOAuthToken() ?>" />
+	<input type="hidden" name="enable_path_alias" id="enable_path_alias" value="<?php echo FlickrPress::enablePathAlias() ? '1' : '0' ?>" />
 </div>
 
 <div id="search-form">
@@ -146,12 +148,28 @@ function media_upload_search_form() {
 					<?php } ?>
 				</td>
 			</tr>
+			<tr class="image-property">
+				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-image-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Image Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+				<td class="field" style="display:none;">
+					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-image-clazz" value="" type="text" /></p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
+					<p>
+						<select class="extend-image-properties">
+						<option value="" data-photoid=""></option>
+						<?php for ($i=0; $i<count($extendImageProperties); $i++) { ?>
+						<option value="" data-clazz="<?php echo $extendImageProperties[$i]->clazz ?>"><?php echo $extendImageProperties[$i]->title ?></option>
+						<?php } ?>
+						</select>
+					</p>
+				</td>
+			</tr>
+
 			<tr class="link-property">
-				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
+				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-link-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+				<td class="field" style="display:none;">
 					<p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
 					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-clazz" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
-					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore', FlickrPress::TEXT_DOMAIN) ?></p>
+					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
 					<p>
 						<select class="extend-link-properties">
 						<option value="" data-photoid=""></option>

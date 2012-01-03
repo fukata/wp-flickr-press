@@ -60,7 +60,8 @@
 		apiSecret: "",
 		userId: "",
 		oauthToken: "",
-		restEndpoint: "http://api.flickr.com/services/rest/"
+		restEndpoint: "http://api.flickr.com/services/rest/",
+		enablePathAlias: false
 	};
 	FlickrClient.prototype.SIZES = {
 		"sq": "url_sq",
@@ -180,16 +181,27 @@
 		if ( size != 'o' && !photo[FlickrClient.prototype.SIZES[size]] ) {
 			var sizes = FlickrClient.prototype.SIZES_ARRAY;
 			var idx = sizes.indexOf(size);
-			return FlickrClient.prototype.getPhotoUrl(photo, sizes[idx + 1]);
+			for ( var i=idx+1; i<sizes.length; i++ ) {
+				var s = sizes[i];
+				if ( photo[FlickrClient.prototype.SIZES[s]] ) {
+					return FlickrClient.prototype.getPhotoUrl(photo, s);
+				}
+			}
+			return '';
 		} else {
 			return photo[FlickrClient.prototype.SIZES[size]];
 		}
 	};
 
 	FlickrClient.prototype.getPhotoPageUrl = function(photo, photos) {
-		owner = 'owner' in photo ? photo['owner'] : null;
-		if (!owner && 'owner' in photos) {
-			owner = photos['owner'];
+		var owner = null;
+		if (this.options.enablePathAlias) {
+			owner = photo['pathalias'];
+		} else {
+			owner = 'owner' in photo ? photo['owner'] : null;
+			if (!owner && 'owner' in photos) {
+				owner = photos['owner'];
+			}
 		}
 
 		url = "http://www.flickr.com/photos/"+owner+"/"+photo['id'];

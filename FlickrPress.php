@@ -42,6 +42,9 @@ class FlickrPress {
 		self::addEvents();
 
 		self::$flickr = new phpFlickr(FlickrPress::getApiKey(), FlickrPress::getApiSecret());
+		if (self::getOAuthToken()) {
+			self::$flickr->token = self::getOAuthToken();
+		}
 		if (self::isCacheEnabled()) {
 			self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
 		}
@@ -91,6 +94,10 @@ class FlickrPress {
 
 	public static function getUserId() {
 		return get_option(self::getKey('user_id'));
+	}
+
+	public static function enablePathAlias() {
+		return get_option(self::getKey('enable_path_alias')) == '1';
 	}
 
 	public static function getUsername() {
@@ -172,6 +179,15 @@ class FlickrPress {
 		return is_array($properties) ? $properties : array();
 	}
 	
+	public static function getExtendImagePropertiesJson() {
+		return get_option(self::getKey('extend_image_properties'), '[]');
+	}
+
+	public static function getExtendImagePropertiesArray() {
+		$properties = json_decode( self::getExtendImagePropertiesJson() );
+		return is_array($properties) ? $properties : array();
+	}
+
 	public static function getKey($key) {
 		return self::PREFIX . $key;
 	}
@@ -195,7 +211,13 @@ class FlickrPress {
 		if ( $size != 'o' && empty( $photo[self::$SIZES[$size]] ) ) {
 			$keys = array_keys(self::$SIZES);
 			$idx = array_search($size, $keys);
-			return self::getPhotoUrl($photo, $keys[$idx + 1]);
+			for ($i=$idx+1; $i<count($keys); $i++) {
+				$s = $keys[$i];
+				if(!empty($photo[self::$SIZES[$s]])) {
+					return self::getPhotoUrl($photo, $s);
+				}
+			}
+			return '';
 		} else {
 			return $photo[self::$SIZES[$size]];
 		}
@@ -203,9 +225,10 @@ class FlickrPress {
 
 	public static function getPhotoPageUrl($photo, $photos) {
 		$id = $photo['id'];
-		$owner = isset($photo['owner']) ? $photo['owner'] : false;
-		if (!$owner && isset($photos['owner'])) {
-			$owner = $photos['owner'];
+		$pathKey = self::enablePathAlias() ? 'pathalias' : 'owner';
+		$owner = isset($photo[$pathKey]) ? $photo[$pathKey] : false;
+		if (!$owner && isset($photos[$pathKey])) {
+			$owner = $photos[$pathKey];
 		}
 
 		$url = "http://www.flickr.com/photos/$owner/$id";

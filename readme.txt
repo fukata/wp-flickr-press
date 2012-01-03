@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 1.7.4
+Stable tag: 1.8.0
 
 Flickr integration for wordpress plugin.
 
@@ -25,6 +25,12 @@ Features
 Dependencies
 
 1. php-curl http://php.net/manual/ja/book.curl.php
+
+Issues
+
+If you want to report bugs and wishes to find a following.
+
+https://github.com/fukata/wp-flickr-press/issues
 
 == Installation ==
 
@@ -51,6 +57,25 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.8.0 =
+* Fixed bug Use larger than selected size when selected photo size doesn't exists.
+* Add image class property option.
+* Add photo path alias option.
+
+= 1.7.8 =
+* Formatting tags insert photo thumbnail search type.
+* Modified to also search to find pictures of otosets in private mode.
+
+= 1.7.7 =
+* Fixed bug html entities escape photo title at insert thumbnail search type.
+* Fixed bug can not search private photo at list search type.
+
+= 1.7.6 =
+* Html entities escape photo title at insert thumbnail search type.
+
+= 1.7.5 =
+* Add title property a tag at insert photo.
+
 = 1.7.4 =
 * Change settings menu capability.
 
