@@ -1,5 +1,20 @@
 <?php
-require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
+
+// Fix for symlinked plugins from
+// http://wordpress.stackexchange.com/questions/15202/plugins-in-symlinked-directories
+$wp_flickr_press_file = __FILE__;
+if ( isset( $mu_plugin ) ) {
+    $wp_flickr_press_file = $mu_plugin;
+}
+if ( isset( $network_plugin ) ) {
+    $wp_flickr_press_file = $network_plugin;
+}
+if ( isset( $plugin ) ) {
+    $wp_flickr_press_file = $plugin;
+}
+
+require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+
 
 class FlickrPress {
 	// constants	
@@ -73,7 +88,8 @@ class FlickrPress {
 	}
 
 	public static function getDir() {
-		return dirname(__FILE__);
+		global $wp_flickr_press_file;
+		return plugin_dir_path($wp_flickr_press_file);
 	}
 
 	public static function getCacheType() {
@@ -81,7 +97,8 @@ class FlickrPress {
 	}
 
 	public static function getCacheConnection() {
-		return dirname(__FILE__).'/cache/';
+		global $wp_flickr_press_file;
+		return plugin_dir_path($wp_flickr_press_file).'/cache/';
 	}
 
 	public static function getApiKey() {
@@ -109,7 +126,8 @@ class FlickrPress {
 	}
 
 	public static function getPluginUrl() {
-		return plugins_url('', __FILE__);
+		global $wp_flickr_press_file;
+		return plugins_url('', $wp_flickr_press_file );
 	}
 
 	public static function getDefaultTarget() {

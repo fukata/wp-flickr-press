@@ -46,6 +46,9 @@ function media_upload_search_form() {
 	if (isset($_GET['clear_cache']) && $_GET['clear_cache']) {
 		FlickrPress::clearCache();
 	}
+	
+	$filter['keyword'] = (isset($filter['keyword'])) ? $filter['keyword'] : '';
+	$filter['tags'] = (isset($filter['tags'])) ? $filter['tags'] : '';
 
 	$checkedRecent = (!isset($filter['type']) || $filter['type']=='recent') ? " checked='checked'" : '';
 	$checkedAdvanced = (isset($filter['type']) && $filter['type']=='advanced') ? " checked='checked'" : '';
@@ -54,7 +57,7 @@ function media_upload_search_form() {
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	$sortFormClass = strlen($checkedPhotosets)==0 ? '' : 'search-form-off';
 	
-	$sort = strlen($filter['sort'])==0 ? FlickrPress::getDefaultSort() : $filter['sort'];
+	$sort = ( (!isset($filter['sort'])) || strlen($filter['sort']) == 0 ) ? FlickrPress::getDefaultSort() : $filter['sort'];
 	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
 	$params = array(
