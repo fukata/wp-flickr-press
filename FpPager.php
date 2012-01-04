@@ -12,11 +12,8 @@ class FpPager {
 	}
 
 	public function generate($force=false) {
-		if (!$force && !isset($htmlCache)) {
-			return '';
-		}
-		if (!$force && strlen($htmlCache)>0) {
-			return $htmlCache;
+		if (!$force && strlen($this->htmlCache)>0) {
+			return $this->htmlCache;
 		}
 
 		$html = paginate_links(array(
@@ -28,7 +25,6 @@ class FpPager {
 			'current' => $this->page
 		));
 		$html = "<div class='tablenav-pages'>{$html}</div>";
-		//$html = "<div class='fp_pager'>".$html."</div>";
 		$this->htmlCache = $html;
 		return $html;
 	}
