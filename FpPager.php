@@ -12,6 +12,9 @@ class FpPager {
 	}
 
 	public function generate($force=false) {
+		if (!$force && !isset($htmlCache)) {
+			return '';
+		}
 		if (!$force && strlen($htmlCache)>0) {
 			return $htmlCache;
 		}
