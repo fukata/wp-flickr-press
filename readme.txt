@@ -3,8 +3,8 @@ Contributors: tatsuya
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
-Tested up to: 3.3
-Stable tag: 1.8.0
+Tested up to: 3.3.1
+Stable tag: 1.9.0
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.0 =
+* Fixed plugins in symlinked directories.  
+
 = 1.8.0 =
 * Fixed bug Use larger than selected size when selected photo size doesn't exists.
 * Add image class property option.
