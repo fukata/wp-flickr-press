@@ -1,4 +1,8 @@
 <?php
+if (!is_admin()) {
+	wp_die("Not in admin zone!");
+}
+
 $errors = array();
 $apiKey = FlickrPress::getApiKey();
 $apiSecret = FlickrPress::getApiSecret();

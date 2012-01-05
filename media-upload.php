@@ -1,11 +1,5 @@
 <?php 
-if (!is_admin()) {
-	wp_die("Not in admin zone!");
-}
-
-require_once(dirname(__FILE__).'/FlickrPress.php');
 require_once(dirname(__FILE__).'/FpPager.php');
-require_once(dirname(__FILE__).'/libs/phpflickr/phpFlickr.php');
 require_once(dirname(__FILE__).'/check-setting.php');
 
 $modes = array('search','search_thumbnail','upload');

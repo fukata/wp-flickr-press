@@ -17,7 +17,8 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 
 class FlickrPress {
-	// constants	
+	// constants
+	const VERSION = '1.9.0';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -223,6 +224,23 @@ class FlickrPress {
 		require_once(self::getDir().'/FpAdminSettingEvent.php');
 		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
 		add_filter('whitelist_options', array('FpAdminSettingEvent', 'addWhitelistOptions'));
+
+		// admin actions
+		add_action('admin_action_wpfp_media_upload', array(__CLASS__, 'adminActionWpfpMediaUpload'));
+		add_action('admin_action_wpfp_flickr_oauth', array(__CLASS__, 'adminActionWpfpFlickrOauth'));
+		add_action('admin_action_wpfp_flickr_oauth_callback', array(__CLASS__, 'adminActionWpfpFlickrOauthCallback'));
+	}
+
+	public static function adminActionWpfpMediaUpload() {
+		require_once(self::getDir().'/media-upload.php');
+	}
+
+	public static function adminActionWpfpFlickrOauth() {
+		require_once(self::getDir().'/flickr_oauth.php');
+	}
+
+	public static function adminActionWpfpFlickrOauthCallback() {
+		require_once(self::getDir().'/flickr_oauth_callback.php');
 	}
 
 	public static function getPhotoUrl($photo, $size='m') {

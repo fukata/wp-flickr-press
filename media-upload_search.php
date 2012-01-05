@@ -3,19 +3,21 @@
 wp_enqueue_style('thickbox');
 wp_enqueue_script('thickbox');
 
+$pluginPath = FlickrPress::getPluginUrl();
+wp_enqueue_style("media-upload_search", "$pluginPath/css/media-upload_search.css", array(), FlickrPress::VERSION);
+wp_enqueue_style("jquery.tag", "$pluginPath/css/jquery.tag.css", array(), FlickrPress::VERSION);
+wp_enqueue_script("jquery.tag", "$pluginPath/js/jquery.tag.js", array(), FlickrPress::VERSION);
+wp_enqueue_script("jquery.md5", "$pluginPath/js/jquery.md5.js", array(), FlickrPress::VERSION);
+wp_enqueue_script("jquery.flickr-client", "$pluginPath/js/jquery.flickr-client.js", array(), FlickrPress::VERSION);
+wp_enqueue_script("search_list_ui", "$pluginPath/js/search_list_ui.js", array(), FlickrPress::VERSION);
+
 add_action('admin_head', 'fp_add_scripts');
 
-$body_id = 'media-upload';
+$GLOBALS['body_id'] = 'media-upload';
 wp_iframe('media_upload_search_form');
 
 function fp_add_scripts() {
-	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/media-upload_search.css?".time()."' media='all' type='text/css'/>";
-	echo "\n<link rel='stylesheet' href='".FlickrPress::getPluginUrl()."/css/jquery.tag.css?".time()."' media='all' type='text/css'/>";
-	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.tag.js?".time()."'></script>";
 	echo "\n<script type='text/javascript'>tb_pathToImage = '../../../wp-includes/js/thickbox/loadingAnimation.gif'; tb_closeImage='../../../wp-includes/js/thickbox/tb-close.png';</script>";
-	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.md5.js?".time()."'></script>";
-	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/jquery.flickr-client.js?".time()."'></script>";
-	echo "\n<script type='text/javascript' src='".FlickrPress::getPluginUrl()."/js/search_list_ui.js?".time()."'></script>";
 }
 
 function media_upload_search_form() {
@@ -143,7 +145,7 @@ function media_upload_search_form() {
 
 <div class="tablenav"><?php echo $pager->generate() ?></div>
 <br class="clear" />
-<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="post" class="media-upload-form validate" id="media-form">
+<form action="<?php echo admin_url('admin.php?action=wpfp_media_upload')?>" method="post" class="media-upload-form validate" id="media-form">
 <div id="media-items">
         <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
         <input type="hidden" name="type" value="<?php echo $_GET['type'] ?>" />

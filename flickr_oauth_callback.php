@@ -2,8 +2,6 @@
 $frob = @$_GET['frob'];
 unset($_GET['frob']);
 
-require_once(dirname(__FILE__).'/../../../wp-admin/admin.php');
-require_once(dirname(__FILE__).'/FlickrPress.php');
 require_once(dirname(__FILE__).'/check-oauth.php');
 
 $token = FlickrPress::getClient()->auth_getToken($frob);

@@ -58,8 +58,12 @@ class FpAdminSettingEvent {
 <script type="text/javascript"><!--
 (function($){
 	$(function(){
+		$('#copy_callback_url').click(function() {
+			$(this).select();
+		});
+
 		$('#fp-oauth-token-btn').bind('click', function(){
-			window.open('<?php echo esc_url(FlickrPress::getPluginUrl().'/flickr_oauth.php') ?>', 'flikcr_oauth', 'width=800,height=600,menubar=no, toolbar=no, scrollbars=yes');
+			window.open('<?php echo esc_url(admin_url('admin.php?action=wpfp_flickr_oauth')) ?>', 'flikcr_oauth', 'width=800,height=600,menubar=no, toolbar=no, scrollbars=yes');
 		});
 
 		// ===============================================
@@ -244,6 +248,7 @@ function callback_oauth(token) {
 				<td>
 					<p><?php echo __('API KEY:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_key') ?>" value="<?php echo FlickrPress::getApiKey() ?>" size="70" />
 					<p><?php echo __('Secret:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_secret') ?>" value="<?php echo FlickrPress::getApiSecret() ?>" size="70" />
+					<p><?php echo __('Flickr App CallbackURL:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" value="<?php echo admin_url('admin.php?action=wpfp_flickr_oauth_callback') ?>" size="70" id="copy_callback_url" /></p>
 				</td>
 			</tr>
 			<tr valign="top">

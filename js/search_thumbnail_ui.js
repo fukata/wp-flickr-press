@@ -237,7 +237,7 @@
 			$("div.pager-container").empty();
 			$("#search-results").empty();
 			$("#search-results").append( $("<img/>").attr({
-				src: "images/loader.gif" 
+				src: "../wp-content/plugins/wp-flickr-press/images/loader.gif" 
 			}) );
 		}
 		
