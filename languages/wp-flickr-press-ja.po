@@ -42,6 +42,9 @@ msgstr "APIキー:"
 msgid "Secret:"
 msgstr "シークレット:"
 
+msgid "Flickr App CallbackURL:"
+msgstr "Flickrアプリに設定するコールバックURL:"
+
 #: FpAdminSettingEvent.php:171
 msgid "OAuth Token"
 msgstr "OAuthトークン"

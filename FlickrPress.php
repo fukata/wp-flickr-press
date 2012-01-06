@@ -18,7 +18,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.0';
+	const VERSION = '1.9.1';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';

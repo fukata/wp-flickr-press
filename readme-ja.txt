@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3.1
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 
 WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
 
@@ -37,7 +37,7 @@ https://github.com/fukata/wp-flickr-press/issues
 1. ダウンロード後、解凍し、 `wp-content/plugins` にアップロードします。
 2. `wp-content/plugins/wp-flickr-press/cache` に書込権限を付与します。 
 3. 管理画面からプラグインをアクティベートします。
-4. OAuth認証時に必要な[Flickrアプリを作成](http://www.flickr.com/services/apps/create/apply/ "Flickrアプリを作成")し、WordPressの管理画面からOAuth Callback URLの値を設定。通常は、`http://"ブログのドメイン"/wp-content/plugins/wp-flickr-press/flickr_oauth_callback.php` となります。
+4. OAuth認証時に必要な[Flickrアプリを作成](http://www.flickr.com/services/apps/create/apply/ "Flickrアプリを作成")し、WordPressの管理画面からOAuth Callback URLの値を設定。通常は、`http://"ブログのドメイン"/wp-admin/admin.php?action=wpfp_flickr_oauth_callback` となります。
 5. 必要であれば、[設定] -> [FlickrPress] からプラグインのオプションの設定をしてください。
 
 == Frequently Asked Questions ==
@@ -57,6 +57,10 @@ https://github.com/fukata/wp-flickr-press/issues
 9. フルスクリーンモード
 
 == Changelog ==
+= 1.9.1 =
+* readme.txt内のコールバックURLを修正。
+* 言語ファイルに不足していたメッセージを追加。 
+
 = 1.9.0 =
 * プラグインディレクトリをシボリックリンクで利用する場合に対応。
 
