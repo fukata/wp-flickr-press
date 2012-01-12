@@ -2,6 +2,7 @@
 
 // Fix for symlinked plugins from
 // http://wordpress.stackexchange.com/questions/15202/plugins-in-symlinked-directories
+global $wp_flickr_press_file;
 $wp_flickr_press_file = __FILE__;
 if ( isset( $mu_plugin ) ) {
     $wp_flickr_press_file = $mu_plugin;
@@ -13,7 +14,11 @@ if ( isset( $plugin ) ) {
     $wp_flickr_press_file = $plugin;
 }
 
-require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+$isIncluded = @include_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+if ( !$isIncluded ) {
+	$wp_flickr_press_file = __FILE__;
+	require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+}
 
 
 class FlickrPress {
