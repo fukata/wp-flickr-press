@@ -23,7 +23,7 @@ if ( !$isIncluded ) {
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.1';
+	const VERSION = '1.9.2';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
