@@ -14,14 +14,11 @@ if ( isset( $plugin ) ) {
     $wp_flickr_press_file = $plugin;
 }
 
-$isExists = file_exists(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
-if ( $isExists ) {
-	require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
-} else {
+if ( ! file_exists(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php') ) {
 	$wp_flickr_press_file = __FILE__;
-	require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 }
 
+require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
