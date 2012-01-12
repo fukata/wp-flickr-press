@@ -14,8 +14,10 @@ if ( isset( $plugin ) ) {
     $wp_flickr_press_file = $plugin;
 }
 
-$isIncluded = @include_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
-if ( !$isIncluded ) {
+$isExists = file_exists(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+if ( $isExists ) {
+	require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+} else {
 	$wp_flickr_press_file = __FILE__;
 	require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 }
