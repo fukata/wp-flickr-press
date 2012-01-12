@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
 Tested up to: 3.3.1
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.2 =
+* Fixed bug doesn't work activation single site. 
+
 = 1.9.1 =
 * Fixed readme.txt
 * Add message languages file.
