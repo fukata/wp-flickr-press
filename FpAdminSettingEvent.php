@@ -8,52 +8,52 @@ class FpAdminSettingEvent {
 
 	public static function addWhitelistOptions($whitelist_options) {
 		$whitelist_options['wpfp'] = array(
-            FlickrPress::getKey('api_key'),
-            FlickrPress::getKey('api_secret'),
-            FlickrPress::getKey('user_id'),
-            FlickrPress::getKey('enable_path_alias'),
-            FlickrPress::getKey('username'),
-            FlickrPress::getKey('oauth_token'),
-            FlickrPress::getKey('default_target'),
-            FlickrPress::getKey('default_align'),
-            FlickrPress::getKey('default_size'),
-            FlickrPress::getKey('insert_template'),
-            FlickrPress::getKey('default_sort'),
-            FlickrPress::getKey('quick_settings'),
-            FlickrPress::getKey('default_search_type'),
-            FlickrPress::getKey('default_link'),
-            FlickrPress::getKey('default_link_rel'),
-            FlickrPress::getKey('default_link_class'),
-            FlickrPress::getKey('default_file_url_size'),
-            FlickrPress::getKey('extend_link_properties'),
-            FlickrPress::getKey('extend_image_properties'),
+			FlickrPress::getKey('api_key'),
+			FlickrPress::getKey('api_secret'),
+			FlickrPress::getKey('user_id'),
+			FlickrPress::getKey('enable_path_alias'),
+			FlickrPress::getKey('username'),
+			FlickrPress::getKey('oauth_token'),
+			FlickrPress::getKey('default_target'),
+			FlickrPress::getKey('default_align'),
+			FlickrPress::getKey('default_size'),
+			FlickrPress::getKey('insert_template'),
+			FlickrPress::getKey('default_sort'),
+			FlickrPress::getKey('quick_settings'),
+			FlickrPress::getKey('default_search_type'),
+			FlickrPress::getKey('default_link'),
+			FlickrPress::getKey('default_link_rel'),
+			FlickrPress::getKey('default_link_class'),
+			FlickrPress::getKey('default_file_url_size'),
+			FlickrPress::getKey('extend_link_properties'),
+			FlickrPress::getKey('extend_image_properties'),
 		);
 		return $whitelist_options;
 	}
 
 	public static function generateOptionForm() {
-	        $alignes = array(
-                'None'=>'none',
-                'Left'=>'left',
-                'Center'=>'center',
-                'Right'=>'right',
-	        );
-	        $targets = array(
-                'None'=>'',
-                'New Window'=>'_blank',
-        	);
-	        $sorts = array(
-                'Posted ASC' => 'date-posted-asc',
-                'Posted DESC' => 'date-posted-desc',
-                'Taken ASC' => 'date-taken-asc',
-                'Taken DESC' => 'date-taken-desc',
-                'Interestingness ASC' => 'interestingness-asc',
-                'Interestingness DESC' => 'interestingness-desc',
-	        );
-	        $searchTypes = array(
-	        	'Search(List)' => 'list',
-	        	'Search(Thumbnail)' => 'thumbnail',
-	        );
+		$alignes = array(
+			'none'=>'none',
+			'left'=>'left',
+			'Center'=>'center',
+			'Right'=>'right',
+		);
+		$targets = array(
+			'None'=>'',
+			'New Window'=>'_blank',
+		);
+		$sorts = array(
+			'Posted ASC' => 'date-posted-asc',
+			'Posted DESC' => 'date-posted-desc',
+			'Taken ASC' => 'date-taken-asc',
+			'Taken DESC' => 'date-taken-desc',
+			'Interestingness ASC' => 'interestingness-asc',
+			'Interestingness DESC' => 'interestingness-desc',
+		);
+		$searchTypes = array(
+			'search(list)' => 'list',
+			'Search(Thumbnail)' => 'thumbnail',
+		);
 ?>
 <script type="text/javascript"><!--
 (function($){
@@ -248,7 +248,8 @@ function callback_oauth(token) {
 				<td>
 					<p><?php echo __('API KEY:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_key') ?>" value="<?php echo FlickrPress::getApiKey() ?>" size="70" />
 					<p><?php echo __('Secret:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" name="<?php echo FlickrPress::getKey('api_secret') ?>" value="<?php echo FlickrPress::getApiSecret() ?>" size="70" />
-					<p><?php echo __('Flickr App CallbackURL:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" value="<?php echo admin_url('admin.php?action=wpfp_flickr_oauth_callback') ?>" size="70" id="copy_callback_url" /></p>
+					<p><?php echo __('Flickr App CallbackURL:', FlickrPress::TEXT_DOMAIN) ?><br/><input type="text" value="<?php echo admin_url('admin.php?action=wpfp_flickr_oauth_callback') ?>" size="70" id="copy_callback_url" />
+						<br/><? echo __('Please use the copy to the callback URL of the Flickr apps created.', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
 			<tr valign="top">
