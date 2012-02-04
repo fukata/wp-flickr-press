@@ -343,3 +343,5 @@ msgstr "ユーザIDエイリアスの有効"
 msgid "Photo URL contains \"UserID\" the \"UserID Alias\" and replace."
 msgstr "写真のURLに含まれる\"UserID\"を\"UserID Alias\"に置換します。"
 
+msgid "Please use the copy to the callback URL of the Flickr apps created."
+msgstr "作成したFlickrアプリのコールバックURLにコピーして使用してください。"
