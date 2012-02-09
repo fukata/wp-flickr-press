@@ -21,7 +21,7 @@ class FpPager {
 			'format' => '',
 			'prev_text' => __('&laquo;', FlickrPress::TEXT_DOMAIN),
 			'next_text' => __('&raquo;', FlickrPress::TEXT_DOMAIN),
-			'total' => ceil($this->total / $this->perPage),
+			'total' => $this->total > 0 ? ceil($this->total / $this->perPage) : 0,
 			'current' => $this->page
 		));
 		$html = "<div class='tablenav-pages'>{$html}</div>";

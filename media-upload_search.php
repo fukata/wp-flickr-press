@@ -90,6 +90,7 @@ function media_upload_search_form() {
 		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos['photoset'];
 	} else {
 		$photos = FlickrPress::getClient()->photos_search($params);
+		$photos = $photos === false ? array('total'=>0,'page'=>1,'perpage'=>20,'photo'=>array()) : $photos;
 	}
 	$pager = new FpPager($photos['total'], $photos['page'], $photos['perpage']);
 ?>
@@ -106,7 +107,8 @@ function media_upload_search_form() {
 	<input type="hidden" name="default_link_class" id="default_link_class" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" />
 </div>
 
-<form action="<?php echo FlickrPress::getPluginUrl().'/media-upload.php'?>" method="get" id="search-form">
+<form action="<?php echo admin_url() . "admin.php" ?>" method="get" id="search-form">
+        <input type="hidden" name="action" value="wpfp_media_upload" />
         <input type="hidden" name="post_id" value="<?php echo $_GET['post_id'] ?>" />
         <input type="hidden" name="type" value="<?php echo $_GET['type'] ?>" />
         <input type="hidden" name="mode" value="<?php echo $_GET['mode'] ?>" />
