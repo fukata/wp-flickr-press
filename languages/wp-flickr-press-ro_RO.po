@@ -1,0 +1,364 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-flickr-press\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-02 14:52+0900\n"
+"X-Poedit-Language: Romanian\n"
+"X-Poedit-Country: Romania\n"
+"Language-Team: Web Geeks\n"
+"Last-Translator: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"PO-Revision-Date: \n"
+
+#: check-oauth.php:6
+#: check-setting.php:6
+msgid "API KEY and API SECRET is required. Please setting API KEY and API SECRET."
+msgstr "Cheia API şi API secret este necesar. Vă rugăm să stabilirea API KEY şi API secret."
+
+#: check-setting.php:11
+msgid "USER ID is required. Please setting USER ID."
+msgstr "ID utilizator este necesar. Vă rugăm să setarea ID utilizator."
+
+#: FpAdminSettingEvent.php:148
+msgid "Last Update: "
+msgstr "Ultima actualizare: "
+
+#: FpAdminSettingEvent.php:148
+msgid "Not yet been update. Please Update."
+msgstr "Nu a fost update. Vă rugăm să actualizaţi."
+
+#: FpAdminSettingEvent.php:161
+msgid "API KEY/Secret"
+msgstr "API cheie/Secret"
+
+#: FpAdminSettingEvent.php:165
+msgid "API KEY:"
+msgstr "API-CHEIE:"
+
+#: FpAdminSettingEvent.php:166
+msgid "Secret:"
+msgstr "Secret:"
+
+msgid "Flickr App CallbackURL:"
+msgstr "Flickr App CallbackURL:"
+
+#: FpAdminSettingEvent.php:171
+msgid "OAuth Token"
+msgstr "OAuth simbol"
+
+#: FpAdminSettingEvent.php:180
+msgid "Update OAuth Token"
+msgstr "Actualizare OAuth simbol"
+
+#: FpAdminSettingEvent.php:187
+msgid "Default Attachments"
+msgstr "Implicit ataşări"
+
+#: FpAdminSettingEvent.php:190
+#: media-upload_search.php:179
+#: media-upload_search_thumbnail.php:122
+msgid "Link Target"
+msgstr "Link-ul ţintă"
+
+#: FpAdminSettingEvent.php:199
+#: media-upload_search.php:188
+#: media-upload_search_thumbnail.php:131
+msgid "Alignment"
+msgstr "Aliniere"
+
+#: FpAdminSettingEvent.php:208
+#: media-upload_search.php:197
+#: media-upload_search_thumbnail.php:140
+msgid "Size"
+msgstr "Dimensiunea"
+
+#: FpAdminSettingEvent.php:217
+msgid "Default Link Rel and Class Property"
+msgstr "Link-ul Rel și clasa proprietate"
+
+#: FpAdminSettingEvent.php:219
+#: FpAdminSettingEvent.php:230
+msgid "Rel:"
+msgstr "Rel:"
+
+#: FpAdminSettingEvent.php:220
+#: FpAdminSettingEvent.php:231
+msgid "Class:"
+msgstr "Clasă:"
+
+#: FpAdminSettingEvent.php:224
+msgid "Extend Link Rel and Class Property"
+msgstr "Extinde Link Rel şi clasa proprietate"
+
+#: FpAdminSettingEvent.php:228
+#: media-upload_search.php:158
+msgid "ID:"
+msgstr "ID:"
+
+#: FpAdminSettingEvent.php:229
+msgid "Title:"
+msgstr "Titlu:"
+
+#: FpAdminSettingEvent.php:233
+msgid "Save"
+msgstr "Salvare"
+
+#: FpAdminSettingEvent.php:234
+msgid "Remove"
+msgstr "Eliminare"
+
+#: FpAdminSettingEvent.php:235
+msgid "Clear"
+msgstr "Clar"
+
+#: FpAdminSettingEvent.php:238
+msgid "Current Available Extend Link Rel and Class"
+msgstr "Curent disponibile extinde Link Rel şi clasa"
+
+#: FpAdminSettingEvent.php:245
+msgid "Advanced Options"
+msgstr "Opţiuni avansate"
+
+#: FpAdminSettingEvent.php:249
+msgid "Insert Template"
+msgstr "Inserare şablon"
+
+#: FpAdminSettingEvent.php:250
+msgid "Avalable Options"
+msgstr "Opţiunile disponibile"
+
+#: FpAdminSettingEvent.php:256
+msgid "If you put a newline at the beginning or end, <br/> Please write tags."
+msgstr "Daca puneti o linie nouă de la începutul sau la sfârşitul, <br/> Va rugam sa scrie etichete."
+
+#: FpAdminSettingEvent.php:257
+msgid "However, <br/> if there is a line break before and after the tag, I been wrapped them too."
+msgstr "Cu toate acestea, <br/> dacă există un sfârşit de linie înainte şi după tag-ul, am fost prea le-împachetat."
+
+#: FpAdminSettingEvent.php:262
+msgid "Default Sort"
+msgstr "Sortare implicită"
+
+#: FpAdminSettingEvent.php:274
+msgid "Quick Settings"
+msgstr "Rapid setările"
+
+#: FpAdminSettingEvent.php:277
+msgid "Enable:"
+msgstr "Permite:"
+
+#: FpAdminSettingEvent.php:278
+msgid "When enabled, a dialog will appear when you click for a set of check boxes for multiple insertion."
+msgstr "Când este activat, un dialog va apărea atunci când faceţi clic pe un set de casete de selectare pentru introducerea mai multe."
+
+#: FpAdminSettingEvent.php:283
+msgid "Search Type"
+msgstr "Tip Search"
+
+#: FpAdminSettingEvent.php:295
+msgid "Save Changes"
+msgstr "Salvaţi modificările"
+
+#: FpPager.php:22
+msgid "«"
+msgstr "«"
+
+#: FpPager.php:23
+msgid "»"
+msgstr "»"
+
+#: FpPostEvent.php:9
+#, php-format
+msgid "Upload/Insert %s"
+msgstr "Încărcare/Inserare %s"
+
+#: FpPostEvent.php:10
+msgid "Add flickr media"
+msgstr "Adăugaţi flickr mass-media"
+
+#: inc.header_tab.php:3
+msgid "Search(List)"
+msgstr "Search(list)"
+
+#: inc.header_tab.php:4
+msgid "Search(Thumbnail)"
+msgstr "Search(thumbnail)"
+
+#: media-upload_search.php:104
+#: media-upload_search_thumbnail.php:62
+msgid "Recent upload"
+msgstr "Upload recente"
+
+#: media-upload_search.php:105
+#: media-upload_search_thumbnail.php:63
+msgid "Photosets"
+msgstr "Photosets"
+
+#: media-upload_search.php:106
+#: media-upload_search_thumbnail.php:64
+msgid "Advanced"
+msgstr "Avansate"
+
+#: media-upload_search.php:110
+#: media-upload_search_thumbnail.php:68
+msgid "Sort:"
+msgstr "Sortare:"
+
+#: media-upload_search.php:119
+#: media-upload_search_thumbnail.php:77
+msgid "Keyword:"
+msgstr "Cuvinte cheie:"
+
+#: media-upload_search.php:120
+#: media-upload_search_thumbnail.php:78
+msgid "Tags:"
+msgstr "Tag-uri:"
+
+#: media-upload_search.php:123
+#: media-upload_search_thumbnail.php:81
+msgid "Photosets:"
+msgstr "Photosets:"
+
+#: media-upload_search.php:128
+#: media-upload_search_thumbnail.php:91
+msgid "Search"
+msgstr "Căutare"
+
+#: media-upload_search.php:128
+msgid "Search and clear cache"
+msgstr "Căutare şi clear cache"
+
+#: media-upload_search.php:147
+msgid "Show"
+msgstr "Arată"
+
+#: media-upload_search.php:148
+msgid "Hide"
+msgstr "Ascunde"
+
+#: media-upload_search.php:159
+msgid "File name:"
+msgstr "Nume fişier:"
+
+#: media-upload_search.php:165
+#: media-upload_search_thumbnail.php:108
+msgid "Title"
+msgstr "Titlul"
+
+#: media-upload_search.php:169
+#: media-upload_search_thumbnail.php:112
+msgid "Link URL"
+msgstr "URL-ul"
+
+#: media-upload_search.php:172
+#: media-upload_search_thumbnail.php:115
+msgid "None"
+msgstr "Nici unul"
+
+#: media-upload_search.php:173
+#: media-upload_search_thumbnail.php:116
+msgid "File URL"
+msgstr "Fişier URL"
+
+#: media-upload_search.php:174
+#: media-upload_search_thumbnail.php:117
+msgid "Page URL"
+msgstr "URL-ul paginii"
+
+#: media-upload_search.php:175
+#: media-upload_search_thumbnail.php:118
+msgid "Enter a link URL or click above for presets."
+msgstr "Introduceţi un URL-ul sau faceţi clic pe sus de presetări."
+
+#: media-upload_search.php:209
+msgid "Insert into Post"
+msgstr "Inserare în Post"
+
+#: media-upload_search.php:217
+msgid "Batch Insert into Post"
+msgstr "Pe loturi Inserare în Post"
+
+#: media-upload_search.php:223
+msgid "Order:"
+msgstr "Comandă:"
+
+#: media-upload_search.php:228
+msgid "Update"
+msgstr "Actualizare"
+
+#: media-upload_search.php:340
+msgid "Size:"
+msgstr "Dimensiune:"
+
+#: media-upload_search_thumbnail.php:151
+msgid "Insert into Post and Close"
+msgstr "Inserare în Post şi închide"
+
+#: media-upload_search_thumbnail.php:152
+msgid "Insert into Post and Continue"
+msgstr "Inserare în Post şi continua"
+
+msgid "New Window"
+msgstr "Fereastră nouă"
+
+msgid "Left"
+msgstr "Stânga"
+
+msgid "Center"
+msgstr "Centrul de"
+
+msgid "Right"
+msgstr "Dreptul de"
+
+msgid "Small"
+msgstr "Mici"
+
+msgid "Medium"
+msgstr "Mediu"
+
+msgid "Large"
+msgstr "Mare"
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Thumbnail"
+msgstr "Miniatură"
+
+msgid "Square"
+msgstr "Pătrat"
+
+msgid "Link Rel and Class Property"
+msgstr "Link-ul Rel şi clasa proprietate"
+
+msgid "Image Class Property"
+msgstr "Imagine clasa proprietate"
+
+msgid "Load Default"
+msgstr "Încărcare implicit"
+
+msgid "Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen"
+msgstr "Charactors disponibile: [0-9a-zA-Z] spaţiu subliniere cratimă"
+
+msgid "No write permission to the %s directory. Please grant the permission to write."
+msgstr "Nici o permisiune de scriere pentru directorul %s. Vă rugăm să acorde permisiunea de a scrie."
+
+msgid "Does not exists %s directory. Please create."
+msgstr "Nu există %s director. Vă rugăm să creaţi."
+
+msgid "OAuth Information"
+msgstr "OAuth informaţii"
+
+msgid "Enable UserID Alias"
+msgstr "Permite UserID Alias"
+
+msgid "Photo URL contains \"UserID\" the \"UserID Alias\" and replace."
+msgstr "URL-ul conţine fotografii \"nume de utilizator\" \"Alias ​​nume de utilizator\" şi înlocuiţi."
+
+msgid "Please use the copy to the callback URL of the Flickr apps created."
+msgstr "Vă rugăm să folosiţi copie de apel invers URL-ul apps Flickr creat."
+
