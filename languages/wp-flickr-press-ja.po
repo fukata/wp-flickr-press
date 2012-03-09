@@ -304,6 +304,9 @@ msgstr "小サイズ"
 msgid "Medium"
 msgstr "中サイズ"
 
+msgid "Medium 640"
+msgstr "中サイズ(640px)"
+
 msgid "Large"
 msgstr "大サイズ"
 

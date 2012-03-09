@@ -33,8 +33,8 @@ class FpAdminSettingEvent {
 
 	public static function generateOptionForm() {
 		$alignes = array(
-			'none'=>'none',
-			'left'=>'left',
+			'None'=>'none',
+			'Left'=>'left',
 			'Center'=>'center',
 			'Right'=>'right',
 		);
