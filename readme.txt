@@ -1,5 +1,5 @@
 === wp-flickr-press ===
-Contributors: tatsuya
+Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.0.1
