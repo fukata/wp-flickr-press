@@ -27,6 +27,8 @@ class FpAdminSettingEvent {
 			FlickrPress::getKey('default_file_url_size'),
 			FlickrPress::getKey('extend_link_properties'),
 			FlickrPress::getKey('extend_image_properties'),
+			FlickrPress::getKey('fix_links_once'),
+			FlickrPress::getKey('fix_links_filter'),
 		);
 		return $whitelist_options;
 	}
@@ -411,6 +413,16 @@ function callback_oauth(token) {
 					<p><?php echo __('When enabled, a dialog will appear when you click for a set of check boxes for multiple insertion.', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<p><?php echo __('Fix Links', FlickrPress::TEXT_DOMAIN) ?></p>
+				</th>
+				<td>
+					<p><?php echo __('Via Filter:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('fix_links_filter') ?>" value="1" <?php if (FlickrPress::getFixLinksFilter()=='1') { echo "checked='checked'"; } ?>/></p>
+					<p><?php echo __('Re-sets all image source links based on the preceeding flickr photo page link. Use this if you edit your photos on flickr a lot, and this causes them to disappear often here.', FlickrPress::TEXT_DOMAIN) ?></p>
+				</td>
+			</tr>
+			
 			<tr valign="top">
 				<th scope="row">
 					<p><?php echo __('Search Type', FlickrPress::TEXT_DOMAIN) ?></p>
