@@ -233,6 +233,8 @@ class FlickrPress {
 		add_action('admin_action_wpfp_media_upload', array(__CLASS__, 'adminActionWpfpMediaUpload'));
 		add_action('admin_action_wpfp_flickr_oauth', array(__CLASS__, 'adminActionWpfpFlickrOauth'));
 		add_action('admin_action_wpfp_flickr_oauth_callback', array(__CLASS__, 'adminActionWpfpFlickrOauthCallback'));
+		
+		add_shortcode('flickrPhoto',array(__CLASS__, 'WpfpFlickrShortcode'));
 	}
 
 	public static function adminActionWpfpMediaUpload() {
@@ -246,7 +248,49 @@ class FlickrPress {
 	public static function adminActionWpfpFlickrOauthCallback() {
 		require_once(self::getDir().'/flickr_oauth_callback.php');
 	}
+	
+	public static function WpfpFlickrShortcode($attr,$content=null,$tag) {
+		
+		extract(shortcode_atts(array(
+			'id'	=> '',
+			'align'	=> 'alignnone',
+			'width'	=> '',
+			'caption' => '',
+			'photo_id' => '',
+		), $attr));
+		
+		if ( $photo_id == '' ) {
+			return $content;
+		}
+				
+		$photo = self::getClient()->photos_getInfo($photo_id);
+		
+		$url = self::getClient()->buildPhotoUrl($photo['photo']);
+		$photopage = $photo['photo']['urls']['url'][0]['_content'];
+		$alt = $caption == '' ? '' : 'alt="' . $caption . '"';
+		
+		$content = "<a href=\"{$photopage}\"><img src=\"{$url}\" {$alt} class=\"{$align}\"></a>";
+		
+		if ( $caption != '') {
+			$captiontag = '[caption';
+			if ($id != '') {
+				$captiontag = $captiontag . ' id="' . $id . '"';
+			}
+			$captiontag = $captiontag . ' align="' . $align . '"';
+			if ($width != '') {
+				$captiontag = $captiontag . ' width="' . $width . '"';
+			}
+			$captiontag = $captiontag . ' caption="' . $caption . '" ]';
+			
+			$content = $captiontag . $content . " [/caption]";
+		}
+		
+		return do_shortcode($content);
 
+		
+		
+	}
+	
 	public static function getPhotoUrl($photo, $size='m') {
 		if ( $size != 'o' && empty( $photo[self::$SIZES[$size]] ) ) {
 			$keys = array_keys(self::$SIZES);

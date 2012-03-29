@@ -70,6 +70,7 @@ function fp_create_image_html($attachments, $orders) {
 		}
 		if ( isset($attachment['align']) && strlen($attachment['align']) > 0 ) {
 			$align = esc_attr($attachment['align']);
+			$align_class = "align{$align}";
 			$class = "align{$align}";
 		}
 		if ( isset($attachment['image-clazz']) ) {
@@ -97,10 +98,13 @@ function fp_create_image_html($attachments, $orders) {
 			$title = " title=\"{$alt}\"";
 			$_img = "<a href=\"{$link}\"{$target}{$aclass}{$rel}{$title}>{$_img}</a>";
 		}
+		
+		$_shortcode = "[flickrPhoto photo_id=\"{$id}\" align=\"{$align_class}\" caption=\"{$alt}\"]";
 
 		$_html = FlickrPress::getInsertTemplate();
 		$_html = str_replace('[img]', $_img, $_html);
 		$_html = str_replace('[title]', $alt, $_html);
+		$_html = str_replace('[shortcode]', $_shortcode, $_html);
 		$html .= $_html;
 	}
 
