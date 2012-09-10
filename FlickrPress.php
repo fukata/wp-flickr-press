@@ -257,19 +257,21 @@ class FlickrPress {
 			'width'	=> '',
 			'caption' => '',
 			'photo_id' => '',
+			'size' => '',
 		), $attr));
 		
 		if ( $photo_id == '' ) {
 			return $content;
 		}
 				
-		$photo = self::getClient()->photos_getInfo($photo_id);
+		$photo = self::getClient()->photos_getInfo($photo_id, $size);
 		
 		$url = self::getClient()->buildPhotoUrl($photo['photo']);
 		$photopage = $photo['photo']['urls']['url'][0]['_content'];
 		$alt = $caption == '' ? '' : 'alt="' . $caption . '"';
+		$width = $width == '' ? '' : 'width="' . $width . '"';
 		
-		$content = "<a href=\"{$photopage}\"><img src=\"{$url}\" {$alt} class=\"{$align}\"></a>";
+		$content = "<a href=\"{$photopage}\"><img src=\"{$url}\" {$alt} {$width} class=\"{$align}\"></a>";
 		
 		if ( $caption != '') {
 			$captiontag = '[caption';
