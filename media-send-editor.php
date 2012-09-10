@@ -105,6 +105,7 @@ function fp_create_image_html($attachments, $orders) {
 		$_html = str_replace('[img]', $_img, $_html);
 		$_html = str_replace('[title]', $alt, $_html);
 		$_html = str_replace('[shortcode]', $_shortcode, $_html);
+		$_html = str_replace('[url]', $link, $_html);
 		$html .= $_html;
 	}
 

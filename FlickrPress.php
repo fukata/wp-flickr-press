@@ -162,7 +162,16 @@ class FlickrPress {
 	public static function getQuickSettings() {
 		return get_option(self::getKey('quick_settings'), 0);
 	}
-
+	
+	public static function getFixLinksFilter() { 
+		return get_option(self::getKey('fix_links_filter'), 0);
+	}
+	
+	public static function getFixLinksOnce() { 
+		return get_option(self::getKey('fix_links_once'), 0);
+	}
+	
+	
 	public static function getDefaultLink() {
 		return get_option(self::getKey('default_link'), 'page');
 	}
@@ -235,6 +244,10 @@ class FlickrPress {
 		add_action('admin_action_wpfp_flickr_oauth_callback', array(__CLASS__, 'adminActionWpfpFlickrOauthCallback'));
 		
 		add_shortcode('flickrPhoto',array(__CLASS__, 'WpfpFlickrShortcode'));
+		require_once(self::getDir().'/fix_flickr_links.php');
+		if ( self::getFixLinksFilter() ) {
+			add_filter('the_content','flickrLinkFixer');
+		}
 	}
 
 	public static function adminActionWpfpMediaUpload() {
