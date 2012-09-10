@@ -386,6 +386,7 @@ function callback_oauth(token) {
 					<p>[img]: Image Tag</p>
 					<p>[title]: Image Title</p>
 					<p>[shortcode]: flickrPhoto shortcode using photo id.</p>
+					<p>[url]: Image URL</p>
 				</th>
 				<td>
 					<textarea name="<?php echo FlickrPress::getKey('insert_template') ?>" cols="70" rows="10"><?php echo FlickrPress::getInsertTemplate() ?></textarea>
