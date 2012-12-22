@@ -2,9 +2,9 @@
 Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
-Requires at least: 3.0.1
-Tested up to: 3.3.1
-Stable tag: 1.9.5
+Requires at least: 3.5.0
+Tested up to: 3.5.0
+Stable tag: 1.9.6
 
 WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
 
@@ -57,6 +57,9 @@ https://github.com/fukata/wp-flickr-press/issues
 9. フルスクリーンモード
 
 == Changelog ==
+= 1.9.6 =
+* WordPress 3.5に対応、3.5未満をサポート対象外とする。
+
 = 1.9.5 =
 * ルーマニア語を追加。
 
