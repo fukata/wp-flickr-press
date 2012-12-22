@@ -2,8 +2,8 @@
 Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
-Requires at least: 3.5.0
-Tested up to: 3.5.0
+Requires at least: 3.5
+Tested up to: 3.5
 Stable tag: 1.9.6
 
 WordPressの記事投稿画面でFlickrにアップロードした写真を手軽に挿入できます。
