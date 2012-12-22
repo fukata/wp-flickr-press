@@ -2,9 +2,9 @@
 Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
-Requires at least: 3.0.1
-Tested up to: 3.3.1
-Stable tag: 1.9.5
+Requires at least: 3.5.0
+Tested up to: 3.5.0
+Stable tag: 1.9.6
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.6 =
+* Corresponding to WordPress 3.5 and not support less than v3.5.
+
 = 1.9.5 =
 * Add language ro_RO.
 
