@@ -144,7 +144,7 @@ class FlickrPress {
 	}
 
 	public static function getDefaultSize() {
-		return get_option(self::getKey('default_size'), 'Medium');
+		return get_option(self::getKey('default_size'), 'm');
 	}
 
 	public static function getDefaulSearchType() {
