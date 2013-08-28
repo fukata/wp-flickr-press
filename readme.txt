@@ -57,6 +57,10 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.7 =
+* Fixed typo default image size.
+* Support SSL.
+
 = 1.9.6 =
 * Corresponding to WordPress 3.5 and not support less than v3.5.
 
