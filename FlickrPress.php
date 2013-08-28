@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.6';
+	const VERSION = '1.9.7';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -144,7 +144,7 @@ class FlickrPress {
 	}
 
 	public static function getDefaultSize() {
-		return get_option(self::getKey('default_size'), 'Medium');
+		return get_option(self::getKey('default_size'), 'm');
 	}
 
 	public static function getDefaulSearchType() {
