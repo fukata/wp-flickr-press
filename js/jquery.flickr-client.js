@@ -9,6 +9,14 @@
 		return keys;
 	}
 
+	function hvalues(hash) {
+		var values = [];
+		$.each(hash, function(key, val){
+			values.push(val);
+		});
+		return values;
+	}
+
 	/**
 	 * return HashMap by HashMap's key sorted. 
 	 * 
@@ -64,15 +72,19 @@
 		enablePathAlias: false
 	};
 	FlickrClient.prototype.SIZES = {
-		"sq": "url_sq",
-		"t": "url_t",
-		"s": "url_s",
-		"m": "url_m",
-		"z": "url_z",
-		"l": "url_l",
-		"o": "url_o"
+		"sq": "url_sq", // Square 75
+		"q": "url_q",   // Square 150
+		"t": "url_t",   // Thumbnail 
+		"s": "url_s",   // Small 240
+		"n": "url_n",   // Small 320
+		"m": "url_m",   // Medium 500
+		"z": "url_z",   // Medium 640
+		"c": "url_c",   // Medium 800
+		"l": "url_l",   // Large
+		"o": "url_o"    // Original
 	}
-	FlickrClient.prototype.SIZES_ARRAY = hkeys(FlickrClient.prototype.SIZES); 
+	FlickrClient.prototype.SIZE_KEYS   = hkeys(FlickrClient.prototype.SIZES); 
+	FlickrClient.prototype.SIZE_VALUES = hvalues(FlickrClient.prototype.SIZES); 
 	
 	/**
 	 * execute request.
@@ -179,7 +191,7 @@
 		size = size || "m";
 
 		if ( size != 'o' && !photo[FlickrClient.prototype.SIZES[size]] ) {
-			var sizes = FlickrClient.prototype.SIZES_ARRAY;
+			var sizes = FlickrClient.prototype.SIZE_KEYS;
 			var idx = sizes.indexOf(size);
 			for ( var i=idx+1; i<sizes.length; i++ ) {
 				var s = sizes[i];

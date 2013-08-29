@@ -10,7 +10,7 @@
 		var pager_search = null;
 		var OPTIONS = {
 			perpage : 20,
-			extras : "path_alias,url_sq,url_t,url_s,url_m,url_z,url_l,url_o",
+			extras : flickr.SIZE_VALUES.join(',') + ",path_alias",
 			sort : "date-posted-desc",
 			thumbnail_size : "sq"
 		};
@@ -250,7 +250,7 @@
 			$("#inline-url").val( getDefaultLinkValue(photo, photos) );
 			$("#inline-url-file").val( flickr.getPhotoUrl(photo, $('#inline-default_file_url_size').val()) );
 			$("#inline-url-page").val( flickr.getPhotoPageUrl(photo, photos) );
-			$.each(['sq','t','s','m','z','l','o'], function(idx, size){
+			$.each(flickr.SIZE_KEYS, function(idx, size){
 				var url = flickr.getPhotoUrl(photo, size);
 				$("#inline-image-size-"+size).val( url );
 			});
