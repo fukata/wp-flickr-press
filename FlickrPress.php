@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.8';
+	const VERSION = '1.9.9';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -31,22 +31,28 @@ class FlickrPress {
 	private static $flickr;
 	
 	public static $SIZE_LABELS = array(
-		'sq' => 'Square',
-		't' => 'Thumbnail',
-		's' => 'Small',
-		'm' => 'Medium',
-		'z' => 'Medium 640',
-		'l' => 'Large',
-		'o' => 'Original',
+		'sq' => 'Square 75 (75x75)',
+		'q'  => 'Square 150 (150x150)',
+		't'  => 'Thumbnail (100x75)',
+		's'  => 'Small 240 (240x180)',
+		'n'  => 'Small 320 (320x240)',
+		'm'  => 'Medium 500 (500x375)',
+		'z'  => 'Medium 640 (640x480)',
+		'c'  => 'Medium 800 (800x600)',
+		'l'  => 'Large (1024x768)',
+		'o'  => 'Original',
 	);
 	public static $SIZES = array(
-		'sq' => 'url_sq',
-		't' => 'url_t',
-		's' => 'url_s',
-		'm' => 'url_m',
-		'z' => 'url_z',
-		'l' => 'url_l',
-		'o' => 'url_o',
+		'sq' => 'url_sq', // Square 75
+		'q'  => 'url_q',  // Square 120
+		't'  => 'url_t',  // Thumbnail
+		's'  => 'url_s',  // Small 240
+		'n'  => 'url_n',  // Small 320
+		'm'  => 'url_m',  // Medium 500
+		'z'  => 'url_z',  // Medium 640
+		'c'  => 'url_c',  // Medium 800
+		'l'  => 'url_l',  // Large
+		'o'  => 'url_o',  // Original
 	);
 	public static $LINK_TYPE_LABELS = array(
 		'none' => 'None',

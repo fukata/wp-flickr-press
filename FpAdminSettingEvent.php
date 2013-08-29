@@ -51,7 +51,7 @@ class FpAdminSettingEvent {
 			'Interestingness DESC' => 'interestingness-desc',
 		);
 		$searchTypes = array(
-			'search(list)' => 'list',
+			'Search(List)' => 'list',
 			'Search(Thumbnail)' => 'thumbnail',
 		);
 ?>

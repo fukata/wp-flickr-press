@@ -67,7 +67,7 @@ function media_upload_search_form() {
 		'page' => $page, 
 		'per_page' => 20, 
 		'sort' => 'date-posted-desc', 
-		'extras' => 'path_alias,url_sq,url_t,url_s,url_m,url_z,url_l,url_o'
+		'extras' => join(',', array_values(FlickrPress::$SIZES)) . 'path_alias'
 	);
 	if (strlen($checkedRecent)>0) {
 		$params['sort'] = $sort;
