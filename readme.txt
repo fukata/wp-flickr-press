@@ -2,9 +2,9 @@
 Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
-Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 1.9.9
+Requires at least: 3.8
+Tested up to: 3.8
+Stable tag: 1.9.11
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.11 =
+* Fixed design for WP 2.8.
+
 = 1.9.9 =
 * Add sizes Square 150, Small 320, Medium 800.
 
