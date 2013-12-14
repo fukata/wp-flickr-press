@@ -223,22 +223,27 @@ class FlickrPress {
 
 	private static function addEvents() {
 		// load action or filter
-		require_once(self::getDir().'/FpPostEvent.php');
-		add_action('media_buttons_context', array('FpPostEvent', 'addButtons'));
-		add_action('media_upload_flickr_media', array('FpPostEvent', 'mediaUploadFlickrMedia'));
-		add_filter('wp_fullscreen_buttons', array('FpPostEvent', 'addButtonsFullScreen'));
+		require_once(self::getDir() . '/FpPostEvent.php');
+		add_action('media_buttons_context',                      array('FpPostEvent', 'addButtons'));
+		add_action('media_upload_flickr_media',                  array('FpPostEvent', 'mediaUploadFlickrMedia'));
+		add_filter('wp_fullscreen_buttons',                      array('FpPostEvent', 'addButtonsFullScreen'));
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
-		add_action('admin_head-post.php', array('FpPostEvent', 'loadScripts'));
-		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScripts'));
+		add_action('admin_head-post.php',                        array('FpPostEvent', 'loadScripts'));
+		add_action('admin_head-post-new.php',                    array('FpPostEvent', 'loadScripts'));
 
-		require_once(self::getDir().'/FpAdminSettingEvent.php');
-		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
+		require_once(self::getDir() . '/FpAdminSettingEvent.php');
+		add_action('admin_menu',        array('FpAdminSettingEvent', 'addMenu'));
 		add_filter('whitelist_options', array('FpAdminSettingEvent', 'addWhitelistOptions'));
 
 		// admin actions
-		add_action('admin_action_wpfp_media_upload', array(__CLASS__, 'adminActionWpfpMediaUpload'));
-		add_action('admin_action_wpfp_flickr_oauth', array(__CLASS__, 'adminActionWpfpFlickrOauth'));
+		add_action('admin_action_wpfp_media_upload',          array(__CLASS__, 'adminActionWpfpMediaUpload'));
+		add_action('admin_action_wpfp_flickr_oauth',          array(__CLASS__, 'adminActionWpfpFlickrOauth'));
 		add_action('admin_action_wpfp_flickr_oauth_callback', array(__CLASS__, 'adminActionWpfpFlickrOauthCallback'));
+
+        // thumbnail
+		require_once(self::getDir() . '/FpThumbnailEvent.php');
+		add_filter('post_thumbnail_html', array('FpThumbnailEvent', 'filterPostThumbnailHtml'), 10, 5);
+		add_filter('get_post_metadata',   array('FpThumbnailEvent', 'filterGetPostMetadata'),   10, 4);
 	}
 
 	public static function adminActionWpfpMediaUpload() {
