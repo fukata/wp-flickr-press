@@ -244,6 +244,7 @@ class FlickrPress {
 		require_once(self::getDir() . '/FpThumbnailEvent.php');
 		add_filter('post_thumbnail_html', array('FpThumbnailEvent', 'filterPostThumbnailHtml'), 10, 5);
 		add_filter('get_post_metadata',   array('FpThumbnailEvent', 'filterGetPostMetadata'),   10, 4);
+		add_action('add_meta_boxes_post', array('FpThumbnailEvent', 'actionAddMetaBoxesPost')        );
 	}
 
 	public static function adminActionWpfpMediaUpload() {

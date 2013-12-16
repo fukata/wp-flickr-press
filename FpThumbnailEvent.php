@@ -2,7 +2,6 @@
 class FpThumbnailEvent {
 	private function __construct() {}
 
-    // http://farm3.staticflickr.com/2855/11325807274_8a1183618c_m.jpg
     static function get_the_post_thumbnail_src($img) {
         return (preg_match('~\bsrc="(https?:\/\/farm[0-9]+\.staticflickr\.com\/[^"]+\.(?:jpg|JPG|jpeg|jpeg|gif|GIF|png|PNG))"~', $img, $matches)) ? $matches[1] : '';
     }
@@ -24,4 +23,22 @@ class FpThumbnailEvent {
             return null;
         }
     }
+
+    public static function actionAddMetaBoxesPost($post) {
+        add_meta_box(
+            'wpfp_post_thumbnail', 
+            __('Flickr Thumbnail', FlickrPress::TEXT_DOMAIN), 
+            array(__CLASS__, 'getMetaBoxHtml'),
+            'post', 
+            'advanced', 
+            'default',
+            array($post)
+        );
+    }
+    public static function getMetaBoxHtml($post) {
+?>
+<label class="selectit"><input value="1" type="checkbox" name="wpfp_use_post_thumbnail"> Use Post Thumbnail</label>
+<?php
+    }
+
 }
