@@ -101,96 +101,109 @@ function media_upload_search_form() {
 </form>
 
 <div id="inline-settings-content-container" style="display: none;">
-	<input type="hidden" name="default_link" id="inline-default_link" value="<?php echo FlickrPress::getDefaultLink() ?>" />
-	<input type="hidden" name="default_link_rel" id="inline-default_link_rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" />
-	<input type="hidden" name="default_link_class" id="inline-default_link_class" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" />
-	<input type="hidden" name="default_file_url_size" id="inline-default_file_url_size" value="<?php echo FlickrPress::getDefaultFileURLSize() ?>" />
-	
-	<table class="describe">
-		<tbody>
-			<tr class="post_title">
-				<th valign="top" scope="row" class="label"><label for="inline-title"><span class="alignleft"><?php echo __('Title', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>
-				<td class="field"><input type="text" class="text" id="inline-title" name="inline-title" value="" aria-required="true"></td>
-			</tr>
-			<tr class="url">
-				<th valign="top" scope="row" class="label"><label for="inline-url"><span class="alignleft"><?php echo __('Link URL', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
-					<input type="text" id="inline-url" class="text urlfield" name="inline-url" value=""><br>
-					<button type="button" class="button urlnone" title=""><?php echo __('None', FlickrPress::TEXT_DOMAIN) ?></button>
-					<button type="button" class="button urlfile" id="inline-url-file" title=""><?php echo __('File URL', FlickrPress::TEXT_DOMAIN) ?></button>
-					<button type="button" class="button urlpage" id="inline-url-page" title=""><?php echo __('Page URL', FlickrPress::TEXT_DOMAIN) ?></button>
-					<p class="help"><?php echo __('Enter a link URL or click above for presets.', FlickrPress::TEXT_DOMAIN) ?></p>
-				</td>
-			</tr>
-			<tr class="target">
-				<th valign="top" scope="row" class="label"><label for="inline-target"><span class="alignleft"><?php echo __('Link Target', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
-					<?php foreach ($targets as $label => $target) { ?>
-					<?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
-						<input type="radio" name="inline-target" id="inline-link-target-<?php echo $target ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="inline-link-target-<?php echo $target ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
-					<?php } ?>
-				</td>
-			</tr>
-			<tr class="align">
-				<th valign="top" scope="row" class="label"><label for="inline-align"><span class="alignleft"><?php echo __('Alignment', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
-					<?php foreach ($alignes as $label => $align) { ?>
-						<?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
-						<input type="radio" name="inline-align" id="inline-image-align-<?php echo $align ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="inline-image-align-<?php echo $align ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
-					<?php } ?>
-				</td>
-			</tr>
-			<tr class="image-size">
-				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
-				<td class="field">
-					<?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
-						<?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
-						<div class="image-size-item"><input name="inline-image-size" value="<?php echo $photo[$url] ?>" type="radio" id="inline-image-size-<?php echo $size ?>"<?php echo $checked?>/><label for="inline-image-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size], FlickrPress::TEXT_DOMAIN) ?></label></div>
-					<?php } ?>
-				</td>
-			</tr>
-			<tr class="image-property">
-				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-image-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Image Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
-				<td class="field" style="display:none;">
-					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-image-clazz" value="" type="text" /></p>
-					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
-					<p>
-						<select class="extend-image-properties">
-						<option value="" data-photoid=""></option>
-						<?php for ($i=0; $i<count($extendImageProperties); $i++) { ?>
-						<option value="" data-clazz="<?php echo $extendImageProperties[$i]->clazz ?>"><?php echo $extendImageProperties[$i]->title ?></option>
-						<?php } ?>
-						</select>
-					</p>
-				</td>
-			</tr>
+    <div class="inline-container">
+        <input type="hidden" name="default_link" id="inline-default_link" value="<?php echo FlickrPress::getDefaultLink() ?>" />
+        <input type="hidden" name="default_link_rel" id="inline-default_link_rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" />
+        <input type="hidden" name="default_link_class" id="inline-default_link_class" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" />
+        <input type="hidden" name="default_file_url_size" id="inline-default_file_url_size" value="<?php echo FlickrPress::getDefaultFileURLSize() ?>" />
 
-			<tr class="link-property">
-				<th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-link-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
-				<td class="field" style="display:none;">
-					<p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
-					<p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-clazz" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
-					<p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
-					<p>
-						<select class="extend-link-properties">
-						<option value="" data-photoid=""></option>
-						<?php for ($i=0; $i<count($extendLinkProperties); $i++) { ?>
-						<option value="" data-rel="<?php echo $extendLinkProperties[$i]->rel ?>" data-clazz="<?php echo $extendLinkProperties[$i]->clazz ?>"><?php echo $extendLinkProperties[$i]->title ?></option>
-						<?php } ?>
-						</select>
-						<a href="javascript:void(0)" class="button load-default-link-property" data-photoid="<?php echo $photo['id'] ?>"><?php echo __('Load Default', FlickrPress::TEXT_DOMAIN) ?></a>
-					</p>
-				</td>
-			</tr>
-			<tr class="submit">
-				<td></td>
-				<td class="savesend">
-					<input type="button" class="inline-ins-btn" close="1" class="button" name="send" value="<?php echo __('Insert into Post and Close', FlickrPress::TEXT_DOMAIN)?>">
-					<input type="button" class="inline-ins-btn" close="0" class="button" name="send" value="<?php echo __('Insert into Post and Continue', FlickrPress::TEXT_DOMAIN)?>">
-				</td>
-			</tr>
-		</tbody>
-	</table>
+        <div class="inline-header">
+            <ul class="inline-tabs">
+                <li><a href="javascript:void(0)" data-type="image" class="current">Image</a></li>
+                <li><a href="javascript:void(0)" data-type="player">Player</a></li>
+            </ul>
+        </div>
+       
+        <div class="inline-tab-content" id="inline-tab-image">
+            <table class="describe">
+                <tbody>
+                    <tr class="post_title">
+                        <th valign="top" scope="row" class="label"><label for="inline-title"><span class="alignleft"><?php echo __('Title', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>
+                        <td class="field"><input type="text" class="text" id="inline-title" name="inline-title" value="" aria-required="true"></td>
+                    </tr>
+                    <tr class="url">
+                        <th valign="top" scope="row" class="label"><label for="inline-url"><span class="alignleft"><?php echo __('Link URL', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+                        <td class="field">
+                            <input type="text" id="inline-url" class="text urlfield" name="inline-url" value=""><br>
+                            <button type="button" class="button urlnone" title=""><?php echo __('None', FlickrPress::TEXT_DOMAIN) ?></button>
+                            <button type="button" class="button urlfile" id="inline-url-file" title=""><?php echo __('File URL', FlickrPress::TEXT_DOMAIN) ?></button>
+                            <button type="button" class="button urlpage" id="inline-url-page" title=""><?php echo __('Page URL', FlickrPress::TEXT_DOMAIN) ?></button>
+                            <p class="help"><?php echo __('Enter a link URL or click above for presets.', FlickrPress::TEXT_DOMAIN) ?></p>
+                        </td>
+                    </tr>
+                    <tr class="target">
+                        <th valign="top" scope="row" class="label"><label for="inline-target"><span class="alignleft"><?php echo __('Link Target', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+                        <td class="field">
+                            <?php foreach ($targets as $label => $target) { ?>
+                            <?php $checked = FlickrPress::getDefaultTarget()==$target ? " checked='checked'" : '' ?>
+                                <input type="radio" name="inline-target" id="inline-link-target-<?php echo $target ?>" value="<?php echo $target ?>" <?php echo $checked ?>/><label for="inline-link-target-<?php echo $target ?>" class="link-target-<?php echo $target ?>-label"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr class="align">
+                        <th valign="top" scope="row" class="label"><label for="inline-align"><span class="alignleft"><?php echo __('Alignment', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+                        <td class="field">
+                            <?php foreach ($alignes as $label => $align) { ?>
+                                <?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
+                                <input type="radio" name="inline-align" id="inline-image-align-<?php echo $align ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="inline-image-align-<?php echo $align ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr class="image-size">
+                        <th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+                        <td class="field">
+                            <?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
+                                <?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
+                                <div class="image-size-item"><input name="inline-image-size" value="<?php echo $photo[$url] ?>" type="radio" id="inline-image-size-<?php echo $size ?>"<?php echo $checked?>/><label for="inline-image-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size], FlickrPress::TEXT_DOMAIN) ?></label></div>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr class="image-property">
+                        <th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-image-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Image Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+                        <td class="field" style="display:none;">
+                            <p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-image-clazz" value="" type="text" /></p>
+                            <p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
+                            <p>
+                                <select class="extend-image-properties">
+                                <option value="" data-photoid=""></option>
+                                <?php for ($i=0; $i<count($extendImageProperties); $i++) { ?>
+                                <option value="" data-clazz="<?php echo $extendImageProperties[$i]->clazz ?>"><?php echo $extendImageProperties[$i]->title ?></option>
+                                <?php } ?>
+                                </select>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr class="link-property">
+                        <th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-link-properties"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span><?php echo __('Link Rel and Class Property', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+                        <td class="field" style="display:none;">
+                            <p><span><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" type="text" /></p>
+                            <p><span><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?></span><input name="inline-link-clazz" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" type="text" /></p>
+                            <p><?php echo __('Available Charactors: 0-9a-zA-Z [] Space UnderScore Hyphen', FlickrPress::TEXT_DOMAIN) ?></p>
+                            <p>
+                                <select class="extend-link-properties">
+                                <option value="" data-photoid=""></option>
+                                <?php for ($i=0; $i<count($extendLinkProperties); $i++) { ?>
+                                <option value="" data-rel="<?php echo $extendLinkProperties[$i]->rel ?>" data-clazz="<?php echo $extendLinkProperties[$i]->clazz ?>"><?php echo $extendLinkProperties[$i]->title ?></option>
+                                <?php } ?>
+                                </select>
+                                <a href="javascript:void(0)" class="button load-default-link-property" data-photoid="<?php echo $photo['id'] ?>"><?php echo __('Load Default', FlickrPress::TEXT_DOMAIN) ?></a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="submit">
+                        <td></td>
+                        <td class="savesend">
+                            <input type="button" class="inline-ins-btn" close="1" class="button" name="send" value="<?php echo __('Insert into Post and Close', FlickrPress::TEXT_DOMAIN)?>">
+                            <input type="button" class="inline-ins-btn" close="0" class="button" name="send" value="<?php echo __('Insert into Post and Continue', FlickrPress::TEXT_DOMAIN)?>">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+        <div class="inline-tab-content" id="inline-tab-player" style="display:none">
+        </div> 
+    </div>
 </div>
 
 <?php

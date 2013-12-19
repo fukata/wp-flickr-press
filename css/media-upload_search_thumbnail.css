@@ -86,3 +86,37 @@ div.pager a.page {
 	padding: 3px 6px;
 	border: 1px solid #21759b;
 }
+div.inline-container {
+    background-color: #fff;
+}
+div.inline-header {
+}
+div.inline-header:after { /* clearfix */
+    content: "";
+    display: table;
+    clear: both;
+}
+div.inline-header ul.inline-tabs {
+    border-bottom: 1px solid #ccc;
+}
+div.inline-header ul.inline-tabs:after { /* clearfix */
+    content: "";
+    display: table;
+    clear: both;
+}
+div.inline-header ul.inline-tabs li {
+    float: left;
+    padding-left: 10px;
+}
+div.inline-header ul.inline-tabs li a {
+    padding: 5px 5px 6px 5px;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+div.inline-header ul.inline-tabs li a:link {
+    text-decoration: none;
+}
+div.inline-header ul.inline-tabs li a.current {
+    background-color: #ccc;
+}

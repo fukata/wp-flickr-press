@@ -16,7 +16,24 @@
 		};
 
 		// ===================================
-		// header menu
+		// tab menu
+		// ===================================
+        $('.inline-tabs > li > a').live('click', function(){
+            var $self = $(this);
+            if ( $self.hasClass('current') ) return;
+
+            // switch tab
+            var type = $self.data('type');
+            $('.inline-tabs > li > a.current').removeClass('current');
+            $self.addClass('current');
+
+            // switch content
+            $('.inline-tab-content').hide();
+            $('#inline-tab-' + type).show();
+        });
+
+		// ===================================
+		// search menu
 		// ===================================
 		$('input.search-type').click(function() {
 			var type = jQuery(this).val();
@@ -122,7 +139,7 @@
 				var idx = $self.attr('idx');
 				var photo = photos.photo[idx];
 				var title = photo.title;
-				var args = '#TB_inline?width=600&height=550&inlineId=inline-settings-content-container';
+				var args = '#TB_inline?width=600&height=650&inlineId=inline-settings-content-container';
 				var img_group = false;
 				tb_show(title, args, img_group);
 				
