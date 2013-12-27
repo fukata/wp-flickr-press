@@ -194,14 +194,35 @@ function media_upload_search_form() {
                     <tr class="submit">
                         <td></td>
                         <td class="savesend">
-                            <input type="button" class="inline-ins-btn" close="1" class="button" name="send" value="<?php echo __('Insert into Post and Close', FlickrPress::TEXT_DOMAIN)?>">
-                            <input type="button" class="inline-ins-btn" close="0" class="button" name="send" value="<?php echo __('Insert into Post and Continue', FlickrPress::TEXT_DOMAIN)?>">
+                            <input type="button" class="inline-ins-btn" data-close="1" class="button" name="send" value="<?php echo __('Insert into Post and Close', FlickrPress::TEXT_DOMAIN)?>">
+                            <input type="button" class="inline-ins-btn" data-close="0" class="button" name="send" value="<?php echo __('Insert into Post and Continue', FlickrPress::TEXT_DOMAIN)?>">
                         </td>
                     </tr>
                 </tbody>
             </table>
-        </div> 
+        </div>
+
         <div class="inline-tab-content" id="inline-tab-player" style="display:none">
+            <table class="describe">
+                <tbody>
+                    <tr class="player-size">
+                        <th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><?php echo __('Size', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
+                        <td class="field">
+                            <?php foreach(FlickrPress::$SIZES as $size => $url) { ?>
+                                <?php $checked = FlickrPress::getDefaultSize()==$size ? " checked='checked'" : '' ?>
+                                <div class="player-size-item"><input name="inline-player-size" value="<?php echo $photo[$url] ?>" type="radio" id="inline-player-size-<?php echo $size ?>"<?php echo $checked?>/><label for="inline-player-size-<?php echo $size ?>"><?php echo __(FlickrPress::$SIZE_LABELS[$size], FlickrPress::TEXT_DOMAIN) ?></label></div>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr class="submit">
+                        <td></td>
+                        <td class="savesend">
+                            <input type="button" class="inline-player-ins-btn" data-close="1" class="button" name="send" value="<?php echo __('Insert into Post and Close', FlickrPress::TEXT_DOMAIN)?>">
+                            <input type="button" class="inline-player-ins-btn" data-close="0" class="button" name="send" value="<?php echo __('Insert into Post and Continue', FlickrPress::TEXT_DOMAIN)?>">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div> 
     </div>
 </div>

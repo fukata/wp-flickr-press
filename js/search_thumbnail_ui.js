@@ -288,6 +288,16 @@
 		$(".urlnone, .urlfile, .urlpage").live("click", function(){
 			$("#inline-url").val( $(this).val() );
 		});
+		$(".inline-player-ins-btn").live("click", function(){
+			var close = $(this).data('close') == '1';
+            var width = '500';
+            var height = '331';
+            var path = 'fukata/11405032084';
+            var html = '<iframe src="http://www.flickr.com/photos/' + path + '/player/" width="' + width + '" height="' + height + '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
+			html += "\n";
+			
+			fp_media_send_to_editor(html, close);
+		});
 		$(".inline-ins-btn").live("click", function(){
 			var link = $("#inline-url").val();
 			var target = $("input[name='inline-target']:checked").val();
@@ -297,7 +307,7 @@
 			var alt = esc_attr( $("#inline-title").val() );
 			var src = $("input[name='inline-image-size']:checked").val();
 			var clazz = "";
-			var close = $(this).attr('close') == '1';
+			var close = $(this).data('close') == '1';
 			
 			if (align) {
 				clazz = 'align' + align;
