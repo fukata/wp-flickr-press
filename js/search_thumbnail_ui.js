@@ -139,7 +139,7 @@
 				var idx = $self.attr('idx');
 				var photo = photos.photo[idx];
 				var title = photo.title;
-				var args = '#TB_inline?width=600&height=650&inlineId=inline-settings-content-container';
+				var args = '#TB_inline?width=600&height=500&inlineId=inline-settings-content-container';
 				var img_group = false;
 				tb_show(title, args, img_group);
 				
@@ -263,6 +263,7 @@
 		// ===================================
 		function draw_inline_content(photo, photos) {
 //			console.log("draw_inline_content");
+//			console.log(photo);
 			$("#inline-title").val( photo.title );
 			$("#inline-url").val( getDefaultLinkValue(photo, photos) );
 			$("#inline-url-file").val( flickr.getPhotoUrl(photo, $('#inline-default_file_url_size').val()) );
@@ -271,6 +272,24 @@
 				var url = flickr.getPhotoUrl(photo, size);
 				$("#inline-image-size-"+size).val( url );
 			});
+
+            var playerUrlInPhotostream = flickr.getPlayerUrl(photo, photos);
+			$("#inline-url-photostream").val( playerUrlInPhotostream );
+            if ( $("input[name='filter[type]']:checked").val() == 'photosets' ) {
+                var playerUrlInSet = flickr.getPlayerUrl(photo, photos, $("select[name='filter[photoset]']").val() );
+                $("#inline-url-set").val( playerUrlInSet ).show();
+                $("#inline-player-url").val( playerUrlInSet );
+            } else {
+                $("#inline-url-set").hide();
+                $("#inline-player-url").val( playerUrlInPhotostream );
+            }
+			$.each(flickr.SIZE_KEYS, function(idx, size) {
+                var height = photo['height_' + size];
+                var width = photo['width_' + size];
+                if ( width && height ) {
+                    $('#inline-player-size-' + size).val(width + ',' + height);
+                }
+            });
 		}
 		function getDefaultLinkValue(photo, photos) {
 			var linkType = $('#inline-default_link').val();
@@ -288,12 +307,16 @@
 		$(".urlnone, .urlfile, .urlpage").live("click", function(){
 			$("#inline-url").val( $(this).val() );
 		});
+		$(".urlphotostream, .urlset").live("click", function(){
+			$("#inline-player-url").val( $(this).val() );
+		});
 		$(".inline-player-ins-btn").live("click", function(){
 			var close = $(this).data('close') == '1';
-            var width = '500';
-            var height = '331';
-            var path = 'fukata/11405032084';
-            var html = '<iframe src="http://www.flickr.com/photos/' + path + '/player/" width="' + width + '" height="' + height + '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
+            var size = $("input[name='inline-player-size']:checked").val().split(',');
+            var width = size[0];
+            var height = size[1];
+            var url = $('#inline-player-url').val();
+            var html = '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
 			html += "\n";
 			
 			fp_media_send_to_editor(html, close);
@@ -377,7 +400,7 @@
 			$('input[name="inline-link-clazz"]').val( $('#ineline-default_link_class').val() );
 		});
 
-		$('a.toggle-image-properties, a.toggle-link-properties').live("click", function() {
+		$('a.toggle-link').live("click", function() {
 			var $self = $(this);
 			$self.find('span.toggle').toggle();
 			$self.parents('tr').find('td.field').toggle();
