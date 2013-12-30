@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.11';
+	const VERSION = '1.9.12';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -40,6 +40,8 @@ class FlickrPress {
 		'z'  => 'Medium 640 (640x480)',
 		'c'  => 'Medium 800 (800x600)',
 		'l'  => 'Large (1024x768)',
+		'h'  => 'Large (1600x1060)',
+		'k'  => 'Large (2048x1356)',
 		'o'  => 'Original',
 	);
 	public static $SIZES = array(
@@ -52,6 +54,8 @@ class FlickrPress {
 		'z'  => 'url_z',  // Medium 640
 		'c'  => 'url_c',  // Medium 800
 		'l'  => 'url_l',  // Large
+		'h'  => 'url_h',  // Large 1600
+		'k'  => 'url_k',  // Large 2048
 		'o'  => 'url_o',  // Original
 	);
 	public static $LINK_TYPE_LABELS = array(
