@@ -276,7 +276,8 @@
             var playerUrlInPhotostream = flickr.getPlayerUrl(photo, photos);
 			$("#inline-url-photostream").val( playerUrlInPhotostream );
             if ( $("input[name='filter[type]']:checked").val() == 'photosets' ) {
-                var playerUrlInSet = flickr.getPlayerUrl(photo, photos, $("select[name='filter[photoset]']").val() );
+                var setId = $("select[name='filter[photoset]']").val();
+                var playerUrlInSet = flickr.getPlayerUrl(photo, photos, 'set-' + setId );
                 $("#inline-url-set").val( playerUrlInSet ).show();
                 $("#inline-player-url").val( playerUrlInSet );
             } else {
@@ -317,7 +318,6 @@
             var height = size[1];
             var url = $('#inline-player-url').val();
             var html = '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
-			html += "\n";
 			
 			fp_media_send_to_editor(html, close);
 		});
