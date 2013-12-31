@@ -214,6 +214,15 @@ function media_upload_search_form() {
                             <button type="button" class="button urlset" id="inline-url-set"><?php echo __('Set', FlickrPress::TEXT_DOMAIN) ?></button>
                         </td>
                     </tr>
+                    <tr class="align">
+                        <th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-link"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span> <?php echo __('Alignment', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
+                        <td class="field" style="display:none;">
+                            <?php foreach ($alignes as $label => $align) { ?>
+                                <?php $checked = FlickrPress::getDefaultAlign()==$align ? " checked='checked'" : '' ?>
+                                <input type="radio" name="inline-player-align" id="inline-player-align-<?php echo $align ?>" value="<?php echo $align ?>"<?php echo $checked?> /><label for="inline-player-align-<?php echo $align ?>" class="align image-align-<?php echo $align ?>-label"/><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
+                            <?php } ?>
+                        </td>
+                    </tr>
                     <tr class="player-size">
                         <th valign="top" scope="row" class="label"><label for=""><span class="alignleft"><a href="javascript:void(0)" class="toggle-link"><span class="toggle" style="display:none;">[-]</span><span class="toggle">[+]</span> <?php echo __('Size', FlickrPress::TEXT_DOMAIN)?></a></span><br class="clear"></label></th>
                         <td class="field" style="display:none;">

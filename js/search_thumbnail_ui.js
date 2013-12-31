@@ -313,11 +313,17 @@
 		});
 		$(".inline-player-ins-btn").live("click", function(){
 			var close = $(this).data('close') == '1';
+			var align = $("input[name='inline-player-align']:checked").val();
             var size = $("input[name='inline-player-size']:checked").val().split(',');
             var width = size[0];
             var height = size[1];
             var url = $('#inline-player-url').val();
-            var html = '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
+            var clazz = '';
+            if ( align ) {
+                clazz += 'align' + align;
+            }
+
+            var html = '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" class="' + clazz + '" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>';
 			
 			fp_media_send_to_editor(html, close);
 		});
