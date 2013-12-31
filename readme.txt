@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 1.9.12
+Stable tag: 1.9.13
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.13 =
+* Add embed player align parameter.
+
 = 1.9.12 =
 * Implemented embed player.
 
