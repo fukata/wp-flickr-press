@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.13';
+	const VERSION = '1.9.14';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -228,7 +228,7 @@ class FlickrPress {
 	private static function addEvents() {
 		// load action or filter
 		require_once(self::getDir().'/FpPostEvent.php');
-		add_action('media_buttons_context', array('FpPostEvent', 'addButtons'));
+		add_action('media_buttons', array('FpPostEvent', 'addButtons'), 100);
 		add_action('media_upload_flickr_media', array('FpPostEvent', 'mediaUploadFlickrMedia'));
 		add_filter('wp_fullscreen_buttons', array('FpPostEvent', 'addButtonsFullScreen'));
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
