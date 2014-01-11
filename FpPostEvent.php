@@ -6,8 +6,7 @@ class FpPostEvent {
 	}
 
 	public static function addButtons() {
-		$context = self::_media_button(__('Add flickr media', FlickrPress::TEXT_DOMAIN), FlickrPress::getPluginUrl().'/images/icon-flickr.gif', FlickrPress::MEDIA_BUTTON_TYPE);
-		return $context;
+		echo self::_media_button(__('Add flickr media', FlickrPress::TEXT_DOMAIN), FlickrPress::getPluginUrl().'/images/icon-flickr.gif', FlickrPress::MEDIA_BUTTON_TYPE);
 	}
 	
 	public static function addButtonsFullScreen($buttons) {
