@@ -181,7 +181,7 @@
 
 		function init_pager(photos) {
 			var link_num = 10;
-			var page = photos.page;
+			var page = parseInt(photos.page);
 			var pages = photos.pages;
 			var half_link_num = link_num / 2;
 			var start_link = page - half_link_num + 1;
