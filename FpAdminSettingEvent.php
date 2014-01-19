@@ -384,11 +384,10 @@ function callback_oauth(token) {
 					<p>[img]: Image Tag</p>
 					<p>[title]: Image Title</p>
 					<p>[url]: Image URL</p>
+					<p>[null]: Null Character</p>
 				</th>
 				<td>
 					<textarea name="<?php echo FlickrPress::getKey('insert_template') ?>" cols="70" rows="10"><?php echo FlickrPress::getInsertTemplate() ?></textarea>
-					<p><?php echo __('If you put a newline at the beginning or end, &lt;br/&gt; Please write tags.', FlickrPress::TEXT_DOMAIN) ?></p>
-					<p><?php echo __('However, &lt;br/&gt; if there is a line break before and after the tag, I been wrapped them too.', FlickrPress::TEXT_DOMAIN) ?></p>
 				</td>
 			</tr>
 			<tr valign="top">

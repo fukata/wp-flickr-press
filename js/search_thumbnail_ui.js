@@ -7,6 +7,7 @@
 			oauthToken : jQuery("#oauth_token").val(),
 			enablePathAlias: jQuery("#enable_path_alias").val() == '1'
 		});
+		var current_photos = null;
 		var pager_search = null;
 		var OPTIONS = {
 			perpage : 20,
@@ -128,15 +129,66 @@
 		});
 
 		// ===================================
+		// buttons
+		// ===================================
+        $('.multiple-insert-btn').click(function(){
+            var sorted_photos = sorted_multiple_insert_photos();
+            sorted_photos.each(function(i){
+                var $self = $(this);
+				var idx = $self.attr('idx');
+				var photo = current_photos.photo[idx];
+				var title = photo.title;
+                //console.log('idx: %s, title: %s', idx, title);
+				draw_inline_content(photo, current_photos);
+                if ( i == sorted_photos.length ) {
+                    $(".inline-ins-btn[data-close='1']").eq(0).trigger("click");
+                } else {
+                    $(".inline-ins-btn[data-close='0']").eq(0).trigger("click");
+                }
+            });
+        });
+
+		// ===================================
 		// init photos
 		// ===================================
 		function init_photos(photos) {
+            current_photos = photos;
 			var title_max = 20;
-			$("#search-results").empty();
-			
+			var results = $("#search-results");
+            results.empty()
+                   .data('last_order', 0);
+
+			var ins_check = function() {
+				var $self = $(this);
+                var thumbnail = $self.parents('.thumbnail').eq(0);
+                if ( thumbnail.hasClass('ins_check') ) {
+                    //console.log('remove check');
+                    thumbnail.removeClass('ins_check')
+                             .removeData('order');
+                    thumbnail.find('.ins_label').remove();
+
+                    var order = 0;
+                    sorted_multiple_insert_photos().each(function(){
+                        var $self = $(this);
+                        order++;
+                        $self.data('order', order);
+                        $self.find('.ins_label').text(order);
+                    });
+                    results.data('last_order', order);
+                } else {
+                    var last = parseInt(results.data('last_order'));
+                    last++;
+                    //console.log('add check: ', last);
+                    thumbnail.addClass('ins_check')
+                             .data('order', last)
+                             .append('<div class="ins_label">'+last+'</div>');
+                    results.data('last_order', last);
+                }
+            }
+
 			var ins_popup = function() {
 				var $self = $(this);
-				var idx = $self.attr('idx');
+				var idx = $self.parent('.thumbnail').attr('idx');
 				var photo = photos.photo[idx];
 				var title = photo.title;
 				var args = '#TB_inline?width=600&height=500&inlineId=inline-settings-content-container';
@@ -156,28 +208,41 @@
 				
 				var $img = $("<a></a>").addClass("ins-photo").attr({
 					href : "javascript:void(0)",
-					title : title,
-					idx : i
+					title : title
 				});
 				
-				$img.click(ins_popup);
-				$img.append(
-					$("<img />").attr({
-						src : flickr.getPhotoUrl(photo, OPTIONS.thumbnail_size),
-						title : photo["title"]
-					}).addClass("photo"));
+				$img.click(ins_check)
+                    .dblclick(ins_popup)
+				    .append(
+                        $("<img />").attr({
+                            src : flickr.getPhotoUrl(photo, OPTIONS.thumbnail_size),
+                            title : photo["title"]
+                        }).addClass("photo"));
 				var $title = $("<div></div>").addClass("title").append(
 					$("<a></a>").addClass("ins-photo").attr({
 						href : "javascript:void(0)",
-						title : title,
-						idx : i
-					}).click(ins_popup).html(title)
+						title : title
+					}).click(ins_check).dblclick(ins_popup).html(title)
 				);
-				var $div = $("<div></div>").addClass("thumbnail").append($img).append($title);
+				var $div = $("<div></div>").addClass("thumbnail")
+                                           .attr({idx:i})
+                                           .append($img)
+                                           .append($title);
 				$("#search-results").append($div);
 			}
+
 			init_pager(photos);
 		}
+
+        function sorted_multiple_insert_photos() {
+            return $('#search-results .ins_check').sort(function(a, b){
+                var o1 = $(a).data('order');
+                var o2 = $(b).data('order');
+                if( o1 < o2 ) return -1;
+                if( o1 > o2 ) return 1;
+                return 0;
+            });
+        }
 
 		function init_pager(photos) {
 			var link_num = 10;
@@ -342,6 +407,9 @@
             }
             if (html.indexOf('[url]') >= 0) {
                 html = html.replace('[url]', generate_html_url());
+            }
+            if (html.indexOf('[null]') >= 0) {
+                html = html.replace('[null]', '');
             }
 
             return html;

@@ -30,6 +30,7 @@ div.search-form-off {
 }
 
 #search-results div.thumbnail {
+    position: relative;
 	float: left;
 	width: 105px;
 	margin: 3px;
@@ -46,6 +47,25 @@ div.search-form-off {
 
 #search-results div.thumbnail:nth-child(5n+1) {
 	clear: both;
+}
+
+#search-results div.ins_check img.photo {
+    border: 2px solid #ff0000;
+	padding: 2px 14px;
+}
+
+#search-results div.ins_check div.ins_label {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #ff0000;
+    text-align: center;
+    text-shadow: 2px  2px 2px #fff, 
+                -2px  2px 2px #fff, 
+                 2px -2px 2px #fff, 
+                -2px -2px 2px #fff;
 }
 
 /* ==========================================
@@ -119,4 +139,8 @@ div.inline-header ul.inline-tabs li a:link {
 }
 div.inline-header ul.inline-tabs li a.current {
     background-color: #ccc;
+}
+
+#buttons-container {
+    margin-top: 10px;
 }
