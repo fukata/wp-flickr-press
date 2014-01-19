@@ -328,6 +328,25 @@
 			fp_media_send_to_editor(html, close);
 		});
 		$(".inline-ins-btn").live("click", function(){
+            var template = $('#inline-insert-template').val();
+            var html = generate_html(template);
+			fp_media_send_to_editor(html, close);
+		});
+
+        function generate_html(html) {
+            if (html.indexOf('[img]') >= 0) {
+                html = html.replace('[img]', generate_html_img());
+            }
+            if (html.indexOf('[title]') >= 0) {
+                html = html.replace('[title]', generate_html_title());
+            }
+            if (html.indexOf('[url]') >= 0) {
+                html = html.replace('[url]', generate_html_url());
+            }
+
+            return html;
+        }
+        function generate_html_img() {
 			var link = $("#inline-url").val();
 			var target = $("input[name='inline-target']:checked").val();
 			target = target ? ' target="' + target + '"' : '';
@@ -361,10 +380,16 @@
 				var title = ' title="' + alt + '"';
 				html = '<a href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
 			}
-			html += "\n";
-			
-			fp_media_send_to_editor(html, close);
-		});
+
+            return html;
+        }
+        function generate_html_title() {
+			return $("#inline-title").val();
+        }
+        function generate_html_url() {
+			return $("#inline-url").val();
+        }
+
 		function esc_attr(str) {
 			if (!str || str == '') return '';
 			if (!/[&<>"]/.test(str)) return str;
