@@ -97,7 +97,7 @@ function media_upload_search_form() {
 	<div class="pager-container clearfix"></div>
 	<div id="buttons-container" class="clearfix">
         <div class="buttons">
-            <button class="multiple-insert-btn"><?php echo __('Batch Insert into Post', FlickrPress::TEXT_DOMAIN); ?></button>
+            <button class="multiple-insert-btn button"><?php echo __('Batch Insert into Post', FlickrPress::TEXT_DOMAIN); ?></button>
         </div>
     </div>
 
