@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 1.9.14
+Stable tag: 1.9.15
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,11 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.15 =
+* Bugfix: Support user alias when list mode.
+* Feature: Add null keyword insert template.
+* Feature: Support multiple insert and insert template when thumbnail mode.
+
 = 1.9.14 =
 * Bugfix: Display two buttons when certain conditions.
 * Bugfix: Pager next link broken when search by photosets.
