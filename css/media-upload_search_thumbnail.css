@@ -1,23 +1,23 @@
 @CHARSET "UTF-8";
 
 #search-form {
-	padding: 0px 15px;
+    padding: 0px 15px;
 }
 
 tr.image-size div.image-size-item {
-	text-align: left !important;
-	width: 100%;
+    text-align: left !important;
+    width: 100%;
 }
 
 tr.align td.field {
-	text-align: left !important;
+    text-align: left !important;
 }
 tr.align label.align {
-	padding-left: 25px;
+    padding-left: 25px;
 }
 
 div.search-form-off {
-	display: none;
+    display: none;
 }
 
 #search-form {
@@ -30,61 +30,82 @@ div.search-form-off {
 }
 
 #search-results div.thumbnail {
-	float: left;
-	width: 105px;
-	margin: 3px;
+    position: relative;
+    float: left;
+    width: 105px;
+    margin: 3px;
 }
 
 #search-results div.thumbnail div.title {
-	font-size: 10px;
+    font-size: 10px;
 }
 
 #search-results div.thumbnail img.photo {
-	border: 1px solid #CCCCCC;
-	padding: 3px 15px;
+    border: 1px solid #CCCCCC;
+    padding: 3px 15px;
 }
 
 #search-results div.thumbnail:nth-child(5n+1) {
-	clear: both;
+    clear: both;
+}
+
+#search-results div.ins_check img.photo {
+    border: 2px solid #ff0000;
+    padding: 2px 14px;
+}
+
+#search-results div.ins_check div.ins_label {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #ff0000;
+    text-align: center;
+    text-shadow: 2px  2px 2px #fff, 
+                -2px  2px 2px #fff, 
+                 2px -2px 2px #fff, 
+                -2px -2px 2px #fff;
+    cursor: pointer;
 }
 
 /* ==========================================
 pager
 ========================================== */
 div.pager {
-	margin: 3px 0;
+    margin: 3px 0;
 }
 div.pager span.current {
-	font-weight: bold;
-	margin-right: 3px;
-	background-color: #21759b;
-	color: #ffffff;
-	padding: 3px 6px;
-	border: 1px solid #21759b;
+    font-weight: bold;
+    margin-right: 3px;
+    background-color: #21759b;
+    color: #ffffff;
+    padding: 3px 6px;
+    border: 1px solid #21759b;
 }
 div.pager a.first {
-	margin-right: 3px;
-	padding: 3px 6px;
-	border: 1px solid #21759b;
+    margin-right: 3px;
+    padding: 3px 6px;
+    border: 1px solid #21759b;
 }
 div.pager a.prev {
-	margin-right: 3px;
-	padding: 3px 6px;
-	border: 1px solid #21759b;
+    margin-right: 3px;
+    padding: 3px 6px;
+    border: 1px solid #21759b;
 }
 div.pager a.end {
-	margin-left: 3px;
-	padding: 3px 6px;
-	border: 1px solid #21759b;
+    margin-left: 3px;
+    padding: 3px 6px;
+    border: 1px solid #21759b;
 }
 div.pager a.next {
-	padding: 3px 6px;
-	border: 1px solid #21759b;
+    padding: 3px 6px;
+    border: 1px solid #21759b;
 }
 div.pager a.page {
-	margin-right: 3px;
-	padding: 3px 6px;
-	border: 1px solid #21759b;
+    margin-right: 3px;
+    padding: 3px 6px;
+    border: 1px solid #21759b;
 }
 div.inline-container {
     background-color: #fff;
@@ -119,4 +140,8 @@ div.inline-header ul.inline-tabs li a:link {
 }
 div.inline-header ul.inline-tabs li a.current {
     background-color: #ccc;
+}
+
+#buttons-container {
+    margin-top: 10px;
 }

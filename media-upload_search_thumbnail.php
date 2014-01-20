@@ -94,7 +94,12 @@ function media_upload_search_form() {
 	<div class="pager-container clearfix"></div>
 	<div id="search-results"></div>
 	<br clear="all"/>
-	<div class="pager-container"></div>
+	<div class="pager-container clearfix"></div>
+	<div id="buttons-container" class="clearfix">
+        <div class="buttons">
+            <button class="multiple-insert-btn button"><?php echo __('Batch Insert into Post', FlickrPress::TEXT_DOMAIN); ?></button>
+        </div>
+    </div>
 
 </div>
 	
@@ -102,6 +107,7 @@ function media_upload_search_form() {
 
 <div id="inline-settings-content-container" style="display: none;">
     <div class="inline-container">
+        <input type="hidden" name="insert_template" id="inline-insert-template" value="<?php echo htmlspecialchars(FlickrPress::getInsertTemplate()) ?>" />
         <input type="hidden" name="default_size" id="inline-default_size" value="<?php echo FlickrPress::getDefaultSize() ?>" />
         <input type="hidden" name="default_link" id="inline-default_link" value="<?php echo FlickrPress::getDefaultLink() ?>" />
         <input type="hidden" name="default_link_rel" id="inline-default_link_rel" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" />
