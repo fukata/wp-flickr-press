@@ -140,9 +140,9 @@ class FlickrPress {
 		return get_option(self::getKey('oauth_token'));
 	}
 
-	public static function getPluginUrl() {
+	public static function getPluginUrl($file='') {
 		global $wp_flickr_press_file;
-		return plugins_url('', $wp_flickr_press_file );
+		return plugins_url($file, $wp_flickr_press_file );
 	}
 
 	public static function getDefaultTarget() {
@@ -234,6 +234,11 @@ class FlickrPress {
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
 		add_action('admin_head-post.php', array('FpPostEvent', 'loadScripts'));
 		add_action('admin_head-post-new.php', array('FpPostEvent', 'loadScripts'));
+
+        add_action('admin_enqueue_scripts', array('FpPostEvent', 'loadUIScripts'));
+        add_filter('media_view_strings',    array('FpPostEvent', 'loadJSStrings'), 10, 2);
+		add_action('admin_footer-post.php', array('FpPostEvent', 'loadJSBridgeParams'));
+		add_action('admin_footer-post-new.php', array('FpPostEvent', 'loadJSBridgeParams'));
 
 		require_once(self::getDir().'/FpAdminSettingEvent.php');
 		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
