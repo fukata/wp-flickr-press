@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.16 =
+* Feature: Add Reset OAuth Token button.
+
 = 1.9.15 =
 * Bugfix: Support user alias when list mode.
 * Feature: Add null keyword insert template.
