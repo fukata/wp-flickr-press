@@ -66,6 +66,10 @@ class FpAdminSettingEvent {
 			window.open('<?php echo esc_url(admin_url('admin.php?action=wpfp_flickr_oauth')) ?>', 'flikcr_oauth', 'width=800,height=600,menubar=no, toolbar=no, scrollbars=yes');
 		});
 
+		$('#fp-reset-oauth-token-btn').bind('click', function(){
+            callback_oauth({token: "", user: { nsid: "", username: "" } });
+		});
+
 		// ===============================================
 		// Extend Link Properties
 		// ===============================================
@@ -263,7 +267,10 @@ function callback_oauth(token) {
 					<p>UserID: <span id="fp-user-id"><?php echo FlickrPress::getUserId() ?></span></p>
 					<p>Username: <span id="fp-username"><?php echo FlickrPress::getUsername() ?></span></p>
 					<p>Token: <span id="fp-oauth-token"><?php echo FlickrPress::getOAuthToken() ?></span></p>
-					<p><a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php echo __('Update OAuth Token', FlickrPress::TEXT_DOMAIN) ?></a></p>
+					<p>
+                        <a href="javascript:void(0)" class="button" id="fp-oauth-token-btn"><?php echo __('Update OAuth Token', FlickrPress::TEXT_DOMAIN) ?></a>
+					    <a href="javascript:void(0)" class="button" id="fp-reset-oauth-token-btn"><?php echo __('Reset OAuth Token', FlickrPress::TEXT_DOMAIN) ?></a>
+                    </p>
 					<p id="fp-oauth-update"><p>
 				</td>
 			</tr>
