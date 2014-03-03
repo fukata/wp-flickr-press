@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 1.9.15
+Stable tag: 1.9.16
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.16 =
+* Feature: Add Reset OAuth Token button.
+
 = 1.9.15 =
 * Bugfix: Support user alias when list mode.
 * Feature: Add null keyword insert template.
