@@ -83,11 +83,12 @@
     wp.media.view.FlickrPressSearchTypeFilters = wp.media.view.AttachmentFilters.extend({
         className: 'search-type-filters',
 		createFilters: function() {
+            console.log('FlickrPressSearchTypeFilters.createFilters', this.filters);
+
 			this.filters = {
 				recent: {
 					text:  wp.media.view.l10n.wpfpSearchTypeFilterRecent,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -96,7 +97,6 @@
 				photosets: {
 					text:  wp.media.view.l10n.wpfpSearchTypeFilterPhotosets,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -105,7 +105,6 @@
 				advanced: {
 					text:  wp.media.view.l10n.wpfpSearchTypeFilterAdvanced,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -115,12 +114,15 @@
 			};
 		},
         change: function() {
-            console.log('FlickrPressSearchTypeFilters.change');
+            console.log('FlickrPressSearchTypeFilters.change', this.el.value, this.model.get('wpfp_search_type'));
 			var filter = this.filters[ this.el.value ];
-            console.log(filter);
+			if ( filter ) {
+                this.model.set( 'wpfp_search_type', this.el.value );
+            }
         },
 		select: function() {
-            console.log('FlickrPressSearchTypeFilters.select');
+            console.log('FlickrPressSearchTypeFilters.select', this.el.value, this.model.get('wpfp_search_type'));
+			this.$el.val( this.model.get('wpfp_search_type') || this.el.value );
         }
     });
 
@@ -131,7 +133,6 @@
 				postedAsc: {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterPostedASC,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -140,7 +141,6 @@
 				postedDesc: {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterPostedDESC,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -149,7 +149,6 @@
 				takenAsc: {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterTakenASC,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -158,7 +157,6 @@
 				takenDesc: {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterTakenDESC,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -167,7 +165,6 @@
 				interestingnessAsc: {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterInterestingnessASC,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -176,7 +173,6 @@
 				interestingnessDesc: {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterInterestingnessDESC,
 					props: {
-						uploadedTo: null,
 						orderby: 'date',
 						order:   'DESC'
 					},
@@ -188,6 +184,9 @@
             console.log('FlickrPressSearchSortFilters.change');
 			var filter = this.filters[ this.el.value ];
             console.log(filter);
+//			if ( filter ) {
+//				this.model.set( filter.props );
+//            }
         },
 		select: function() {
             console.log('FlickrPressSearchSortFilters.select');
@@ -197,6 +196,7 @@
     wp.media.view.FlickrPressSearchPhotosetFilters = wp.media.view.AttachmentFilters.extend({
         className: 'search-photoset-filters',
 		createFilters: function() {
+            console.log('FlickrPressSearchPhotosetFilters.createFilters');
             var that = this;
             if ( typeof that.filters === 'undefined' ) {
                 that.filters = {};
@@ -207,25 +207,27 @@
                         that.filters[photoset.id] = {
                             text:  photoset.title._content,
                             props: {
-                                uploadedTo: null,
                                 orderby: 'date',
                                 order:   'DESC'
                             },
                             priority: 10
                         };
                     }
-                    console.log(that.filters);
+                    console.log("initialize filters=", that.filters);
                     that.initialize();
                 });
             }
 		},
         change: function() {
-            console.log('FlickrPressSearchTypeFilters.change');
+            console.log('FlickrPressSearchPhotosetFilters.change');
 			var filter = this.filters[ this.el.value ];
             console.log(filter);
+//			if ( filter ) {
+//				this.model.set( filter.props );
+//            }
         },
 		select: function() {
-            console.log('FlickrPressSearchTypeFilters.select');
+            console.log('FlickrPressSearchPhotosetFilters.select');
         }
     });
 
@@ -258,7 +260,7 @@
         events: {
             'input':  'update',
             'keyup':  'update',
-            'change': 'update'
+            'change': 'change',
         },
         initialize: function() {
             console.log("view.FlickrPress.initialize");
@@ -276,6 +278,17 @@
         update: function( event ) {
             console.log("view.FlickrPress.update class=%s, value=%s", event.target, event.target.value);
             var $target = $(event.target);
+            if ( $target.hasClass('search-tag-filter') ) {
+                this.model.set( 'wpfp_tag', event.target.value );
+            }
+            if ( $target.hasClass('search-keyword-filter') ) {
+                this.model.set( 'wpfp_keyword', event.target.value );
+            }
+
+        },
+        change: function() {
+            console.log("view.FlickrPress.change class=%s, value=%s", event.target, event.target.value);
+            var $target = $(event.target);
             if ( $target.hasClass('search-type-filters') ) {
                 this.model.set( 'wpfp_search_type', event.target.value );
                 this.updateToolbar();
@@ -286,13 +299,6 @@
             if ( $target.hasClass('search-photoset-filters') ) {
                 this.model.set( 'wpfp_photoset', event.target.value );
             }
-            if ( $target.hasClass('search-tag-filter') ) {
-                this.model.set( 'wpfp_tag', event.target.value );
-            }
-            if ( $target.hasClass('search-keyword-filter') ) {
-                this.model.set( 'wpfp_keyword', event.target.value );
-            }
-
         },
         createToolbar: function() {
             this.toolbar = new wp.media.view.Toolbar({
@@ -322,6 +328,7 @@
             }
 
             var searchType = this.model.get('wpfp_search_type');
+            console.log("updateToolbar. searchType=%s", searchType);
             if ( searchType === 'photosets' ) {
                 this.toolbar.set( 'search-photoset-filters', new wp.media.view.FlickrPressSearchPhotosetFilters({
                     controller: this.controller,
