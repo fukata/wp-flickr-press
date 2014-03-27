@@ -80,11 +80,25 @@
 //        }
     });
 
+    wp.media.view.FlickrPressSearch = wp.media.view.Search.extend({
+        name: 'hoge',
+        propertyName: function() { return 'wpfp_' + this.name; },
+		render: function() {
+			this.el.value = this.model.escape( this.propertyName() );
+			return this;
+		},
+		search: function( event ) {
+			if ( event.target.value )
+				this.model.set( this.propertyName(), event.target.value );
+			else
+				this.model.unset(this.propertyName());
+		}
+
+    });
+
     wp.media.view.FlickrPressAttachmentFilters = wp.media.view.AttachmentFilters.extend({
         name: 'hoge',
-        propertyName: function() {
-            return 'wpfp_' + this.name;
-        },
+        propertyName: function() { return 'wpfp_' + this.name; },
         change: function() {
             console.log('FlickrPressAttachmentFilters.change', this.name, this.el.value, this.model.get(this.propertyName()));
 			var filter = this.filters[ this.el.value ];
@@ -220,17 +234,18 @@
 		},
     });
 
-    wp.media.view.FlickrPressSearchTagFilter = wp.media.view.Search.extend({
+    wp.media.view.FlickrPressSearchTagFilter = wp.media.view.FlickrPressSearch.extend({
+        name: 'tag',
 		tagName:   'input',
 		className: 'search search-tag-filter',
-
 		attributes: {
 			type:        'search',
 			placeholder: wp.media.view.l10n.wpfpSearchTagFilterPlaceholder
 		},
     });
 
-    wp.media.view.FlickrPressSearchKeywordFilter = wp.media.view.Search.extend({
+    wp.media.view.FlickrPressSearchKeywordFilter = wp.media.view.FlickrPressSearch.extend({
+        name: 'keyword',
 		tagName:   'input',
 		className: 'search search-keyword-filter',
 
