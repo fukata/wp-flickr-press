@@ -68,3 +68,6 @@
     cursor: pointer;
 }
 
+.flickr-press .search-button {
+    margin-right: 10px;
+}
