@@ -7,6 +7,7 @@ class FpPostEvent {
 
     public static function loadJSStrings($strings,  $post) {
         $strings['wpfpTitle'] = __('FlickrPress', FlickrPress::TEXT_DOMAIN);
+        $strings['wpfpSearchButton'] = __('Search', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchTypeFilterRecent'] = __('Recent', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchTypeFilterPhotosets'] = __('Photosets', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchTypeFilterAdvanced'] = __('Advanced', FlickrPress::TEXT_DOMAIN);

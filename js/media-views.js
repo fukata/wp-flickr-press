@@ -255,6 +255,17 @@
 		},
     });
 
+    wp.media.view.FlickrPressSearchButton = wp.media.view.Button.extend({
+        className: 'search-button',
+        defaults: {
+            text: wp.media.view.l10n.wpfpSearchButton,
+            style: 'primary',
+        },
+        click: function(event){
+            console.log('SearchButton click');
+        },
+    });
+
     // custom content : this view contains the main panel UI
     wp.media.view.FlickrPress = wp.media.View.extend({
         tagName: 'div',
@@ -309,6 +320,12 @@
                 controller: this.controller
             });
             this.views.add( this.toolbar );
+
+            this.toolbar.set( 'search-button', new wp.media.view.FlickrPressSearchButton({
+                controller: this.controller,
+                model:      this.controller.state(),
+                priority:   -80
+            }).render() );
 
             this.toolbar.set( 'search-type-filters', new wp.media.view.FlickrPressSearchTypeFilters({
                 controller: this.controller,
