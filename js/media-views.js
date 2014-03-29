@@ -262,7 +262,13 @@
             style: 'primary',
         },
         click: function(event){
-            console.log('SearchButton click');
+            console.log('SearchButton click. type=%s, sort=%s, photoset=%s, tag=%s, keyword=%s',
+                this.globalModel.get('wpfp_type'),
+                this.globalModel.get('wpfp_sort'),
+                this.globalModel.get('wpfp_photoset'),
+                this.globalModel.get('wpfp_tag'),
+                this.globalModel.get('wpfp_keyword')
+            );
         },
     });
 
@@ -321,7 +327,7 @@
             });
             this.views.add( this.toolbar );
 
-            this.toolbar.set( 'search-button', new wp.media.view.FlickrPressSearchButton({
+            this.toolbar.set( 'search-button', new ( wp.media.view.FlickrPressSearchButton.extend({ globalModel: this.model }) )({
                 controller: this.controller,
                 model:      this.controller.state(),
                 priority:   -80
