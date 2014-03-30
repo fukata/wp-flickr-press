@@ -71,3 +71,22 @@
 .flickr-press .search-button {
     margin-right: 10px;
 }
+
+.flickr-press .result-container {
+    position: absolute;
+    top: 50px;
+    right: 300px;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+    margin: 15px;
+}
+
+.flickr-press .result-container .result {
+    height: 100%;
+}
+
+.flickr-press .result-container .result .thumbnail {
+    padding: 5px 5px 2px 5px;
+    float: left;
+}
