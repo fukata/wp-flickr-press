@@ -22,10 +22,10 @@
                 search: null
             };
             fp.options = {
-                perpage : 20,
+                perpage : 40,
                 extras : fp.flickr.SIZE_VALUES.join(',') + ",path_alias",
                 sort : "date-posted-desc",
-                thumbnailSize : "sq"
+                thumbnailSize : "sq",
             };
         },
         
@@ -154,52 +154,28 @@
         className: 'search-sort-filters',
 		createFilters: function() {
 			this.filters = {
-				postedAsc: {
-					text:  wp.media.view.l10n.wpfpSearchSortFilterPostedASC,
-					props: {
-						orderby: 'date',
-						order:   'DESC'
-					},
-					priority: 10
-				},
-				postedDesc: {
+				'date-posted-desc': {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterPostedDESC,
-					props: {
-						orderby: 'date',
-						order:   'DESC'
-					},
 					priority: 10
 				},
-				takenAsc: {
-					text:  wp.media.view.l10n.wpfpSearchSortFilterTakenASC,
-					props: {
-						orderby: 'date',
-						order:   'DESC'
-					},
+				'date-posted-asc': {
+					text:  wp.media.view.l10n.wpfpSearchSortFilterPostedASC,
 					priority: 10
 				},
-				takenDesc: {
+				'date-taken-desc': {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterTakenDESC,
-					props: {
-						orderby: 'date',
-						order:   'DESC'
-					},
 					priority: 10
 				},
-				interestingnessAsc: {
-					text:  wp.media.view.l10n.wpfpSearchSortFilterInterestingnessASC,
-					props: {
-						orderby: 'date',
-						order:   'DESC'
-					},
+				'date-taken-asc': {
+					text:  wp.media.view.l10n.wpfpSearchSortFilterTakenASC,
 					priority: 10
 				},
-				interestingnessDesc: {
+				'interestingness-desc': {
 					text:  wp.media.view.l10n.wpfpSearchSortFilterInterestingnessDESC,
-					props: {
-						orderby: 'date',
-						order:   'DESC'
-					},
+					priority: 10
+				},
+				'interestingness-asc': {
+					text:  wp.media.view.l10n.wpfpSearchSortFilterInterestingnessASC,
 					priority: 10
 				},
 			};
@@ -263,12 +239,27 @@
         },
         click: function(event){
             console.log('SearchButton click. type=%s, sort=%s, photoset=%s, tag=%s, keyword=%s',
-                this.globalModel.get('wpfp_type'),
-                this.globalModel.get('wpfp_sort'),
-                this.globalModel.get('wpfp_photoset'),
-                this.globalModel.get('wpfp_tag'),
-                this.globalModel.get('wpfp_keyword')
+                this.main.model.get('wpfp_type'),
+                this.main.model.get('wpfp_sort'),
+                this.main.model.get('wpfp_photoset'),
+                this.main.model.get('wpfp_tag'),
+                this.main.model.get('wpfp_keyword')
             );
+
+            var type = this.main.model.get('wpfp_type');
+            console.log('Search. type=%s', type);
+            if ( type == 'photoset' ) {
+
+            } else if ( type == 'advanced' ) {
+
+            } else {
+                var options = {
+                    per_page: fp.options.perpage,
+                    extras:   fp.options.extras,
+                    sort:     fp.options.sort,
+                };
+                fp.flickr.photos_search(options, this.main.updateContent);
+            }
         },
     });
 
@@ -290,6 +281,11 @@
             this.updateContent();
             this.createSidebar();
 
+            this.model.set('wpfp_type', 'recent');
+            this.model.set('wpfp_sort', 'date-posted-desc');
+            this.model.set('wpfp_photoset', '');
+            this.model.set('wpfp_tag', '');
+            this.model.set('wpfp_keyword', '');
             //this.collection.on( 'add remove reset', this.updateContent, this );
         },
         render: function(){
@@ -327,11 +323,12 @@
             });
             this.views.add( this.toolbar );
 
-            this.toolbar.set( 'search-button', new ( wp.media.view.FlickrPressSearchButton.extend({ globalModel: this.model }) )({
+            this.toolbar.set( 'search-button', new ( wp.media.view.FlickrPressSearchButton.extend({ main: this }) )({
                 controller: this.controller,
                 model:      this.controller.state(),
                 priority:   -80
             }).render() );
+            this.toolbar.get( 'search-button' ).click();
 
             this.toolbar.set( 'search-type-filters', new wp.media.view.FlickrPressSearchTypeFilters({
                 controller: this.controller,
@@ -430,9 +427,30 @@
 //			sidebar.unset('compat');
 //			sidebar.unset('display');
 //		},
-        updateContent: function() {
-            var view = this;
-            //this.$el.append('<p>aaa</p>');
+        updateContent: function(res) {
+            if ( !res ) {
+                this.$el.append('<div class="result-container"><div class="result"></div></div>');
+                return;
+            }
+
+            if ( res.stat !== 'ok' ) {
+                console.log('Error flickr search.', res);
+            }
+
+            var html = '';
+            for ( var i=0; i<res.photos.photo.length; i++ ) {
+                var p = res.photos.photo[i];
+                console.log(p);
+                var _html = '<div class="thumbnail">'
+                           + '<a href="javascript:void(0)">'
+                           + '<img src="' + p['url_' + fp.options.thumbnailSize] + '" />'
+                           + '</a>'
+                           + '</div>'
+                           ;
+                html += _html;
+            }
+            console.log(html);
+            $('.flickr-press .result').html(html);
         },
     });
 
