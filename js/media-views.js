@@ -45,39 +45,39 @@
 
     // custom toolbar : contains the buttons at the bottom
     wp.media.view.Toolbar.FlickrPress = wp.media.view.Toolbar.extend({
-//        initialize: function() {
-//            _.defaults( this.options, {
-//                event: 'custom_event',
-//                close: false,
-//                items: {
-//                    custom_event: {
-//                        text: wp.media.view.l10n.wpfpTitle, // added via 'media_view_strings' filter,
-//                        style: 'primary',
-//                        priority: 80,
-//                        requires: false,
-//                        click: this.customAction
-//                    }
-//                }
-//            });
-//
-//            wp.media.view.Toolbar.prototype.initialize.apply( this, arguments );
-//        },
-//
-//        // called each time the model changes
-//        refresh: function() {
-//            // you can modify the toolbar behaviour in response to user actions here
-//            // disable the button if there is no custom data
-//            var custom_data = this.controller.state().props.get('custom_data');
-//            this.get('custom_event').model.set( 'disabled', ! custom_data );
-//            
-//            // call the parent refresh
-//            wp.media.view.Toolbar.prototype.refresh.apply( this, arguments );
-//        },
-//        
-//        // triggered when the button is clicked
-//        customAction: function(){
-//            this.controller.state().customAction();
-//        }
+        initialize: function() {
+            _.defaults( this.options, {
+                event: 'custom_event',
+                close: false,
+                items: {
+                    custom_event: {
+                        text: wp.media.view.l10n.insertIntoPost, // added via 'media_view_strings' filter,
+                        style: 'primary',
+                        priority: 80,
+                        requires: false,
+                        click: this.customAction
+                    }
+                }
+            });
+
+            wp.media.view.Toolbar.prototype.initialize.apply( this, arguments );
+        },
+        // called each time the model changes
+        refresh: function() {
+            console.log('Toolbar.FlickrPress refresh');
+            // you can modify the toolbar behaviour in response to user actions here
+            // disable the button if there is no custom data
+            var custom_data = this.controller.state().props.get('custom_data');
+            this.get('custom_event').model.set( 'disabled', ! custom_data );
+            
+            // call the parent refresh
+            wp.media.view.Toolbar.prototype.refresh.apply( this, arguments );
+        },
+        
+        // triggered when the button is clicked
+        customAction: function(){
+            this.controller.state().customAction();
+        }
     });
 
     wp.media.view.FlickrPressSearch = wp.media.view.Search.extend({
@@ -239,14 +239,14 @@
         },
         click: function(event){
             console.log('SearchButton click. type=%s, sort=%s, photoset=%s, tag=%s, keyword=%s',
-                this.main.model.get('wpfp_type'),
-                this.main.model.get('wpfp_sort'),
-                this.main.model.get('wpfp_photoset'),
-                this.main.model.get('wpfp_tag'),
-                this.main.model.get('wpfp_keyword')
+                this.controller.state().props.get('wpfp_type'),
+                this.controller.state().props.get('wpfp_sort'),
+                this.controller.state().props.get('wpfp_photoset'),
+                this.controller.state().props.get('wpfp_tag'),
+                this.controller.state().props.get('wpfp_keyword')
             );
 
-            var type = this.main.model.get('wpfp_type');
+            var type = this.controller.state().props.get('wpfp_type');
             console.log('Search. type=%s', type);
             if ( type == 'photoset' ) {
 
@@ -258,13 +258,14 @@
                     extras:   fp.options.extras,
                     sort:     fp.options.sort,
                 };
-                fp.flickr.photos_search(options, this.main.updateContent);
+                fp.flickr.photos_search(options, this.controller.content.view.views.get('.media-frame-content')[0].updateContent);
             }
         },
     });
 
     // custom content : this view contains the main panel UI
     wp.media.view.FlickrPress = wp.media.View.extend({
+        id: 'wpfp',
         tagName: 'div',
         className: 'flickr-press',
         
@@ -287,9 +288,11 @@
             this.model.set('wpfp_tag', '');
             this.model.set('wpfp_keyword', '');
             //this.collection.on( 'add remove reset', this.updateContent, this );
+
         },
         render: function(){
             console.log("view.FlickrPress.render");
+            this.toolbar.get( 'search-button' ).click();
             return this;
         },
         update: function( event ) {
@@ -323,12 +326,11 @@
             });
             this.views.add( this.toolbar );
 
-            this.toolbar.set( 'search-button', new ( wp.media.view.FlickrPressSearchButton.extend({ main: this }) )({
+            this.toolbar.set( 'search-button', new wp.media.view.FlickrPressSearchButton({
                 controller: this.controller,
                 model:      this.controller.state(),
                 priority:   -80
             }).render() );
-            this.toolbar.get( 'search-button' ).click();
 
             this.toolbar.set( 'search-type-filters', new wp.media.view.FlickrPressSearchTypeFilters({
                 controller: this.controller,
@@ -471,10 +473,12 @@
                     type:       'link'
                 })
             ]);
-    
-            this.on( 'content:render:wpfp', this.customContent, this );
+
+            this.on( 'toolbar:create:main-insert',      this.createToolbar,            this );
+            this.on( 'content:render:wpfp',             this.customContent,            this );
             this.on( 'toolbar:create:main-wpfp-action', this.createFlickrPressToolbar, this );
             this.on( 'toolbar:render:main-wpfp-action', this.renderFlickrPressToolbar, this );
+            this.on( 'toolbar:render:main-insert',      this.mainInsertToolbar,        this );
         },
         createFlickrPressToolbar: function(toolbar){
             console.log("MediaFrame createFlickrPressToolbar");
@@ -494,6 +498,7 @@
             });
     
             this.content.set( view );
+            console.log(this.content.view.views.get('.media-frame-content')[0].updateContent);
         },
     });
 })(jQuery);
