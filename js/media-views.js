@@ -289,6 +289,10 @@
             this.model.set('wpfp_keyword', '');
             //this.collection.on( 'add remove reset', this.updateContent, this );
 
+            var that = this;
+            $(document).on('click', '#wpfp .result-container .result .photos > li', function(){
+                that.selectThumbnail( $(this) );
+            });
         },
         render: function(){
             console.log("view.FlickrPress.render");
@@ -439,20 +443,31 @@
                 console.log('Error flickr search.', res);
             }
 
-            var html = '';
+            var html = '<ul class="photos ui-sortable ui-sortable-disabled">';
             for ( var i=0; i<res.photos.photo.length; i++ ) {
                 var p = res.photos.photo[i];
-                console.log(p);
-                var _html = '<div class="thumbnail">'
-                           + '<a href="javascript:void(0)">'
+                var _html = '<li class="photo" data-idx="' + i + '">'
+                           + '<div class="thumbnail-container">'
+                           + '<div class="thumbnail">'
                            + '<img src="' + p['url_' + fp.options.thumbnailSize] + '" />'
-                           + '</a>'
                            + '</div>'
+                           + '</div>'
+                           + '</li>'
                            ;
                 html += _html;
             }
+            html += '</ul>';
             console.log(html);
-            $('.flickr-press .result').html(html);
+            $('.flickr-press .result-container .result').html(html);
+        },
+        selectThumbnail: function($thubmnail) {
+            var idx = $thubmnail.data('idx');
+            console.log("selectThumbnail. idx=%s", idx);
+            if ( $thubmnail.hasClass('selected') ) {
+                $thubmnail.removeClass('selected');
+            } else {
+                $thubmnail.addClass('selected');
+            }
         },
     });
 
