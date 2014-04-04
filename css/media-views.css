@@ -1,78 +1,30 @@
 @CHARSET "UTF-8";
 
-.flickr-press .media-toolbar {
+#wpfp .media-toolbar {
     right: 300px;
     height: 50px;
 }
 
-.flickr-press select.search-type-filters,
-.flickr-press select.search-sort-filters,
-.flickr-press select.search-photoset-filters {
+#wpfp select.search-type-filters,
+#wpfp select.search-sort-filters,
+#wpfp select.search-photoset-filters {
     margin-top: 0px;
     margin-right: 10px;
 }
-.flickr-press .media-toolbar-secondary {
+#wpfp .media-toolbar-secondary {
     padding-top: 11px;
 }
 
-.flickr-press .media-toolbar-secondary input.search {
+#wpfp .media-toolbar-secondary input.search {
     margin-top: 0px;
     margin-right: 10px;
 }
 
-/*
-.flickr-press .media-toolbar-secondary select {
-    margin-top: 2px;
-}
-*/
-
-#wpfp-search-results div.thumbnail {
-    position: relative;
-    float: left;
-    width: 105px;
-    margin: 3px;
-}
-
-#wpfp-search-results div.thumbnail div.title {
-    font-size: 10px;
-}
-
-#wpfp-search-results div.thumbnail img.photo {
-    border: 1px solid #CCCCCC;
-    padding: 3px 15px;
-}
-
-/*
-#wpfp-search-results div.thumbnail:nth-child(5n+1) {
-    clear: both;
-}
-*/
-
-#wpfp-search-results div.ins_check img.photo {
-    border: 2px solid #ff0000;
-    padding: 2px 14px;
-}
-
-#wpfp-search-results div.ins_check div.ins_label {
-    position: absolute;
-    top: 30%;
-    left: 40%;
-    font-weight: bold;
-    font-size: xx-large;
-    color: #ff0000;
-    text-align: center;
-    text-shadow: 2px  2px 2px #fff, 
-                -2px  2px 2px #fff, 
-                 2px -2px 2px #fff, 
-                -2px -2px 2px #fff;
-    cursor: pointer;
-}
-
-.flickr-press .search-button {
+#wpfp .search-button {
     margin-right: 10px;
 }
 
-.flickr-press .result-container {
+#wpfp .result-container {
     position: absolute;
     top: 50px;
     right: 300px;
@@ -82,11 +34,25 @@
     margin: 15px;
 }
 
-.flickr-press .result-container .result {
+#wpfp .result-container .result {
     height: 100%;
 }
 
-.flickr-press .result-container .result .thumbnail {
-    padding: 5px 5px 2px 5px;
+#wpfp .result-container .result .thumbnail {
+    padding: 0px;
+    margin: 0px;
+    width: 75px;
+    height: 75px;
+}
+
+#wpfp ul.photos > li.photo {
+    position: relative;
     float: left;
+    padding: 0;
+    margin: 6px;
+    list-style: none;
+}
+
+#wpfp ul.photos > li.selected {
+    box-shadow: 0 0 0 1px #fff,0 0 0 5px #1e8cbe;
 }
