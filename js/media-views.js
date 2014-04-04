@@ -290,8 +290,8 @@
             //this.collection.on( 'add remove reset', this.updateContent, this );
 
             var that = this;
-            $(document).on('click', '#wpfp .result-container .result .photos > li', function(){
-                that.selectThumbnail( $(this) );
+            $(document).on('click', '#wpfp .result-container .result .photos > li', function(e){
+                that.selectThumbnail( e, $(this) );
             });
         },
         render: function(){
@@ -460,14 +460,31 @@
             console.log(html);
             $('.flickr-press .result-container .result').html(html);
         },
-        selectThumbnail: function($thubmnail) {
+        selectThumbnail: function(e, $thubmnail) {
             var idx = $thubmnail.data('idx');
             console.log("selectThumbnail. idx=%s", idx);
-            if ( $thubmnail.hasClass('selected') ) {
-                $thubmnail.removeClass('selected');
+            if(e.ctrlKey || e.metaKey){
+                if ( $thubmnail.hasClass('selected') ) {
+                    $thubmnail.removeClass('selected');
+                } else {
+                    $thubmnail.addClass('selected');
+                }
             } else {
-                $thubmnail.addClass('selected');
+                if ( $thubmnail.hasClass('selected') ) {
+                    if ($('#wpfp li.photo.selected').size() > 1) {
+                        $('#wpfp li.photo.selected').removeClass('selected');
+                        $thubmnail.addClass('selected');
+                    } else {
+                        $thubmnail.removeClass('selected');
+                    }
+                } else {
+                    $('#wpfp li.photo.selected').removeClass('selected');
+                    $thubmnail.addClass('selected');
+                }
             }
+
+
+            this.controller.state().props.set('custom_data', $('#wpfp li.photo.selected').size());
         },
     });
 
