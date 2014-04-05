@@ -451,6 +451,7 @@
                            + '<div class="thumbnail">'
                            + '<img src="' + p['url_' + fp.options.thumbnailSize] + '" />'
                            + '</div>'
+                           + '<a class="order-container" href="#"><div class="order"></div></a>'
                            + '</div>'
                            + '</li>'
                            ;
@@ -463,29 +464,52 @@
         selectThumbnail: function(e, $thubmnail) {
             var idx = $thubmnail.data('idx');
             console.log("selectThumbnail. idx=%s", idx);
-            if(e.ctrlKey || e.metaKey){
+
+            if (e.ctrlKey || e.metaKey) {
+                var mode_add = false;
                 if ( $thubmnail.hasClass('selected') ) {
-                    $thubmnail.removeClass('selected');
+                    $thubmnail.removeClass('selected').removeData('order');
                 } else {
-                    $thubmnail.addClass('selected');
+                    mode_add = true;
+                }
+
+                var order = 0;
+                this.sortedInsertPhotos().each(function(){
+                    $(this).data('order', order);
+                    $(this).find('.order').text(order+1);
+                    order++;
+                });
+                console.log("order=%s", order);
+                if ( mode_add ) {
+                    $thubmnail.addClass('selected')
+                              .data('order', order);
+                    $thubmnail.find('.order').text(order+1);
                 }
             } else {
                 if ( $thubmnail.hasClass('selected') ) {
                     if ($('#wpfp li.photo.selected').size() > 1) {
-                        $('#wpfp li.photo.selected').removeClass('selected');
-                        $thubmnail.addClass('selected');
+                        $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
+                        $thubmnail.addClass('selected').data('order');
                     } else {
-                        $thubmnail.removeClass('selected');
+                        $thubmnail.removeClass('selected').removeData('order');
                     }
                 } else {
-                    $('#wpfp li.photo.selected').removeClass('selected');
-                    $thubmnail.addClass('selected');
+                    $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
+                    $thubmnail.addClass('selected').data('order', 0);
                 }
             }
 
-
             this.controller.state().props.set('custom_data', $('#wpfp li.photo.selected').size());
         },
+        sortedInsertPhotos: function() {
+            return $('#wpfp li.photo.selected').sort(function(a, b){
+                var o1 = $(a).data('order') || 0;
+                var o2 = $(b).data('order') || 0;
+                if( o1 < o2 ) return -1;
+                if( o1 > o2 ) return 1;
+                return 0;
+            });
+        }
     });
 
     var oldMediaFrame = wp.media.view.MediaFrame.Post;

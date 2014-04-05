@@ -43,6 +43,7 @@
     margin: 0px;
     width: 75px;
     height: 75px;
+    cursor: pointer;
 }
 
 #wpfp ul.photos > li.photo {
@@ -55,4 +56,32 @@
 
 #wpfp ul.photos > li.selected {
     box-shadow: 0 0 0 1px #fff,0 0 0 5px #1e8cbe;
+}
+
+#wpfp ul.photos > li.selected .thumbnail-container a.order-container {
+    display: block;
+}
+
+#wpfp ul.photos > li .thumbnail-container a.order-container {
+    display: none;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    outline: 0;
+
+    background-color: #1e8cbe;
+    box-shadow: 0 0 0 1px #fff,0 0 0 2px #1e8cbe;
+
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#wpfp ul.photos > li .thumbnail-container a.order-container .order {
+    width: 15px;
+    height: 15px;
+    margin: 4px 5px 5px 5px;
 }
