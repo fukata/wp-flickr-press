@@ -68,7 +68,7 @@
         apiSecret: "",
         userId: "",
         oauthToken: "",
-        restEndpoint: "//api.flickr.com/services/rest/",
+        restEndpoint: "https://api.flickr.com/services/rest/",
         enablePathAlias: false
     };
     FlickrClient.prototype.SIZES = {
