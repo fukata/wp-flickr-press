@@ -3,8 +3,8 @@ Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
-Tested up to: 3.8
-Stable tag: 1.9.16
+Tested up to: 3.9
+Stable tag: 1.9.17
 
 Flickr integration for wordpress plugin.
 
@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.17 =
+* Feature: Support Flickr API SSL.
+
 = 1.9.16 =
 * Feature: Add Reset OAuth Token button.
 
