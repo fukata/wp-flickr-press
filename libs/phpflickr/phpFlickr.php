@@ -25,9 +25,9 @@ if ( !class_exists('phpFlickr') ) {
 		var $api_key;
 		var $secret;
 		
-		var $rest_endpoint = 'http://api.flickr.com/services/rest/';
-		var $upload_endpoint = 'http://api.flickr.com/services/upload/';
-		var $replace_endpoint = 'http://api.flickr.com/services/replace/';
+		var $rest_endpoint = 'https://api.flickr.com/services/rest/';
+		var $upload_endpoint = 'https://up.flickr.com/services/upload/';
+		var $replace_endpoint = 'https://up.flickr.com/services/replace/';
 		var $req;
 		var $response;
 		var $parsed_response;
@@ -197,6 +197,10 @@ if ( !class_exists('phpFlickr') ) {
 		function setCustomPost ( $function ) {
 			$this->custom_post = $function;
 		}
+
+        function isSupportCurl () {
+            return function_exists('curl_init') && curl_version()['features'] & CURL_VERSION_SSL === CURL_VERSION_SSL;
+        }
 		
 		function post ($data, $type = null) {
 			if ( is_null($type) ) {
@@ -207,11 +211,11 @@ if ( !class_exists('phpFlickr') ) {
 				return call_user_func($this->custom_post, $url, $data);
 			}
 			
-			if ( !preg_match("|http://(.*?)(/.*)|", $url, $matches) ) {
+			if ( !preg_match("|https?://(.*?)(/.*)|", $url, $matches) ) {
 				die('There was some problem figuring out your endpoint');
 			}
 			
-			if ( function_exists('curl_init') ) {
+			if ( $this->isSupportCurl() ) {
 				// Has curl. Use it!
 				$curl = curl_init($this->rest_endpoint);
 				curl_setopt($curl, CURLOPT_POST, true);
@@ -270,11 +274,11 @@ if ( !class_exists('phpFlickr') ) {
 				return call_user_func($this->custom_post, $url, $data);
 			}
 			
-			if ( !preg_match("|http://(.*?)(/.*)|", $url, $matches) ) {
+			if ( !preg_match("|https?://(.*?)(/.*)|", $url, $matches) ) {
 				die('There was some problem figuring out your endpoint');
 			}
 			
-			if ( function_exists('curl_init') ) {
+			if ( $this->isSupportCurl() ) {
 				// Has curl. Use it!
 				$curl = curl_init($this->rest_endpoint . '?' . http_build_query($data));
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
