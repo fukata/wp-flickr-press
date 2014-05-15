@@ -199,7 +199,8 @@ if ( !class_exists('phpFlickr') ) {
 		}
 
         function isSupportCurl () {
-            return function_exists('curl_init') && curl_version()['features'] & CURL_VERSION_SSL === CURL_VERSION_SSL;
+            $cv = curl_version();
+            return function_exists('curl_init') && $cv['features'] & CURL_VERSION_SSL === CURL_VERSION_SSL;
         }
 		
 		function post ($data, $type = null) {

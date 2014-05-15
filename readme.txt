@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.18 =
+* Bugfix: Syntax error.
+
 = 1.9.17 =
 * Feature: Support Flickr API SSL.
 
