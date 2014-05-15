@@ -197,6 +197,10 @@ if ( !class_exists('phpFlickr') ) {
 		function setCustomPost ( $function ) {
 			$this->custom_post = $function;
 		}
+
+        function isSupportCurl () {
+            return function_exists('curl_init') && curl_version()['features'] & CURL_VERSION_SSL === CURL_VERSION_SSL;
+        }
 		
 		function post ($data, $type = null) {
 			if ( is_null($type) ) {
@@ -211,7 +215,7 @@ if ( !class_exists('phpFlickr') ) {
 				die('There was some problem figuring out your endpoint');
 			}
 			
-			if ( function_exists('curl_init') ) {
+			if ( $this->isSupportCurl() ) {
 				// Has curl. Use it!
 				$curl = curl_init($this->rest_endpoint);
 				curl_setopt($curl, CURLOPT_POST, true);
@@ -274,7 +278,7 @@ if ( !class_exists('phpFlickr') ) {
 				die('There was some problem figuring out your endpoint');
 			}
 			
-			if ( function_exists('curl_init') ) {
+			if ( $this->isSupportCurl() ) {
 				// Has curl. Use it!
 				$curl = curl_init($this->rest_endpoint . '?' . http_build_query($data));
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
