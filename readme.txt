@@ -57,6 +57,9 @@ None
 9. FullScreen Writing
 
 == Changelog ==
+= 1.9.19 =
+* Bugfix: Check curl support SSL.
+
 = 1.9.18 =
 * Bugfix: Syntax error.
 
