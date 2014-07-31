@@ -88,6 +88,22 @@
     FlickrClient.prototype.SIZE_KEYS   = hkeys(FlickrClient.prototype.SIZES); 
     FlickrClient.prototype.SIZE_VALUES = hvalues(FlickrClient.prototype.SIZES); 
 
+    FlickrClient.prototype.SIZE_LABELS = {
+        "sq": "Square",
+        "q": "Square",
+        "t": "Thumbnail",
+        "s": "Small",
+        "n": "Small",
+        "m": "Medium",
+        "z": "Medium",
+        "c": "Medium",
+        "l": "Large",
+        "h": "Large",
+        "k": "Large",
+        "o": "Original"
+    };
+    FlickrClient.prototype.SIZE_LABEL_VALUES = hvalues(FlickrClient.prototype.SIZE_LABELS); 
+
     /**
      * execute request.
      * 

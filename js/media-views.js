@@ -10,17 +10,19 @@
             this.props = new Backbone.Model({ custom_data: '' });
             this.props.on( 'change:custom_data', this.refresh, this );
 
+            var params = $("#wpfp_params");
             fp = {
                 flickr: new $.FlickrClient({
-                    apiKey:          $("#wpfp_api_key").val(),
-                    apiSecret:       $("#wpfp_api_secret").val(),
-                    userId:          $("#wpfp_user_id").val(),
-                    oauthToken:      $("#wpfp_oauth_token").val(),
-                    enablePathAlias: $("#wpfp_enable_path_alias").val() == '1'
+                    apiKey:          params.data('api_key'),
+                    apiSecret:       params.data('api_secret'),
+                    userId:          params.data('user_id'),
+                    oauthToken:      params.data('oauth_token'),
+                    enablePathAlias: params.data('enable_path_alias') == '1'
                 }),
                 currentPhotos: null,
                 search: null
             };
+            fp.params = params;
             fp.options = {
                 perpage : 40,
                 extras : fp.flickr.SIZE_VALUES.join(',') + ",path_alias",
@@ -258,17 +260,66 @@
                     extras:   fp.options.extras,
                     sort:     fp.options.sort,
                 };
-                fp.flickr.photos_search(options, this.controller.content.view.views.get('.media-frame-content')[0].updateContent);
+                var that = this;
+                fp.flickr.photos_search(options, function(res){
+                    that.controller.content.view.views.get('.media-frame-content')[0].updateContent(res);
+                });
             }
         },
     });
 
+    wp.media.view.FlickrPressDetails = wp.media.View.extend({
+		tagName:   'div',
+		className: 'photo-details',
+		template:  wp.media.template('wpfp-photo-details'),
+
+        events: {
+        },
+
+        initialize: function() {
+            console.log('FlickrPressDetails.initialize');
+			this.details( this.model, this.controller.state().get('selection') );
+        },
+        dispose: function() {
+            console.log('FlickrPressDetails.dispose');
+			wp.media.View.prototype.dispose.apply( this, arguments );
+            return this;
+        },
+        render: function() {
+            console.log('FlickrPressDetails.render');
+            var options = _.defaults( this.model.toJSON(), {
+                name: '',
+            });
+            options['fp'] = {
+                size_keys: fp.flickr.SIZE_KEYS,
+                size_labels: fp.flickr.SIZE_LABELS,
+                size_label_values: fp.flickr.SIZE_LABEL_VALUES
+            };
+            console.log(options);
+
+			this.views.detach();
+			this.$el.html( this.template(options) );
+            return this;
+        },
+		details: function( model, collection ) {
+            console.log('FlickrPressDetails.details');
+			var selection = this.controller.options.selection,
+				details;
+
+			if ( selection !== collection )
+				return;
+
+			details = selection.single();
+			this.$el.toggleClass( 'details', details === this.model );
+		},
+    });
+    
     // custom content : this view contains the main panel UI
     wp.media.view.FlickrPress = wp.media.View.extend({
         id: 'wpfp',
         tagName: 'div',
         className: 'flickr-press',
-        
+ 
         // bind view events
         events: {
             'input':  'update',
@@ -290,7 +341,8 @@
             //this.collection.on( 'add remove reset', this.updateContent, this );
 
             var that = this;
-            $(document).on('click', '#wpfp .result-container .result .photos > li', function(e){
+            $(document).off('click', '#wpfp .result-container .result .photos > li')
+                       .on('click', '#wpfp .result-container .result .photos > li', function(e){
                 that.selectThumbnail( e, $(this) );
             });
         },
@@ -380,7 +432,7 @@
             }
         },
         createSidebar: function() {
-			var options = this.options,
+			var options = this.controller.options,
 				selection = options.selection,
 				sidebar = this.sidebar = new wp.media.view.Sidebar({
 					controller: this.controller
@@ -394,23 +446,33 @@
 //				}) );
 //			}
 //
-//			selection.on( 'selection:single', this.createSingle, this );
-//			selection.on( 'selection:unsingle', this.disposeSingle, this );
-//
-//			if ( selection.single() ) {
-//				this.createSingle();
-//            }
+			selection.on( 'selection:single', this.createSingle, this );
+			selection.on( 'selection:unsingle', this.disposeSingle, this );
+			selection.on( 'add', this.updateSingle, this );
+
+			if ( selection.single() ) {
+				this.createSingle();
+            }
         },
-//		createSingle: function() {
-//			var sidebar = this.sidebar,
-//				single = this.options.selection.single();
-//
-//			sidebar.set( 'details', new media.view.Attachment.Details({
-//				controller: this.controller,
-//				model:      single,
-//				priority:   80
-//			}) );
-//
+        updateSingle: function() {
+            var selection = this.controller.options.selection; 
+            console.log('FlickrPress.updateSingle');
+            
+            if ( selection.single() && selection.length > 1 ) {
+                this.disposeSingle()
+            }
+        },
+		createSingle: function() {
+			var sidebar = this.sidebar,
+				single = this.controller.options.selection.single();
+            console.log('FlickrPress.createSingle', single);
+
+			sidebar.set( 'details', new wp.media.view.FlickrPressDetails({
+				controller: this.controller,
+				model:      single,
+				priority:   80
+			}) );
+
 //			sidebar.set( 'compat', new media.view.AttachmentCompat({
 //				controller: this.controller,
 //				model:      single,
@@ -426,13 +488,14 @@
 //					userSettings: this.model.get('displayUserSettings')
 //				}) );
 //			}
-//		},
-//		disposeSingle: function() {
-//			var sidebar = this.sidebar;
-//			sidebar.unset('details');
-//			sidebar.unset('compat');
-//			sidebar.unset('display');
-//		},
+		},
+		disposeSingle: function() {
+            console.log('FlickrPress.disposeSingle');
+			var sidebar = this.sidebar;
+			sidebar.unset('details');
+			//sidebar.unset('compat');
+			//sidebar.unset('display');
+		},
         updateContent: function(res) {
             if ( !res ) {
                 this.$el.append('<div class="result-container"><div class="result"></div></div>');
@@ -441,7 +504,9 @@
 
             if ( res.stat !== 'ok' ) {
                 console.log('Error flickr search.', res);
+                return;
             }
+            this.model.set('result', res);
 
             var html = '<ul class="photos ui-sortable ui-sortable-disabled">';
             for ( var i=0; i<res.photos.photo.length; i++ ) {
@@ -462,15 +527,19 @@
             $('.flickr-press .result-container .result').html(html);
         },
         selectThumbnail: function(e, $thubmnail) {
-            var idx = $thubmnail.data('idx');
+            var idx = $thubmnail.data('idx'),
+                photo = this.model.get('result').photos.photo[idx];
             console.log("selectThumbnail. idx=%s", idx);
+            console.log(this.controller.options.selection);
 
             if (e.ctrlKey || e.metaKey) {
                 var mode_add = false;
                 if ( $thubmnail.hasClass('selected') ) {
                     $thubmnail.removeClass('selected').removeData('order');
+                    this.controller.options.selection.remove( photo );
                 } else {
                     mode_add = true;
+                    this.controller.options.selection.add( photo );
                 }
 
                 var order = 0;
@@ -486,17 +555,19 @@
                     $thubmnail.find('.order').text(order+1);
                 }
             } else {
+                this.controller.options.selection.reset();
                 if ( $thubmnail.hasClass('selected') ) {
                     if ($('#wpfp li.photo.selected').size() > 1) {
                         $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
-                        $thubmnail.addClass('selected').data('order');
                     } else {
                         $thubmnail.removeClass('selected').removeData('order');
                     }
                 } else {
                     $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
-                    $thubmnail.addClass('selected').data('order', 0);
                 }
+                $thubmnail.addClass('selected').data('order', 0);
+                $thubmnail.find('.order').text(1);
+                this.controller.options.selection.add( photo );
             }
 
             this.controller.state().props.set('custom_data', $('#wpfp li.photo.selected').size());
@@ -509,7 +580,7 @@
                 if( o1 > o2 ) return 1;
                 return 0;
             });
-        }
+        },
     });
 
     var oldMediaFrame = wp.media.view.MediaFrame.Post;
@@ -542,6 +613,7 @@
                 controller: this
             });
         },
+
         customContent: function(){
             console.log("MediaFrame customContent");
             // this view has no router

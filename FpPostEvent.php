@@ -35,14 +35,24 @@ class FpPostEvent {
         $userId          = FlickrPress::getUserId();
         $oauthToken      = FlickrPress::getOAuthToken();
         $enablePathAlias = FlickrPress::enablePathAlias() ? '1' : '0';
+        $defaultLink     = FlickrPress::getDefaultLink();
+        $defaultTarget   = FlickrPress::getDefaultTarget();
+        $defaultSize     = FlickrPress::getDefaultSize();
+        $defaultAlign    = FlickrPress::getDefaultAlign();
+        $defaultFileURLSize = FlickrPress::getDefaultFileURLSize();
         $html = <<< HTML
-<div style="display:none">
-    <input type="hidden" id="wpfp_api_key" value="$apiKey"/>
-    <input type="hidden" id="wpfp_api_secret" value="$apiSecret"/>
-    <input type="hidden" id="wpfp_user_id" value="$userId"/>
-    <input type="hidden" id="wpfp_oauth_token" value="$oauthToken"/>
-    <input type="hidden" id="wpfp_enable_path_alias" value="$enablePathAlias"/>
-<div>
+<div style="display:none" id="wpfp_params"
+    data-api_key="$apiKey"
+    data-api_secret="$apiSecret"
+    data-user_id="$userId"
+    data-oauth_token="$oauthToken"
+    data-enable_path_alias="$enablePathAlias"
+    data-default_link="$defaultLink"
+    data-default_target="$defaultTarget"
+    data-default_size="$defaultSize"
+    data-default_align="$defaultAlign"
+    data-default_file_url_size="$defaultFileURLSize"
+/>
 HTML;
         echo $html;
     }
@@ -63,9 +73,75 @@ HTML;
 	public static function loadScripts() {
 		$html = '';
 		$html .= '<script src="'.FlickrPress::getPluginUrl().'/js/media_upload.js'.'" type="text/javascript"></script>'."\n";
-		$html .= '<link rel="stylesheet" href="'.FlickrPress::getPluginUrl().'/css/admin_post.css" type="text/css" media="all" />';
+		$html .= '<link rel="stylesheet" href="'.FlickrPress::getPluginUrl().'/css/admin_post.css" type="text/css" media="all" />' . "\n";
 		echo $html;
+
+        self::printTemplate();
 	}
+
+    public static function printTemplate() {
+        $linkTos= array(
+            'None'    =>'urlnone',
+            'File URL'=>'urlfile',
+            'Page URL'=>'urlpage',
+        );
+        $alignes = array(
+            'None'=>'none',
+            'Left'=>'left',
+            'Center'=>'center',
+            'Right'=>'right',
+        );
+        $targets = array(
+            'None'=>'',
+            'New Window'=>'_blank',
+        );
+
+?>
+    <script type="text/html" id="tmpl-wpfp-photo-details">
+        <h3>PHOTO DETAIL</h3>
+        <p>{{data.title}}</p>
+
+        <label class="setting">
+            <span>Link To</span>
+            <select name="to">
+                <?php foreach($linkTos as $label => $to) { ?>
+                <option value="<?php echo $to ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <?php } ?>
+            </select>
+        </label>
+
+        <label class="setting">
+            <span>Alignment</span>
+            <select name="alignment">
+                <?php foreach($alignes as $label => $align) { ?>
+                <option value="<?php echo $align ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <?php } ?>
+            </select>
+        </label>
+
+        <label class="setting">
+            <span>Link Target</span>
+            <select name="target">
+                <?php foreach($targets as $label => $target) { ?>
+                <option value="<?php echo $target ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <?php } ?>
+            </select>
+        </label>
+
+        <label class="setting">
+            <span>Size</span>
+            <select name="size">
+                <# _.each(data.fp.size_keys, function(size){ #>
+                <# if (data["url_"+size]) { #>
+                <option value="{{size}}">{{ data.fp.size_labels[size] + " (" + data["width_"+size] + "x" + data["height_"+size] + ")" }}</option>
+                <# } #> 
+                <# }); #> 
+            </select>
+        </label>
+
+    </script>
+<?php
+    }
 
 	public static function getUploadIframeSrc($uploadIframeSrc) {
 		if (FlickrPress::getDefaulSearchType() == 'thumbnail') {
