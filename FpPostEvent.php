@@ -105,7 +105,7 @@ HTML;
             <span>Link To</span>
             <select name="to">
                 <?php foreach($linkTos as $label => $to) { ?>
-                <option value="<?php echo $to ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <option value="<?php echo $to ?>" <# if("<?php echo $to ?>" == "url"+data.params.defaultLink){ #>selected="selected"<# } #>><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
                 <?php } ?>
             </select>
         </label>
@@ -114,7 +114,7 @@ HTML;
             <span>Alignment</span>
             <select name="alignment">
                 <?php foreach($alignes as $label => $align) { ?>
-                <option value="<?php echo $align ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <option value="<?php echo $align ?>" <# if("<?php echo $align ?>" == data.params.defaultAlign){ #>selected="selected"<# } #>><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
                 <?php } ?>
             </select>
         </label>
@@ -123,7 +123,7 @@ HTML;
             <span>Link Target</span>
             <select name="target">
                 <?php foreach($targets as $label => $target) { ?>
-                <option value="<?php echo $target ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <option value="<?php echo $target ?>" <# if("<?php echo $target ?>" == data.params.defaultTarget){ #>selected="selected"<# } #>><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
                 <?php } ?>
             </select>
         </label>
@@ -133,7 +133,7 @@ HTML;
             <select name="size">
                 <# _.each(data.fp.size_keys, function(size){ #>
                 <# if (data["url_"+size]) { #>
-                <option value="{{size}}">{{ data.fp.size_labels[size] + " (" + data["width_"+size] + "x" + data["height_"+size] + ")" }}</option>
+                <option value="{{size}}" <# if(size == data.params.defaultSize){ #>selected="selected"<# } #>>{{ data.fp.size_labels[size] + " (" + data["width_"+size] + "x" + data["height_"+size] + ")" }}</option>
                 <# } #> 
                 <# }); #> 
             </select>

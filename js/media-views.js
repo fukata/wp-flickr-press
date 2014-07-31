@@ -10,14 +10,26 @@
             this.props = new Backbone.Model({ custom_data: '' });
             this.props.on( 'change:custom_data', this.refresh, this );
 
-            var params = $("#wpfp_params");
+            var _params = $("#wpfp_params");
+            var params = {
+                apiKey:             _params.data('api_key'),
+                apiSecret:          _params.data('api_secret'),
+                userId:             _params.data('user_id'),
+                oauthToken:         _params.data('oauth_token'),
+                enablePathAlias:    _params.data('enable_path_alias') == '1',
+                defaultLink:        _params.data('default_link'),
+                defaultTarget:      _params.data('default_target'),
+                defaultSize:        _params.data('default_size'),
+                defaultAlign:       _params.data('default_align'),
+                defaultFileUrlSize: _params.data('default_file_url_size')
+            };
             fp = {
                 flickr: new $.FlickrClient({
-                    apiKey:          params.data('api_key'),
-                    apiSecret:       params.data('api_secret'),
-                    userId:          params.data('user_id'),
-                    oauthToken:      params.data('oauth_token'),
-                    enablePathAlias: params.data('enable_path_alias') == '1'
+                    apiKey:          params.apiKey,
+                    apiSecret:       params.apiSecret,
+                    userId:          params.userId,
+                    oauthToken:      params.oauthToken,
+                    enablePathAlias: params.enablePathAlias
                 }),
                 currentPhotos: null,
                 search: null
@@ -291,10 +303,11 @@
                 name: '',
             });
             options['fp'] = {
-                size_keys: fp.flickr.SIZE_KEYS,
-                size_labels: fp.flickr.SIZE_LABELS,
+                size_keys:         fp.flickr.SIZE_KEYS,
+                size_labels:       fp.flickr.SIZE_LABELS,
                 size_label_values: fp.flickr.SIZE_LABEL_VALUES
             };
+            options['params'] = fp.params;
             console.log(options);
 
 			this.views.detach();
