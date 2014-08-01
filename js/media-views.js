@@ -386,7 +386,8 @@
     wp.media.view.FlickrPressDetails = wp.media.View.extend({
 		tagName:   'div',
 		className: 'photo-details',
-		template:  wp.media.template('wpfp-photo-details'),
+
+		template:  wp.media.template('wpfp-photo-detail'),
 
         events: {
             change: 'change',
@@ -444,7 +445,12 @@
         id: 'wpfp',
         tagName: 'div',
         className: 'flickr-press',
- 
+
+        templateContainer:  wp.media.template('wpfp-photo-container'),
+        templateResult:  wp.media.template('wpfp-photo-result'),
+
+        initializedContainer: false,
+
         // bind view events
         events: {
             'input':  'update',
@@ -622,8 +628,28 @@
 			//sidebar.unset('display');
 		},
         updateContent: function(res) {
-            if ( !res ) {
-                this.$el.append('<div class="result-container"><div class="result"></div></div>');
+            console.log(res);
+            if ( !this.initializedContainer && !res ) {
+                this.initializedContainer = true;
+
+                this.$el.append( this.templateContainer({}) );
+
+                var that = this;
+                $(document).off('click', '.flickr-press .result-container .result .more-btn')
+                           .on('click', '.flickr-press .result-container .result .more-btn', function(){
+                    console.log('more-btn click');
+                    var options = {
+                        per_page: fp.options.perpage,
+                        extras:   fp.options.extras,
+                        sort:     fp.options.sort,
+                        page:     that.model.get('result').photos.page + 1
+                    };
+                    console.log(options);
+                    fp.flickr.photos_search(options, function(res){
+                        that.updateContent(res);
+                    });
+                });
+
                 return;
             }
 
@@ -631,29 +657,27 @@
                 console.log('Error flickr search.', res);
                 return;
             }
-            this.model.set('result', res);
 
-            var html = '<ul class="photos ui-sortable ui-sortable-disabled">';
-            for ( var i=0; i<res.photos.photo.length; i++ ) {
-                var p = res.photos.photo[i];
-                var _html = '<li class="photo" data-idx="' + i + '">'
-                           + '<div class="thumbnail-container">'
-                           + '<div class="thumbnail">'
-                           + '<img src="' + p['url_' + fp.options.thumbnailSize] + '" />'
-                           + '</div>'
-                           + '<a class="order-container" href="#"><div class="order"></div></a>'
-                           + '</div>'
-                           + '</li>'
-                           ;
-                html += _html;
+            // cache
+            this.model.set('result', res);
+            var cachePhotos = this.model.get('result_photos_photo') || [];
+            this.model.set('result_photos_photo', cachePhotos.concat(res.photos.photo));
+
+            // display
+            var data = res;
+            data['fp'] = {
+                thumbnailSize: fp.options.thumbnailSize,
+                lastIndex:     $('.flickr-press .result-container .result .photos .photo').size() || 0
+            };
+            $('.flickr-press .result-container .result .photos').append( this.templateResult(data) );
+
+            if ( res.photos.page < res.photos.pages ) {
+                $('.flickr-press .result-container .result .more-btn').show();
             }
-            html += '</ul>';
-            console.log(html);
-            $('.flickr-press .result-container .result').html(html);
         },
         selectThumbnail: function(e, $thubmnail) {
             var idx = $thubmnail.data('idx'),
-                photo = this.model.get('result').photos.photo[idx];
+                photo = this.model.get('result_photos_photo')[idx];
             console.log("selectThumbnail. idx=%s", idx);
             console.log(this.controller.options.selection);
 

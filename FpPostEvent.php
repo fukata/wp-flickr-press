@@ -99,7 +99,29 @@ HTML;
         );
 
 ?>
-    <script type="text/html" id="tmpl-wpfp-photo-details">
+    <script type="text/html" id="tmpl-wpfp-photo-container">
+        <div class="result-container">
+            <div class="result">
+                <ul class="photos ui-sortable ui-sortable-disabled"></ul>
+                <div class="buttons">
+                    <button class="more-btn">More</button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tmpl-wpfp-photo-result">
+        <# _.each(data.photos.photo, function(photo, i){ #>
+            <li class="photo" data-idx="{{data.fp.lastIndex + i}}">
+                <div class="thumbnail-container">
+                    <div class="thumbnail">
+                        <img src="{{photo["url_" + data.fp.thumbnailSize]}}"/>
+                    </div>
+                    <a class="order-container" href="#"><div class="order"></div></a>
+                </div>
+            </li>
+        <# }); #>
+    </script>
+    <script type="text/html" id="tmpl-wpfp-photo-detail">
         <h3>PHOTO DETAIL</h3>
         <p>{{data.title}}</p>
 

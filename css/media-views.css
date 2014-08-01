@@ -38,6 +38,16 @@
     height: 100%;
 }
 
+#wpfp .result-container .result .buttons {
+    clear: both;
+    text-align: center;
+}
+
+#wpfp .result-container .result .buttons .more-btn {
+    margin-top: 10px;
+    display: none;
+}
+
 #wpfp .result-container .result .thumbnail {
     padding: 0px;
     margin: 0px;
