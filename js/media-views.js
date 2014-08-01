@@ -180,20 +180,21 @@
         // triggered when the button is clicked
         customAction: function(){
             console.log('Toolbar.FlickrPress customAction');
+
             var input = this.controller.state().props.get('input');
-            console.log(input);
             var photos = this.controller.options.selection.models;
-            var len = photos.length;
             $.each(photos, function(i, _photo){
                 var photo = _photo.attributes;
                 console.log(photo);
                 var win = window.dialogArguments || opener || parent || top;
                 var html = fp.util.generate_html(photo, input);
-                var close = i == len - 1;
-                win.fp_send_to_editor(html, close);
+                win.fp_send_to_editor(html, false);
             });
 
-            this.controller.state().customAction();
+            this.controller.options.selection.reset();
+            $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
+
+            this.controller.modal.close();
         }
     });
 
