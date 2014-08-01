@@ -7,7 +7,7 @@
         initialize: function(){
             console.log('controller.FlickrPress.initialize');
             // this model contains all the relevant data needed for the application
-            this.props = new Backbone.Model({ custom_data: '' });
+            this.props = new Backbone.Model({ custom_data: [] });
             this.props.on( 'change:custom_data', this.refresh, this );
 
             var _params = $("#wpfp_params");
@@ -21,7 +21,8 @@
                 defaultTarget:      _params.data('default_target'),
                 defaultSize:        _params.data('default_size'),
                 defaultAlign:       _params.data('default_align'),
-                defaultFileUrlSize: _params.data('default_file_url_size')
+                defaultFileUrlSize: _params.data('default_file_url_size'),
+                insertTemplate:     _params.data('insert_template')
             };
             fp = {
                 flickr: new $.FlickrClient({
@@ -41,6 +42,97 @@
                 sort : "date-posted-desc",
                 thumbnailSize : "sq",
             };
+
+            fp['util'] = {
+                generate_html: function(photo, input) {
+                    var html = fp.params.insertTemplate;
+                    if (html.indexOf('[img]') >= 0) {
+                        html = html.replace('[img]', fp.util.generate_html_img(photo, input));
+                    }
+                    if (html.indexOf('[title]') >= 0) {
+                        html = html.replace('[title]', fp.util.generate_html_title(photo, input));
+                    }
+                    if (html.indexOf('[url]') >= 0) {
+                        html = html.replace('[url]', fp.util.generate_html_url(photo, input));
+                    }
+                    if (html.indexOf('[null]') >= 0) {
+                        html = html.replace('[null]', '');
+                    }
+        
+                    return html;
+                },
+                generate_html_img: function(photo, input) {
+                    var size = 'size' in input ? input['size'] : fp.params.defaultSize;
+                    var link = fp.flickr.getPhotoPageUrl(photo, photo);
+                    var target = 'target' in input ? input['target'] : fp.params.defaultTarget;
+                    target = target ? ' target="' + target + '"' : '';
+                    var align = 'align' in input ? input['alignment'] : fp.params.defaultAlign;
+                    var imageClazz = '';
+
+                    var alt = fp.util.esc_attr( photo.title );
+                    var src = fp.flickr.getPhotoUrl(photo, size);
+                    var clazz = "";
+                    var close = $(this).data('close') == '1';
+
+                    if (align) {
+                        clazz = 'align' + align;
+                    }
+                    if (imageClazz) {
+                        clazz = clazz ? clazz + ' ' + imageClazz : imageClazz;
+                    }
+                    clazz = clazz ? ' class="' + clazz + '"' : '';
+
+                    //var rel = _remove_invalid_link_chars( $('input[name="inline-link-rel"]').val() );
+                    //if ( rel ) {
+                    //    rel = ' rel="' + rel + '"';
+                    //}
+                    var rel = '';
+
+                    //var aclazz = _remove_invalid_link_chars( $('input[name="inline-link-clazz"]').val() );
+                    //if ( aclazz ) {
+                    //    aclazz = ' class="' + aclazz + '"';
+                    //}
+                    var aclazz = '';
+
+                    var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + '/>';
+                    if (link) {
+                        var title = ' title="' + alt + '"';
+                        html = '<a href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
+                    }
+
+                    return html;
+                },
+                generate_html_title: function(photo, input) {
+                    return photo.title;
+                },
+                generate_html_url: function(photo, input) {
+                    var to = 'to' in input ? input['to'] : fp.params.defaultLink;
+                    var url;
+                    if ( to == 'urlnone' ) {
+                        to = '';
+                    } else if ( to == 'urlpage' ) {
+                        to = fp.flickr.getPhotoPageUrl(photo, photo);
+                    } else if ( to == 'urlfile' ) {
+                        var size = 'size' in input ? input['size'] : fp.params.defaultSize;
+                        to = fp.flickr.getPhotoUrl(photo, size);
+                    }
+
+                    return to;
+                },
+                esc_attr: function(str) {
+                    if (!str || str == '') return '';
+                    if (!/[&<>"]/.test(str)) return str;
+
+                    return str.replace(/&/g, '&amp;')
+                              .replace(/</g, '&lt;')
+                              .replace(/>/g, '&gt;')
+                              .replace(/"/g, '&quot;')
+                              ;
+                },
+                _remove_invalid_link_chars: function(str) {
+                    return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
+                }
+            };
         },
         
         // called each time the model changes
@@ -53,7 +145,6 @@
         // called when the toolbar button is clicked
         customAction: function(){
             console.log('controller.FlickrPress.customAction');
-            console.log(this.props.get('custom_data'));
         },
     });
 
@@ -61,7 +152,6 @@
     wp.media.view.Toolbar.FlickrPress = wp.media.view.Toolbar.extend({
         initialize: function() {
             _.defaults( this.options, {
-                event: 'custom_event',
                 close: false,
                 items: {
                     custom_event: {
@@ -82,14 +172,27 @@
             // you can modify the toolbar behaviour in response to user actions here
             // disable the button if there is no custom data
             var custom_data = this.controller.state().props.get('custom_data');
-            this.get('custom_event').model.set( 'disabled', ! custom_data );
-            
+            this.get('custom_event').model.set( 'disabled', custom_data.length == 0 );
+           
             // call the parent refresh
             wp.media.view.Toolbar.prototype.refresh.apply( this, arguments );
         },
-        
         // triggered when the button is clicked
         customAction: function(){
+            console.log('Toolbar.FlickrPress customAction');
+            var input = this.controller.state().props.get('input');
+            console.log(input);
+            var photos = this.controller.options.selection.models;
+            var len = photos.length;
+            $.each(photos, function(i, _photo){
+                var photo = _photo.attributes;
+                console.log(photo);
+                var win = window.dialogArguments || opener || parent || top;
+                var html = fp.util.generate_html(photo, input);
+                var close = i == len - 1;
+                win.fp_send_to_editor(html, close);
+            });
+
             this.controller.state().customAction();
         }
     });
@@ -286,6 +389,7 @@
 		template:  wp.media.template('wpfp-photo-details'),
 
         events: {
+            change: 'change',
         },
 
         initialize: function() {
@@ -299,6 +403,7 @@
         },
         render: function() {
             console.log('FlickrPressDetails.render');
+            this.controller.state().props.set('input', {});
             var options = _.defaults( this.model.toJSON(), {
                 name: '',
             });
@@ -325,6 +430,13 @@
 			details = selection.single();
 			this.$el.toggleClass( 'details', details === this.model );
 		},
+        change: function(event) {
+            console.log('FlickrPressDetails.change: name=%s, value=%s', event.target.name, event.target.value);
+            var input = this.controller.state().props.get('input');
+            input[event.target.name] = event.target.value;
+            console.log(input);
+            this.controller.state().props.set('input', input);
+        }
     });
     
     // custom content : this view contains the main panel UI
@@ -583,7 +695,10 @@
                 this.controller.options.selection.add( photo );
             }
 
-            this.controller.state().props.set('custom_data', $('#wpfp li.photo.selected').size());
+            var idxs = $('#wpfp li.photo.selected').map(function(){
+                return $(this).data('idx');
+            });
+            this.controller.state().props.set('custom_data', idxs);
         },
         sortedInsertPhotos: function() {
             return $('#wpfp li.photo.selected').sort(function(a, b){

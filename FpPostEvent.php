@@ -40,6 +40,7 @@ class FpPostEvent {
         $defaultSize     = FlickrPress::getDefaultSize();
         $defaultAlign    = FlickrPress::getDefaultAlign();
         $defaultFileURLSize = FlickrPress::getDefaultFileURLSize();
+        $insertTemplate  = FlickrPress::getInsertTemplate();
         $html = <<< HTML
 <div style="display:none" id="wpfp_params"
     data-api_key="$apiKey"
@@ -52,6 +53,7 @@ class FpPostEvent {
     data-default_size="$defaultSize"
     data-default_align="$defaultAlign"
     data-default_file_url_size="$defaultFileURLSize"
+    data-insert_template="$insertTemplate"
 />
 HTML;
         echo $html;
