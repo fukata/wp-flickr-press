@@ -368,6 +368,7 @@
             console.log('Search. type=%s', type);
             var searchFn;
             var contentFrame = this.controller.content.view.views.get('.media-frame-content')[0];
+            var sort = this.controller.state().props.get('wpfp_sort') || fp.options.sort;
             if ( type == 'photosets' ) {
                 var options = {
                     per_page: fp.options.perpage,
@@ -386,7 +387,7 @@
                 var options = {
                     per_page: fp.options.perpage,
                     extras:   fp.options.extras,
-                    sort:     fp.options.sort
+                    sort:     sort
                 };
 
                 var keyword = this.controller.state().props.get('wpfp_keyword');
@@ -416,7 +417,7 @@
                 var options = {
                     per_page: fp.options.perpage,
                     extras:   fp.options.extras,
-                    sort:     fp.options.sort
+                    sort:     sort
                 };
                 searchFn = this.generateIncrementalSearchFn(options, function(opts) {
                     fp.flickr.photos_search(opts, function(res){
@@ -433,6 +434,7 @@
             return function() {
                 console.log('======================= call searchFn =======================');
                 options['page']++;
+                console.log(options);
                 callback(options);
             };
         }
