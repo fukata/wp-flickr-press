@@ -700,6 +700,8 @@
                 return;
             }
 
+            $('.flickr-press .result-container .result .loader').hide();
+
             if ( res.stat !== 'ok' ) {
                 console.log('Error flickr search.', res);
                 return;
@@ -720,11 +722,11 @@
 
             // more button
             if ( res.photos.page < res.photos.pages ) {
-                $('.flickr-press .result-container .result .loader').hide();
                 $('.flickr-press .result-container .result .more-btn').show();
                 $(document).off('click', '.flickr-press .result-container .result .more-btn')
                            .on('click', '.flickr-press .result-container .result .more-btn', function(){
                     $(this).hide();
+                    $('.flickr-press .result-container .result .loader').show();
                     searchFn();
                 });
             }
