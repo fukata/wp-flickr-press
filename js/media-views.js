@@ -227,6 +227,7 @@
 		select: function() {
             console.log('FlickrPressAttachmentFilters.select', this.name, this.el.value, this.model.get(this.propertyName()));
 			this.$el.val( this.model.get(this.propertyName()) || this.el.value );
+            this.controller.state().props.set( this.propertyName(), this.el.value );
         }
 
     });
@@ -552,16 +553,8 @@
         },
         change: function() {
             console.log("view.FlickrPress.change class=%s, value=%s", event.target, event.target.value);
-            var $target = $(event.target);
-            if ( $target.hasClass('search-type-filters') ) {
-                this.model.set( 'wpfp_type', event.target.value );
+            if ( $(event.target).hasClass('search-type-filters') ) {
                 this.updateToolbar();
-            }
-            if ( $target.hasClass('search-sort-filters') ) {
-                this.model.set( 'wpfp_sort', event.target.value );
-            }
-            if ( $target.hasClass('search-photoset-filters') ) {
-                this.model.set( 'wpfp_photoset', event.target.value );
             }
         },
         createToolbar: function() {
