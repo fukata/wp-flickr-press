@@ -575,17 +575,11 @@
                 priority:   -80
             }).render() );
 
-            this.toolbar.set( 'search-sort-filters', new wp.media.view.FlickrPressSearchSortFilters({
-                controller: this.controller,
-                model:      this.controller.state(),
-                priority:   -80
-            }).render() );
-
             this.updateToolbar();
         },
         updateToolbar: function() {
             if ( this.toolbar ) {
-                _.each(['search-photoset-filters','search-tag-filter','search-keyword-filter'], function( key ) {
+                _.each(['search-sort-filters', 'search-photoset-filters','search-tag-filter','search-keyword-filter'], function( key ) {
                     this.toolbar.unset(key);
                 }, this );
             }
@@ -599,6 +593,13 @@
                     priority:   -80
                 }).render() );
             } else if ( searchType === 'advanced' ) {
+
+                this.toolbar.set( 'search-sort-filters', new wp.media.view.FlickrPressSearchSortFilters({
+                    controller: this.controller,
+                    model:      this.controller.state(),
+                    priority:   -80
+                }).render() );
+
                 this.toolbar.set( 'search-tag-filter', new wp.media.view.FlickrPressSearchTagFilter({
                     controller: this.controller,
                     model:      this.controller.state(),
@@ -606,6 +607,12 @@
                 }).render() );
 
                 this.toolbar.set( 'search-keyword-filter', new wp.media.view.FlickrPressSearchKeywordFilter({
+                    controller: this.controller,
+                    model:      this.controller.state(),
+                    priority:   -80
+                }).render() );
+            } else {
+                this.toolbar.set( 'search-sort-filters', new wp.media.view.FlickrPressSearchSortFilters({
                     controller: this.controller,
                     model:      this.controller.state(),
                     priority:   -80
