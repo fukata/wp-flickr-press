@@ -158,7 +158,7 @@ class FlickrPress {
 	}
 
 	public static function getDefaulSearchType() {
-		return get_option(self::getKey('default_search_type'), 'list');
+		return get_option(self::getKey('default_search_type'), 'thumbnail');
 	}
 
 	public static function getInsertTemplate() {
