@@ -37,7 +37,7 @@
             };
             fp.params = params;
             fp.options = {
-                perpage : 40,
+                perpage : 100,
                 extras : fp.flickr.SIZE_VALUES.join(',') + ",path_alias",
                 sort : "date-posted-desc",
                 thumbnailSize : "sq",
@@ -366,22 +366,76 @@
 
             var type = this.controller.state().props.get('wpfp_type');
             console.log('Search. type=%s', type);
-            if ( type == 'photoset' ) {
+            var searchFn;
+            var contentFrame = this.controller.content.view.views.get('.media-frame-content')[0];
+            if ( type == 'photosets' ) {
+                var options = {
+                    per_page: fp.options.perpage,
+                    extras:   fp.options.extras
+                };
 
+                options['photoset_id'] = this.controller.state().props.get('wpfp_photoset');
+
+                searchFn = this.generateIncrementalSearchFn(options, function(opts) {
+                    fp.flickr.photosets_getPhotos(opts, function(res){
+                        res.photos = res.photoset;
+                        contentFrame.updateContent(res, searchFn);
+                    });
+                });
             } else if ( type == 'advanced' ) {
+                var options = {
+                    per_page: fp.options.perpage,
+                    extras:   fp.options.extras,
+                    sort:     fp.options.sort
+                };
 
+                var keyword = this.controller.state().props.get('wpfp_keyword');
+                if ( keyword ) {
+                    options['text'] = keyword;
+                }
+
+                var tag = this.controller.state().props.get('wpfp_tag');
+                if ( tag ) {
+                    var splited = tag.split(',');
+                    var joined = [];
+                    for ( var i = 0; i < splited.length; i++) {
+                        var s = splited[i].replace(/(^\s+)|(\s+$)/g, "");
+                        if (s) {
+                            joined.push(s);
+                        }
+                    }
+                    options["tags"] = joined.join();
+                }
+
+                searchFn = this.generateIncrementalSearchFn(options, function(opts) {
+                    fp.flickr.photos_search(opts, function(res){
+                        contentFrame.updateContent(res, searchFn);
+                    });
+                });
             } else {
                 var options = {
                     per_page: fp.options.perpage,
                     extras:   fp.options.extras,
-                    sort:     fp.options.sort,
+                    sort:     fp.options.sort
                 };
-                var that = this;
-                fp.flickr.photos_search(options, function(res){
-                    that.controller.content.view.views.get('.media-frame-content')[0].updateContent(res);
+                searchFn = this.generateIncrementalSearchFn(options, function(opts) {
+                    fp.flickr.photos_search(opts, function(res){
+                        contentFrame.updateContent(res, searchFn);
+                    });
                 });
             }
+
+            contentFrame.initContent();
+            searchFn();
         },
+        generateIncrementalSearchFn: function(options, callback) {
+            options['page'] = 0;
+            return function() {
+                console.log('======================= call searchFn =======================');
+                options['page']++;
+                callback(options);
+            };
+        }
     });
 
     wp.media.view.FlickrPressDetails = wp.media.View.extend({
@@ -628,28 +682,17 @@
 			//sidebar.unset('compat');
 			//sidebar.unset('display');
 		},
-        updateContent: function(res) {
+        initContent: function() {
+            $('.flickr-press .result-container .result .photos').empty();
+            $('.flickr-press .result-container .result .more-btn').hide();
+            this.controller.options.selection.reset();
+        },
+        updateContent: function(res, searchFn) {
             console.log(res);
             if ( !this.initializedContainer && !res ) {
                 this.initializedContainer = true;
 
                 this.$el.append( this.templateContainer({}) );
-
-                var that = this;
-                $(document).off('click', '.flickr-press .result-container .result .more-btn')
-                           .on('click', '.flickr-press .result-container .result .more-btn', function(){
-                    console.log('more-btn click');
-                    var options = {
-                        per_page: fp.options.perpage,
-                        extras:   fp.options.extras,
-                        sort:     fp.options.sort,
-                        page:     that.model.get('result').photos.page + 1
-                    };
-                    console.log(options);
-                    fp.flickr.photos_search(options, function(res){
-                        that.updateContent(res);
-                    });
-                });
 
                 return;
             }
@@ -672,8 +715,15 @@
             };
             $('.flickr-press .result-container .result .photos').append( this.templateResult(data) );
 
+            // more button
             if ( res.photos.page < res.photos.pages ) {
                 $('.flickr-press .result-container .result .more-btn').show();
+                $(document).off('click', '.flickr-press .result-container .result .more-btn')
+                           .on('click', '.flickr-press .result-container .result .more-btn', function(){
+                    console.log('more-btn click');
+                    $(this).hide();
+                    searchFn();
+                });
             }
         },
         selectThumbnail: function(e, $thubmnail) {
@@ -779,7 +829,6 @@
             });
     
             this.content.set( view );
-            console.log(this.content.view.views.get('.media-frame-content')[0].updateContent);
         },
     });
 })(jQuery);
