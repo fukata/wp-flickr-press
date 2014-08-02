@@ -104,7 +104,8 @@ HTML;
             <div class="result">
                 <ul class="photos ui-sortable ui-sortable-disabled"></ul>
                 <div class="buttons">
-                    <button class="more-btn">More</button>
+                    <img src="<?php echo FlickrPress::getPluginUrl() ?>/images/ajax-loader.gif" class="loader"/>
+                    <button class="more-btn button button-primary">More</button>
                 </div>
             </div>
         </div>

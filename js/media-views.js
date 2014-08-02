@@ -686,6 +686,7 @@
 		},
         initContent: function() {
             $('.flickr-press .result-container .result .photos').empty();
+            $('.flickr-press .result-container .result .loader').show();
             $('.flickr-press .result-container .result .more-btn').hide();
             this.controller.options.selection.reset();
         },
@@ -719,10 +720,10 @@
 
             // more button
             if ( res.photos.page < res.photos.pages ) {
+                $('.flickr-press .result-container .result .loader').hide();
                 $('.flickr-press .result-container .result .more-btn').show();
                 $(document).off('click', '.flickr-press .result-container .result .more-btn')
                            .on('click', '.flickr-press .result-container .result .more-btn', function(){
-                    console.log('more-btn click');
                     $(this).hide();
                     searchFn();
                 });
