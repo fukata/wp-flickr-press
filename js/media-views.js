@@ -257,7 +257,7 @@
                     priority: 10
                 },
                 photosets: {
-                    text:  wp.media.view.l10n.wpfpSearchTypeFilterPhotosets,
+                    text:  wp.media.view.l10n.wpfpSearchTypeFilterAlbum,
                     props: {
                         orderby: 'date',
                         order:   'DESC'

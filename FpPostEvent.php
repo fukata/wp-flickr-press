@@ -9,7 +9,7 @@ class FpPostEvent {
         $strings['wpfpTitle'] = __('FlickrPress', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchButton'] = __('Search', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchTypeFilterRecent'] = __('Recent', FlickrPress::TEXT_DOMAIN);
-        $strings['wpfpSearchTypeFilterPhotosets'] = __('Photosets', FlickrPress::TEXT_DOMAIN);
+        $strings['wpfpSearchTypeFilterAlbum'] = __('Album', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchTypeFilterAdvanced'] = __('Advanced', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchSortFilterPostedASC'] = __('Posted ASC', FlickrPress::TEXT_DOMAIN);
         $strings['wpfpSearchSortFilterPostedDESC'] = __('Posted DESC', FlickrPress::TEXT_DOMAIN);
