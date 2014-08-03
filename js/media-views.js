@@ -44,16 +44,16 @@
             };
 
             fp['util'] = {
-                generate_html: function(photo, input) {
+                generateHtml: function(photo, input) {
                     var html = fp.params.insertTemplate;
                     if (html.indexOf('[img]') >= 0) {
-                        html = html.replace('[img]', fp.util.generate_html_img(photo, input));
+                        html = html.replace('[img]', fp.util.generateHtmlImg(photo, input));
                     }
                     if (html.indexOf('[title]') >= 0) {
-                        html = html.replace('[title]', fp.util.generate_html_title(photo, input));
+                        html = html.replace('[title]', fp.util.generateHtmlTitle(photo, input));
                     }
                     if (html.indexOf('[url]') >= 0) {
-                        html = html.replace('[url]', fp.util.generate_html_url(photo, input));
+                        html = html.replace('[url]', fp.util.generateHtmlUrl(photo, input));
                     }
                     if (html.indexOf('[null]') >= 0) {
                         html = html.replace('[null]', '');
@@ -61,7 +61,7 @@
         
                     return html;
                 },
-                generate_html_img: function(photo, input) {
+                generateHtmlImg: function(photo, input) {
                     var size = 'size' in input ? input['size'] : fp.params.defaultSize;
                     var link = fp.flickr.getPhotoPageUrl(photo, photo);
                     var target = 'target' in input ? input['target'] : fp.params.defaultTarget;
@@ -69,7 +69,7 @@
                     var align = 'align' in input ? input['alignment'] : fp.params.defaultAlign;
                     var imageClazz = '';
 
-                    var alt = fp.util.esc_attr( photo.title );
+                    var alt = fp.util.escAttr( photo.title );
                     var src = fp.flickr.getPhotoUrl(photo, size);
                     var clazz = "";
                     var close = $(this).data('close') == '1';
@@ -82,13 +82,13 @@
                     }
                     clazz = clazz ? ' class="' + clazz + '"' : '';
 
-                    //var rel = _remove_invalid_link_chars( $('input[name="inline-link-rel"]').val() );
+                    //var rel = _removeInvalidLinkChars( $('input[name="inline-link-rel"]').val() );
                     //if ( rel ) {
                     //    rel = ' rel="' + rel + '"';
                     //}
                     var rel = '';
 
-                    //var aclazz = _remove_invalid_link_chars( $('input[name="inline-link-clazz"]').val() );
+                    //var aclazz = _removeInvalidLinkChars( $('input[name="inline-link-clazz"]').val() );
                     //if ( aclazz ) {
                     //    aclazz = ' class="' + aclazz + '"';
                     //}
@@ -102,10 +102,10 @@
 
                     return html;
                 },
-                generate_html_title: function(photo, input) {
+                generateHtmlTitle: function(photo, input) {
                     return photo.title;
                 },
-                generate_html_url: function(photo, input) {
+                generateHtmlUrl: function(photo, input) {
                     var to = 'to' in input ? input['to'] : fp.params.defaultLink;
                     var url;
                     if ( to == 'urlnone' ) {
@@ -119,7 +119,7 @@
 
                     return to;
                 },
-                esc_attr: function(str) {
+                escAttr: function(str) {
                     if (!str || str == '') return '';
                     if (!/[&<>"]/.test(str)) return str;
 
@@ -129,7 +129,7 @@
                               .replace(/"/g, '&quot;')
                               ;
                 },
-                _remove_invalid_link_chars: function(str) {
+                _removeInvalidLinkChars: function(str) {
                     return str.replace(/[^0-9a-zA-Z\[\]\s_]+/g,'');
                 }
             };
@@ -171,8 +171,8 @@
             console.log('Toolbar.FlickrPress refresh');
             // you can modify the toolbar behaviour in response to user actions here
             // disable the button if there is no custom data
-            var custom_data = this.controller.state().props.get('custom_data');
-            this.get('custom_event').model.set( 'disabled', custom_data.length == 0 );
+            var customData = this.controller.state().props.get('custom_data');
+            this.get('custom_event').model.set( 'disabled', customData.length == 0 );
            
             // call the parent refresh
             wp.media.view.Toolbar.prototype.refresh.apply( this, arguments );
@@ -187,7 +187,7 @@
                 var photo = _photo.attributes;
                 console.log(photo);
                 var win = window.dialogArguments || opener || parent || top;
-                var html = fp.util.generate_html(photo, input);
+                var html = fp.util.generateHtml(photo, input);
                 win.fp_send_to_editor(html, false);
             });
 
@@ -748,12 +748,12 @@
             console.log(this.controller.options.selection);
 
             if (e.ctrlKey || e.metaKey) {
-                var mode_add = false;
+                var modeAdd = false;
                 if ( $thubmnail.hasClass('selected') ) {
                     $thubmnail.removeClass('selected').removeData('order');
                     this.controller.options.selection.remove( photo );
                 } else {
-                    mode_add = true;
+                    modeAdd = true;
                     this.controller.options.selection.add( photo );
                 }
 
@@ -764,7 +764,7 @@
                     order++;
                 });
                 console.log("order=%s", order);
-                if ( mode_add ) {
+                if ( modeAdd ) {
                     $thubmnail.addClass('selected')
                               .data('order', order);
                     $thubmnail.find('.order').text(order+1);
