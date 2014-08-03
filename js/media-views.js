@@ -313,12 +313,21 @@
     wp.media.view.FlickrPressSearchPhotosetFilters = wp.media.view.FlickrPressAttachmentFilters.extend({
         name: 'photoset',
         className: 'search-photoset-filters',
+        initialized: false,
+        filters: {
+            '': {
+                text: 'Loading...',
+                props: {},
+                priority: 10
+            }
+        },
         createFilters: function() {
             console.log('FlickrPressSearchPhotosetFilters.createFilters');
-            var that = this;
-            if ( typeof that.filters === 'undefined' ) {
-                that.filters = {};
+            if ( !this.initialized ) {
+                this.initialized = true;
+                var that = this;
                 fp.flickr.photosets_getList({}, function(res) {
+                    that.filters = {};
                     var photosets = res.photosets;
                     for ( var i = 0; i < photosets.photoset.length; i++) {
                         var photoset = photosets.photoset[i];
@@ -332,6 +341,15 @@
                         };
                     }
                     console.log("initialize filters=", that.filters);
+                    that.initialize();
+                }, function(request, textStatus, errorThrown){
+                    that.filters = {
+                        '': {
+                            text: 'LOAD ERROR',
+                            props: {},
+                            priority: 10
+                        }
+                    };
                     that.initialize();
                 });
             }
