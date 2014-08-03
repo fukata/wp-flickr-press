@@ -211,14 +211,14 @@
         },
         search: function( event ) {
             if ( event.target.value ) {
-                this.controller.state().props.set( this.propertyName(), event.target.value );
+                this.model.set( this.propertyName(), event.target.value );
             } else {
-                this.controller.state().props.unset(this.propertyName());
+                this.model.unset(this.propertyName());
             }
         },
         update: function( event ) {
             console.log('FlickrPressSearch.update. target=%s, value=%s', this.propertyName(), event.target.value);
-            this.controller.state().props.set( this.propertyName(), event.target.value );
+            this.model.set( this.propertyName(), event.target.value );
         }
 
     });
@@ -236,7 +236,7 @@
         select: function() {
             console.log('FlickrPressAttachmentFilters.select', this.name, this.el.value, this.model.get(this.propertyName()));
             this.$el.val( this.model.get(this.propertyName()) || this.el.value );
-            this.controller.state().props.set( this.propertyName(), this.el.value );
+            this.model.set( this.propertyName(), this.el.value );
         }
 
     });
@@ -575,13 +575,13 @@
 
             this.toolbar.set( 'search-button', new wp.media.view.FlickrPressSearchButton({
                 controller: this.controller,
-                model:      this.controller.state(),
+                model:      this.controller.state().props,
                 priority:   -80
             }).render() );
 
             this.toolbar.set( 'search-type-filters', new wp.media.view.FlickrPressSearchTypeFilters({
                 controller: this.controller,
-                model:      this.controller.state(),
+                model:      this.controller.state().props,
                 priority:   -80
             }).render() );
 
@@ -599,32 +599,32 @@
             if ( searchType === 'photosets' ) {
                 this.toolbar.set( 'search-photoset-filters', new wp.media.view.FlickrPressSearchPhotosetFilters({
                     controller: this.controller,
-                    model:      this.controller.state(),
+                    model:      this.controller.state().props,
                     priority:   -80
                 }).render() );
             } else if ( searchType === 'advanced' ) {
 
                 this.toolbar.set( 'search-sort-filters', new wp.media.view.FlickrPressSearchSortFilters({
                     controller: this.controller,
-                    model:      this.controller.state(),
+                    model:      this.controller.state().props,
                     priority:   -80
                 }).render() );
 
                 this.toolbar.set( 'search-tag-filter', new wp.media.view.FlickrPressSearchTagFilter({
                     controller: this.controller,
-                    model:      this.controller.state(),
+                    model:      this.controller.state().props,
                     priority:   -80
                 }).render() );
 
                 this.toolbar.set( 'search-keyword-filter', new wp.media.view.FlickrPressSearchKeywordFilter({
                     controller: this.controller,
-                    model:      this.controller.state(),
+                    model:      this.controller.state().props,
                     priority:   -80
                 }).render() );
             } else {
                 this.toolbar.set( 'search-sort-filters', new wp.media.view.FlickrPressSearchSortFilters({
                     controller: this.controller,
-                    model:      this.controller.state(),
+                    model:      this.controller.state().props,
                     priority:   -80
                 }).render() );
             }
