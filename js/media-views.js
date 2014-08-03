@@ -410,7 +410,7 @@
                     fp.flickr.photosets_getPhotos(opts, function(res){
                         res.photos = res.photoset;
                         contentFrame.updateContent(res, searchFn);
-                    }, that.generateSearchFnErrorCallback());
+                    }, that.generateSearchFnErrorCallback(opts, contentFrame));
                 });
             } else if ( type == 'advanced' ) {
                 var options = {
@@ -440,7 +440,7 @@
                 searchFn = this.generateIncrementalSearchFn(options, function(opts) {
                     fp.flickr.photos_search(opts, function(res){
                         contentFrame.updateContent(res, searchFn);
-                    }, that.generateSearchFnErrorCallback());
+                    }, that.generateSearchFnErrorCallback(opts, contentFrame));
                 });
             } else {
                 var options = {
@@ -451,7 +451,7 @@
                 searchFn = this.generateIncrementalSearchFn(options, function(opts) {
                     fp.flickr.photos_search(opts, function(res){
                         contentFrame.updateContent(res, searchFn);
-                    }, that.generateSearchFnErrorCallback());
+                    }, that.generateSearchFnErrorCallback(opts, contentFrame));
                 });
             }
 
@@ -467,12 +467,16 @@
                 callback(options);
             };
         },
-        generateSearchFnErrorCallback: function() {
+        generateSearchFnErrorCallback: function(options, contentFrame) {
             return function(request, textStatus, errorThrown) {
                 console.log('======================= ERROR ======================= ');
                 console.log('request: ', request);
                 console.log('textStatus: ', textStatus);
                 console.log('errorThrown: ', errorThrown);
+
+                options['page']--;
+                console.log(options);
+                contentFrame.displayErrorContent();
             };
         }
     });
@@ -714,9 +718,20 @@
         },
         initContent: function() {
             $('.flickr-press .result-container .result .photos').empty();
+            $('.flickr-press .result-container .result .error').hide();
             $('.flickr-press .result-container .result .loader').show();
             $('.flickr-press .result-container .result .more-btn').hide();
             this.controller.options.selection.reset();
+        },
+        displayErrorContent: function() {
+            console.log('displayErrorContent');
+            $('.flickr-press .result-container .result .loader').hide();
+            $('.flickr-press .result-container .result .error').show();
+            if ( $('.flickr-press .result-container .result .photos .photo').size() > 0 ) {
+                $('.flickr-press .result-container .result .more-btn').show();
+            } else {
+                $('.flickr-press .result-container .result .more-btn').hide();
+            }
         },
         updateContent: function(res, searchFn) {
             console.log(res);
@@ -732,8 +747,10 @@
 
             if ( res.stat !== 'ok' ) {
                 console.log('Error flickr search.', res);
+                this.displayErrorContent();
                 return;
             }
+            $('.flickr-press .result-container .result .error').hide();
 
             // cache
             this.model.set('result', res);
