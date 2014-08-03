@@ -112,10 +112,12 @@
      * @param params
      *            Send parameters
      * @param callback
-     *            callback function
+     *            Success callback function
+     * @param errorCallback
+     *            Error callback function
      * @returns
      */
-    FlickrClient.prototype.request = function(method, params, callback) {
+    FlickrClient.prototype.request = function(method, params, callback, errorCallback) {
         params = $.extend({
             method: method,
             format: "json",
@@ -151,10 +153,11 @@
             cache: true,
             dataType: "jsonp",
             jsonp: "jsoncallback",
-            jsonpCallback: callbackName,
-            error: function(request, textStatus, errorThrown) {
-            }
+            jsonpCallback: callbackName
         };
+        if ( $.isFunction(errorCallback) ) {
+            ajaxOption['error'] = errorCallback;
+        }
         
         return $.ajax(ajaxOption);
     };
@@ -190,22 +193,22 @@
         return $.md5(sig);
     };
     
-    FlickrClient.prototype.photos_search = function(options, callback){
-            return this.request("flickr.photos.search", options, callback);
+    FlickrClient.prototype.photos_search = function(options, callback, errorCallback){
+            return this.request("flickr.photos.search", options, callback, errorCallback);
     };
-    FlickrClient.prototype.photos_getSizes = function(options, callback){
-            return this.request("flickr.photos.getSizes", options, callback);
+    FlickrClient.prototype.photos_getSizes = function(options, callback, errorCallback){
+            return this.request("flickr.photos.getSizes", options, callback, errorCallback);
     };
 
-    FlickrClient.prototype.photosets_getList = function(options, callback){
-            return this.request("flickr.photosets.getList", options, callback);
+    FlickrClient.prototype.photosets_getList = function(options, callback, errorCallback){
+            return this.request("flickr.photosets.getList", options, callback, errorCallback);
     };
-    FlickrClient.prototype.photosets_getPhotos = function(options, callback){
-        return this.request("flickr.photosets.getPhotos", options, callback);
+    FlickrClient.prototype.photosets_getPhotos = function(options, callback, errorCallback){
+        return this.request("flickr.photosets.getPhotos", options, callback, errorCallback);
     };
     
-    FlickrClient.prototype.tags_getListUser = function(options, callback) {
-        return this.request("flickr.tags.getListUser", options, callback);
+    FlickrClient.prototype.tags_getListUser = function(options, callback, errorCallback) {
+        return this.request("flickr.tags.getListUser", options, callback, errorCallback);
     };
     
     FlickrClient.prototype.getPhotoUrl = function(photo, size) {
