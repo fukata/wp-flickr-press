@@ -201,16 +201,25 @@
     wp.media.view.FlickrPressSearch = wp.media.view.Search.extend({
         name: 'hoge',
         propertyName: function() { return 'wpfp_' + this.name; },
+        events: {
+            input: 'update',
+            update: 'update'
+        },
 		render: function() {
 			this.el.value = this.model.escape( this.propertyName() );
 			return this;
 		},
 		search: function( event ) {
-			if ( event.target.value )
-				this.model.set( this.propertyName(), event.target.value );
-			else
-				this.model.unset(this.propertyName());
-		}
+			if ( event.target.value ) {
+				this.controller.state().props.set( this.propertyName(), event.target.value );
+            } else {
+                this.controller.state().props.unset(this.propertyName());
+            }
+		},
+        update: function( event ) {
+            console.log('FlickrPressSearch.update. target=%s, value=%s', this.propertyName(), event.target.value);
+            this.controller.state().props.set( this.propertyName(), event.target.value );
+        }
 
     });
 
@@ -365,6 +374,7 @@
                 this.controller.state().props.get('wpfp_keyword')
             );
 
+            var that = this;
             var type = this.controller.state().props.get('wpfp_type');
             console.log('Search. type=%s', type);
             var searchFn;
@@ -382,7 +392,7 @@
                     fp.flickr.photosets_getPhotos(opts, function(res){
                         res.photos = res.photoset;
                         contentFrame.updateContent(res, searchFn);
-                    });
+                    }, that.generateSearchFnErrorCallback());
                 });
             } else if ( type == 'advanced' ) {
                 var options = {
@@ -412,7 +422,7 @@
                 searchFn = this.generateIncrementalSearchFn(options, function(opts) {
                     fp.flickr.photos_search(opts, function(res){
                         contentFrame.updateContent(res, searchFn);
-                    });
+                    }, that.generateSearchFnErrorCallback());
                 });
             } else {
                 var options = {
@@ -423,7 +433,7 @@
                 searchFn = this.generateIncrementalSearchFn(options, function(opts) {
                     fp.flickr.photos_search(opts, function(res){
                         contentFrame.updateContent(res, searchFn);
-                    });
+                    }, that.generateSearchFnErrorCallback());
                 });
             }
 
@@ -437,6 +447,14 @@
                 options['page']++;
                 console.log(options);
                 callback(options);
+            };
+        },
+        generateSearchFnErrorCallback: function() {
+            return function(request, textStatus, errorThrown) {
+                console.log('======================= ERROR ======================= ');
+                console.log('request: ', request);
+                console.log('textStatus: ', textStatus);
+                console.log('errorThrown: ', errorThrown);
             };
         }
     });
@@ -542,14 +560,6 @@
         },
         update: function( event ) {
             console.log("view.FlickrPress.update class=%s, value=%s", event.target, event.target.value);
-            var $target = $(event.target);
-            if ( $target.hasClass('search-tag-filter') ) {
-                this.model.set( 'wpfp_tag', event.target.value );
-            }
-            if ( $target.hasClass('search-keyword-filter') ) {
-                this.model.set( 'wpfp_keyword', event.target.value );
-            }
-
         },
         change: function() {
             console.log("view.FlickrPress.change class=%s, value=%s", event.target, event.target.value);
