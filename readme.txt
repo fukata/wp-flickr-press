@@ -55,6 +55,8 @@ None
 7. New UI Insert Post
 8. Setting config
 9. FullScreen Writing
+10. New UI 1
+11. New UI 2
 
 == Changelog ==
 = 2.0.0 =
