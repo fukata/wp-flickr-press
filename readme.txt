@@ -62,6 +62,9 @@ None
 = 2.0.0 =
 * Feature: Add new UI.
 
+= 1.9.19 =
+* Bugfix: Check curl support SSL.
+
 = 1.9.18 =
 * Bugfix: Syntax error.
 
