@@ -186,7 +186,7 @@
             $.each(photos, function(i, _photo){
                 var photo = _photo.attributes;
                 console.log(photo);
-                var win = window.dialogArguments || opener || parent || top;
+                var win = parent || top;
                 var html = fp.util.generateHtml(photo, input);
                 win.fp_send_to_editor(html, false);
             });
