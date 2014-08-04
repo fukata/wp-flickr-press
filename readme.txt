@@ -46,17 +46,12 @@ None
 
 == Screenshots ==
 
-1. Add flickr media 1
-2. Add flickr media 2
-3. Tag suggest
-4. Batch insert into post
-5. Quick Settings
-6. New UI Search
-7. New UI Insert Post
-8. Setting config
-9. FullScreen Writing
-10. New UI 1
-11. New UI 2
+1. Search
+2. Insert Post
+3. Setting config
+4. FullScreen Writing
+5. New UI 1
+6. New UI 2
 
 == Changelog ==
 = 2.0.0 =
