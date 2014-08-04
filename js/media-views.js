@@ -47,16 +47,16 @@
                 generateHtml: function(photo, input) {
                     var html = fp.params.insertTemplate;
                     if (html.indexOf('[img]') >= 0) {
-                        html = html.replace('[img]', fp.util.generateHtmlImg(photo, input));
+                        html = html.replace(/\[img\]/g, fp.util.generateHtmlImg(photo, input));
                     }
                     if (html.indexOf('[title]') >= 0) {
-                        html = html.replace('[title]', fp.util.generateHtmlTitle(photo, input));
+                        html = html.replace(/\[title\]/g, fp.util.generateHtmlTitle(photo, input));
                     }
                     if (html.indexOf('[url]') >= 0) {
-                        html = html.replace('[url]', fp.util.generateHtmlUrl(photo, input));
+                        html = html.replace(/\[url\]/g, fp.util.generateHtmlUrl(photo, input));
                     }
                     if (html.indexOf('[null]') >= 0) {
-                        html = html.replace('[null]', '');
+                        html = html.replace(/\[null\]/g, '');
                     }
         
                     return html;
