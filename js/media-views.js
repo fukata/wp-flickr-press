@@ -722,6 +722,8 @@
             $('.flickr-press .result-container .result .loader').show();
             $('.flickr-press .result-container .result .more-btn').hide();
             this.controller.options.selection.reset();
+            this.model.unset('result');
+            this.model.unset('result_photos_photo');
         },
         displayErrorContent: function() {
             console.log('displayErrorContent');
