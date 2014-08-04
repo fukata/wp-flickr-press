@@ -186,8 +186,8 @@
             $.each(photos, function(i, _photo){
                 var photo = _photo.attributes;
                 console.log(photo);
-                var win = parent || top;
                 var html = fp.util.generateHtml(photo, input);
+                var win = parent || top;
                 win.fp_send_to_editor(html, false);
             });
 
