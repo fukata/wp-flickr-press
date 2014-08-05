@@ -3,8 +3,8 @@ Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
-Tested up to: 3.8
-Stable tag: 1.9.11
+Tested up to: 3.9
+Stable tag: 2.0.0
 
 Flickr integration for wordpress plugin.
 
@@ -46,19 +46,46 @@ None
 
 == Screenshots ==
 
-1. Add flickr media 1
-2. Add flickr media 2
-3. Tag suggest
-4. Batch insert into post
-5. Quick Settings
-6. New UI Search
-7. New UI Insert Post
-8. Setting config
-9. FullScreen Writing
+1. Search
+2. Insert Post
+3. Setting config
+4. FullScreen Writing
+5. New UI 1
+6. New UI 2
 
 == Changelog ==
+= 2.0.0 =
+* Feature: Add new UI.
+
+= 1.9.19 =
+* Bugfix: Check curl support SSL.
+
+= 1.9.18 =
+* Bugfix: Syntax error.
+
+= 1.9.17 =
+* Feature: Support Flickr API SSL.
+
+= 1.9.16 =
+* Feature: Add Reset OAuth Token button.
+
+= 1.9.15 =
+* Bugfix: Support user alias when list mode.
+* Feature: Add null keyword insert template.
+* Feature: Support multiple insert and insert template when thumbnail mode.
+
+= 1.9.14 =
+* Bugfix: Display two buttons when certain conditions.
+* Bugfix: Pager next link broken when search by photosets.
+
+= 1.9.13 =
+* Add embed player align parameter.
+
+= 1.9.12 =
+* Implemented embed player.
+
 = 1.9.11 =
-* Fixed design for WP 2.8.
+* Fixed design for WP 3.8.
 
 = 1.9.9 =
 * Add sizes Square 150, Small 320, Medium 800.

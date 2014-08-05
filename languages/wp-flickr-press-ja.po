@@ -53,6 +53,9 @@ msgstr "OAuthトークン"
 msgid "Update OAuth Token"
 msgstr "OAuthトークンを更新"
 
+msgid "Reset OAuth Token"
+msgstr "OAuthトークンをリセット"
+
 #: FpAdminSettingEvent.php:187
 msgid "Default Attachments"
 msgstr "デフォルト添付情報"

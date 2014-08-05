@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '1.9.11';
+	const VERSION = '2.0.0';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -40,6 +40,8 @@ class FlickrPress {
 		'z'  => 'Medium 640 (640x480)',
 		'c'  => 'Medium 800 (800x600)',
 		'l'  => 'Large (1024x768)',
+		'h'  => 'Large (1600x1060)',
+		'k'  => 'Large (2048x1356)',
 		'o'  => 'Original',
 	);
 	public static $SIZES = array(
@@ -52,6 +54,8 @@ class FlickrPress {
 		'z'  => 'url_z',  // Medium 640
 		'c'  => 'url_c',  // Medium 800
 		'l'  => 'url_l',  // Large
+		'h'  => 'url_h',  // Large 1600
+		'k'  => 'url_k',  // Large 2048
 		'o'  => 'url_o',  // Original
 	);
 	public static $LINK_TYPE_LABELS = array(
@@ -136,9 +140,9 @@ class FlickrPress {
 		return get_option(self::getKey('oauth_token'));
 	}
 
-	public static function getPluginUrl() {
+	public static function getPluginUrl($file='') {
 		global $wp_flickr_press_file;
-		return plugins_url('', $wp_flickr_press_file );
+		return plugins_url($file, $wp_flickr_press_file );
 	}
 
 	public static function getDefaultTarget() {
@@ -154,7 +158,7 @@ class FlickrPress {
 	}
 
 	public static function getDefaulSearchType() {
-		return get_option(self::getKey('default_search_type'), 'list');
+		return get_option(self::getKey('default_search_type'), 'thumbnail');
 	}
 
 	public static function getInsertTemplate() {
@@ -223,16 +227,21 @@ class FlickrPress {
 
 	private static function addEvents() {
 		// load action or filter
-		require_once(self::getDir() . '/FpPostEvent.php');
-		add_action('media_buttons_context',                      array('FpPostEvent', 'addButtons'));
-		add_action('media_upload_flickr_media',                  array('FpPostEvent', 'mediaUploadFlickrMedia'));
-		add_filter('wp_fullscreen_buttons',                      array('FpPostEvent', 'addButtonsFullScreen'));
+		require_once(self::getDir().'/FpPostEvent.php');
+		add_action('media_buttons', array('FpPostEvent', 'addButtons'), 100);
+		add_action('media_upload_flickr_media', array('FpPostEvent', 'mediaUploadFlickrMedia'));
+		add_filter('wp_fullscreen_buttons', array('FpPostEvent', 'addButtonsFullScreen'));
 		add_filter(self::MEDIA_BUTTON_TYPE.'_upload_iframe_src', array('FpPostEvent', 'getUploadIframeSrc'));
 		add_action('admin_head-post.php',                        array('FpPostEvent', 'loadScripts'));
 		add_action('admin_head-post-new.php',                    array('FpPostEvent', 'loadScripts'));
 
-		require_once(self::getDir() . '/FpAdminSettingEvent.php');
-		add_action('admin_menu',        array('FpAdminSettingEvent', 'addMenu'));
+        add_action('admin_enqueue_scripts', array('FpPostEvent', 'loadUIScripts'));
+        add_filter('media_view_strings',    array('FpPostEvent', 'loadJSStrings'), 10, 2);
+		add_action('admin_footer-post.php', array('FpPostEvent', 'loadJSBridgeParams'));
+		add_action('admin_footer-post-new.php', array('FpPostEvent', 'loadJSBridgeParams'));
+
+		require_once(self::getDir().'/FpAdminSettingEvent.php');
+		add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
 		add_filter('whitelist_options', array('FpAdminSettingEvent', 'addWhitelistOptions'));
 
 		// admin actions
