@@ -250,10 +250,12 @@ class FlickrPress {
 		add_action('admin_action_wpfp_flickr_oauth_callback', array(__CLASS__, 'adminActionWpfpFlickrOauthCallback'));
 
         // thumbnail
-		require_once(self::getDir() . '/FpThumbnailEvent.php');
-		add_filter('post_thumbnail_html', array('FpThumbnailEvent', 'filterPostThumbnailHtml'), 10, 5);
-		add_filter('get_post_metadata',   array('FpThumbnailEvent', 'filterGetPostMetadata'),   10, 4);
-		add_action('add_meta_boxes_post', array('FpThumbnailEvent', 'actionAddMetaBoxesPost')        );
+        if (self::enableExtractThumbnail()) {
+            require_once(self::getDir() . '/FpThumbnailEvent.php');
+            add_filter('post_thumbnail_html', array('FpThumbnailEvent', 'filterPostThumbnailHtml'), 10, 5);
+            add_filter('get_post_metadata',   array('FpThumbnailEvent', 'filterGetPostMetadata'),   10, 4);
+            add_action('add_meta_boxes_post', array('FpThumbnailEvent', 'actionAddMetaBoxesPost')        );
+        }
 	}
 
 	public static function adminActionWpfpMediaUpload() {
@@ -298,6 +300,10 @@ class FlickrPress {
 	
 	public static function loadLanguages() {
 		load_plugin_textdomain(self::TEXT_DOMAIN, false, 'wp-flickr-press/languages');
+	}
+
+	public static function enableExtractThumbnail() {
+		return get_option(self::getKey('enable_extract_thumbnail')) == '1';
 	}
 }
 ?>

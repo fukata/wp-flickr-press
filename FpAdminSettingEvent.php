@@ -27,6 +27,7 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('default_file_url_size'),
             FlickrPress::getKey('extend_link_properties'),
             FlickrPress::getKey('extend_image_properties'),
+            FlickrPress::getKey('enable_extract_thumbnail'),
         );
         return $whitelist_options;
     }
@@ -382,6 +383,19 @@ function callback_oauth(token) {
             </tr>
         </table>
         
+        <h3><?php echo __('Thumbnail(beta)', FlickrPress::TEXT_DOMAIN) ?></h3>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row">
+                    <p><?php echo __('Extract Thumbnail in Post', FlickrPress::TEXT_DOMAIN) ?></p>
+                    <p><?php echo __('The first flickr image in article I use as a thumbnail.', FlickrPress::TEXT_DOMAIN) ?></p>
+                </th>
+                <td>
+                    <p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('enable_extract_thumbnail') ?>" value="1" <?php if (FlickrPress::enableExtractThumbnail()) { echo "checked='checked'"; } ?>/></p>
+                </td>
+            </tr>
+        </table>
+
         <h3><?php echo __('Advanced Options', FlickrPress::TEXT_DOMAIN) ?></h3>
         <table class="form-table">
             <tr valign="top">
