@@ -57,7 +57,22 @@ class FlickrPress {
 		'h'  => 'url_h',  // Large 1600
 		'k'  => 'url_k',  // Large 2048
 		'o'  => 'url_o',  // Original
+    );
+	public static $SIZE_TO_SUFFIX_MAPS = array(
+		'sq' => 's', // Square 75
+		'q'  => 'q',  // Square 120
+		't'  => 't',  // Thumbnail
+		's'  => 'm',  // Small 240
+		'n'  => 'n',  // Small 320
+		'm'  => '',  // Medium 500
+		'z'  => 'z',  // Medium 640
+		'c'  => 'c',  // Medium 800
+		'l'  => 'b',  // Large
+		'h'  => 'h',  // Large 1600
+		'k'  => 'k',  // Large 2048
+		'o'  => 'o',  // Original
 	);
+
 	public static $LINK_TYPE_LABELS = array(
 		'none' => 'None',
 		'file' => 'File URL',
@@ -305,5 +320,18 @@ class FlickrPress {
 	public static function enableExtractThumbnail() {
 		return get_option(self::getKey('enable_extract_thumbnail')) == '1';
 	}
+
+	public static function getThumbnailSize() {
+		return get_option(self::getKey('thumbnail_size'), 's');
+	}
+
+    public static function getThumbnailSizeSuffix($size='') {
+        if ( $size ) {
+            return self::$SIZE_TO_SUFFIX_MAPS[ $size ];
+        } else {
+            return self::$SIZE_TO_SUFFIX_MAPS[ self::getThumbnailSize() ];
+        }
+	}
+
 }
 ?>

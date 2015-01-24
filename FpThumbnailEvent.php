@@ -22,7 +22,12 @@ class FpThumbnailEvent {
             return $html;
         }
 
-        $src = self::get_the_post_thumbnail_src($post->post_content, 'm');
+        $thumbnailSize = FlickrPress::getThumbnailSizeSuffix($size);
+        if ( null === $thumbnailSize ) {
+            $thumbnailSize = FlickrPress::getThumbnailSizeSuffix();
+        }
+
+        $src = self::get_the_post_thumbnail_src($post->post_content, $thumbnailSize);
         if ( $src ) {
             return '<img src="' . $src . '"/>';
         } else {

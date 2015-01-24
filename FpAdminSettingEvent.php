@@ -28,6 +28,7 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('extend_link_properties'),
             FlickrPress::getKey('extend_image_properties'),
             FlickrPress::getKey('enable_extract_thumbnail'),
+            FlickrPress::getKey('thumbnail_size'),
         );
         return $whitelist_options;
     }
@@ -392,6 +393,15 @@ function callback_oauth(token) {
                 </th>
                 <td>
                     <p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('enable_extract_thumbnail') ?>" value="1" <?php if (FlickrPress::enableExtractThumbnail()) { echo "checked='checked'"; } ?>/></p>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><p><?php echo __('Thumbnail Size', FlickrPress::TEXT_DOMAIN) ?></p></th>
+                <td>
+                    <?php foreach(FlickrPress::$SIZE_LABELS as $size => $label) { ?>
+                    <?php $checked = FlickrPress::getThumbnailSize()==$size ? " checked='checked'" : '' ?>
+                    <p><input type="radio" name="<?php echo FlickrPress::getKey('thumbnail_size') ?>" id="thumbnail_size-<?php echo $size ?>" value="<?php echo $size ?>" <?php echo $checked ?>/><label for="thumbnail_size-<?php echo $size ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label></p>
+                    <?php } ?>
                 </td>
             </tr>
         </table>
