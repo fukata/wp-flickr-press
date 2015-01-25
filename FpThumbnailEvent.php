@@ -29,7 +29,7 @@ class FpThumbnailEvent {
 
         $src = self::get_the_post_thumbnail_src($post->post_content, $thumbnailSize);
         if ( $src ) {
-            return '<img src="' . $src . '"/>';
+            return '<img src="' . $src . '" class="attachment-post-thumbnail wp-post-image"/>';
         } else {
             return '';
         }
