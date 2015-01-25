@@ -36,7 +36,8 @@ class FpThumbnailEvent {
     }
 
     public static function filterGetPostMetadata($metadata, $object_id, $meta_key, $single) {
-        if ($meta_key === "_thumbnail_id") {
+        $meta_cache = wp_cache_get($object_id, 'post_meta');
+        if ( FlickrPress::isExtractThumbnailByMetadata($meta_cache) && '_thumbnail_id' === $meta_key ) {
             return PHP_INT_MAX;
         } else {
             return null;
@@ -54,10 +55,18 @@ class FpThumbnailEvent {
             array($post)
         );
     }
+
     public static function getMetaBoxHtml($post) {
+        $use = FlickrPress::isExtractThumbnailByPostID($post->ID); 
 ?>
-<label class="selectit"><input value="1" type="checkbox" name="wpfp_use_post_thumbnail"> Use Post Thumbnail</label>
+    <p>Use Post Thumbnail: <label class="selectit">Yes <input value="1" type="radio" name="wpfp_use_post_thumbnail" <?php echo $use ? 'checked="checked"' : ''; ?>></label>
+    <label class="selectit">No <input value="0" type="radio" name="wpfp_use_post_thumbnail" <?php echo !$use ? 'checked="checked"' : ''; ?>></label></p>
 <?php
+    }
+
+    public static function filterWpInsertPostData($data, $postarr) {
+        update_post_meta($postarr['ID'], 'wpfp_use_post_thumbnail', $postarr['wpfp_use_post_thumbnail']);
+        return $data;
     }
 
 }

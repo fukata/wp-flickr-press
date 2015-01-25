@@ -265,11 +265,12 @@ class FlickrPress {
 		add_action('admin_action_wpfp_flickr_oauth_callback', array(__CLASS__, 'adminActionWpfpFlickrOauthCallback'));
 
         // thumbnail
-        if (self::enableExtractThumbnail()) {
+        if (self::enableThumbnailFeature()) {
             require_once(self::getDir() . '/FpThumbnailEvent.php');
             add_filter('post_thumbnail_html', array('FpThumbnailEvent', 'filterPostThumbnailHtml'), 10, 5);
             add_filter('get_post_metadata',   array('FpThumbnailEvent', 'filterGetPostMetadata'),   10, 4);
             add_action('add_meta_boxes_post', array('FpThumbnailEvent', 'actionAddMetaBoxesPost')        );
+            add_filter('wp_insert_post_data', array('FpThumbnailEvent', 'filterWpInsertPostData'),  10, 2);
         }
 	}
 
@@ -317,9 +318,46 @@ class FlickrPress {
 		load_plugin_textdomain(self::TEXT_DOMAIN, false, 'wp-flickr-press/languages');
 	}
 
+	public static function enableThumbnailFeature() {
+		return get_option(self::getKey('enable_thumbnail_feature')) == '1';
+	}
+
 	public static function enableExtractThumbnail() {
 		return get_option(self::getKey('enable_extract_thumbnail')) == '1';
 	}
+
+    public static function isExtractThumbnailByPostID($postId) {
+        if (!self::enableThumbnailFeature()) return false;
+
+        if (!$postId) {
+            return false;
+        }
+
+        $use = get_post_meta($postId, 'wpfp_use_post_thumbnail', true);
+        if ('0' === $use) {
+            $use = false;
+        } else if ('1' === $use) {
+            $use = true;
+        } else {
+            $use = FlickrPress::enableExtractThumbnail();
+        }
+        return $use;
+    }
+
+    public static function isExtractThumbnailByMetadata($metadata) {
+        if (!self::enableThumbnailFeature()) return false;
+
+        $use = $metadata && isset($metadata['wpfp_use_post_thumbnail']) ? maybe_unserialize( $metadata['wpfp_use_post_thumbnail'][0] ) : false;
+        if ('0' === $use) {
+            $use = false;
+        } else if ('1' === $use) {
+            $use = true;
+        } else {
+            $use = FlickrPress::enableExtractThumbnail();
+        }
+        return $use;
+
+    }
 
 	public static function getThumbnailSize() {
 		return get_option(self::getKey('thumbnail_size'), 's');
