@@ -360,7 +360,7 @@ class FlickrPress {
     }
 
 	public static function getThumbnailSize() {
-		return get_option(self::getKey('thumbnail_size'), 's');
+		return get_option(self::getKey('thumbnail_size'), 'q');
 	}
 
     public static function getThumbnailSizeSuffix($size='') {
