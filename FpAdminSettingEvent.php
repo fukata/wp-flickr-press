@@ -28,8 +28,8 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('extend_link_properties'),
             FlickrPress::getKey('extend_image_properties'),
             FlickrPress::getKey('enable_thumbnail_feature'),
-            FlickrPress::getKey('enable_default_extract_thumbnail'),
-            FlickrPress::getKey('default_thumbnail_size'),
+            FlickrPress::getKey('enable_extract_thumbnail'),
+            FlickrPress::getKey('thumbnail_size'),
         );
         return $whitelist_options;
     }
