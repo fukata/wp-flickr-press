@@ -4,13 +4,15 @@ class FpThumbnailEvent {
 
     static function get_the_post_thumbnail_src($img, $size) {
         $img = (preg_match('~\bsrc="(https?:\/\/farm[0-9]+\.staticflickr\.com\/[^"]+\.(?:jpg|JPG|jpeg|jpeg|gif|GIF|png|PNG))"~', $img, $matches)) ? $matches[1] : '';
+        if (!$img) {
+            return '';
+        }
 
-        if ($img && $size) {
-            if ( preg_match('/_\w{1,2}\.\w+$/', $img) ) {
-                $img = preg_replace('/^(.+)_(\w+)(\.\w+)$/', '${1}_' . $size . '${3}', $img);
-            } else {
-                $img = preg_replace('/^(.+)(\.\w+)$/', '${1}_' . $size . '${2}', $img);
-            }
+        $suffix = '' === $size ? '' : "_$size";
+        if ( preg_match('/_\w{1,2}\.\w+$/', $img) ) {
+            $img = preg_replace('/^(.+)_(\w+)(\.\w+)$/', '${1}' . $suffix. '${3}', $img);
+        } else {
+            $img = preg_replace('/^(.+)(\.\w+)$/', '${1}' . $suffix . '${2}', $img);
         }
 
         return $img;
