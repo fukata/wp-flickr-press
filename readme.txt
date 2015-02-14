@@ -21,6 +21,7 @@ Features
 3. Default settings at insert flickr media.
 4. Setting value a tag rel and class property.
 5. Support the php safe mode.
+6. Support post thumbnail.
 
 Dependencies
 
