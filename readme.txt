@@ -56,6 +56,9 @@ None
 
 == Changelog ==
 
+= 2.2.0 =
+* Feature: Add Embed Option(Header, Footer, Slideshow).
+
 = 2.1.0 =
 * Feature(beta): Use flickr image to post thumbnail.
 
