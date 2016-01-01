@@ -193,11 +193,11 @@ class FlickrPress {
 	}
 
 	public static function getDefaultEmbedHeader() {
-		return get_option(self::getKey('default_embed_header'), '0');
+		return get_option(self::getKey('default_embed_header'), '1');
 	}
 
 	public static function getDefaultEmbedFooter() {
-		return get_option(self::getKey('default_embed_footer'), '0');
+		return get_option(self::getKey('default_embed_footer'), '1');
 	}
 
 	public static function getDefaultEmbedSlideshow() {
