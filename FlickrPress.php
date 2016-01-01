@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
 
 class FlickrPress {
 	// constants
-	const VERSION = '2.1.0';
+	const VERSION = '2.2.0';
 	const NAME = 'FlickrPress';
 	const PREFIX = 'wpfp_';
 	const MEDIA_BUTTON_TYPE = 'flickr_media';
@@ -190,6 +190,18 @@ class FlickrPress {
 
 	public static function getDefaultLink() {
 		return get_option(self::getKey('default_link'), 'page');
+	}
+
+	public static function getDefaultEmbedHeader() {
+		return get_option(self::getKey('default_embed_header'), '0');
+	}
+
+	public static function getDefaultEmbedFooter() {
+		return get_option(self::getKey('default_embed_footer'), '0');
+	}
+
+	public static function getDefaultEmbedSlideshow() {
+		return get_option(self::getKey('default_embed_slideshow'), '0');
 	}
 
 	public static function getDefaultLinkValue($photo, $photos) {

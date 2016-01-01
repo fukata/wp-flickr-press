@@ -3,8 +3,8 @@ Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 2.1.0
+Tested up to: 4.4
+Stable tag: 2.2.0
 
 Flickr integration for wordpress plugin.
 

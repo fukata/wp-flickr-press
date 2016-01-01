@@ -40,6 +40,9 @@ class FpPostEvent {
         $defaultSize     = FlickrPress::getDefaultSize();
         $defaultAlign    = FlickrPress::getDefaultAlign();
         $defaultFileURLSize = FlickrPress::getDefaultFileURLSize();
+        $defaultEmbedHeader = FlickrPress::getDefaultEmbedHeader();
+        $defaultEmbedFooter = FlickrPress::getDefaultEmbedFooter();
+        $defaultEmbedSlideshow = FlickrPress::getDefaultEmbedSlideshow();
         $insertTemplate  = FlickrPress::getInsertTemplate();
         $html = <<< HTML
 <div style="display:none" id="wpfp_params"
@@ -53,6 +56,9 @@ class FpPostEvent {
     data-default_size="$defaultSize"
     data-default_align="$defaultAlign"
     data-default_file_url_size="$defaultFileURLSize"
+    data-default_embed_header="$defaultEmbedHeader"
+    data-default_embed_footer="$defaultEmbedFooter"
+    data-default_embed_slideshow="$defaultEmbedSlideshow"
     data-insert_template="$insertTemplate"
 />
 HTML;
@@ -163,6 +169,20 @@ HTML;
                 <# } #> 
                 <# }); #> 
             </select>
+        </label>
+
+        <h4>Embed Option</h4>
+        <label class="setting">
+            <span>Header</span>
+            <input type="checkbox" name="embed_header" value="1" <# if("1" == data.params.defaultEmbedHeader){ #>checked="checked"<# } #>/>
+        </label>
+        <label class="setting">
+            <span>Footer</span>
+            <input type="checkbox" name="embed_footer" value="1" <# if("1" == data.params.defaultEmbedFooter){ #>checked="checked"<# } #>/>
+        </label>
+        <label class="setting">
+            <span>Slideshow</span>
+            <input type="checkbox" name="embed_slideshow" value="1" <# if("1" == data.params.defaultEmbedSlideshow){ #>checked="checked"<# } #>/>
         </label>
 
     </script>

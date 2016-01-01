@@ -22,6 +22,9 @@
                 defaultSize:        _params.data('default_size'),
                 defaultAlign:       _params.data('default_align'),
                 defaultFileUrlSize: _params.data('default_file_url_size'),
+                defaultEmbedHeader: _params.data('default_embed_header'),
+                defaultEmbedFooter: _params.data('default_embed_footer'),
+                defaultEmbedSlideshow: _params.data('default_embed_slideshow'),
                 insertTemplate:     _params.data('insert_template')
             };
             fp = {
@@ -45,6 +48,7 @@
 
             fp['util'] = {
                 generateHtml: function(photo, input) {
+                    console.log("generateHtml: ", input);
                     var html = fp.params.insertTemplate;
                     if (html.indexOf('[img]') >= 0) {
                         html = html.replace(/\[img\]/g, fp.util.generateHtmlImg(photo, input));
@@ -97,9 +101,15 @@
                     var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + '/>';
                     if (link) {
                         var title = ' title="' + alt + '"';
-                        html = '<a href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
+                        var embedOptions = "";
+                        if (input["embed_header"] == "1") embedOptions += ' data-header="true"';
+                        if (input["embed_footer"] == "1") embedOptions += ' data-footer="true"';
+                        if (input["embed_slideshow"] == "1") embedOptions += ' data-context="true"';
+                        if (embedOptions != "") embedOptions = ' data-flickr-embed="true"' + embedOptions;
+                        html = '<a' + embedOptions + ' href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
                     }
 
+                    html += '<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'; 
                     return html;
                 },
                 generateHtmlTitle: function(photo, input) {
@@ -512,7 +522,17 @@
                 size_label_values: fp.flickr.SIZE_LABEL_VALUES
             };
             options['params'] = fp.params;
-            console.log(options);
+            console.log("options:", options);
+            
+            var input = this.controller.state().props.get('input');
+            input["to"] = fp.params.defaultLink;
+            input["alignment"] = fp.params.defaultAlign;
+            input["target"] = fp.params.defaultTarget;
+            input["size"] = fp.params.defaultSize;
+            input["embed_header"] = fp.params.defaultEmbedHeader;
+            input["embed_footer"] = fp.params.defaultEmbedFooter;
+            input["embed_slideshow"] = fp.params.defaultEmbedSlideshow;
+            this.controller.state().props.set('input', input);
 
             this.views.detach();
             this.$el.html( this.template(options) );
@@ -532,7 +552,11 @@
         change: function(event) {
             console.log('FlickrPressDetails.change: name=%s, value=%s', event.target.name, event.target.value);
             var input = this.controller.state().props.get('input');
-            input[event.target.name] = event.target.value;
+            if (event.target.type == "checkbox" && !event.target.checked) {
+                delete input[event.target.name];
+            } else {
+                input[event.target.name] = event.target.value;
+            }
             console.log(input);
             this.controller.state().props.set('input', input);
         }

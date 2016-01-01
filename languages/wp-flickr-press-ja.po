@@ -351,3 +351,6 @@ msgstr "写真のURLに含まれる\"UserID\"を\"UserID Alias\"に置換しま�
 
 msgid "Please use the copy to the callback URL of the Flickr apps created."
 msgstr "作成したFlickrアプリのコールバックURLにコピーして使用してください。"
+
+msgid "Embed Options"
+msgstr "埋め込みオプション"

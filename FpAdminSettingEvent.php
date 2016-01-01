@@ -21,6 +21,9 @@ class FpAdminSettingEvent {
             FlickrPress::getKey('default_sort'),
             FlickrPress::getKey('quick_settings'),
             FlickrPress::getKey('default_search_type'),
+            FlickrPress::getKey('default_embed_header'),
+            FlickrPress::getKey('default_embed_footer'),
+            FlickrPress::getKey('default_embed_slideshow'),
             FlickrPress::getKey('default_link'),
             FlickrPress::getKey('default_link_rel'),
             FlickrPress::getKey('default_link_class'),
@@ -291,6 +294,14 @@ function callback_oauth(token) {
         <h3><?php echo __('Default Attachments', FlickrPress::TEXT_DOMAIN) ?></h3>
         <table class="form-table">
             <tr valign="top">
+                <th scope="row"><p><?php echo __('Embed Options', FlickrPress::TEXT_DOMAIN) ?></p></th>
+                <td>
+                    <p><input type="checkbox" name="<?php echo FlickrPress::getKey('default_embed_header') ?>" value="1" <?php echo FlickrPress::getDefaultEmbedHeader()=='1' ? ' checked="checked"' : '' ?> /> <?php echo __('Header', FlickrPress::TEXT_DOMAIN) ?></p>
+                    <p><input type="checkbox" name="<?php echo FlickrPress::getKey('default_embed_footer') ?>" value="1" <?php echo FlickrPress::getDefaultEmbedHeader()=='1' ? ' checked="checked"' : '' ?> /> <?php echo __('Footer', FlickrPress::TEXT_DOMAIN) ?></p>
+                    <p><input type="checkbox" name="<?php echo FlickrPress::getKey('default_embed_slideshow') ?>" value="1" <?php echo FlickrPress::getDefaultEmbedSlideshow()=='1' ? ' checked="checked"' : '' ?> /> <?php echo __('Slideshow', FlickrPress::TEXT_DOMAIN) ?></p>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row"><p><?php echo __('Link URL Type', FlickrPress::TEXT_DOMAIN) ?></p></th>
                 <td>
                     <?php foreach(FlickrPress::$LINK_TYPE_LABELS as $type => $label) { ?>
