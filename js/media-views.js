@@ -107,9 +107,9 @@
                         if (input["embed_slideshow"] == "1") embedOptions += ' data-context="true"';
                         if (embedOptions != "") embedOptions = ' data-flickr-embed="true"' + embedOptions;
                         html = '<a' + embedOptions + ' href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
+                        if (embedOptions != "") html += '<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'; 
                     }
 
-                    html += '<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'; 
                     return html;
                 },
                 generateHtmlTitle: function(photo, input) {
