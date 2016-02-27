@@ -22,6 +22,7 @@ function fp_send_to_editor(h, close) {
 
     } else if ( typeof edInsertContent == 'function' ) {
         edInsertContent(edCanvas, h);
+        jQuery('#' + window.wpActiveEditor).trigger("keyup");
     } else {
         jQuery( edCanvas ).val( jQuery( edCanvas ).val() + h );
     }
