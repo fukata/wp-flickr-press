@@ -7,14 +7,14 @@
         initialize: function(){
             console.log('controller.FlickrPress.initialize');
 
-            var target = jQuery(event.target);
-            if (target.data("editor") && window.document.getElementById(target.data("editor"))) {
-                window.wpActiveEditor = target.data("editor");
-            }
-
             // this model contains all the relevant data needed for the application
             this.props = new Backbone.Model({ custom_data: [] });
             this.props.on( 'change:custom_data', this.refresh, this );
+            
+            var target = jQuery(event.target);
+            if (target.data('editor') && window.document.getElementById(target.data('editor'))) {
+                this.props.set('editor', target.data('editor'))
+            }
 
             var _params = $("#wpfp_params");
             var params = {
@@ -199,12 +199,13 @@
 
             var input = this.controller.state().props.get('input');
             var photos = this.controller.options.selection.models;
+            var editor = this.controller.state().props.get('editor');
             $.each(photos, function(i, _photo){
                 var photo = _photo.attributes;
                 console.log(photo);
                 var html = fp.util.generateHtml(photo, input);
                 var win = parent || top;
-                win.fp_send_to_editor(html, false);
+                win.fp_send_to_editor(html, false, editor);
             });
 
             this.controller.options.selection.reset();
