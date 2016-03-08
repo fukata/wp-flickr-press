@@ -592,7 +592,7 @@
                 that.selectThumbnail( e, $(this) );
             });
         },
-        render: function( event ){
+        render: function(){
             console.log("view.FlickrPress.render");
             this.toolbar.get( 'search-button' ).click();
             return this;
@@ -600,7 +600,7 @@
         update: function( event ) {
             console.log("view.FlickrPress.update class=%s, value=%s", event.target, event.target.value);
         },
-        change: function() {
+        change: function( event ) {
             console.log("view.FlickrPress.change class=%s, value=%s", event.target, event.target.value);
             if ( $(event.target).hasClass('search-type-filters') ) {
                 this.updateToolbar();
