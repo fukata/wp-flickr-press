@@ -43,30 +43,30 @@ function media_upload_search_form() {
 	$extendImageProperties = FlickrPress::getExtendImagePropertiesArray();
 
 	$page = isset($_GET['paged']) && intval($_GET['paged'])>0 ? intval($_GET['paged']) : 0;
-	
+
 	$filter = isset($_GET['filter']) ? $_GET['filter'] : array();
 	if (isset($_GET['clear_cache']) && $_GET['clear_cache']) {
 		FlickrPress::clearCache();
 	}
-	
+
 	$filter['keyword'] = (isset($filter['keyword'])) ? $filter['keyword'] : '';
 	$filter['tags'] = (isset($filter['tags'])) ? $filter['tags'] : '';
 
 	$checkedRecent = (!isset($filter['type']) || $filter['type']=='recent') ? " checked='checked'" : '';
 	$checkedAdvanced = (isset($filter['type']) && $filter['type']=='advanced') ? " checked='checked'" : '';
 	$advancedFormClass = strlen($checkedAdvanced)==0 ? 'search-form-off' : '';
-	$checkedPhotosets = (isset($filter['type']) && $filter['type']=='photosets') ? " checked='checked'" : '';	
+	$checkedPhotosets = (isset($filter['type']) && $filter['type']=='photosets') ? " checked='checked'" : '';
 	$photosetsFormClass = strlen($checkedPhotosets)==0 ? 'search-form-off' : '';
 	$sortFormClass = strlen($checkedPhotosets)==0 ? '' : 'search-form-off';
-	
+
 	$sort = ( (!isset($filter['sort'])) || strlen($filter['sort']) == 0 ) ? FlickrPress::getDefaultSort() : $filter['sort'];
 	if (!in_array($sort, $sorts)) $sort = FlickrPress::getDefaultSort();
 
 	$params = array(
-		'user_id' => FlickrPress::getUserId(), 
-		'page' => $page, 
-		'per_page' => 20, 
-		'sort' => 'date-posted-desc', 
+		'user_id' => FlickrPress::getUserId(),
+		'page' => $page,
+		'per_page' => 20,
+		'sort' => 'date-posted-desc',
 		'extras' => join(',', array_values(FlickrPress::$SIZES)) . ',path_alias'
 	);
 	if (strlen($checkedRecent)>0) {
@@ -166,7 +166,7 @@ function media_upload_search_form() {
 		<table class="slidetoggle describe startclosed">
 			<thead class="media-item-info" id="media-head-<?php echo $photo['id'] ?>">
 				<tr valign="top">
-					<td class="A1B1" id="thumbnail-head-<?php echo $photo['id'] ?>"
+					<td class="A1B1" id="thumbnail-head-<?php echo $photo['id'] ?>">
 						<p><a href="#"><img class="thumbnail" src="<?php echo FlickrPress::getPhotoUrl($photo, 'm') ?>"/></a></p>
 						<p><img src="<?php echo admin_url() ?>/images/wpspin_light.gif" class="imgedit-wait-spin" alt=""></p>
 					</td>
@@ -359,7 +359,7 @@ jQuery(document).ready(function($){
 			$('input[name="attachments['+photo_id+'][clazz]"]').val( $self.attr('data-clazz') );
 		}
 	});
-	
+
 	$('a.load-default-link-property').click(function() {
 		var $self = $(this);
 		var photo_id = $self.attr('data-photoid');
@@ -394,13 +394,13 @@ jQuery(document).ready(function($){
 		var image_size = $(image_size_selector+':checked',$content_image_size).val();
 		$(image_size_selector, 'div#media-item-'+photo_id).val([image_size]);
 
-		// order 
+		// order
 		var order = $('#inline-order').val();
 		$('input[name="attachments['+photo_id+'][order]"]').val(order);
 
 		tb_remove();
 	});
-	
+
 	function draw_settings_content(photo_id) {
 		$('#inline-photo-id').val(photo_id);
 
@@ -430,7 +430,7 @@ jQuery(document).ready(function($){
 <?php } ?>
 });
 </script>
-<?php 
+<?php
 }
 ?>
 

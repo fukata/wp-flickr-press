@@ -1,4 +1,6 @@
 .settings/
+/.buildpath
+/.project
 *~
 .*.swp
 cache/*.cache

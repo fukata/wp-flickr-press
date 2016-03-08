@@ -24,6 +24,8 @@
                 oauthToken:         _params.data('oauth_token'),
                 enablePathAlias:    _params.data('enable_path_alias') == '1',
                 defaultLink:        _params.data('default_link'),
+                defaultLinkRel:     _params.data('default_link_rel'),
+                defaultLinkClass:   _params.data('default_link_class'),
                 defaultTarget:      _params.data('default_target'),
                 defaultSize:        _params.data('default_size'),
                 defaultAlign:       _params.data('default_align'),
@@ -73,38 +75,22 @@
                 },
                 generateHtmlImg: function(photo, input) {
                     var size = 'size' in input ? input['size'] : fp.params.defaultSize;
-                    var link = fp.flickr.getPhotoPageUrl(photo, photo);
+                    input['size'] = fp.params.defaultFileUrlSize; // for getting the file URL
+                    var link = fp.util.generateHtmlUrl(photo, input);
                     var target = 'target' in input ? input['target'] : fp.params.defaultTarget;
                     target = target ? ' target="' + target + '"' : '';
-                    var align = 'align' in input ? input['alignment'] : fp.params.defaultAlign;
-                    var imageClazz = '';
-
                     var alt = fp.util.escAttr( photo.title );
                     var src = fp.flickr.getPhotoUrl(photo, size);
-                    var clazz = "";
-                    var close = $(this).data('close') == '1';
 
-                    if (align) {
-                        clazz = 'align' + align;
-                    }
-                    if (imageClazz) {
-                        clazz = clazz ? clazz + ' ' + imageClazz : imageClazz;
-                    }
+                    var align = 'alignment' in input ? input['alignment'] : fp.params.defaultAlign;
+                    var imageClazz = align ? ' class="align' + align + '"' : '';
+
+                    var clazz = fp.util._removeInvalidLinkChars(fp.params.defaultLinkClass);
                     clazz = clazz ? ' class="' + clazz + '"' : '';
+                    var rel = fp.util._removeInvalidLinkChars(fp.params.defaultLinkRel);
+                    rel = rel ? ' rel="' + rel + '"' : '';
 
-                    //var rel = _removeInvalidLinkChars( $('input[name="inline-link-rel"]').val() );
-                    //if ( rel ) {
-                    //    rel = ' rel="' + rel + '"';
-                    //}
-                    var rel = '';
-
-                    //var aclazz = _removeInvalidLinkChars( $('input[name="inline-link-clazz"]').val() );
-                    //if ( aclazz ) {
-                    //    aclazz = ' class="' + aclazz + '"';
-                    //}
-                    var aclazz = '';
-
-                    var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + '/>';
+                    var html = '<img src="' + src + '" alt="' + alt + '"' + imageClazz + '/>';
                     if (link) {
                         var title = ' title="' + alt + '"';
                         var embedOptions = "";
@@ -112,7 +98,7 @@
                         if (input["embed_footer"] == "1") embedOptions += ' data-footer="true"';
                         if (input["embed_slideshow"] == "1") embedOptions += ' data-context="true"';
                         if (embedOptions != "") embedOptions = ' data-flickr-embed="true"' + embedOptions;
-                        html = '<a' + embedOptions + ' href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
+                        html = '<a' + embedOptions + ' href="' + link + '"' + target + clazz + rel + title + '>' + html + '</a>';
                         if (embedOptions != "") html += '<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'; 
                     }
 
@@ -124,11 +110,11 @@
                 generateHtmlUrl: function(photo, input) {
                     var to = 'to' in input ? input['to'] : fp.params.defaultLink;
                     var url;
-                    if ( to == 'urlnone' ) {
+                    if ( to == 'none' ) {
                         to = '';
-                    } else if ( to == 'urlpage' ) {
+                    } else if ( to == 'page' ) {
                         to = fp.flickr.getPhotoPageUrl(photo, photo);
-                    } else if ( to == 'urlfile' ) {
+                    } else if ( to == 'file' ) {
                         var size = 'size' in input ? input['size'] : fp.params.defaultSize;
                         to = fp.flickr.getPhotoUrl(photo, size);
                     }
@@ -606,7 +592,7 @@
                 that.selectThumbnail( e, $(this) );
             });
         },
-        render: function(){
+        render: function( event ){
             console.log("view.FlickrPress.render");
             this.toolbar.get( 'search-button' ).click();
             return this;
