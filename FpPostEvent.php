@@ -36,6 +36,8 @@ class FpPostEvent {
         $oauthToken      = FlickrPress::getOAuthToken();
         $enablePathAlias = FlickrPress::enablePathAlias() ? '1' : '0';
         $defaultLink     = FlickrPress::getDefaultLink();
+        $defaultLinkRel  = FlickrPress::getDefaultLinkRel();
+        $defaultLinkClass= FlickrPress::getDefaultLinkClass();
         $defaultTarget   = FlickrPress::getDefaultTarget();
         $defaultSize     = FlickrPress::getDefaultSize();
         $defaultAlign    = FlickrPress::getDefaultAlign();
@@ -52,6 +54,8 @@ class FpPostEvent {
     data-oauth_token="$oauthToken"
     data-enable_path_alias="$enablePathAlias"
     data-default_link="$defaultLink"
+    data-default_link_rel="$defaultLinkRel"
+    data-default_link_class="$defaultLinkClass"
     data-default_target="$defaultTarget"
     data-default_size="$defaultSize"
     data-default_align="$defaultAlign"
@@ -68,7 +72,7 @@ HTML;
 	public static function addButtons() {
 		echo self::_media_button(__('Add flickr media', FlickrPress::TEXT_DOMAIN), FlickrPress::getPluginUrl().'/images/icon-flickr.gif', FlickrPress::MEDIA_BUTTON_TYPE);
 	}
-	
+
 	public static function addButtonsFullScreen($buttons) {
 		$buttons['wpfp'] = array(
 			'title' => __('Insert/Flickr Media'),
@@ -89,9 +93,9 @@ HTML;
 
     public static function printTemplate() {
         $linkTos= array(
-            'None'    =>'urlnone',
-            'File URL'=>'urlfile',
-            'Page URL'=>'urlpage',
+            'None'    =>'none',
+            'File URL'=>'file',
+            'Page URL'=>'page',
         );
         $alignes = array(
             'None'=>'none',
@@ -137,7 +141,7 @@ HTML;
             <span>Link To</span>
             <select name="to">
                 <?php foreach($linkTos as $label => $to) { ?>
-                <option value="<?php echo $to ?>" <# if("<?php echo $to ?>" == "url"+data.params.defaultLink){ #>selected="selected"<# } #>><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
+                <option value="<?php echo $to ?>" <# if("<?php echo $to ?>" == data.params.defaultLink){ #>selected="selected"<# } #>><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></option>
                 <?php } ?>
             </select>
         </label>
@@ -166,8 +170,8 @@ HTML;
                 <# _.each(data.fp.size_keys, function(size){ #>
                 <# if (data["url_"+size]) { #>
                 <option value="{{size}}" <# if(size == data.params.defaultSize){ #>selected="selected"<# } #>>{{ data.fp.size_labels[size] + " (" + data["width_"+size] + "x" + data["height_"+size] + ")" }}</option>
-                <# } #> 
-                <# }); #> 
+                <# } #>
+                <# }); #>
             </select>
         </label>
 
@@ -202,7 +206,7 @@ HTML;
 	}
 
 	public static function mediaUploadFlickrMedia() {
-		require_once dirname(__FILE__) . '/media-upload.php';	
+		require_once dirname(__FILE__) . '/media-upload.php';
 	}
 }
 
