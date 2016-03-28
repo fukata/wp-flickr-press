@@ -67,7 +67,9 @@ class FpThumbnailEvent {
     }
 
     public static function filterWpInsertPostData($data, $postarr) {
-        update_post_meta($postarr['ID'], 'wpfp_use_post_thumbnail', $postarr['wpfp_use_post_thumbnail']);
+    	if ( array_key_exists( 'wpfp_use_post_thumbnail', $postarr ) ) {
+        	update_post_meta($postarr['ID'], 'wpfp_use_post_thumbnail', $postarr['wpfp_use_post_thumbnail']);
+    	}
         return $data;
     }
 
