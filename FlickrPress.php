@@ -284,6 +284,13 @@ class FlickrPress {
             add_action('add_meta_boxes_post', array('FpThumbnailEvent', 'actionAddMetaBoxesPost')        );
             add_filter('wp_insert_post_data', array('FpThumbnailEvent', 'filterWpInsertPostData'),  10, 2);
         }
+
+        // feed
+        require_once(self::getDir() . '/FpFeedEvent.php');
+        do_action( 'atom_entry', array('FpFeedEvent', 'actionInsertImageNode') );
+        do_action( 'rdf_item', array('FpFeedEvent', 'actionInsertImageNode') );
+        do_action( 'rss_item', array('FpFeedEvent', 'actionInsertImageNode') );
+        do_action( 'rss2_item', array('FpFeedEvent', 'actionInsertImageNode') );
 	}
 
 	public static function adminActionWpfpMediaUpload() {
