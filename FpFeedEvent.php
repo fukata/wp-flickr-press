@@ -7,7 +7,7 @@ class FpFeedEvent {
       $thumbnailSize = FlickrPress::getThumbnailSizeSuffix('m');
       $src = FpThumbnailEvent::get_the_post_thumbnail_src($post->post_content, $thumbnailSize);
       if ( $src ) {
-        echo "<image>$src</image>";
+        echo("<image>{$src}</image>");
       }
     }
   }
