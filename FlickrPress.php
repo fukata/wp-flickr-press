@@ -287,10 +287,10 @@ class FlickrPress {
 
     // feed
     require_once(self::getDir() . '/FpFeedEvent.php');
-    do_action( 'atom_entry', array('FpFeedEvent', 'actionInsertImageNode') );
-    do_action( 'rdf_item',   array('FpFeedEvent', 'actionInsertImageNode') );
-    do_action( 'rss_item',   array('FpFeedEvent', 'actionInsertImageNode') );
-    do_action( 'rss2_item',  array('FpFeedEvent', 'actionInsertImageNode') );
+    add_action( 'atom_entry', array('FpFeedEvent', 'actionInsertImageNode') );
+    add_action( 'rdf_item',   array('FpFeedEvent', 'actionInsertImageNode') );
+    add_action( 'rss_item',   array('FpFeedEvent', 'actionInsertImageNode') );
+    add_action( 'rss2_item',  array('FpFeedEvent', 'actionInsertImageNode') );
   }
 
   public static function adminActionWpfpMediaUpload() {
