@@ -2,7 +2,7 @@
 class FpThumbnailEvent {
   private function __construct() {}
 
-  static function get_the_post_thumbnail_src($img, $size) {
+  public static function get_the_post_thumbnail_src($img, $size) {
     $img = (preg_match('~\bsrc="(https?:\/\/farm[0-9]+\.staticflickr\.com\/[^"]+\.(?:jpg|JPG|jpeg|jpeg|gif|GIF|png|PNG))"~', $img, $matches)) ? $matches[1] : '';
     if (!$img) {
       return '';

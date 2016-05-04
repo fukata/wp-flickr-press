@@ -1,6 +1,7 @@
 <?php
 class FpFeedEvent {
   private function __construct() {}
+
   public static function actionInsertImageNode() {
     global $post;
     if ( FlickrPress::isExtractThumbnailByPostID( $post->ID ) ) {
