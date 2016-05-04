@@ -1,4 +1,7 @@
 <?php
+require_once(dirname(__FILE__).'/FlickrPress.php');
+require_once(dirname(__FILE__).'/FpThumbnailEvent.php');
+
 class FpFeedEvent {
   private function __construct() {}
 
