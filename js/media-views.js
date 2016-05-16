@@ -47,7 +47,7 @@
             fp.params = params;
             fp.options = {
                 perpage : 100,
-                extras : fp.flickr.SIZE_VALUES.join(',') + ",path_alias",
+                extras : fp.flickr.SIZE_VALUES.join(',') + ",path_alias,description",
                 sort : "date-posted-desc",
                 thumbnailSize : "sq",
             };
@@ -61,6 +61,9 @@
                     }
                     if (html.indexOf('[title]') >= 0) {
                         html = html.replace(/\[title\]/g, fp.util.generateHtmlTitle(photo, input));
+                    }
+                    if (html.indexOf('[description]') >= 0) {
+                        html = html.replace(/\[description\]/g, fp.util.generateHtmlDescription(photo, input));
                     }
                     if (html.indexOf('[url]') >= 0) {
                         html = html.replace(/\[url\]/g, fp.util.generateHtmlUrl(photo, input));
@@ -120,6 +123,9 @@
                 },
                 generateHtmlTitle: function(photo, input) {
                     return photo.title;
+                },
+                generateHtmlDescription: function(photo, input) {
+                    return photo.description._content;
                 },
                 generateHtmlUrl: function(photo, input) {
                     var to = 'to' in input ? input['to'] : fp.params.defaultLink;
