@@ -434,6 +434,7 @@ function callback_oauth(token) {
           <h4><?php echo __('Avalable Options', FlickrPress::TEXT_DOMAIN) ?></h4>
           <p>[img]: Image Tag</p>
           <p>[title]: Image Title</p>
+          <p>[description]: Image Description</p>
           <p>[url]: Image URL</p>
           <p>[null]: Null Character</p>
         </th>
