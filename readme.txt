@@ -3,8 +3,8 @@ Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
-Tested up to: 4.4
-Stable tag: 2.2.0
+Tested up to: 4.5.2
+Stable tag: 2.3.0
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.3.0 =
+* Feature: Add template variable `description`.
 
 = 2.2.0 =
 * Feature: Add Embed Option(Header, Footer, Slideshow).
