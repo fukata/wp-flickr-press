@@ -4,7 +4,7 @@
 
     // custom state : this controller contains your application logic
     wp.media.controller.FlickrPress = wp.media.controller.State.extend({
-        initialize: function(){
+        initialize: function(event){
             console.log('controller.FlickrPress.initialize');
 
             // this model contains all the relevant data needed for the application

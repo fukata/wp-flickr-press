@@ -56,6 +56,9 @@ None
 
 == Changelog ==
 
+= 2.3.1 =
+* Bugfix: Doesn't work on firefox.
+
 = 2.3.0 =
 * Feature: Add template variable `description`.
 
