@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby 
-# ruby misc/change-version.rb 2.3.3
+# ruby misc/change-version.rb PLUGIN_VERSION TESTED_VERSION REQUIRE_VERSION
+# ex) ruby misc/change-version.rb 2.3.3 4.5.2 3.8
 
 version = ARGV[0]
+tested_version = ARGV[1]
+require_version = ARGV[2]
 
 raise "Please specify version x.y.z" unless version
 
@@ -28,6 +31,8 @@ end
 # readme.txt
 if File.file?("readme.txt") then
   content = File.read("readme.txt").gsub(/(Stable tag: )[0-9]+\.[0-9]+\.[0-9]+/, '\1' + "#{version}")
+  content = content.gsub(/(Tested up to: )[0-9]+\.[0-9]+\.[0-9]+/, '\1' + "#{tested_version}") if tested_version
+  content = content.gsub(/(Requires at least: )[0-9]+\.[0-9]+(?:\.[0-9]+)?/, '\1' + "#{require_version}") if require_version 
   File.open("readme.txt", "w") do |f|
     f.write content
   end
