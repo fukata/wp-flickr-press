@@ -4,14 +4,16 @@
 
     // custom state : this controller contains your application logic
     wp.media.controller.FlickrPress = wp.media.controller.State.extend({
-        initialize: function(event){
+        initialize: function(ev){
+            if (!ev) ev = event;
+
             console.log('controller.FlickrPress.initialize');
 
             // this model contains all the relevant data needed for the application
             this.props = new Backbone.Model({ custom_data: [] });
             this.props.on( 'change:custom_data', this.refresh, this );
             
-            var target = jQuery(event.target);
+            var target = jQuery(ev.target);
             if (target.data('editor') && window.document.getElementById(target.data('editor'))) {
                 this.props.set('editor', target.data('editor'))
             }
