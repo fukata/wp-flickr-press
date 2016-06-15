@@ -348,6 +348,7 @@
         },
         createFilters: function() {
             console.log('FlickrPressSearchPhotosetFilters.createFilters');
+
             if ( !this.initialized ) {
                 this.initialized = true;
                 var that = this;
@@ -367,6 +368,7 @@
                     }
                     console.log("initialize filters=", that.filters);
                     that.initialize();
+                    $('.search-photoset-filters').select2();
                 }, function(request, textStatus, errorThrown){
                     that.filters = {
                         '': {

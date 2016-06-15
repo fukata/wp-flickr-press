@@ -23,10 +23,12 @@ class FpPostEvent {
   }
 
   public static function loadUIScripts() {
+    wp_enqueue_style("select2", FlickrPress::getPluginUrl("libs/select2/css/select2.min.css"), array(), FlickrPress::VERSION);
     wp_enqueue_style("wpfp", FlickrPress::getPluginUrl("css/media-views.css"), array(), FlickrPress::VERSION);
     wp_enqueue_script('jquery.md5', FlickrPress::getPluginUrl('js/jquery.md5.js'), array(), FlickrPress::VERSION);
     wp_enqueue_script('jquery.flickr-client', FlickrPress::getPluginUrl('js/jquery.flickr-client.js'), array(), FlickrPress::VERSION);
     wp_enqueue_script('wpfp', FlickrPress::getPluginUrl('js/media-views.js'), array('media-views'), false, FlickrPress::VERSION);
+    wp_enqueue_script('select2', FlickrPress::getPluginUrl('libs/select2/js/select2.min.js'), array(), FlickrPress::VERSION);
   }
 
   public static function loadJSBridgeParams() {

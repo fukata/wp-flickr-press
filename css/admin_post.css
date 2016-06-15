@@ -2,3 +2,7 @@
 	background-image: url('../images/icon-flickr_20.gif');
 	background-position: 0px 0px;
 }
+
+.select2-container {
+  z-index: 9999999;
+}
