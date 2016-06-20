@@ -657,6 +657,8 @@
                 }, this );
             }
 
+            this.resetSelect2();
+
             var searchType = this.model.get('wpfp_type');
             console.log("updateToolbar. searchType=%s", searchType);
             if ( searchType === 'photosets' ) {
@@ -691,6 +693,9 @@
                     priority:   -80
                 }).render() );
             }
+        },
+        resetSelect2: function() {
+          $('#wpfp .select2').remove();
         },
         createSidebar: function() {
             var options = this.controller.options,
