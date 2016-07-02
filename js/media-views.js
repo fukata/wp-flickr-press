@@ -54,6 +54,7 @@
                 thumbnailSize : "sq",
             };
 
+            var that = this;
             fp['util'] = {
                 generateHtml: function(photo, input) {
                     console.log("generateHtml: ", input);
@@ -79,6 +80,10 @@
                 generateHtmlImg: function(photo, input) {
                     var size = 'size' in input ? input['size'] : fp.params.defaultSize;
                     var link = fp.flickr.getPhotoPageUrl(photo, photo);
+                    if ("photosets" == that.props.get('wpfp_type') && that.props.get('wpfp_photoset')) {
+                      link = link + "/in/album-" + that.props.get('wpfp_photoset') + "/";
+                    }
+
                     var target = 'target' in input ? input['target'] : fp.params.defaultTarget;
                     target = target ? ' target="' + target + '"' : '';
                     var align = 'align' in input ? input['alignment'] : fp.params.defaultAlign;
