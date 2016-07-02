@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.5.2
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.3.5 =
+* Feature: Support embed slideshow in album.
 
 = 2.3.4 =
 * Fix: Reset album select field.
