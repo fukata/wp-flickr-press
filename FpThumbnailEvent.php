@@ -20,7 +20,7 @@ class FpThumbnailEvent {
 
   public static function filterPostThumbnailHtml($html, $post_id, $post_thumbnail_id, $size, $attr) {
     global $post;
-    if ( $html ) {
+    if ( !FlickrPress::isExtractThumbnailByPostID($post_id) || $html ) {
       return $html;
     }
 
