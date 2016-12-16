@@ -600,16 +600,15 @@
     initialize: function() {
       console.log("view.FlickrPress.initialize");
 
-      this.createToolbar();
-      this.updateContent();
-      this.createSidebar();
-
       this.model.set('wpfp_type', 'recent');
       this.model.set('wpfp_sort', 'date-posted-desc');
       this.model.set('wpfp_photoset', '');
       this.model.set('wpfp_tag', '');
       this.model.set('wpfp_keyword', '');
-      //this.collection.on( 'add remove reset', this.updateContent, this );
+
+      this.createToolbar();
+      this.updateContent();
+      this.createSidebar();
 
       var that = this;
       $(document).off('click', '#wpfp .result-container .result .photos > li')
