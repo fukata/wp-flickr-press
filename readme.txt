@@ -3,8 +3,8 @@ Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
-Tested up to: 4.5.2
-Stable tag: 2.3.7
+Tested up to: 4.7
+Stable tag: 2.3.8
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.3.8 =
+* Fix: Update select2 to full version.
 
 = 2.3.7 =
 * Fix: Check extract thumbnail or not when call `the_post_thumbnail` function.
