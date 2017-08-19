@@ -14,11 +14,11 @@ if ( isset( $plugin ) ) {
   $wp_flickr_press_file = $plugin;
 }
 
-if ( ! file_exists(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php') ) {
+if ( ! file_exists(dirname($wp_flickr_press_file).'/libs/PHPFlickr-Oauth/phpFlickr.php') ) {
   $wp_flickr_press_file = __FILE__;
 }
 
-require_once(dirname($wp_flickr_press_file).'/libs/phpflickr/phpFlickr.php');
+require_once(dirname($wp_flickr_press_file).'/libs/PHPFlickr-Oauth/phpFlickr.php');
 
 class FlickrPress {
   // constants
@@ -86,13 +86,13 @@ class FlickrPress {
     self::loadLanguages();
     self::addEvents();
 
-    self::$flickr = new phpFlickr(FlickrPress::getApiKey(), FlickrPress::getApiSecret());
+    self::$flickr = new phpFlickr(FlickrPress::getApiKey(), FlickrPress::getApiSecret(), true);
     if (self::getOAuthToken()) {
       self::$flickr->token = self::getOAuthToken();
     }
-    if (self::isCacheEnabled()) {
-      self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
-    }
+    //if (self::isCacheEnabled()) {
+    //  self::$flickr->enableCache(FlickrPress::getCacheType(), FlickrPress::getCacheConnection());
+    //}
   }
 
   public static function clearCache() {

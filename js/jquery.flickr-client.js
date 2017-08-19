@@ -122,7 +122,7 @@
       method: method,
       format: "json",
       api_key: this.options.apiKey,
-      auth_token: this.options.oauthToken,
+      oauth_token: this.options.oauthToken,
       user_id: this.options.userId
     }, params);
     
