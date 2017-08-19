@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.7
-Stable tag: 2.3.8
+Stable tag: 2.4.0
 
 Flickr integration for wordpress plugin.
 
@@ -36,7 +36,7 @@ https://github.com/fukata/wp-flickr-press/issues
 == Installation ==
 
 1. Download the plugin, unpack it and upload the 'wp-flickr-press' folder to your wp-content/plugins directory.
-2. To grant write access to wp-content/plugins/wp-flickr-press/cache. 
+2. To grant write access to wp-content/plugins/wp-flickr-press/cache.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 4. [Create Your Flickr App](http://www.flickr.com/services/apps/create/apply/ "Create Your Flickr App") and settings OAuth Callback URL. Default OAuth Callback URL is `http://"Your Blog Domain"/wp-admin/admin.php?action=wpfp_flickr_oauth_callback
 5. Go to [Settings] -> [FlickrPress] to configure the options.
@@ -55,6 +55,10 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.4.0 =
+* Fix: Fix flickr oauth.
+* Please get oauth token again can't use before got token.
 
 = 2.3.8 =
 * Fix: Update select2 to full version.
@@ -142,17 +146,17 @@ None
 * Bugfix form url search type list.
 
 = 1.9.3 =
-* Add description for Flickr App CallbackURL. 
+* Add description for Flickr App CallbackURL.
 
 = 1.9.2 =
-* Fixed bug doesn't work activation single site. 
+* Fixed bug doesn't work activation single site.
 
 = 1.9.1 =
 * Fixed readme.txt
 * Add message languages file.
 
 = 1.9.0 =
-* Fixed plugins in symlinked directories.  
+* Fixed plugins in symlinked directories.
 
 = 1.8.0 =
 * Fixed bug Use larger than selected size when selected photo size doesn't exists.
