@@ -1,5 +1,16 @@
 ;
+/* jquery.flickr-client.js v1.1.1
+ * */
 (function($) {
+
+  function generate_oauth_nonce(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for(var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
 
   function hkeys(hash) {
     var keys = [];
@@ -18,8 +29,8 @@
   }
 
   /**
-   * return HashMap by HashMap's key sorted. 
-   * 
+   * return HashMap by HashMap's key sorted.
+   *
    * @return
    */
   function ksort(params) {
@@ -32,16 +43,16 @@
         sorted[key] = params[key];
       }
     });
-    
+
     return sorted;
   };
-  
+
   /**
    * Convert HashMap to query string.
    */
   function hash2query(params) {
     var query = "";
-    
+
     $.each(params, function(key, val){
       var _query = "";
       if ($.isArray(val)) {
@@ -52,14 +63,14 @@
       } else {
         _query = key + "=" + val;
       }
-      
+
       if (query.length>0) query += "&";
       query += _query;
     });
-    
+
     return query;
   };
-  
+
   function FlickrClient(options) {
     this.options = $.extend(FlickrClient.prototype.DEFAULT_OPTIONS, options);
   }
@@ -67,14 +78,14 @@
     apiKey: "",
     apiSecret: "",
     userId: "",
-    oauthToken: "",
+    authToken: "",
     restEndpoint: "https://api.flickr.com/services/rest/",
     enablePathAlias: false
   };
   FlickrClient.prototype.SIZES = {
     "sq": "url_sq", // Square 75
     "q": "url_q",   // Square 150
-    "t": "url_t",   // Thumbnail 
+    "t": "url_t",   // Thumbnail
     "s": "url_s",   // Small 240
     "n": "url_n",   // Small 320
     "m": "url_m",   // Medium 500
@@ -85,8 +96,8 @@
     "k": "url_k",   // Large 2048
     "o": "url_o"  // Original
   };
-  FlickrClient.prototype.SIZE_KEYS   = hkeys(FlickrClient.prototype.SIZES); 
-  FlickrClient.prototype.SIZE_VALUES = hvalues(FlickrClient.prototype.SIZES); 
+  FlickrClient.prototype.SIZE_KEYS   = hkeys(FlickrClient.prototype.SIZES);
+  FlickrClient.prototype.SIZE_VALUES = hvalues(FlickrClient.prototype.SIZES);
 
   FlickrClient.prototype.SIZE_LABELS = {
     "sq": "Square",
@@ -102,11 +113,11 @@
     "k": "Large",
     "o": "Original"
   };
-  FlickrClient.prototype.SIZE_LABEL_VALUES = hvalues(FlickrClient.prototype.SIZE_LABELS); 
+  FlickrClient.prototype.SIZE_LABEL_VALUES = hvalues(FlickrClient.prototype.SIZE_LABELS);
 
   /**
    * execute request.
-   * 
+   *
    * @param method
    *      Flickr method
    * @param params
@@ -125,18 +136,24 @@
       oauth_token: this.options.oauthToken,
       user_id: this.options.userId
     }, params);
-    
+    if (params.oauth_token) {
+      params['oauth_consumer_key'] = this.options.apiKey;
+      params['oauth_timestamp'] = Math.floor(new Date().getTime()/1000);
+      params['oauth_nonce'] = generate_oauth_nonce(32);
+      params['oauth_signature_method'] = 'HMAC-SHA1';
+    }
+
     var type = this.getHttpMethod(method);
     var url = this.options.restEndpoint;
     var async = params['async'] || true;
     delete params['async'];
-    
+
     var callbackName = 'flickr_callback_' + Math.floor( Math.random() * 100000000 );
     window[callbackName] = function(res) {
       if ( $.isFunction(callback) ) callback(res);
       delete window[callbackName];
     };
-    
+
     params['jsoncallback'] = callbackName;
     // for disable cache
     params['_'] = $.now();
@@ -145,7 +162,7 @@
       params['api_sig'] = this.generateSignature(params);
     }
     params['jsoncallback'] = '?';
-    
+
     var ajaxOption = {
       type: type,
       url: url + '?' + hash2query(params),
@@ -158,13 +175,13 @@
     if ( $.isFunction(errorCallback) ) {
       ajaxOption['error'] = errorCallback;
     }
-    
+
     return $.ajax(ajaxOption);
   };
-  
+
   /**
    * return Http method
-   * 
+   *
    * @param method
    *      Flickr method
    * @return Http method
@@ -188,11 +205,11 @@
         sig += String(key) + String(val);
       }
     });
-    
+
     sig = this.options.apiSecret + sig;
     return $.md5(sig);
   };
-  
+
   FlickrClient.prototype.photos_search = function(options, callback, errorCallback){
       return this.request("flickr.photos.search", options, callback, errorCallback);
   };
@@ -206,11 +223,11 @@
   FlickrClient.prototype.photosets_getPhotos = function(options, callback, errorCallback){
     return this.request("flickr.photosets.getPhotos", options, callback, errorCallback);
   };
-  
+
   FlickrClient.prototype.tags_getListUser = function(options, callback, errorCallback) {
     return this.request("flickr.tags.getListUser", options, callback, errorCallback);
   };
-  
+
   FlickrClient.prototype.getPhotoUrl = function(photo, size) {
     size = size || "m";
 
