@@ -48,18 +48,18 @@ class FpThumbnailEvent {
 
   public static function actionAddMetaBoxesPost($post) {
     add_meta_box(
-      'wpfp_post_thumbnail', 
-      __('Flickr Thumbnail', FlickrPress::TEXT_DOMAIN), 
+      'wpfp_post_thumbnail',
+      __('Flickr Thumbnail', FlickrPress::TEXT_DOMAIN),
       array(__CLASS__, 'getMetaBoxHtml'),
-      'post', 
-      'advanced', 
+      'post',
+      'advanced',
       'default',
       array($post)
     );
   }
 
   public static function getMetaBoxHtml($post) {
-    $use = FlickrPress::isExtractThumbnailByPostID($post->ID); 
+    $use = FlickrPress::isExtractThumbnailByPostID($post->ID);
 ?>
   <p>Use Post Thumbnail: <label class="selectit">Yes <input value="1" type="radio" name="wpfp_use_post_thumbnail" <?php echo $use ? 'checked="checked"' : ''; ?>></label>
   <label class="selectit">No <input value="0" type="radio" name="wpfp_use_post_thumbnail" <?php echo !$use ? 'checked="checked"' : ''; ?>></label></p>
@@ -67,7 +67,9 @@ class FpThumbnailEvent {
   }
 
   public static function filterWpInsertPostData($data, $postarr) {
-    update_post_meta($postarr['ID'], 'wpfp_use_post_thumbnail', $postarr['wpfp_use_post_thumbnail']);
+    if ( array_key_exists( 'wpfp_use_post_thumbnail', $postarr ) ) {
+      update_post_meta($postarr['ID'], 'wpfp_use_post_thumbnail', $postarr['wpfp_use_post_thumbnail']);
+    }
     return $data;
   }
 
