@@ -51,7 +51,7 @@
         perpage: 100,
         extras: fp.flickr.SIZE_VALUES.join(',') + ",path_alias,description",
         sort: "date-posted-desc",
-        thumbnailSize: "sq",
+        thumbnailSize: "q",
       };
 
       var that = this;
