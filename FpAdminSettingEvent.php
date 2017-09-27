@@ -482,7 +482,7 @@ function callback_oauth(token) {
         <td>
           <p>Thank you for using wp-flickr-press!</p>
           <p>I am glad if you make a donation to improve this plugin!</p>
-          <p><img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=bitcoin:1HyfkWFSpRjNjgqb1c8EUSs7NjYKmDtNcm?amount=0.00048821" alt="donate by bitcoin"></p>
+          <p><img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=bitcoin:1HyfkWFSpRjNjgqb1c8EUSs7NjYKmDtNcm" alt="donate by bitcoin"></p>
           <p>1HyfkWFSpRjNjgqb1c8EUSs7NjYKmDtNcm</p>
         </td>
       </tr>
