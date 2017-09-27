@@ -93,7 +93,7 @@ class FpAdminSettingEvent {
         properties[idx] = prop;
       }
       $('#extend_link_properties_json').val(JSON.stringify(properties));
-      
+
       $('#extend_link_property_title').val('');
       $('#extend_link_property_rel').val('');
       $('#extend_link_property_clazz').val('');
@@ -106,7 +106,7 @@ class FpAdminSettingEvent {
       if (isNaN(idx)) {
         return false;
       }
-      
+
       var properties = JSON.parse($('#extend_link_properties_json').val());
       properties.splice(idx, 1);
       $('#extend_link_property_idx').html('');
@@ -172,7 +172,7 @@ class FpAdminSettingEvent {
         properties[idx] = prop;
       }
       $('#extend_image_properties_json').val(JSON.stringify(properties));
-      
+
       $('#extend_image_property_title').val('');
       $('#extend_image_property_clazz').val('');
       $('#orig_extend_image_property_idx').val('');
@@ -184,7 +184,7 @@ class FpAdminSettingEvent {
       if (isNaN(idx)) {
         return false;
       }
-      
+
       var properties = JSON.parse($('#extend_image_properties_json').val());
       properties.splice(idx, 1);
       $('#extend_image_property_idx').html('');
@@ -395,7 +395,7 @@ function callback_oauth(token) {
         </td>
       </tr>
     </table>
-    
+
     <h3><?php echo __('Thumbnail(beta)', FlickrPress::TEXT_DOMAIN) ?></h3>
     <table class="form-table">
       <tr valign="top">
@@ -473,6 +473,16 @@ function callback_oauth(token) {
             <input type="radio" name="<?php echo FlickrPress::getKey('default_search_type') ?>" id="search_type_<?php echo $val ?>" value="<?php echo $val ?>" <?php echo FlickrPress::getDefaulSearchType()==$val ? 'checked="checked"' : ''; ?>/><label for="search_type_<?php echo $val ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
           <?php } ?>
           </p>
+        </td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">
+          <p><?php echo __('DONATE', FlickrPress::TEXT_DOMAIN) ?></p>
+        </th>
+        <td>
+          <p>Thank you for using wp-flickr-press!</p>
+          <p>I am glad if you make a donation to improve this plugin!</p>
+          <p><img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=bitcoin:1HyfkWFSpRjNjgqb1c8EUSs7NjYKmDtNcm?amount=0.00048821" alt="donate by bitcoin"></p>
         </td>
       </tr>
     </table>
