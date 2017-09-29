@@ -29,7 +29,7 @@ class FlickrPress {
   const TEXT_DOMAIN = 'wp-flickr-press';
 
   private static $flickr;
-  
+
   public static $SIZE_LABELS = array(
     'sq' => 'Square 75 (75x75)',
     'q'  => 'Square 150 (150x150)',
@@ -238,7 +238,7 @@ class FlickrPress {
     $properties = json_decode( self::getExtendLinkPropertiesJson() );
     return is_array($properties) ? $properties : array();
   }
-  
+
   public static function getExtendImagePropertiesJson() {
     return get_option(self::getKey('extend_image_properties'), '[]');
   }
@@ -332,7 +332,7 @@ class FlickrPress {
     $url = "http://www.flickr.com/photos/$owner/$id";
     return $url;
   }
-  
+
   public static function loadLanguages() {
     load_plugin_textdomain(self::TEXT_DOMAIN, false, 'wp-flickr-press/languages');
   }
@@ -384,7 +384,11 @@ class FlickrPress {
 
   public static function getThumbnailSizeSuffix($size='') {
     if ( $size ) {
-      return self::$SIZE_TO_SUFFIX_MAPS[ $size ];
+      if ( array_key_exists($size, self::$SIZE_TO_SUFFIX_MAPS) ) {
+        return self::$SIZE_TO_SUFFIX_MAPS[ $size ];
+      } else {
+        return $size;
+      }
     } else {
       return self::$SIZE_TO_SUFFIX_MAPS[ self::getThumbnailSize() ];
     }
