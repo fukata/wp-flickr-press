@@ -393,6 +393,10 @@ class FlickrPress {
       return self::$SIZE_TO_SUFFIX_MAPS[ self::getThumbnailSize() ];
     }
   }
+  
+  public static function isThumbnailSize($size='') {
+    return array_key_exists($size, self::$SIZE_TO_SUFFIX_MAPS);
+  }
 
 }
 ?>

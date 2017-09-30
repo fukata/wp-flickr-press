@@ -25,7 +25,7 @@ class FpThumbnailEvent {
     }
 
     $thumbnailSize = FlickrPress::getThumbnailSizeSuffix($size);
-    if ( null === $thumbnailSize ) {
+    if ( null === $thumbnailSize || !FlickrPress::isThumbnailSize($size) ) {
       $thumbnailSize = FlickrPress::getThumbnailSizeSuffix();
     }
 
