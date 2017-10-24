@@ -62,6 +62,7 @@ function media_upload_search_form() {
   <input type="hidden" name="TB_iframe" id="TB_iframe" value="<?php echo $_GET['TB_iframe'] ?>" />
   
   <div id="search-header">
+    <p class="notice"><?php echo __('This UI is old version. Currently have new search UI please try new version.<br>You can use new UI from Add Media.', FlickrPress::TEXT_DOMAIN) ?></p>
     <p>
       <input type="radio" name="filter[type]" value="recent" class="search-type" id="filter-type-recent" checked="checked"/><label for="filter-type-recent"><?php echo __('Recent upload', FlickrPress::TEXT_DOMAIN) ?></label>
       <input type="radio" name="filter[type]" value="photosets" class="search-type" id="filter-type-photosets"/><label for="filter-type-photosets"><?php echo __('Photosets', FlickrPress::TEXT_DOMAIN) ?></label>

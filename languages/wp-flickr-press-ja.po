@@ -354,3 +354,6 @@ msgstr "作成したFlickrアプリのコールバックURLにコピーして使
 
 msgid "Embed Options"
 msgstr "埋め込みオプション"
+
+msgid "This UI is old version. Currently have new search UI please try new version.<br>You can use new UI from Add Media."
+msgstr "この検索UIはメンテナンスされていません。現在、新しい検索UIが「メディアを挿入」から利用可能なのでそちらをご利用ください。"
