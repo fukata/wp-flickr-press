@@ -128,6 +128,10 @@ function media_upload_search_form() {
             <th valign="top" scope="row" class="label"><label for="inline-title"><span class="alignleft"><?php echo __('Title', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>
             <td class="field"><input type="text" class="text" id="inline-title" name="inline-title" value="" aria-required="true"></td>
           </tr>
+          <tr class="post_description">
+            <th valign="top" scope="row" class="label"><label for="inline-description"><span class="alignleft"><?php echo __('Description', FlickrPress::TEXT_DOMAIN)?></span><span class="alignright"><br class="clear"></label></th>
+            <td class="field"><textarea class="text" id="inline-description" name="inline-description" aria-required="true"></textarea></td>
+          </tr>
           <tr class="url">
             <th valign="top" scope="row" class="label"><label for="inline-url"><span class="alignleft"><?php echo __('Link URL', FlickrPress::TEXT_DOMAIN)?></span><br class="clear"></label></th>
             <td class="field">

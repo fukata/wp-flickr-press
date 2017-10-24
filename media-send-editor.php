@@ -101,6 +101,7 @@ function fp_create_image_html($attachments, $orders) {
     $_html = FlickrPress::getInsertTemplate();
     $_html = str_replace('[img]', $_img, $_html);
     $_html = str_replace('[title]', $alt, $_html);
+    $_html = str_replace('[description]', $photo['description']['_content'], $_html);
     $_html = str_replace('[url]', $link, $_html);
     $_html = str_replace('[null]', '', $_html);
     $html .= $_html;
