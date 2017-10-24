@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.7
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,10 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.4.6 =
+* Fix: Support [description] tag to old UI.
+* Add: Notice old UI.
 
 = 2.4.5 =
 * Fix: Use with WooCommerce.
