@@ -135,11 +135,11 @@
         generateHtmlUrl: function(photo, input) {
           var to = 'to' in input ? input['to'] : fp.params.defaultLink;
           var url;
-          if ( to == 'urlnone' ) {
+          if ( to == 'urlnone' || to == 'none' ) {
             to = '';
-          } else if ( to == 'urlpage' ) {
+          } else if ( to == 'urlpage' || to == 'page' ) {
             to = fp.flickr.getPhotoPageUrl(photo, photo);
-          } else if ( to == 'urlfile' ) {
+          } else if ( to == 'urlfile' || to == 'file' ) {
             var size = 'size' in input ? input['size'] : fp.params.defaultSize;
             to = fp.flickr.getPhotoUrl(photo, size);
           }
