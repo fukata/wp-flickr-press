@@ -3,8 +3,8 @@ Contributors: tatsuya, alexanderovsov
 Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
-Tested up to: 4.7
-Stable tag: 2.4.7
+Tested up to: 4.9
+Stable tag: 2.4.8
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.4.8 =
+* Fix: Support WordPress v4.9.
 
 = 2.4.7 =
 * Fix: [url] tag to new UI.
