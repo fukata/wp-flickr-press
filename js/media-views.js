@@ -776,6 +776,10 @@
       // cache
       this.model.set('result', res);
       var cachePhotos = this.model.get('result_photos_photo') || [];
+      // FIX(v4.9.0) for Library#_filterContext in wp-includes/js/media-views.js
+      _.each(res.photos.photo, function(photo) {
+        photo['context'] = '';
+      });
       this.model.set('result_photos_photo', cachePhotos.concat(res.photos.photo));
 
       // display
