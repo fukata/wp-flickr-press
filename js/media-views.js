@@ -757,6 +757,8 @@
       console.log('FlickrPress.disposeSingle');
       var sidebar = this.sidebar;
       sidebar.unset('details');
+      // Hide the sidebar on mobile
+      sidebar.$el.removeClass( 'visible' );
     },
     initContent: function() {
       $('.flickr-press .result-container .result .photos').empty();
