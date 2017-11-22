@@ -104,3 +104,25 @@
     height: 15px;
     margin: 4px 5px 5px 5px;
 }
+
+@media only screen and (max-width: 640px), screen and (max-height: 400px) {
+    #wpfp .media-toolbar {
+        right: 0;
+        height: 80px;
+    }
+
+    #wpfp .result-container {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        overflow: auto;
+    }
+
+    #wpfp .media-toolbar-secondary input.search,
+    #wpfp select.search-type-filters,
+    #wpfp select.search-sort-filters {
+      width: 30%;
+    }
+}
