@@ -600,6 +600,7 @@
     initialize: function() {
       console.log("view.FlickrPress.initialize");
 
+      this.model.id = this.model.id || 'wpfp';
       this.model.set('wpfp_type', 'recent');
       this.model.set('wpfp_sort', 'date-posted-desc');
       this.model.set('wpfp_photoset', '');
@@ -731,6 +732,12 @@
         model: single,
         priority: 80
       }) );
+
+      console.log("this.model=%o", this.model);
+      // Show the sidebar on mobile
+      if ( this.model.id === 'wpfp' ) {
+        sidebar.$el.addClass( 'visible' );
+      } 
     },
     disposeSingle: function() {
       console.log('FlickrPress.disposeSingle');
