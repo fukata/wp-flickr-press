@@ -187,7 +187,7 @@
             priority: 80,
             requires: false,
             click: this.customAction
-          }
+          },
         }
       });
 
@@ -223,6 +223,20 @@
       $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
 
       this.controller.modal.close();
+    }
+  });
+
+  wp.media.view.FlickrPressSelection = wp.media.view.Selection.extend({
+    events: {
+      'click .clear-selection': 'clear'
+    },
+    refresh: function() {
+      wp.media.view.Selection.prototype.refresh.apply( this, arguments );
+      this.$('.selection-view').hide();
+    },
+    clear: function(event) {
+      wp.media.view.Selection.prototype.clear.apply( this, arguments );
+      this.controller.$('#wpfp li.photo.selected').removeClass('selected').removeData('order');
     }
   });
 
@@ -886,12 +900,18 @@
       this.on( 'toolbar:render:main-insert', this.mainInsertToolbar, this );
     },
     createFlickrPressToolbar: function(toolbar){
-      console.log("MediaFrame createFlickrPressToolbar");
-      toolbar.view = new wp.media.view.Toolbar.FlickrPress({
-        controller: this
-      });
-    },
+      console.log("MediaFrame createFlickrPressToolbar. toolbar=%o", toolbar);
 
+      toolbar.view = new wp.media.view.Toolbar.FlickrPress({
+        controller: this,
+      });
+
+      toolbar.view.set( 'wpfp-selection', new wp.media.view.FlickrPressSelection({
+        controller: this,
+        collection: this.options.selection,
+        priority:   -40,
+      }).render() );
+    },
     customContent: function(){
       console.log("MediaFrame customContent");
       // this view has no router
