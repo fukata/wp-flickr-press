@@ -113,7 +113,7 @@ HTML;
         <ul class="photos ui-sortable ui-sortable-disabled"></ul>
         <div class="buttons">
           <div class="error">SEARCH ERROR. Please retry.</div>
-          <img src="<?php echo FlickrPress::getPluginUrl() ?>/images/ajax-loader.gif" class="loader"/>
+          <div class="loader">Loading...</div>
           <button class="more-btn button button-primary">More</button>
         </div>
       </div>

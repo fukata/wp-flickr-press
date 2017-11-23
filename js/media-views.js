@@ -902,11 +902,9 @@
         })
       ]);
 
-      this.on( 'toolbar:create:main-insert', this.createToolbar, this );
       this.on( 'content:render:wpfp', this.customContent, this );
       this.on( 'toolbar:create:main-wpfp-action', this.createFlickrPressToolbar, this );
       this.on( 'toolbar:render:main-wpfp-action', this.renderFlickrPressToolbar, this );
-      this.on( 'toolbar:render:main-insert', this.mainInsertToolbar, this );
     },
     createFlickrPressToolbar: function(toolbar){
       console.log("MediaFrame createFlickrPressToolbar. toolbar=%o", toolbar);
