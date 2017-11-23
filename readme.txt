@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.9
-Stable tag: 2.4.8
+Stable tag: 2.5.0
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.5.0 =
+* Feature: Support mobile devic but only insert single image.
 
 = 2.4.8 =
 * Fix: Support WordPress v4.9.
