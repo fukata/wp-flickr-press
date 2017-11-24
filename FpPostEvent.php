@@ -25,6 +25,7 @@ class FpPostEvent {
   public static function loadUIScripts() {
     wp_enqueue_style("select2", FlickrPress::getPluginUrl("libs/select2/css/select2.min.css"), array(), FlickrPress::VERSION);
     wp_enqueue_style("wpfp", FlickrPress::getPluginUrl("css/media-views.css"), array(), FlickrPress::VERSION);
+    wp_enqueue_script('taphold', FlickrPress::getPluginUrl('js/taphold.js'), array(), FlickrPress::VERSION);
     wp_enqueue_script('jquery.md5', FlickrPress::getPluginUrl('js/jquery.md5.js'), array(), FlickrPress::VERSION);
     wp_enqueue_script('jquery.flickr-client', FlickrPress::getPluginUrl('js/jquery.flickr-client.js'), array(), FlickrPress::VERSION);
     wp_enqueue_script('wpfp', FlickrPress::getPluginUrl('js/media-views.js'), array('media-views'), false, FlickrPress::VERSION);
@@ -70,7 +71,7 @@ HTML;
   public static function addButtons() {
     echo self::_media_button(__('Add flickr media', FlickrPress::TEXT_DOMAIN), FlickrPress::getPluginUrl().'/images/icon-flickr.gif', FlickrPress::MEDIA_BUTTON_TYPE);
   }
-  
+
   public static function addButtonsFullScreen($buttons) {
     $buttons['wpfp'] = array(
       'title' => __('Insert/Flickr Media'),
@@ -168,8 +169,8 @@ HTML;
         <# _.each(data.fp.size_keys, function(size){ #>
         <# if (data["url_"+size]) { #>
         <option value="{{size}}" <# if(size == data.params.defaultSize){ #>selected="selected"<# } #>>{{ data.fp.size_labels[size] + " (" + data["width_"+size] + "x" + data["height_"+size] + ")" }}</option>
-        <# } #> 
-        <# }); #> 
+        <# } #>
+        <# }); #>
       </select>
     </label>
 
@@ -204,7 +205,7 @@ HTML;
   }
 
   public static function mediaUploadFlickrMedia() {
-    require_once dirname(__FILE__) . '/media-upload.php';  
+    require_once dirname(__FILE__) . '/media-upload.php';
   }
 }
 

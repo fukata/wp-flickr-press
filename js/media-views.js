@@ -237,6 +237,7 @@
     clear: function(event) {
       wp.media.view.Selection.prototype.clear.apply( this, arguments );
       this.controller.$('#wpfp li.photo.selected').removeClass('selected').removeData('order');
+      this.controller.state().props.set('multiple_insert_mode', false);
     }
   });
 
@@ -626,8 +627,13 @@
       this.createSidebar();
 
       var that = this;
-      $(document).off('click', '#wpfp .result-container .result .photos > li')
-                  .on('click', '#wpfp .result-container .result .photos > li', function(e){
+
+      var thumbnail_container_selector = '#wpfp .result-container .result .photos > li';
+      $(document).off('click', thumbnail_container_selector);
+      $(document).on('taphold', thumbnail_container_selector, function(e) {
+        that.controller.state().props.set('multiple_insert_mode', true);
+        that.selectThumbnail( e, $(this) );
+      }).on('click', thumbnail_container_selector, function(e) {
         that.selectThumbnail( e, $(this) );
       });
     },
@@ -829,8 +835,7 @@
         photo = this.model.get('result_photos_photo')[idx];
       console.log("selectThumbnail. idx=%s", idx);
       console.log(this.controller.options.selection);
-
-      if (e.ctrlKey || e.metaKey) {
+      if (e.ctrlKey || e.metaKey || this.controller.state().props.get('multiple_insert_mode')) {
         var modeAdd = false;
         if ( $thubmnail.hasClass('selected') ) {
           $thubmnail.removeClass('selected').removeData('order');
