@@ -250,6 +250,7 @@
       wp.media.view.Selection.prototype.clear.apply( this, arguments );
       this.controller.$('#wpfp li.photo.selected').removeClass('selected').removeData('order');
       this.controller.state().props.set('multiple_insert_mode', false);
+      $('.media-button-wpfp_multple_insert_mode').removeClass('disabled');
     }
   });
 
@@ -764,7 +765,7 @@
 
       console.log("this.model=%o", this.model);
       // Show the sidebar on mobile
-      if ( this.model.id === 'wpfp' ) {
+      if ( this.model.id === 'wpfp' && !this.controller.state().props.get('multiple_insert_mode') ) {
         sidebar.$el.addClass( 'visible' );
       } 
     },
