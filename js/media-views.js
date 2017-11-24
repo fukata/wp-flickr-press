@@ -188,6 +188,13 @@
             requires: false,
             click: this.customAction
           },
+          wpfp_multple_insert_mode: {
+            text: wp.media.view.l10n.wpfpMultipleInsertMode,
+            style: 'secondary',
+            priority: 80,
+            requires: false,
+            click: this.multipleInsertMode,
+          }
         }
       });
 
@@ -223,6 +230,11 @@
       $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
 
       this.controller.modal.close();
+    },
+    multipleInsertMode: function() {
+      this.controller.state().props.set('multiple_insert_mode', true);
+      this.$el.addClass('disabled');
+      $('#wpfp .media-sidebar').removeClass('visible');
     }
   });
 
@@ -630,10 +642,7 @@
 
       var thumbnail_container_selector = '#wpfp .result-container .result .photos > li';
       $(document).off('click', thumbnail_container_selector);
-      $(document).on('taphold', thumbnail_container_selector, function(e) {
-        that.controller.state().props.set('multiple_insert_mode', true);
-        that.selectThumbnail( e, $(this) );
-      }).on('click', thumbnail_container_selector, function(e) {
+      $(document).on('click', thumbnail_container_selector, function(e) {
         that.selectThumbnail( e, $(this) );
       });
     },

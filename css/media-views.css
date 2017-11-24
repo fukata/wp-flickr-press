@@ -105,6 +105,14 @@
   margin: 4px 5px 5px 5px;
 }
 
+.media-frame-toolbar .media-toolbar-primary .media-button-wpfp_multple_insert_mode {
+  display: none;
+}
+
+.media-frame-toolbar .media-toolbar-primary .media-button-wpfp_multple_insert_mode.disabled {
+  display: none;
+}
+
 @media only screen and (max-width: 640px), screen and (max-height: 400px) {
   #wpfp .media-toolbar {
     right: 0;
@@ -124,6 +132,10 @@
   #wpfp select.search-type-filters,
   #wpfp select.search-sort-filters {
     width: 30%;
+  }
+
+  .media-frame-toolbar .media-toolbar-primary .media-button-wpfp_multple_insert_mode {
+    display: block;
   }
 }
 
