@@ -237,20 +237,20 @@ if ( !class_exists('phpFlickr') ) {
             if(!$data['oauth_signature'] = $this->getOauthSignature($this->oauthrequest_endpoint, $data))
             return false;
 
-            $reponse = $this->oauthResponse($this->post($data, $this->oauthrequest_endpoint));
+            $response = $this->oauthResponse($this->post($data, $this->oauthrequest_endpoint));
 
-            if(!isset($reponse['oauth_callback_confirmed']) || $reponse['oauth_callback_confirmed'] != 'true')
+            if(!isset($response['oauth_callback_confirmed']) || $response['oauth_callback_confirmed'] != 'true')
             {
                 $this->error_code = 'Oauth';
-                $this->error_msg = display_array($reponse);
+                $this->error_msg = var_export($response, true);
                 return false;
             }
 
 
-            $_SESSION['oauth_tokentmp'] = $reponse['oauth_token'];
-            $_SESSION['oauth_secrettmp'] = $reponse['oauth_token_secret'];
+            $_SESSION['oauth_tokentmp'] = $response['oauth_token'];
+            $_SESSION['oauth_secrettmp'] = $response['oauth_token_secret'];
 
-            header("location: ".$this->oauthauthorize_endpoint.'?oauth_token='.$reponse['oauth_token']."&perms=${perms}");
+            header("location: ".$this->oauthauthorize_endpoint.'?oauth_token='.$response['oauth_token']."&perms=${perms}");
 
             $this->error_code = '';
             $this->error_msg = '';
@@ -285,17 +285,17 @@ if ( !class_exists('phpFlickr') ) {
             if(!$data['oauth_signature'] = $this->getOauthSignature($this->oauthaccesstoken_endpoint, $data))
             return false;
 
-            $reponse = $this->oauthResponse($this->post($data, $this->oauthaccesstoken_endpoint));
+            $response = $this->oauthResponse($this->post($data, $this->oauthaccesstoken_endpoint));
 
-            if(isset($reponse['oauth_problem']) && $reponse['oauth_problem'] != '')
+            if(isset($response['oauth_problem']) && $response['oauth_problem'] != '')
             {
                 $this->error_code = 'Oauth';
-                $this->error_msg = display_array($reponse);
+                $this->error_msg = var_export($response, true);
                 return false;
             }
 
-            $this->oauth_token = $reponse['oauth_token'];
-            $this->oauth_secret = $reponse['oauth_token_secret'];
+            $this->oauth_token = $response['oauth_token'];
+            $this->oauth_secret = $response['oauth_token_secret'];
             $this->error_code = '';
             $this->error_msg = '';
             return true;
