@@ -12,7 +12,7 @@
       // this model contains all the relevant data needed for the application
       this.props = new Backbone.Model({ custom_data: [] });
       this.props.on( 'change:custom_data', this.refresh, this );
-      
+
       var target = jQuery(ev.target);
       if (target.data('editor') && window.document.getElementById(target.data('editor'))) {
         this.props.set('editor', target.data('editor'))
@@ -74,7 +74,7 @@
           if (html.indexOf('[null]') >= 0) {
             html = html.replace(/\[null\]/g, '');
           }
-    
+
           return html;
         },
         generateHtmlImg: function(photo, input) {
@@ -113,7 +113,7 @@
             if (input["embed_slideshow"] == "1") embedOptions += ' data-context="true"';
             if (embedOptions != "") embedOptions = ' data-flickr-embed="true"' + embedOptions;
             html = '<a' + embedOptions + ' href="' + link + '"' + target + aclazz + rel + title + '>' + html + '</a>';
-            if (embedOptions != "") html += '<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'; 
+            if (embedOptions != "") html += '<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>';
           }
 
           return html;
@@ -161,14 +161,14 @@
         }
       };
     },
-    
+
     // called each time the model changes
     refresh: function() {
       console.log('controller.FlickrPress.refresh');
       // update the toolbar
       this.frame.toolbar.get().refresh();
     },
-    
+
     // called when the toolbar button is clicked
     customAction: function(){
       console.log('controller.FlickrPress.customAction');
@@ -207,7 +207,7 @@
       // disable the button if there is no custom data
       var customData = this.controller.state().props.get('custom_data');
       this.get('custom_event').model.set( 'disabled', customData.length == 0 );
-       
+
       // call the parent refresh
       wp.media.view.Toolbar.prototype.refresh.apply( this, arguments );
     },
@@ -569,7 +569,7 @@
       };
       options['params'] = fp.params;
       console.log("options:", options);
-      
+
       var input = this.controller.state().props.get('input');
       input["to"] = fp.params.defaultLink;
       input["alignment"] = fp.params.defaultAlign;
@@ -607,7 +607,7 @@
       this.controller.state().props.set('input', input);
     }
   });
-  
+
   // custom content : this view contains the main panel UI
   wp.media.view.FlickrPress = wp.media.View.extend({
     id: 'wpfp',
@@ -745,9 +745,9 @@
       }
     },
     updateSingle: function() {
-      var selection = this.controller.options.selection; 
+      var selection = this.controller.options.selection;
       console.log('FlickrPress.updateSingle');
-      
+
       if ( selection.single() && selection.length > 1 ) {
         this.disposeSingle()
       }
@@ -767,7 +767,7 @@
       // Show the sidebar on mobile
       if ( this.model.id === 'wpfp' && !this.controller.state().props.get('multiple_insert_mode') ) {
         sidebar.$el.addClass( 'visible' );
-      } 
+      }
     },
     disposeSingle: function() {
       console.log('FlickrPress.disposeSingle');
@@ -904,7 +904,7 @@
     initialize: function() {
       console.log("MediaFrame initialize");
       oldMediaFrame.prototype.initialize.apply( this, arguments );
-      
+
       this.states.add([
         new wp.media.controller.FlickrPress({
           id: 'wpfp-action',
@@ -938,14 +938,32 @@
       console.log("MediaFrame customContent");
       // this view has no router
       this.$el.addClass('hide-router');
-  
+
       // custom content view
       var view = new wp.media.view.FlickrPress({
         controller: this,
         model: this.state().props
       });
-  
+
       this.content.set( view );
     },
   });
+
+
+  // bind open media library event
+  $(document.body)
+    .on( 'click', '#wpfp-action-media-library-button', function( event ) {
+      var elem = $( event.currentTarget ),
+        editor = elem.data('editor'),
+        options = {
+          frame:    'post',
+          state:    'wpfp-action',
+          title:    wp.media.view.l10n.wpfpTitle,
+          multiple: true
+        };
+
+      event.preventDefault();
+
+      var result = wp.media.editor.open( editor, options );
+    });
 })(jQuery);

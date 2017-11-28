@@ -201,7 +201,9 @@ HTML;
   }
 
   private static function _media_button($title, $icon, $type) {
-      return "<a href='" . esc_url( get_upload_iframe_src($type) ) . "' id='add_$type' class='thickbox' title='$title'><img src='" . esc_url( $icon ) . "' alt='$title' /></a>";
+    $buttons = '<button type="button" id="wpfp-action-media-library-button" class="button insert-media add_media" data-editor="content"><span class="wp-media-buttons-icon"></span> Add Flickr</button>';
+    $buttons .= "<a href='" . esc_url( get_upload_iframe_src($type) ) . "' id='add_$type' class='thickbox' title='$title'><img src='" . esc_url( $icon ) . "' alt='$title' /></a>";
+    return $buttons;
   }
 
   public static function mediaUploadFlickrMedia() {
