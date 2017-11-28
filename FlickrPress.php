@@ -22,7 +22,7 @@ require_once(dirname($wp_flickr_press_file).'/libs/PHPFlickr-Oauth/phpFlickr.php
 
 class FlickrPress {
   // constants
-  const VERSION = '2.5.3';
+  const VERSION = '2.5.4';
   const NAME = 'FlickrPress';
   const PREFIX = 'wpfp_';
   const MEDIA_BUTTON_TYPE = 'flickr_media';
