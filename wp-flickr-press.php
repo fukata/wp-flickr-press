@@ -3,7 +3,7 @@
 Plugin Name: wp-flickr-press
 Plugin URI: https://github.com/fukata/wp-flickr-press
 Description: Flickr integration for wordpress plugin.
-Version: 2.5.4
+Version: 2.5.5
 Author: Tatsuya Fukata, Alexander Ovsov
 Author URI: https://fukata.org
 */
