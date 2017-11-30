@@ -20,10 +20,6 @@
  *
  */
 if ( !class_exists('phpFlickr') ) {
-    if (session_id() == "") {
-        @session_start();
-    }
-
     class phpFlickr {
         var $api_key;
         var $secret;
