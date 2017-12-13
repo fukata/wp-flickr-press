@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.9
-Stable tag: 2.5.6
+Stable tag: 2.6.0
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.6.0 =
+* Feature: Show debug information on settings page.
 
 = 2.5.6 =
 * Fix: PHPFlickr-Oauth(dependency library) fix https when use socket.
