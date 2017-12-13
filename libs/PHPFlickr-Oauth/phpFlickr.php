@@ -85,7 +85,11 @@ if ( !class_exists('phpFlickr') ) {
 
                 $data = implode('&', $data);
 
-                $fp = @pfsockopen($matches[1], 80);
+                if (preg_match('|^https|', $url)) {
+                  $fp = @pfsockopen('ssl://' . $matches[1], 443);
+                } else {
+                  $fp = @pfsockopen($matches[1], 80);
+                }
                 if (!$fp) {
                     die('Could not connect to the web service');
                 }
