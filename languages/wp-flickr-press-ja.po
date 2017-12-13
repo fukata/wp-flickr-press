@@ -360,3 +360,15 @@ msgstr "この検索UIはメンテナンスされていません。現在、新�
 
 msgid "Multiple Mode"
 msgstr "複数選択"
+
+msgid "DEBUG"
+msgstr "デバッグ情報"
+
+msgid "Please paste below information when create issue."
+msgstr "バグ報告をする時に下記の情報をコピー&ペーストして一緒に載せてもらえると調査が早くなります。"
+
+msgid "Copied!"
+msgstr "クリップボードにコピーしました。"
+
+msgid "This browser not support copy command. Please paste manually."
+msgstr "このブラウザでは対応していません。手動でコピーしてください。"

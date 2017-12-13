@@ -2,6 +2,10 @@
 class FpAdminSettingEvent {
   private function __construct() {}
 
+  public static function loadUIScripts() {
+    wp_enqueue_script('clipboard.js', FlickrPress::getPluginUrl('libs/clipboard.js/clipboard.min.js'), array(), FlickrPress::VERSION);
+  }
+
   public static function addMenu() {
     $page = add_options_page(FlickrPress::NAME.' Options', FlickrPress::NAME, 'manage_options', __FILE__, array('FpAdminSettingEvent','generateOptionForm'));
   }
@@ -473,6 +477,26 @@ function callback_oauth(token) {
             <input type="radio" name="<?php echo FlickrPress::getKey('default_search_type') ?>" id="search_type_<?php echo $val ?>" value="<?php echo $val ?>" <?php echo FlickrPress::getDefaulSearchType()==$val ? 'checked="checked"' : ''; ?>/><label for="search_type_<?php echo $val ?>"><?php echo __($label, FlickrPress::TEXT_DOMAIN) ?></label>
           <?php } ?>
           </p>
+        </td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">
+          <p><?php echo __('DEBUG', FlickrPress::TEXT_DOMAIN) ?></p>
+        </th>
+        <td>
+          <p><?php echo __('Please paste below information when create issue.', FlickrPress::TEXT_DOMAIN) ?></p>
+          <textarea id="wpfp-debug-info-text" rows="10" style="width: 100%;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><?php echo FlickrPress::getDebugInfoText() ?></textarea>
+          <button class="btn" id="wpfp-debug-info-copy-btn" type="button" data-clipboard-target="#wpfp-debug-info-text"><?php echo __('Copy to clipboard', FlickrPress::TEXT_DOMAIN) ?></button>
+          <p id="wpfp-debug-info-copy-result"></p>
+          <script>
+            var clipboard = new Clipboard(document.getElementById('wpfp-debug-info-copy-btn'));
+            clipboard.on('success', function(e) {
+              document.getElementById('wpfp-debug-info-copy-result').innerHTML = "<?php echo __('Copied!', FlickrPress::TEXT_DOMAIN) ?>";
+            });
+            clipboard.on('error', function(e) {
+              document.getElementById('wpfp-debug-info-copy-result').innerHTML = "<?php echo __('This browser not support copy command. Please paste manually.', FlickrPress::TEXT_DOMAIN) ?>";
+            });
+          </script>
         </td>
       </tr>
       <tr valign="top">

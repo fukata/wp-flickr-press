@@ -268,6 +268,7 @@ class FlickrPress {
     add_action('admin_footer-post-new.php', array('FpPostEvent', 'loadJSBridgeParams'));
 
     require_once(self::getDir().'/FpAdminSettingEvent.php');
+    add_action('admin_enqueue_scripts', array('FpAdminSettingEvent', 'loadUIScripts'));
     add_action('admin_menu', array('FpAdminSettingEvent', 'addMenu'));
     add_filter('whitelist_options', array('FpAdminSettingEvent', 'addWhitelistOptions'));
 
@@ -393,10 +394,19 @@ class FlickrPress {
       return self::$SIZE_TO_SUFFIX_MAPS[ self::getThumbnailSize() ];
     }
   }
-  
+
   public static function isThumbnailSize($size='') {
     return array_key_exists($size, self::$SIZE_TO_SUFFIX_MAPS);
   }
 
+  public static function getDebugInfoText() {
+    $debug_items = array();
+    $debug_items[] = "WordPress version: " . get_bloginfo('version');
+    $debug_items[] = "wp-flickr-press version: " . FlickrPress::VERSION;
+    $debug_items[] = "PHP version: " . @phpversion();
+    $debug_items[] = " ├ safe_mode: " . (@ini_get('safe_mode') ? 'ON' : 'OFF');
+    $debug_items[] = " └ curl: " . (@function_exists('curl_init') ? 'ENABLED' : 'DISABLED');
+    return implode("\n", $debug_items);
+  }
 }
 ?>
