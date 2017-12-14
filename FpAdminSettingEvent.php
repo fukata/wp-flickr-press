@@ -486,7 +486,7 @@ function callback_oauth(token) {
         <td>
           <p><?php echo __('Please paste below information when create issue.', FlickrPress::TEXT_DOMAIN) ?></p>
           <textarea id="wpfp-debug-info-text" rows="10" style="width: 100%;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><?php echo FlickrPress::getDebugInfoText() ?></textarea>
-          <button class="btn" id="wpfp-debug-info-copy-btn" type="button" data-clipboard-target="#wpfp-debug-info-text"><?php echo __('Copy to clipboard', FlickrPress::TEXT_DOMAIN) ?></button>
+          <button class="button" id="wpfp-debug-info-copy-btn" type="button" data-clipboard-target="#wpfp-debug-info-text"><?php echo __('Copy to clipboard', FlickrPress::TEXT_DOMAIN) ?></button>
           <p id="wpfp-debug-info-copy-result"></p>
           <script>
             var clipboard = new Clipboard(document.getElementById('wpfp-debug-info-copy-btn'));
