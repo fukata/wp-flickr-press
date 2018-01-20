@@ -264,8 +264,6 @@ class FlickrPress {
 
     add_action('admin_enqueue_scripts', array('FpPostEvent', 'loadUIScripts'));
     add_filter('media_view_strings',  array('FpPostEvent', 'loadJSStrings'), 10, 2);
-    add_action('admin_footer-post.php', array('FpPostEvent', 'loadJSBridgeParams'));
-    add_action('admin_footer-post-new.php', array('FpPostEvent', 'loadJSBridgeParams'));
 
     require_once(self::getDir().'/FpAdminSettingEvent.php');
     add_action('admin_enqueue_scripts', array('FpAdminSettingEvent', 'loadUIScripts'));

@@ -1,17 +1,31 @@
 ;
-/* jquery.flickr-client.js v1.1.1
- * */
+/**
+ * jquery.flickr-client.js
+ * version: 1.2.0
+ */
 (function($) {
 
+  /**
+   * generate oauth nonce characters.
+   *
+   * @param {number} length
+   * @return {string}
+   */
   function generate_oauth_nonce(length) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for(var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
   }
 
+  /**
+   * Return keys of hash.
+   *
+   * @param {Object} hash
+   * @return {Array.<string>}
+   */
   function hkeys(hash) {
     var keys = [];
     $.each(hash, function(key, val){
@@ -20,6 +34,12 @@
     return keys;
   }
 
+  /**
+   * Return values of hash.
+   *
+   * @param {Object} hash
+   * @return {Array}
+   */
   function hvalues(hash) {
     var values = [];
     $.each(hash, function(key, val){
@@ -29,9 +49,10 @@
   }
 
   /**
-   * return HashMap by HashMap's key sorted.
+   * Sort HashMap by key
    *
-   * @return
+   * @param {Object} params
+   * @return {Object}
    */
   function ksort(params) {
     var keys = hkeys(params);
@@ -49,6 +70,9 @@
 
   /**
    * Convert HashMap to query string.
+   *
+   * @param {Object} params
+   * @return {string}
    */
   function hash2query(params) {
     var query = "";
@@ -71,6 +95,12 @@
     return query;
   };
 
+  /**
+   * Constructor
+   *
+   * @param {Object} options
+   *  see FlickrClient.prototype.DEFAULT_OPTIONS
+   */
   function FlickrClient(options) {
     this.options = $.extend(FlickrClient.prototype.DEFAULT_OPTIONS, options);
   }
@@ -118,15 +148,14 @@
   /**
    * execute request.
    *
-   * @param method
+   * @param {string} method
    *      Flickr method
-   * @param params
+   * @param {Object} params
    *      Send parameters
-   * @param callback
+   * @param {function} callback
    *      Success callback function
-   * @param errorCallback
+   * @param {function} errorCallback
    *      Error callback function
-   * @returns
    */
   FlickrClient.prototype.request = function(method, params, callback, errorCallback) {
     params = $.extend({
@@ -182,7 +211,7 @@
   /**
    * return Http method
    *
-   * @param method
+   * @param {string} method
    *      Flickr method
    * @return Http method
    */
@@ -192,13 +221,14 @@
   };
 
   /**
-   * calculate api_sig
-   * @return
+   * Calculate api_sig
+   *
+   * @param {Object} params
+   * @return {string}
    */
   FlickrClient.prototype.generateSignature = function(params) {
     var sig = "";
     $.each(params, function(key, val){
-//      console.log("%s=%s", key, val);
       if (val == "") {
         delete params[key];
       } else {
@@ -228,6 +258,13 @@
     return this.request("flickr.tags.getListUser", options, callback, errorCallback);
   };
 
+  /**
+   * Return specified size photo url.
+   *
+   * @param {Object} photo
+   * @param {string} size
+   * @return {string}
+   */
   FlickrClient.prototype.getPhotoUrl = function(photo, size) {
     size = size || "m";
 
@@ -246,6 +283,13 @@
     }
   };
 
+  /**
+   * Search owner name from photo or photos.
+   *
+   * @param {Object} photo
+   * @param {Array.<Object>} photos
+   * @return {string}
+   */
   FlickrClient.prototype.getOwnerName = function(photo, photos) {
     var owner = null;
     if (this.options.enablePathAlias) {
@@ -266,12 +310,27 @@
     return owner;
   }
 
+  /**
+   * Calculate include owner name in photo page url.
+   *
+   * @param {Object} photo
+   * @param {Array.<Object>} photos
+   * @return {string}
+   */
   FlickrClient.prototype.getPhotoPageUrl = function(photo, photos) {
     var owner = this.getOwnerName(photo, photos);
     var url = "http://www.flickr.com/photos/"+owner+"/"+photo['id'];
     return url;
   };
 
+  /**
+   * Calculate player url.
+   *
+   * @param {Object} photo
+   * @param {Array.<Object>} photos
+   * @param {string} playOf
+   * @return {string}
+   */
   FlickrClient.prototype.getPlayerUrl = function(photo, photos, playOf) {
     var owner = this.getOwnerName(photo, photos);
     var playPath = '';
@@ -282,6 +341,20 @@
     }
     var url = "http://www.flickr.com/photos/"+owner+"/"+photo['id']+playPath;
     return url;
+  };
+
+  /**
+   * Return width, height as object.
+   * @params {Object} photo
+   * @params {string} size
+   * @return {Object}
+   */
+  FlickrClient.prototype.getPhotoWH = function(photo, size) {
+    size = size || "m";
+    return {
+      width: photo['width_' + size],
+      height: photo['height_' + size],
+    };
   };
 
   $.FlickrClient = FlickrClient;

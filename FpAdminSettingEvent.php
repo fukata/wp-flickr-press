@@ -351,7 +351,7 @@ function callback_oauth(token) {
         </td>
       </tr>
       <tr valign="top">
-        <th scope="row"><p><?php echo __('Default Link Rel and Class Property', FlickrPress::TEXT_DOMAIN) ?></p></th>
+        <th scope="row"><p><?php echo __('Default Link Rel and Class Property', FlickrPress::TEXT_DOMAIN) ?> (Deprecated)</p></th>
         <td>
           <p><?php echo __('Rel:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="<?php echo FlickrPress::getKey('default_link_rel') ?>" value="<?php echo FlickrPress::getDefaultLinkRel() ?>" /></p>
           <p><?php echo __('Class:', FlickrPress::TEXT_DOMAIN) ?><input type="text" name="<?php echo FlickrPress::getKey('default_link_class') ?>" value="<?php echo FlickrPress::getDefaultLinkClass() ?>" /></p>
@@ -359,7 +359,7 @@ function callback_oauth(token) {
         </td>
       </tr>
       <tr valign="top">
-        <th scope="row"><p><?php echo __('Extend Link Rel and Class Property', FlickrPress::TEXT_DOMAIN) ?></p></th>
+        <th scope="row"><p><?php echo __('Extend Link Rel and Class Property', FlickrPress::TEXT_DOMAIN) ?> (Deprecated)</p></th>
         <td>
           <textarea name="<?php echo FlickrPress::getKey('extend_link_properties')?>" id="extend_link_properties_json" style="display: none;" ><?php echo FlickrPress::getExtendLinkPropertiesJson()?></textarea>
           <input type="text" name="orig_extend_link_property_idx" value="" id="orig_extend_link_property_idx" style="display: none;" />
@@ -380,7 +380,7 @@ function callback_oauth(token) {
         </td>
       </tr>
       <tr valign="top">
-        <th scope="row"><p><?php echo __('Extend Image Class Property', FlickrPress::TEXT_DOMAIN) ?></p></th>
+        <th scope="row"><p><?php echo __('Extend Image Class Property', FlickrPress::TEXT_DOMAIN) ?> (Deprecated)</p></th>
         <td>
           <textarea name="<?php echo FlickrPress::getKey('extend_image_properties')?>" id="extend_image_properties_json" style="display: none;" ><?php echo FlickrPress::getExtendImagePropertiesJson()?></textarea>
           <input type="text" name="orig_extend_image_property_idx" value="" id="orig_extend_image_property_idx" style="display: none;" />
@@ -400,7 +400,7 @@ function callback_oauth(token) {
       </tr>
     </table>
 
-    <h3><?php echo __('Thumbnail(beta)', FlickrPress::TEXT_DOMAIN) ?></h3>
+    <h3><?php echo __('Thumbnail', FlickrPress::TEXT_DOMAIN) ?></h3>
     <table class="form-table">
       <tr valign="top">
         <th scope="row">
@@ -436,7 +436,13 @@ function callback_oauth(token) {
         <th scope="row">
           <p><?php echo __('Insert Template', FlickrPress::TEXT_DOMAIN) ?></p>
           <h4><?php echo __('Avalable Options', FlickrPress::TEXT_DOMAIN) ?></h4>
-          <p>[img]: Image Tag</p>
+          <p>[img]: Image Tag<br>
+             Sub options(Only New UI)
+             <ul>
+               <li>width: 1,0 (default:1).<br>display width property.</li>
+               <li>height: 1,0 (default:1).<br>display height property.</li>
+             </ul>
+          </p>
           <p>[title]: Image Title</p>
           <p>[description]: Image Description</p>
           <p>[url]: Image URL</p>
@@ -460,7 +466,7 @@ function callback_oauth(token) {
       </tr>
       <tr valign="top">
         <th scope="row">
-          <p><?php echo __('Quick Settings', FlickrPress::TEXT_DOMAIN) ?></p>
+          <p><?php echo __('Quick Settings', FlickrPress::TEXT_DOMAIN) ?> (Deprecated)</p>
         </th>
         <td>
           <p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('quick_settings') ?>" value="1" <?php if (FlickrPress::getQuickSettings()=='1') { echo "checked='checked'"; } ?>/></p>
@@ -469,7 +475,7 @@ function callback_oauth(token) {
       </tr>
       <tr valign="top">
         <th scope="row">
-          <p><?php echo __('Search Type', FlickrPress::TEXT_DOMAIN) ?></p>
+          <p><?php echo __('Search Type', FlickrPress::TEXT_DOMAIN) ?> (Deprecated)</p>
         </th>
         <td>
           <p>

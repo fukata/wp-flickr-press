@@ -18,23 +18,7 @@
         this.props.set('editor', target.data('editor'))
       }
 
-      var _params = $("#wpfp_params");
-      var params = {
-        apiKey:                _params.data('api_key'),
-        apiSecret:             _params.data('api_secret'),
-        userId:                _params.data('user_id'),
-        oauthToken:            _params.data('oauth_token'),
-        enablePathAlias:       _params.data('enable_path_alias') == '1',
-        defaultLink:           _params.data('default_link'),
-        defaultTarget:         _params.data('default_target'),
-        defaultSize:           _params.data('default_size'),
-        defaultAlign:          _params.data('default_align'),
-        defaultFileUrlSize:    _params.data('default_file_url_size'),
-        defaultEmbedHeader:    _params.data('default_embed_header'),
-        defaultEmbedFooter:    _params.data('default_embed_footer'),
-        defaultEmbedSlideshow: _params.data('default_embed_slideshow'),
-        insertTemplate:        _params.data('insert_template')
-      };
+      var params = window.wpfp.bridge_params;
       fp = {
         flickr: new $.FlickrClient({
           apiKey:          params.apiKey,
@@ -56,11 +40,22 @@
 
       var that = this;
       fp['util'] = {
+        parseOptions: function(opt_str, opts) {
+          opt_str = opt_str || "";
+          var re = new RegExp(/([^=\s]+)="([^"]*)"/g);
+          opts = opts || {};
+          while ((m = re.exec(opt_str)) != null) {
+            opts[m[1]] = m[2];
+          }
+          console.log("parseOptions. opt_str=%s, opts=%o", opt_str, opts);
+          return opts;
+        },
         generateHtml: function(photo, input) {
           console.log("generateHtml: ", input);
           var html = fp.params.insertTemplate;
-          if (html.indexOf('[img]') >= 0) {
-            html = html.replace(/\[img\]/g, fp.util.generateHtmlImg(photo, input));
+          if ((m = html.match(/\[img(\s[^\\]*)?\]/)) != null) {
+            var opts = fp.util.parseOptions(m[1], {width: '1', height: '1'});
+            html = html.replace(/\[img(\s[^\\]*)?\]/g, fp.util.generateHtmlImg(photo, input, opts));
           }
           if (html.indexOf('[title]') >= 0) {
             html = html.replace(/\[title\]/g, fp.util.generateHtmlTitle(photo, input));
@@ -77,7 +72,7 @@
 
           return html;
         },
-        generateHtmlImg: function(photo, input) {
+        generateHtmlImg: function(photo, input, opts) {
           var size = 'size' in input ? input['size'] : fp.params.defaultSize;
           var link = fp.flickr.getPhotoPageUrl(photo, photo);
           if ("photosets" == that.props.get('wpfp_type') && that.props.get('wpfp_photoset')) {
@@ -102,9 +97,20 @@
           }
           clazz = clazz ? ' class="' + clazz + '"' : '';
 
+          var opt_str = "";
+          if (opts) {
+            var size_wh = fp.flickr.getPhotoWH(photo, size);
+            if (opts['width'] == '1') {
+              opt_str += ' width="' + size_wh['width']  + '"';
+            }
+            if (opts['height'] == '1') {
+              opt_str += ' height="' + size_wh['height']  + '"';
+            }
+          }
+
           var rel = '';
           var aclazz = '';
-          var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + '/>';
+          var html = '<img src="' + src + '" alt="' + alt + '"' + clazz + opt_str + '/>';
           if (link) {
             var title = ' title="' + alt + '"';
             var embedOptions = "";

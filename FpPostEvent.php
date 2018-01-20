@@ -33,37 +33,29 @@ class FpPostEvent {
   }
 
   public static function loadJSBridgeParams() {
-    $apiKey      = FlickrPress::getApiKey();
-    $apiSecret     = FlickrPress::getApiSecret();
-    $userId      = FlickrPress::getUserId();
-    $oauthToken    = FlickrPress::getOAuthToken();
-    $enablePathAlias = FlickrPress::enablePathAlias() ? '1' : '0';
-    $defaultLink   = FlickrPress::getDefaultLink();
-    $defaultTarget   = FlickrPress::getDefaultTarget();
-    $defaultSize   = FlickrPress::getDefaultSize();
-    $defaultAlign  = FlickrPress::getDefaultAlign();
-    $defaultFileURLSize = FlickrPress::getDefaultFileURLSize();
-    $defaultEmbedHeader = FlickrPress::getDefaultEmbedHeader();
-    $defaultEmbedFooter = FlickrPress::getDefaultEmbedFooter();
-    $defaultEmbedSlideshow = FlickrPress::getDefaultEmbedSlideshow();
-    $insertTemplate  = FlickrPress::getInsertTemplate();
+    $params = array(
+      'apiKey' => FlickrPress::getApiKey(),
+      'apiSecret' => FlickrPress::getApiSecret(),
+      'userId' => FlickrPress::getUserId(),
+      'oauthToken' => FlickrPress::getOAuthToken(),
+      'enablePathAlias' => FlickrPress::enablePathAlias() ? '1' : '0',
+      'defaultLink' => FlickrPress::getDefaultLink(),
+      'defaultTarget' => FlickrPress::getDefaultTarget(),
+      'defaultSize' => FlickrPress::getDefaultSize(),
+      'defaultAlign' => FlickrPress::getDefaultAlign(),
+      'defaultFileUrlSize' => FlickrPress::getDefaultFileURLSize(),
+      'defaultEmbedHeader' => FlickrPress::getDefaultEmbedHeader(),
+      'defaultEmbedFooter' => FlickrPress::getDefaultEmbedHeader(),
+      'defaultEmbedSlideshow' => FlickrPress::getDefaultEmbedSlideshow(),
+      'insertTemplate' => FlickrPress::getInsertTemplate(),
+    );
+    $params_json = json_encode($params);
     $html = <<< HTML
-<div style="display:none" id="wpfp_params"
-  data-api_key="$apiKey"
-  data-api_secret="$apiSecret"
-  data-user_id="$userId"
-  data-oauth_token="$oauthToken"
-  data-enable_path_alias="$enablePathAlias"
-  data-default_link="$defaultLink"
-  data-default_target="$defaultTarget"
-  data-default_size="$defaultSize"
-  data-default_align="$defaultAlign"
-  data-default_file_url_size="$defaultFileURLSize"
-  data-default_embed_header="$defaultEmbedHeader"
-  data-default_embed_footer="$defaultEmbedFooter"
-  data-default_embed_slideshow="$defaultEmbedSlideshow"
-  data-insert_template="$insertTemplate"
-/>
+<script type="text/javascript">
+  // wp-flickr-press bridge params
+  window.wpfp = window.wpfp || {};
+  window.wpfp.bridge_params = $params_json;
+</script>
 HTML;
     echo $html;
   }
@@ -88,6 +80,7 @@ HTML;
     echo $html;
 
     self::printTemplate();
+    self::loadJSBridgeParams();
   }
 
   public static function printTemplate() {
