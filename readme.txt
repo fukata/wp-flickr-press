@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.9
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.6.2 =
+* Feature: Add Debug Mode.
 
 = 2.6.1 =
 * Feature: Add Sub Options of img tag. display `width` and `height` properties.
