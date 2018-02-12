@@ -110,7 +110,8 @@
     userId: "",
     authToken: "",
     restEndpoint: "https://api.flickr.com/services/rest/",
-    enablePathAlias: false
+    enablePathAlias: false,
+    debugMode: false,
   };
   FlickrClient.prototype.SIZES = {
     "sq": "url_sq", // Square 75
@@ -305,6 +306,10 @@
           owner = photos['pathalias']
         }
       }
+    }
+
+    if (this.options.debugMode) {
+      console.log("DEBUG(getOwnerName): owner=%s, photo=%s, photos=%s", owner, JSON.stringify(photo), JSON.stringify(photos));
     }
 
     return owner;

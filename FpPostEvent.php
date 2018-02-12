@@ -34,6 +34,7 @@ class FpPostEvent {
 
   public static function loadJSBridgeParams() {
     $params = array(
+      'debugMode' => FlickrPress::isDebugMode() ? '1' : '0',
       'apiKey' => FlickrPress::getApiKey(),
       'apiSecret' => FlickrPress::getApiSecret(),
       'userId' => FlickrPress::getUserId(),

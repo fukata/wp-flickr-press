@@ -131,6 +131,10 @@ class FlickrPress {
     return plugin_dir_path($wp_flickr_press_file).'/cache/';
   }
 
+  public static function isDebugMode() {
+    return get_option(self::getKey('debug_mode')) == '1';
+  }
+
   public static function getApiKey() {
     return get_option(self::getKey('api_key'));
   }
@@ -401,6 +405,8 @@ class FlickrPress {
     $debug_items = array();
     $debug_items[] = "WordPress version: " . get_bloginfo('version');
     $debug_items[] = "wp-flickr-press version: " . FlickrPress::VERSION;
+    $debug_items[] = " ├ debug_mode: " . (FlickrPress::isDebugMode() ? 'ON' : 'OFF');
+    $debug_items[] = " └ enable_path_alias: " . (FlickrPress::enablePathAlias() ? 'ON' : 'OFF');
     $debug_items[] = "PHP version: " . @phpversion();
     $debug_items[] = " ├ safe_mode: " . (@ini_get('safe_mode') ? 'ON' : 'OFF');
     $debug_items[] = " └ curl: " . (@function_exists('curl_init') ? 'ENABLED' : 'DISABLED');

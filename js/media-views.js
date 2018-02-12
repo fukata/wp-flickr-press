@@ -25,7 +25,8 @@
           apiSecret:       params.apiSecret,
           userId:          params.userId,
           oauthToken:      params.oauthToken,
-          enablePathAlias: params.enablePathAlias
+          enablePathAlias: params.enablePathAlias == '1',
+          debugMode:       params.debugMode == '1',
         }),
         currentPhotos: null,
         search: null

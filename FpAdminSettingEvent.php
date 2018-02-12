@@ -37,6 +37,7 @@ class FpAdminSettingEvent {
       FlickrPress::getKey('enable_thumbnail_feature'),
       FlickrPress::getKey('enable_extract_thumbnail'),
       FlickrPress::getKey('thumbnail_size'),
+      FlickrPress::getKey('debug_mode'),
     );
     return $whitelist_options;
   }
@@ -490,6 +491,7 @@ function callback_oauth(token) {
           <p><?php echo __('DEBUG', FlickrPress::TEXT_DOMAIN) ?></p>
         </th>
         <td>
+          <p><?php echo __('Enable:', FlickrPress::TEXT_DOMAIN) ?><input type="checkbox" name="<?php echo FlickrPress::getKey('debug_mode') ?>" value="1" <?php if (FlickrPress::isDebugMode()) { echo "checked='checked'"; } ?> /></p>
           <p><?php echo __('Please paste below information when create issue.', FlickrPress::TEXT_DOMAIN) ?></p>
           <textarea id="wpfp-debug-info-text" rows="10" style="width: 100%;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><?php echo FlickrPress::getDebugInfoText() ?></textarea>
           <button class="button" id="wpfp-debug-info-copy-btn" type="button" data-clipboard-target="#wpfp-debug-info-text"><?php echo __('Copy to clipboard', FlickrPress::TEXT_DOMAIN) ?></button>
