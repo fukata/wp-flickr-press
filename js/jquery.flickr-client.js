@@ -295,7 +295,10 @@
     var owner = null;
     if (this.options.enablePathAlias) {
       owner = photo['pathalias'];
-    } else {
+    }
+
+    // pathalias return null if not yet set your address.
+    if (!owner) {
       owner = 'owner' in photo ? photo['owner'] : null;
       if (!owner) {
         if ('owner' in photos) {
@@ -324,7 +327,7 @@
    */
   FlickrClient.prototype.getPhotoPageUrl = function(photo, photos) {
     var owner = this.getOwnerName(photo, photos);
-    var url = "http://www.flickr.com/photos/"+owner+"/"+photo['id'];
+    var url = "https://www.flickr.com/photos/"+owner+"/"+photo['id'];
     return url;
   };
 
