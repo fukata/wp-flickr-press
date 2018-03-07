@@ -4,7 +4,7 @@ Donate link: http://fukata.org/
 Tags: images,flickr
 Requires at least: 3.8
 Tested up to: 4.9
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 
 Flickr integration for wordpress plugin.
 
@@ -55,6 +55,9 @@ None
 6. New UI 2
 
 == Changelog ==
+
+= 2.6.4 =
+* Fix: Fix parse img tag.
 
 = 2.6.3 =
 * Feature: Change flikcr web endpoint http to https. Overwrite by NSID if not set path alias.
