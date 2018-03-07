@@ -54,9 +54,9 @@
         generateHtml: function(photo, input) {
           console.log("generateHtml: ", input);
           var html = fp.params.insertTemplate;
-          if ((m = html.match(/\[img(\s[^\\]*)?\]/)) != null) {
+          if ((m = html.match(/\[img(.+)?\]/)) != null) {
             var opts = fp.util.parseOptions(m[1], {width: '1', height: '1'});
-            html = html.replace(/\[img(\s[^\\]*)?\]/g, fp.util.generateHtmlImg(photo, input, opts));
+            html = html.replace(/\[img(.+)?\]/g, fp.util.generateHtmlImg(photo, input, opts));
           }
           if (html.indexOf('[title]') >= 0) {
             html = html.replace(/\[title\]/g, fp.util.generateHtmlTitle(photo, input));
@@ -225,13 +225,17 @@
       var input = this.controller.state().props.get('input');
       var photos = this.controller.options.selection.models;
       var editor = this.controller.state().props.get('editor');
+      var html = "";
       $.each(photos, function(i, _photo){
         var photo = _photo.attributes;
         console.log(photo);
-        var html = fp.util.generateHtml(photo, input);
+        html += fp.util.generateHtml(photo, input);
+      });
+      if (html) {
+        console.log(html);
         var win = parent || top;
         win.fp_send_to_editor(html, false, editor);
-      });
+      }
 
       this.controller.options.selection.reset();
       $('#wpfp li.photo.selected').removeClass('selected').removeData('order');
